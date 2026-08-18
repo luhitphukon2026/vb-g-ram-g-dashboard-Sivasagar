@@ -8,9 +8,12 @@
 *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:#f5f7fb;color:#172033}
 .hero{min-height:205px;color:#fff;padding:30px 32px;display:flex;align-items:center;background:linear-gradient(90deg,rgba(8,27,58,.92),rgba(15,65,110,.65)),url('https://upload.wikimedia.org/wikipedia/commons/0/02/Sivasagar_Siva_dol.jpg') center/cover}
 .hero h1{margin:0;font-size:30px}.hero p{margin:7px 0 0;opacity:.88}.live{margin-top:13px;font-size:12px;opacity:.9}
-nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #e5eaf2;padding:10px 18px;display:flex;gap:7px;overflow:auto}
-nav button{white-space:nowrap;border:0;padding:10px 14px;border-radius:10px;background:#eef2f8;color:#24344d;cursor:pointer;font-weight:650}
-nav button.active{background:#17365d;color:#fff}.page{display:none}.page.active{display:block}.wrap{max-width:1500px;margin:auto;padding:22px}
+nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #e5eaf2;padding:10px 18px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;box-shadow:0 2px 8px #1720330a}
+nav button{width:100%;white-space:nowrap;border:0;padding:10px 12px;border-radius:10px;background:#eef2f8;color:#24344d;cursor:pointer;font-weight:650;min-width:0}
+nav button.active{background:#17365d;color:#fff}
+.page{display:none}.page.active{display:block}.wrap{max-width:1500px;margin:auto;padding:22px}
+@media(max-width:900px){nav{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){nav{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px 10px}}
 .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.card,.panel{background:#fff;border:1px solid #e7edf5;border-radius:16px;padding:18px;box-shadow:0 5px 20px #1720330b}
 .card{min-height:108px}.label{font-size:11px;color:#68758a;text-transform:uppercase;letter-spacing:.5px}.value{font-size:29px;font-weight:800;margin-top:8px}
 .grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;margin-top:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
@@ -157,38 +160,138 @@ footer{text-align:center;color:#718096;font-size:11px;padding:25px}
 #contacts .gp-summary-table tbody tr:hover td{background:#f8fbff}
 #contacts .good-text{color:#087443}.ic-text{color:#b54708}.bad-text{color:#b42318}
 #contacts .coverage-pill{display:inline-block;min-width:48px;text-align:center;padding:4px 8px;border-radius:999px;background:#edf5ff;color:#155eef;font-weight:800}
-</style><style id="gp-contacts-front-modern">
-#contacts .gp-modern-hero{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:22px 24px;border-radius:18px;background:linear-gradient(135deg,#17324d,#2a5f89);color:#fff;box-shadow:0 10px 28px rgba(23,50,77,.18)}
-#contacts .gp-eyebrow{font-size:9px;font-weight:900;letter-spacing:.12em;opacity:.72}
-#contacts .gp-modern-hero h2{margin:6px 0 4px;font-size:22px}
-#contacts .gp-modern-hero p{margin:0;opacity:.82;font-size:12px}
-#contacts .gp-hero-status{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);font-size:10px;font-weight:800;white-space:nowrap}
-#contacts .gp-status-dot{width:8px;height:8px;border-radius:50%;background:#73d13d;box-shadow:0 0 0 4px rgba(115,209,61,.16)}
-#contacts .gp-filter-card{margin-top:14px;background:#fff;border:1px solid #e2eaf2;border-radius:16px;padding:16px 18px;box-shadow:0 5px 18px rgba(24,54,84,.06)}
-#contacts .gp-filter-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:12px}
-#contacts .gp-filter-title{font-size:13px;font-weight:850;color:#17324d}
-#contacts .gp-reset-modern{border:1px solid #d6e1eb;background:#fff;color:#29445f;border-radius:9px;padding:8px 12px;font-size:11px;font-weight:800;cursor:pointer}
-#contacts .gp-reset-modern:hover{background:#f6f9fc}
-#contacts .gp-filter-grid{display:grid;grid-template-columns:1fr 1.2fr 1fr 2fr;gap:10px}
-#contacts .gp-field label{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.06em;font-weight:850;color:#6d7f92;margin:0 0 5px}
-#contacts .gp-field select,#contacts .gp-search-box{width:100%;height:38px;border:1px solid #d7e1eb;border-radius:9px;background:#fff}
-#contacts .gp-field select{padding:0 10px;color:#334e68}
-#contacts .gp-search-box{display:flex;align-items:center;gap:8px;padding:0 10px}
-#contacts .gp-search-box span{font-size:18px;color:#7b8b9b}
-#contacts .gp-search-box input{border:0;outline:0;flex:1;height:100%;font-size:11px;background:transparent}
-#contacts .gp-legend-modern{display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-top:12px;font-size:10px}
-#contacts .gp-legend-modern .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px}
-#contacts .gp-legend-modern .dot.permanent{background:#0b7a53}
-#contacts .gp-legend-modern .dot.ic{background:#c45a00}
-#contacts .gp-legend-modern .dot.vacant{background:#c62828}
-#contacts .gp-legend-note{color:#7d8b9a}
-#contacts .gp-staffing-strip{display:flex;align-items:center;gap:16px;margin:12px 0 4px;padding:11px 15px;background:#f7f9fc;border:1px solid #e2e8f0;border-radius:12px}
-#contacts .gp-strip-item{display:flex;align-items:baseline;gap:8px}
-#contacts .gp-strip-label{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:#7b8794;font-weight:850}
-#contacts .gp-strip-item strong{font-size:13px;color:#17324d}
-#contacts .gp-strip-divider{height:18px;width:1px;background:#dbe3eb}
-@media(max-width:900px){#contacts .gp-filter-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){#contacts .gp-modern-hero{padding:18px;align-items:flex-start;flex-direction:column}#contacts .gp-filter-grid{grid-template-columns:1fr}#contacts .gp-staffing-strip{flex-wrap:wrap}}
+</style><style id="modern-action-page">
+#action .action-hero{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:22px 24px;border-radius:18px;background:linear-gradient(135deg,#17324d,#2e638f);color:#fff;box-shadow:0 10px 28px rgba(23,50,77,.16)}
+#action .action-eyebrow{font-size:9px;font-weight:900;letter-spacing:.12em;opacity:.72}
+#action .action-hero h1{margin:5px 0 4px;font-size:24px}
+#action .action-hero p{margin:0;font-size:12px;opacity:.84}
+#action .action-live-pill{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);font-size:10px;font-weight:850;white-space:nowrap}
+#action .action-filter-card{margin-top:14px;background:#fff;border:1px solid #e2eaf2;border-radius:16px;padding:16px 18px;box-shadow:0 5px 18px rgba(24,54,84,.06)}
+#action .action-filter-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+#action .action-filter-head h3{margin:0;font-size:14px}
+#action .action-filter-tools{display:flex;gap:8px}
+#action .action-reset,#action .action-export{border:1px solid #d6e1eb;background:#fff;color:#29445f;border-radius:9px;padding:8px 11px;font-size:10px;font-weight:800;cursor:pointer}
+#action .action-export{background:#17324d;color:#fff;border-color:#17324d}
+#action .action-filter-grid{display:grid;grid-template-columns:1fr 1.2fr .9fr 1.1fr 2fr;gap:9px;margin-top:13px}
+#action .action-filter-grid label{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.06em;font-weight:850;color:#6d7f92;margin-bottom:5px}
+#action .action-filter-grid select,#action .action-search-box{width:100%;height:38px;border:1px solid #d7e1eb;border-radius:9px;background:#fff}
+#action .action-filter-grid select{padding:0 9px}
+#action .action-search-box{display:flex;align-items:center;gap:7px;padding:0 10px}
+#action .action-search-box span{font-size:18px;color:#8091a2}
+#action .action-search-box input{border:0;outline:0;height:100%;flex:1;background:transparent;font-size:11px}
+#action .action-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
+#action .action-kpi{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #e4ebf2;border-radius:14px;padding:13px 14px;box-shadow:0 4px 14px rgba(24,54,84,.05)}
+#action .action-kpi.high{border-left:4px solid #c62828}.action-kpi.medium{border-left:4px solid #b26a00}
+#action .kpi-icon{width:28px;height:28px;border-radius:8px;background:#eef4fa;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#17324d}
+#action .high .kpi-icon{background:#fff0f0;color:#b42318}.medium .kpi-icon{background:#fff5e7;color:#b54708}
+#action .kpi-label{font-size:9px;font-weight:850;letter-spacing:.05em;color:#718096}.kpi-value{font-size:23px;font-weight:900;color:#17324d;margin-top:2px}.kpi-note{font-size:9px;color:#8a97a5}
+#action .action-insight-row{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:10px;margin-top:10px}
+#action .action-insight-card{background:#f8fafc;border:1px solid #e4eaf1;border-radius:12px;padding:12px 14px}
+#action .insight-label{font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:#7a8998;font-weight:850}.insight-value{font-size:13px;font-weight:900;color:#17324d;margin-top:4px}
+#action .action-table-panel{margin-top:14px;padding:14px 16px}
+#action .action-table-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+#action .action-table-head h3{margin:0;font-size:15px}.action-count-pill{background:#eef3f8;color:#334e68;padding:6px 9px;border-radius:999px;font-size:10px;font-weight:850}
+#action #actionTable{margin-top:12px;max-height:540px}
+#action #actionTable table{min-width:1100px}
+#action #actionTable th{white-space:nowrap;position:sticky;top:0;z-index:2}
+#action #actionTable td{font-size:11px}
+#action .priority-high{background:#fff0f0;color:#b42318;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:850}
+#action .priority-medium{background:#fff5e7;color:#b54708;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:850}
+#action .action-note{margin-top:11px;color:#7b8794;font-size:10px;line-height:1.6}
+@media(max-width:1050px){#action .action-filter-grid{grid-template-columns:1fr 1fr 1fr}.action-search-field{grid-column:1/-1}#action .action-kpis{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){#action .action-hero{padding:18px;align-items:flex-start;flex-direction:column}#action .action-filter-grid{grid-template-columns:1fr}#action .action-kpis,#action .action-insight-row{grid-template-columns:1fr 1fr}.action-search-field{grid-column:auto}}
+</style><style id="global-modern-typography-sorting">
+:root{
+  --font-ui:Inter,"Segoe UI",Roboto,Arial,sans-serif;
+  --ink:#14283d;
+  --muted:#6b7c8f;
+  --line:#e2e9f0;
+}
+body{font-family:var(--font-ui)!important;color:var(--ink);font-size:13px;letter-spacing:.05px}
+h1{font-size:26px!important;font-weight:850!important;letter-spacing:-.2px}
+h2{font-size:18px!important;font-weight:820!important;letter-spacing:-.05px}
+h3{font-size:14px!important;font-weight:800!important}
+p,.muted{line-height:1.45}
+nav button{font-size:12px!important;font-weight:760!important;letter-spacing:.05px}
+.card .label,.label{font-size:9px!important;font-weight:850!important;letter-spacing:.08em!important}
+.card .value,.value{font-weight:850!important}
+table{font-size:12px!important}
+th{font-size:9px!important;font-weight:850!important;letter-spacing:.06em!important;padding:10px 10px!important}
+td{font-size:11.5px!important;padding:10px!important;line-height:1.35}
+.sortable thead th{cursor:pointer;position:sticky;top:0;z-index:4}
+.sortable thead th:hover{background:#eaf2fb!important;color:#17365d}
+.sortable thead th::after{content:"↕";display:inline-block;margin-left:6px;font-size:9px;font-weight:900;opacity:.35;transform:translateY(-1px)}
+.sortable thead th.sort-asc::after{content:"↑";opacity:1;color:#155eef}
+.sortable thead th.sort-desc::after{content:"↓";opacity:1;color:#155eef}
+.sortable thead th .sort-hint{font-size:8px;color:#8b9aaa;margin-left:4px}
+.sorting-flash{background:#eef6ff!important}
+.table-sort-note{font-size:9px;color:#8593a2;margin-top:6px}
+@media(max-width:700px){body{font-size:12px}h1{font-size:23px!important}h2{font-size:17px!important}td{font-size:11px!important}}
+</style><style id="performance-modern">
+#ranking .perf-hero{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:22px 24px;border-radius:18px;background:linear-gradient(135deg,#17324d,#315f84);color:#fff;box-shadow:0 10px 26px rgba(20,48,75,.14)}
+#ranking .perf-eyebrow{font-size:9px;font-weight:900;letter-spacing:.12em;opacity:.72}
+#ranking .perf-hero h1{margin:5px 0 4px;font-size:24px!important}
+#ranking .perf-hero p{margin:0;font-size:12px;opacity:.84}
+#ranking .perf-live{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);font-size:10px;font-weight:850}
+#ranking .perf-filters{display:grid;grid-template-columns:1fr 1.2fr 2fr auto;gap:9px;align-items:end;background:#fff;border:1px solid #e2eaf2;border-radius:16px;padding:15px 17px;margin-top:14px}
+#ranking .perf-filters label{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:#6c7d90;font-weight:850;margin-bottom:5px}
+#ranking .perf-filters select,#ranking .perf-search input{width:100%;height:38px;border:1px solid #d7e1eb;border-radius:9px;background:#fff;padding:0 10px;font-size:11px}
+#ranking .perf-filters button{height:38px;border:1px solid #17324d;background:#17324d;color:#fff;border-radius:9px;padding:0 12px;font-weight:800;cursor:pointer}
+#ranking .perf-kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:14px}
+#ranking .perf-kpis .card{min-height:92px}
+#ranking .perf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+#ranking .perf-panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+#ranking .perf-panel-head h3{margin:0;font-size:14px}
+#ranking .perf-pill{background:#eef3f8;color:#334e68;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:850}
+#ranking .perf-register{margin-top:12px}
+#ranking #perfBestTable table,#ranking #perfNeedTable table{min-width:650px}
+#ranking #perfTable table{min-width:1000px}
+#ranking .status-good{background:#eaf7ef;color:#087443;padding:4px 7px;border-radius:999px;font-size:9px;font-weight:850}
+#ranking .status-attention{background:#fff5e7;color:#b54708;padding:4px 7px;border-radius:999px;font-size:9px;font-weight:850}
+#ranking .status-priority{background:#fff0f0;color:#b42318;padding:4px 7px;border-radius:999px;font-size:9px;font-weight:850}
+@media(max-width:1050px){#ranking .perf-filters{grid-template-columns:1fr 1fr 1fr}.perf-search{grid-column:1/-1}#ranking .perf-kpis{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){#ranking .perf-hero{flex-direction:column;align-items:flex-start}#ranking .perf-filters{grid-template-columns:1fr}#ranking .perf-kpis,#ranking .perf-grid{grid-template-columns:1fr 1fr}}
+</style><style id="performance-single-table-staff">
+#ranking .perf-register #perfTable table{min-width:1250px}
+#ranking .perf-register #perfTable th{white-space:nowrap}
+#ranking .perf-register #perfTable td:nth-child(4),
+#ranking .perf-register #perfTable td:nth-child(6){min-width:145px}
+#ranking .perf-register #perfTable td:nth-child(5),
+#ranking .perf-register #perfTable td:nth-child(7){min-width:105px}
+</style><style id="performance-export-style">
+#ranking .perf-export-btn{border:1px solid #17324d;background:#17324d;color:#fff;border-radius:9px;padding:7px 11px;font-size:10px;font-weight:850;cursor:pointer}
+#ranking .perf-export-btn:hover{background:#214e79}
+</style><style id="performance-worst10-tabs">
+#ranking .perf-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;border-bottom:1px solid #e5ebf1;padding-bottom:8px}
+#ranking .perf-tabs button{border:1px solid #dbe4ec;background:#f7f9fb;color:#334e68;border-radius:9px;padding:8px 11px;font-size:10px;font-weight:800;cursor:pointer}
+#ranking .perf-tabs button.active{background:#17324d;color:#fff;border-color:#17324d}
+#ranking .perf-tab-info{margin:10px 0 8px;font-size:10px;font-weight:750;color:#6d7f92}
+#ranking .perf-register #perfTable table{min-width:1250px}
+#ranking .perf-register #perfTable th{white-space:nowrap}
+#ranking .perf-export-btn{border:1px solid #17324d;background:#17324d;color:#fff;border-radius:9px;padding:7px 11px;font-size:10px;font-weight:850;cursor:pointer}
+#ranking .perf-export-btn:hover{background:#214e79}
+@media(max-width:900px){#ranking .perf-tabs{overflow:auto;flex-wrap:nowrap;padding-bottom:10px}#ranking .perf-tabs button{white-space:nowrap}}
+</style><style id="performance-worst10-table">
+#ranking .perf-tabs button{transition:all .15s ease}
+#ranking .perf-tabs button:hover{transform:translateY(-1px);border-color:#aebdcb}
+#ranking #perfTable td:nth-child(17){background:#f7fbff;font-weight:850}
+</style><style id="performance-all-gp-features">
+#ranking #perfTable table{min-width:2050px}
+#ranking #perfTable td,#ranking #perfTable th{white-space:nowrap}
+#ranking #perfTable td:last-child{white-space:normal;min-width:180px;max-width:300px}
+#ranking #perfTable th:nth-child(4),#ranking #perfTable th:nth-child(8){background:#f0f6fb}
+</style><style id="gp-performance-full-table">
+#ranking .perf-full-gp{margin-top:14px}
+#ranking .perf-full-gp #perfFullTable{max-height:650px}
+#ranking .perf-full-gp #perfFullTable table{min-width:1600px}
+#ranking .perf-full-gp #perfFullTable th{white-space:nowrap}
+#ranking .perf-full-gp #perfFullTable td{white-space:nowrap}
+#ranking .perf-full-gp #perfFullTable td:last-child{white-space:normal;min-width:180px;max-width:300px}
+</style><style id="global-table-export">
+.table-export-bar{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin:7px 0 6px}
+.table-export-btn{border:1px solid #17324d;background:#17324d;color:#fff;border-radius:8px;padding:7px 10px;font:700 10px Inter,"Segoe UI",Arial,sans-serif;cursor:pointer}
+.table-export-btn:hover{background:#24547d}
+.table-export-btn:active{transform:translateY(1px)}
 </style></head>
 <body>
 
@@ -205,13 +308,12 @@ footer{text-align:center;color:#718096;font-size:11px;padding:25px}
 <button class="tab active" data-page="overview">🏠 District Overview</button>
 <button class="tab" data-page="ekyc">📊 e-KYC & ABPS</button>
 <button class="tab" data-page="employment">💼 PHYSICAL PROGRESS REPORT</button>
-<button class="tab" data-page="contacts">👷 GP Contacts</button>
-<button class="tab" data-page="action">🚨 Action Required</button>
 <button class="tab" data-page="ranking">🏆 Performance</button>
 <button class="tab" data-page="analytics">📈 Analytics</button>
 <button class="tab" data-page="documents">📚 Documents</button>
 <button class="tab" data-page="reports">🔔 Pending Reports</button>
 <button class="tab" data-page="geotag">📍 Geo-tag</button>
+<button class="tab" data-page="contacts">👷 GP Contacts</button>
 </nav>
 
 <main>
@@ -349,58 +451,22 @@ footer{text-align:center;color:#718096;font-size:11px;padding:25px}
 </div></section>
 
 <section class="page" id="contacts"><div class="wrap">
-<div class="gp-modern-hero">
-  <div class="gp-hero-main">
-    <div class="gp-eyebrow">FIELD STAFFING · LIVE MONITORING</div>
-    <h2>👷 GP-wise GRS & Accredited Engineers</h2>
-    <p>Contact directory, staffing status and functional coverage across Gram Panchayats.</p>
+<div class="panel gp-head">
+ <div class="gp-title-row">
+  <div><div class="eyebrow">FIELD CONTACT DIRECTORY</div>
+   <h2>👷 GP-wise GRS & Accredited Engineers</h2>
+   <p class="muted">Staffing, contact availability and functional coverage at GP level.</p>
   </div>
-  <div class="gp-hero-status">
-    <span class="gp-status-dot"></span>
-    <span id="contactsLiveState">WAITING FOR DATA</span>
-  </div>
-</div>
-
-<div class="gp-filter-card">
-  <div class="gp-filter-head">
-    <div>
-      <div class="gp-filter-title">Find a GP or Staff Member</div>
-      <div class="muted">Use one or more filters. The register updates instantly.</div>
-    </div>
-    <button id="contactsReset" type="button" class="gp-reset-modern">↻ Reset</button>
-  </div>
-  <div class="gp-filter-grid">
-    <div class="gp-field">
-      <label>Block</label>
-      <select id="contactsBlockFilter"><option value="">All Blocks</option></select>
-    </div>
-    <div class="gp-field">
-      <label>Gram Panchayat</label>
-      <select id="contactsGPFilter"><option value="">All GPs</option></select>
-    </div>
-    <div class="gp-field">
-      <label>Occupancy</label>
-      <select id="contactsStatusFilter"><option value="">All Occupancy</option></select>
-    </div>
-    <div class="gp-field gp-search">
-      <label>Search</label>
-      <div class="gp-search-box"><span>⌕</span><input id="contactsSearch" type="text" placeholder="GP / Name / Phone / Remarks"></div>
-    </div>
-  </div>
-  <div class="gp-legend-modern">
-    <span><i class="dot permanent"></i> Permanent</span>
-    <span><i class="dot ic"></i> I/C</span>
-    <span><i class="dot vacant"></i> Vacant</span>
-    <span class="gp-legend-note">I/C = functionally covered, but not Permanent</span>
-  </div>
-</div>
-
-<div class="gp-staffing-strip">
-  <div class="gp-strip-item"><span class="gp-strip-label">Live Records</span><strong id="contactsResultCount">—</strong></div>
-  <div class="gp-strip-divider"></div>
-  <div class="gp-strip-item"><span class="gp-strip-label">Attention</span><strong id="contactsAttention">—</strong></div>
-  <div class="gp-strip-divider"></div>
-  <div class="gp-strip-item"><span class="gp-strip-label">Data Source</span><strong>Google Sheet</strong></div>
+  <span id="contactsLiveState" class="gp-live">WAITING FOR DATA</span>
+ </div>
+ <div class="filters gp-filters">
+  <select id="contactsBlockFilter"><option value="">All Blocks</option></select>
+  <select id="contactsGPFilter"><option value="">All GPs</option></select>
+  <select id="contactsStatusFilter"><option value="">All Occupancy</option><option value="Permanent">Permanent</option><option value="I/C">I/C</option><option value="Vacant">Vacant</option></select>
+  <input id="contactsSearch" type="text" placeholder="🔎 Search GP / Name / Phone / Remarks">
+  <button id="contactsReset" type="button" class="gp-reset">Reset</button>
+ </div>
+ <div class="gp-legend"><span><i class="dot permanent"></i> Permanent</span><span><i class="dot ic"></i> I/C</span><span><i class="dot vacant"></i> Vacant</span><span class="muted">I/C = functionally covered, but not Permanent</span></div>
 </div>
 
 <div class="panel gp-staff-summary">
@@ -451,36 +517,70 @@ footer{text-align:center;color:#718096;font-size:11px;padding:25px}
 <div class="panel gp-note"><b>Vacancy interpretation:</b> <span class="bad">Vacant</span> = post not functionally covered. <span class="gp-ic-text">I/C</span> = functionally covered but not Permanent. <span class="muted">Regular vacancy and functional vacancy are different monitoring indicators.</span></div>
 </div></section>
 
-<section class="page" id="action"><div class="wrap">
-<div class="panel">
- <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-  <div><h2>🚨 Action Required</h2><p class="muted">Live priority actions generated from current Google Sheet data.</p></div>
-  <span id="actionLiveState" style="background:#eef6ff;color:#155eef;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:700">WAITING FOR DATA</span>
- </div>
- <div class="filters" style="margin-top:14px">
-  <select id="actionBlockFilter"><option value="">All Blocks</option></select>
-  <select id="actionGPFilter"><option value="">All GPs</option></select>
-  <select id="actionPriorityFilter"><option value="">All Priority</option><option value="High">High</option><option value="Medium">Medium</option></select>
-  <input id="actionSearch" type="text" placeholder="🔎 Search issue / Block / GP..." style="flex:1;min-width:220px">
- </div>
+
+
+<section class="page" id="ranking"><div class="wrap">
+<div class="perf-hero">
+ <div><div class="perf-eyebrow">LIVE PERFORMANCE MONITORING</div><h1>🏆 Performance</h1><p>Only the <b>10 worst-performing GPs</b> are shown for each parameter, with GRS and Accredited Engineer contacts.</p></div>
+ <span id="perfLiveState" class="perf-live">WAITING FOR DATA</span>
 </div>
 
-<div class="cards" style="margin-top:18px">
- <div class="card"><div class="label">High Priority</div><div id="actionHigh" class="value bad">—</div><div class="muted">GPs</div></div>
- <div class="card"><div class="label">Medium Priority</div><div id="actionMedium" class="value">—</div><div class="muted">GPs</div></div>
- <div class="card"><div class="label">Total Actions</div><div id="actionTotal" class="value">—</div><div class="muted">Current issues</div></div>
- <div class="card"><div class="label">Performing Well</div><div id="actionGood" class="value good">—</div><div class="muted">GPs with no current action</div></div>
+<div class="perf-filters">
+ <div><label>Block</label><select id="perfBlockFilter"><option value="">All Blocks</option></select></div>
+ <div><label>GP</label><select id="perfGPFilter"><option value="">All GPs</option></select></div>
+ <div class="perf-search"><label>Search</label><input id="perfSearch" type="text" placeholder="🔎 Search GP / GRS / Engineer"></div>
+ <button id="perfReset" type="button">↻ Reset</button>
 </div>
 
-<div class="panel" style="margin-top:18px">
- <h2>Current Action Items</h2>
- <div id="actionTable" class="scroll"><div class="muted">Waiting for Google Sheet data…</div></div>
+<div class="perf-kpis">
+ <div class="card"><div class="label">GPs MONITORED</div><div id="perfTotal" class="value">—</div></div>
+ <div class="card"><div class="label">PRIORITY</div><div id="perfPriority" class="value bad">—</div></div>
+ <div class="card"><div class="label">ATTENTION</div><div id="perfAttention" class="value" style="color:#b54708">—</div></div>
+ <div class="card"><div class="label">AVG e-KYC</div><div id="perfAvgEkyc" class="value">—</div></div>
+ <div class="card"><div class="label">AVG ABPS</div><div id="perfAvgAbps" class="value">—</div></div>
+ <div class="card"><div class="label">WORST-TEN VIEW</div><div class="value">10</div><div class="muted">GPs per parameter</div></div>
+</div>
+
+<div class="panel perf-register">
+ <div class="perf-panel-head">
+  <div><h3>Worst 10 GP Monitor</h3><span class="muted">Select a parameter tab below. Ranking updates from the live Performance Google Sheet.</span></div>
+  <div style="display:flex;align-items:center;gap:8px">
+   <span id="perfResultCount" class="perf-pill">—</span>
+   <button id="perfExport" type="button" class="perf-export-btn">⇩ Export CSV</button>
+  </div>
+ </div>
+
+ <div id="perfTabs" class="perf-tabs" role="tablist">
+  <button data-tab="ekyc" class="active">e-KYC</button>
+  <button data-tab="abps">ABPS</button>
+  <button data-tab="persondays">Persondays</button>
+  <button data-tab="families">125-Day Families</button>
+  <button data-tab="offerGap">Demand → Offer Gap</button>
+  <button data-tab="availGap">Demand → Avail Gap</button>
+  <button data-tab="geoPending">Geo Pending</button>
+  <button data-tab="geoModerate">Geo Moderate / Acceptance</button>
+ </div>
+
+ <div class="perf-tab-info" id="perfTabInfo">Lowest e-KYC % first</div>
+ <div id="perfTable" class="scroll"><div class="muted">Waiting for Performance sheet data…</div></div>
+
+<div class="panel perf-register perf-full-gp" style="margin-top:14px">
+ <div class="perf-panel-head">
+  <div>
+   <h3>GP Performance Table</h3>
+   <span class="muted">Complete GP-wise VBG-RAM-G performance register from the live Performance Google Sheet, joined with GRS and Accredited Engineer details.</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+   <span id="perfFullCount" class="perf-pill">—</span>
+   <button id="perfFullExport" type="button" class="perf-export-btn">⇩ Export Full CSV</button>
+  </div>
+ </div>
+ <div id="perfFullTable" class="scroll">
+  <div class="muted">Waiting for Performance sheet data…</div>
+ </div>
+</div>
 </div>
 </div></section>
-
-<section class="page" id="ranking"><div class="wrap"><div class="grid">
-<div class="panel"><h2>🏆 Best Performing</h2><div class="rank"><b>1. Sukafa</b><span class="good">100% e-KYC</span></div><div class="rank"><b>2. Rajabari</b><span class="good">100% e-KYC</span></div><div class="rank"><b>3. Borbam</b><span class="good">99.8% e-KYC</span></div><div class="rank"><b>4. Nazira GP</b><span class="good">98.9% ABPS</span></div><div class="rank"><b>5. Demow GP</b><span class="good">1,180 Persondays</span></div></div>
-<div class="panel"><h2>⚠️ Needs Attention</h2><div class="rank"><b>1. </b><span class="bad"> e-KYC</span></div><div class="rank"><b>2. GP-B</b><span class="bad"> ABPS</span></div><div class="rank"><b>3. GP-C</b><span class="bad">18 persons gap</span></div><div class="rank"><b>4. GP-D</b><span class="bad"> Persondays</span></div></div></div></div></section>
 
 <section class="page" id="analytics"><div class="wrap">
 <div class="panel">
@@ -927,34 +1027,94 @@ function renderEkycLive(d){
 }
 
 
+
+function tableToCSV(table){
+  const rows=[...table.querySelectorAll("tr")];
+  return rows.map(row=>{
+    const cells=[...row.querySelectorAll("th,td")];
+    return cells.map(cell=>{
+      const text=String(cell.innerText||cell.textContent||"").replace(/\s+/g," ").trim();
+      return '"'+text.replace(/"/g,'""')+'"';
+    }).join(",");
+  }).join("\r\n");
+}
+function exportTableCSV(table){
+  if(!table) return;
+  const csv=tableToCSV(table);
+  const page=table.closest(".page");
+  const pageName=(page?.id||"dashboard").replace(/[^a-z0-9_-]+/gi,"_");
+  const heading=page?.querySelector("h1,h2,h3")?.innerText||pageName;
+  const safeHeading=heading.replace(/[^a-z0-9_-]+/gi,"_").replace(/^_+|_+$/g,"");
+  const stamp=new Date().toISOString().slice(0,10);
+  const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8"});
+  const url=URL.createObjectURL(blob), a=document.createElement("a");
+  a.href=url;
+  a.download=(safeHeading||pageName)+"_"+stamp+".csv";
+  document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+}
+function decorateTableForExport(table){
+  if(!table || table.dataset.exportReady==="1") return;
+  table.dataset.exportReady="1";
+  const bar=document.createElement("div");
+  bar.className="table-export-bar";
+  const btn=document.createElement("button");
+  btn.type="button"; btn.className="table-export-btn"; btn.textContent="⇩ Export CSV";
+  btn.title="Export this table to CSV";
+  btn.onclick=()=>exportTableCSV(table);
+  bar.appendChild(btn);
+  table.parentElement.insertBefore(bar,table);
+}
+function decorateAllTablesForExport(root=document){
+  root.querySelectorAll("table").forEach(decorateTableForExport);
+}
 function makeSortable(table){
   if(!table) return;
   table.classList.add("sortable");
-  const headers=table.querySelectorAll("thead th");
+  const headers=[...table.querySelectorAll("thead th")];
   headers.forEach((th,index)=>{
+    th.setAttribute("title","Click to sort · click again to reverse");
     th.onclick=()=>{
       const tbody=table.tBodies[0]; if(!tbody) return;
       const rows=[...tbody.rows];
       const current=th.dataset.sortDir==="asc"?"desc":"asc";
-      headers.forEach(h=>{h.dataset.sortDir="";h.classList.remove("sort-asc","sort-desc")});
+      headers.forEach(h=>{
+        h.dataset.sortDir="";
+        h.classList.remove("sort-asc","sort-desc");
+      });
       th.dataset.sortDir=current;
       th.classList.add(current==="asc"?"sort-asc":"sort-desc");
-      const numeric=rows.every(r=>{
-        const v=(r.cells[index]?.textContent||"").replace(/[% ,₹]/g,"").trim();
-        return v!=="" && !isNaN(Number(v));
-      });
+
+      const clean=s=>String(s??"").replace(/\u00a0/g," ").trim();
+      const parseValue=s=>{
+        const raw=clean(s);
+        if(!raw) return {type:"empty",value:""};
+        const plain=raw.replace(/<[^>]*>/g,"");
+        const date=Date.parse(plain);
+        if(!Number.isNaN(date) && /[\/\-]/.test(plain)) return {type:"date",value:date};
+        const numeric=plain.replace(/[% ,₹$€£]/g,"").replace(/−/g,"-");
+        if(numeric!=="" && !Number.isNaN(Number(numeric))) return {type:"number",value:Number(numeric)};
+        return {type:"text",value:plain.toLowerCase().normalize("NFKD")};
+      };
       rows.sort((a,b)=>{
-        let av=(a.cells[index]?.textContent||"").trim(), bv=(b.cells[index]?.textContent||"").trim();
-        if(numeric){av=parseFloat(av.replace(/[% ,₹]/g,""))||0;bv=parseFloat(bv.replace(/[% ,₹]/g,""))||0}
-        else {av=av.toLowerCase();bv=bv.toLowerCase()}
-        if(av<bv)return current==="asc"?-1:1;
-        if(av>bv)return current==="asc"?1:-1;
-        return 0;
+        const av=parseValue(a.cells[index]?.textContent), bv=parseValue(b.cells[index]?.textContent);
+        if(av.type==="empty" && bv.type!=="empty") return 1;
+        if(bv.type==="empty" && av.type!=="empty") return -1;
+        if(av.type===bv.type){
+          if(av.value<bv.value) return current==="asc"?-1:1;
+          if(av.value>bv.value) return current==="asc"?1:-1;
+          return 0;
+        }
+        // Prefer numeric/date over text when mixed; otherwise natural text order.
+        const aa=String(av.value), bb=String(bv.value);
+        return current==="asc"?aa.localeCompare(bb,undefined,{numeric:true,sensitivity:"base"})
+                              :bb.localeCompare(aa,undefined,{numeric:true,sensitivity:"base"});
       });
-      rows.forEach(r=>tbody.appendChild(r));
+      rows.forEach(r=>{r.classList.add("sorting-flash");tbody.appendChild(r);});
+      setTimeout(()=>rows.forEach(r=>r.classList.remove("sorting-flash")),180);
     };
   });
 }
+
 function makeAllTablesSortable(root=document){
   root.querySelectorAll("table").forEach(makeSortable);
 }
@@ -1161,35 +1321,6 @@ function renderContactsLive(d){
   const gps=document.getElementById("contactsGPFilter");
   const ss=document.getElementById("contactsStatusFilter");
   const search=document.getElementById("contactsSearch");
-
-  if(ss){
-    const occCount={Permanent:0,"I/C":0,Vacant:0};
-    const classify=(status,nature)=>{
-      const n=(nature||"").trim().toLowerCase().replace(/[\s._-]/g,"");
-      const st=(status||"").trim().toLowerCase().replace(/[\s._-]/g,"");
-      if(n.includes("vacant")) return "Vacant";
-      if(n.includes("ic")||n.includes("incharge")) return "I/C";
-      if(n.includes("permanent")||n.includes("regular")) return "Permanent";
-      if(st.includes("vacant")) return "Vacant";
-      if(st.includes("ic")||st.includes("incharge")) return "I/C";
-      if(st.includes("permanent")||st.includes("regular")||/working|active|posted/.test(st)) return "Permanent";
-      return "";
-    };
-    rows.forEach(x=>{
-      const g=classify(x.grsStatus,x.grsNature);
-      const e=classify(x.engineerStatus,x.engineerNature);
-      if(g) occCount[g]++;
-      if(e) occCount[e]++;
-    });
-    const current=ss.value;
-    const total=occCount.Permanent+occCount["I/C"]+occCount.Vacant;
-    ss.innerHTML=
-      '<option value="">All Occupancy</option>'+
-      '<option value="Permanent">Permanent</option>'+
-      '<option value="I/C">I/C</option>'+
-      '<option value="Vacant">Vacant</option>';
-    if(["Permanent","I/C","Vacant"].includes(current)) ss.value=current;
-  }
   if(!bs||!gps||!search) return;
 
   const oldB=bs.value, oldG=gps.value, oldS=ss?ss.value:"";
@@ -1206,21 +1337,16 @@ function renderContactsLive(d){
 
   function apply(){
     const b=bs.value,g=gps.value,wanted=ss?ss.value:"",q=(search.value||"").toLowerCase().trim();
-    // Staffing summary uses ALL records for the selected Block/GP.
-    // Occupancy is a table filter only and must not change Total GP or
-    // Permanent/I/C/Vacant totals in the monitoring summary.
-    const baseRows=rows.filter(x=>
-      (!b||x.block===b)&&(!g||x.gp===g)
-    );
-    const filtered=baseRows.filter(x=>
+    const filtered=rows.filter(x=>
+      (!b||x.block===b)&&(!g||x.gp===g)&&
       (!wanted||x.grsNature===wanted||x.engineerNature===wanted)&&
       (!q||[x.block,x.gp,x.grs,x.grsPhone,x.grsStatus,x.grsNature,x.remarks,x.engineer,x.engineerPhone,x.engineerStatus,x.engineerNature]
         .join(" ").toLowerCase().includes(q))
     );
 
-    const gpKeys=new Set(baseRows.map(x=>(x.block+"||"+x.gp).toLowerCase()).filter(x=>x!=="||"));
-    const count=(field,status)=>baseRows.filter(x=>x[field]===status).length;
-    const total=baseRows.length;
+    const gpKeys=new Set(filtered.map(x=>(x.block+"||"+x.gp).toLowerCase()).filter(x=>x!=="||"));
+    const count=(field,status)=>filtered.filter(x=>x[field]===status).length;
+    const total=filtered.length;
     const grsCovered=count("grsNature","Permanent")+count("grsNature","I/C");
     const engCovered=count("engineerNature","Permanent")+count("engineerNature","I/C");
     const grsPct=total?Math.round(grsCovered/total*100):0;
@@ -1257,7 +1383,7 @@ function renderContactsLive(d){
     document.getElementById("contactsTable").innerHTML=
       '<table class="sortable"><thead><tr>'+
       '<th>Block</th><th>GP</th><th>GRS Name</th><th>GRS Phone</th><th>GRS Status</th><th>GRS Nature</th><th>Remarks</th>'+
-      '<th>Accredited Engineer</th><th>Engineer Phone</th><th>Engineer Status</th><th>Engineer Nature</th>'+
+      '<th>Accredited Engineer</th><th>Engineer Phone</th>'+
       '</tr></thead><tbody>'+
       filtered.map(x=>'<tr>'+
         '<td>'+esc(x.block)+'</td><td>'+esc(x.gp)+'</td>'+
@@ -1282,89 +1408,6 @@ function renderContactsLive(d){
   apply();
 }
 
-function renderActionLive(ekycData, physicalData, geoData){
-  const issues=[];
-  const add=(block,gp,module,issue,value,priority)=>{
-    if(!gp)return;
-    issues.push({block,gp,module,issue,value,priority});
-  };
-  const parseCols=(d)=>d?d.cols.map(x=>String(x).trim().toLowerCase()):[];
-  const ci=(c,names)=>{for(const n of names){const i=c.indexOf(n.toLowerCase());if(i>=0)return i}return -1};
-
-  if(ekycData && !ekycData.error){
-    const c=parseCols(ekycData), ib=ci(c,["Block"]), ig=ci(c,["GP","GP Name","Gram Panchayat"]),
-      ie=ci(c,["e-KYC %","eKYC %"]), ia=ci(c,["ABPS %"]);
-    ekycData.rows.forEach(r=>{
-      const b=ib>=0?String(r[ib]||""):"",g=ig>=0?String(r[ig]||""):"";
-      const ek=ie>=0?pct(r[ie]):0, ab=ia>=0?pct(r[ia]):0;
-      if(ek<90)add(b,g,"e-KYC","e-KYC below 90%",ek.toFixed(1)+"%","High");
-      else if(ek<95)add(b,g,"e-KYC","e-KYC below 95%",ek.toFixed(1)+"%","Medium");
-      if(ab<90)add(b,g,"ABPS","ABPS below 90%",ab.toFixed(1)+"%","High");
-      else if(ab<95)add(b,g,"ABPS","ABPS below 95%",ab.toFixed(1)+"%","Medium");
-    });
-  }
-
-  if(physicalData && !physicalData.error){
-    const c=parseCols(physicalData), ib=ci(c,["Block"]), ig=ci(c,["GP","GP Name","Gram Panchayat"]),
-      dp=ci(c,["Demand Persons"]), op=ci(c,["Offer Persons"]), ap=ci(c,["Avail Persons"]),
-      pd=ci(c,["Total Persondays","Persondays"]), fam=ci(c,["Families Completed 125 Days","125-Day Families"]);
-    physicalData.rows.forEach(r=>{
-      const b=ib>=0?String(r[ib]||""):"",g=ig>=0?String(r[ig]||""):"";
-      const d=dp>=0?num(r[dp]):0,o=op>=0?num(r[op]):0,a=ap>=0?num(r[ap]):0,pdVal=pd>=0?num(r[pd]):0,f=fam>=0?num(r[fam]):0;
-      const go=Math.max(d-o,0), ga=Math.max(d-a,0);
-      if(go>0)add(b,g,"Physical Progress","Demand → Offer gap",go+" persons","High");
-      if(ga>0)add(b,g,"Physical Progress","Demand → Avail gap",ga+" persons","High");
-      if(pdVal===0)add(b,g,"Persondays","Nil persondays", "0","High");
-      if(f>0){} // retained for future 125-day threshold logic
-    });
-  }
-
-  if(geoData && !geoData.error){
-    const c=parseCols(geoData), ib=ci(c,["Block"]), ig=ci(c,["GP","GP Name","Gram Panchayat"]), it=ci(c,["Total Attention"]);
-    geoData.rows.forEach(r=>{
-      const b=ib>=0?String(r[ib]||""):"",g=ig>=0?String(r[ig]||""):"",v=it>=0?num(r[it]):0;
-      if(v>0)add(b,g,"Geo-tag","Geo-tag pending / acceptance attention",v+" items",v>=15?"High":"Medium");
-    });
-  }
-
-  // De-duplicate exact action rows.
-  const unique=[...new Map(issues.map(x=>[x.block+"|"+x.gp+"|"+x.module+"|"+x.issue, x])).values()];
-  const blocks=[...new Set(unique.map(x=>x.block).filter(Boolean))].sort();
-  const bs=document.getElementById("actionBlockFilter"), gs=document.getElementById("actionGPFilter");
-  const oldB=bs.value, oldG=gs.value;
-  bs.innerHTML='<option value="">All Blocks</option>'+blocks.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
-  if(blocks.includes(oldB))bs.value=oldB;
-
-  function updateGPs(){
-    const b=bs.value,old=gs.value;
-    const gps=[...new Set(unique.filter(x=>!b||x.block===b).map(x=>x.gp).filter(Boolean))].sort();
-    gs.innerHTML='<option value="">All GPs</option>'+gps.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
-    if(gps.includes(old))gs.value=old;
-  }
-  function apply(){
-    const b=bs.value,g=gs.value,p=document.getElementById("actionPriorityFilter").value,q=(document.getElementById("actionSearch").value||"").toLowerCase();
-    const rows=unique.filter(x=>(!b||x.block===b)&&(!g||x.gp===g)&&(!p||x.priority===p)&&
-      (!q||[x.block,x.gp,x.module,x.issue,x.value].join(" ").toLowerCase().includes(q)));
-    const high=new Set(rows.filter(x=>x.priority==="High").map(x=>x.gp)).size;
-    const med=new Set(rows.filter(x=>x.priority==="Medium").map(x=>x.gp)).size;
-    const total=rows.length;
-    document.getElementById("actionHigh").textContent=high;
-    document.getElementById("actionMedium").textContent=med;
-    document.getElementById("actionTotal").textContent=total;
-    document.getElementById("actionGood").textContent=Math.max(0,82-new Set(rows.map(x=>x.gp)).size);
-    const table='<table class="sortable"><thead><tr><th>S.No.</th><th>Priority</th><th>Block</th><th>GP</th><th>Module</th><th>Issue</th><th>Value</th></tr></thead><tbody>'+
-      rows.map((x,i)=>'<tr><td>'+(i+1)+'</td><td class="'+(x.priority==="High"?"bad":"")+'">'+x.priority+'</td><td>'+esc(x.block)+'</td><td>'+esc(x.gp)+'</td><td>'+esc(x.module)+'</td><td>'+esc(x.issue)+'</td><td>'+esc(x.value)+'</td></tr>').join("")+
-      '</tbody></table>';
-    document.getElementById("actionTable").innerHTML=table;
-    makeSortable(document.querySelector("#actionTable table"));
-    document.getElementById("actionLiveState").textContent=rows.length+" live actions";
-  }
-  bs.onchange=()=>{updateGPs();apply()};
-  gs.onchange=apply;
-  document.getElementById("actionPriorityFilter").onchange=apply;
-  document.getElementById("actionSearch").oninput=apply;
-  updateGPs();apply();
-}
 
 function renderGeoPage(d){
   if(!d || d.error) return;
@@ -1521,6 +1564,225 @@ function renderPendingReportsLive(d){
   document.getElementById("pendingTrackerLive").innerHTML=table;
   makeSortable(document.querySelector("#pendingReportTrackerTable"));
 }
+function renderPerformanceLive(d, contactsData){
+  if(!d || d.error || !d.rows || !d.rows.length) return;
+
+  const c=d.cols.map(x=>String(x).trim().toLowerCase());
+  const ci=(names)=>{for(const n of names){const i=c.indexOf(n.toLowerCase());if(i>=0)return i}return -1};
+  const ib=ci(["Block"]), ig=ci(["GP","GP Name","Gram Panchayat"]);
+  const ie=ci(["e-KYC %","eKYC %"]), ia=ci(["ABPS %"]);
+  const ipd=ci(["Total Persondays","Persondays"]), ifam=ci(["125-Day Families","Families Completed 125 Days","125-Day Families"]);
+  const igo=ci(["Demand-Offer Gap Persons","Demand Offer Gap Persons","Demand→Offer Gap"]);
+  const iga=ci(["Demand-Avail Gap Persons","Demand Avail Gap Persons","Demand→Avail Gap"]);
+  const ij=ci(["Geo Pending"]), im=ci(["Geo Moderate / Acceptance Pending"]);
+  const is=ci(["Overall Status","Status"]);
+
+  const contactMap=new Map();
+  if(contactsData && !contactsData.error && contactsData.rows && contactsData.rows.length){
+    const cc=(contactsData.cols||[]).map(x=>String(x).trim().toLowerCase());
+    const cci=(names)=>{for(const n of names){const i=cc.indexOf(n.toLowerCase());if(i>=0)return i}return -1};
+    const cb=contactsData.rows.some(r=>Array.isArray(r)&&r.length>=18);
+    const cib=cb?1:cci(["Block"]), cig=cb?2:cci(["GP","GP Name","Gram Panchayat"]);
+    const cgrs=cb?3:cci(["GRS Name","GRS"]), cgrsp=cb?4:cci(["GRS Phone","GRS Mobile","GRS Contact"]);
+    const cgrsStatus=cb?5:cci(["GRS Status"]), cgrsNature=cb?6:cci(["GRS Nature","GRS Nature of Occupancy"]);
+    const ceng=cb?7:cci(["Accredited Engineer Name","Accredited Engineer","Engineer Name"]);
+    const cengp=cb?8:cci(["Engineer Phone","Accredited Engineer Phone","Engineer Mobile","Engineer Contact"]);
+    const cengStatus=cb?9:cci(["Engineer Status","Accredited Engineer Status"]);
+    const cengNature=cb?10:cci(["Engineer Nature","Accredited Engineer Nature","Engineer Nature of Occupancy"]);
+    const crem=cb?11:cci(["Remarks","Remark","Notes"]);
+    contactsData.rows.forEach(r=>{
+      const b=cib>=0?String(r[cib]??"").trim():"";
+      const g=cig>=0?String(r[cig]??"").trim():"";
+      const key=(b+"||"+g).toLowerCase();
+      if(!b&&!g)return;
+      contactMap.set(key,{
+        grs:cgrs>=0?String(r[cgrs]??"").trim():"",
+        grsPhone:cgrsp>=0?String(r[cgrsp]??"").trim():"",
+        grsStatus:cgrsStatus>=0?String(r[cgrsStatus]??"").trim():"",
+        grsNature:cgrsNature>=0?String(r[cgrsNature]??"").trim():"",
+        engineer:ceng>=0?String(r[ceng]??"").trim():"",
+        engineerPhone:cengp>=0?String(r[cengp]??"").trim():"",
+        engineerStatus:cengStatus>=0?String(r[cengStatus]??"").trim():"",
+        engineerNature:cengNature>=0?String(r[cengNature]??"").trim():"",
+        remarks:crem>=0?String(r[crem]??"").trim():""
+      });
+    });
+  }
+
+  const n=(r,i)=>i>=0?num(r[i]):0;
+  const pctv=(r,i)=>i>=0?pct(r[i]):0;
+  const rows=d.rows.map((r,i)=>{
+    const block=ib>=0?String(r[ib]||""):"";
+    const gp=ig>=0?String(r[ig]||""):"";
+    const contact=contactMap.get((block+"||"+gp).toLowerCase())||{};
+    return {
+      sno:i+1,block,gp,
+      ekyc:pctv(r,ie),abps:pctv(r,ia),persondays:n(r,ipd),families:n(r,ifam),
+      offerGap:n(r,igo),availGap:n(r,iga),geoPending:n(r,ij),geoModerate:n(r,im),
+      status:is>=0?String(r[is]||""):"",
+      grs:contact.grs||"",grsPhone:contact.grsPhone||"",
+      engineer:contact.engineer||"",engineerPhone:contact.engineerPhone||""
+    };
+  }).filter(x=>x.block||x.gp);
+
+  const bs=document.getElementById("perfBlockFilter"), gs=document.getElementById("perfGPFilter"),
+        search=document.getElementById("perfSearch");
+  const oldB=bs.value,oldG=gs.value;
+  const blocks=[...new Set(rows.map(x=>x.block).filter(Boolean))].sort();
+  bs.innerHTML='<option value="">All Blocks</option>'+blocks.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+  if(blocks.includes(oldB))bs.value=oldB;
+
+  function updateGPs(){
+    const b=bs.value,old=gs.value;
+    const list=[...new Set(rows.filter(x=>!b||x.block===b).map(x=>x.gp).filter(Boolean))].sort();
+    gs.innerHTML='<option value="">All GPs</option>'+list.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+    if(list.includes(old))gs.value=old;
+  }
+
+  let activeTab="ekyc";
+  let activeExportRows=[];
+
+  const tabMeta={
+    ekyc:{title:"Lowest e-KYC % first",key:"ekyc",dir:"asc",value:"e-KYC %"},
+    abps:{title:"Lowest ABPS % first",key:"abps",dir:"asc",value:"ABPS %"},
+    persondays:{title:"Lowest Total Persondays first",key:"persondays",dir:"asc",value:"Total Persondays"},
+    families:{title:"Lowest 125-Day Families first",key:"families",dir:"asc",value:"125-Day Families"},
+    offerGap:{title:"Highest Demand → Offer gap first",key:"offerGap",dir:"desc",value:"Demand → Offer Gap"},
+    availGap:{title:"Highest Demand → Avail gap first",key:"availGap",dir:"desc",value:"Demand → Avail Gap"},
+    geoPending:{title:"Highest Geo Pending first",key:"geoPending",dir:"desc",value:"Geo Pending"},
+    geoModerate:{title:"Highest Geo Moderate / Acceptance Pending first",key:"geoModerate",dir:"desc",value:"Geo Moderate / Acceptance"},
+  };
+
+  const pill=s=>s==="Good"?'<span class="status-good">GOOD</span>':s==="Attention"?'<span class="status-attention">ATTENTION</span>':s==="Priority"?'<span class="status-priority">PRIORITY</span>':esc(s||"—");
+
+  function sortWorst(data,tab){
+    const meta=tabMeta[tab];
+    return [...data].sort((a,b)=>{
+      const av=a[meta.key],bv=b[meta.key];
+      if(meta.dir==="asc") return av-bv || (a.ekyc+a.abps)-(b.ekyc+b.abps);
+      return bv-av || (a.ekyc+a.abps)-(b.ekyc+b.abps);
+    });
+  }
+
+  function labelFor(tab,x){
+    if(tab==="ekyc") return x.ekyc.toFixed(1)+"%";
+    if(tab==="abps") return x.abps.toFixed(1)+"%";
+    if(tab==="persondays") return x.persondays.toLocaleString();
+    if(tab==="families") return x.families.toLocaleString();
+    if(tab==="offerGap") return x.offerGap.toLocaleString();
+    if(tab==="availGap") return x.availGap.toLocaleString();
+    if(tab==="geoPending") return x.geoPending.toLocaleString();
+    if(tab==="geoModerate") return x.geoModerate.toLocaleString();
+    return x.status||"—";
+  }
+
+  function apply(){
+    const b=bs.value,g=gs.value,q=(search.value||"").toLowerCase().trim();
+    const filtered=rows.filter(x=>
+      (!b||x.block===b)&&(!g||x.gp===g)&&
+      (!q||[x.block,x.gp,x.status,x.grs,x.grsPhone,x.grsStatus,x.grsNature,x.engineer,x.engineerPhone,x.engineerStatus,x.engineerNature,x.remarks].join(" ").toLowerCase().includes(q))
+    );
+
+    const avg=(arr,key)=>arr.length?(arr.reduce((a,x)=>a+x[key],0)/arr.length):0;
+    const priority=filtered.filter(x=>x.status==="Priority").length;
+    const attention=filtered.filter(x=>x.status==="Attention").length;
+    document.getElementById("perfTotal").textContent=filtered.length;
+    document.getElementById("perfPriority").textContent=priority;
+    document.getElementById("perfAttention").textContent=attention;
+    document.getElementById("perfAvgEkyc").textContent=avg(filtered,"ekyc").toFixed(1)+"%";
+    document.getElementById("perfAvgAbps").textContent=avg(filtered,"abps").toFixed(1)+"%";
+
+    const top=sortWorst(filtered,activeTab).slice(0,10);
+    activeExportRows=top;
+    const meta=tabMeta[activeTab];
+    document.getElementById("perfTabInfo").textContent=meta.title;
+    document.getElementById("perfResultCount").textContent=top.length+" of 10 shown";
+    document.getElementById("perfLiveState").textContent="Live · "+filtered.length+" GPs monitored";
+
+    const table='<table class="sortable"><thead><tr>'+
+      '<th>Rank</th><th>Block</th><th>GP</th>'+
+      '<th>GRS Name</th><th>GRS Phone</th>'+
+      '<th>Accredited Engineer</th><th>Engineer Phone</th>'+
+      '<th>e-KYC %</th><th>ABPS %</th><th>Total Persondays</th><th>125-Day Families</th>'+
+      '<th>Demand→Offer Gap</th><th>Demand→Avail Gap</th><th>Geo Pending</th><th>Geo Moderate / Acceptance</th>'+
+      '<th>Overall Status</th><th>Parameter Value</th><th>Remarks</th>'+
+      '</tr></thead><tbody>'+
+      top.map((x,i)=>'<tr><td><b>'+(i+1)+'</b></td><td>'+esc(x.block)+'</td><td>'+esc(x.gp)+'</td>'+
+        '<td>'+esc(x.grs||"—")+'</td><td>'+esc(x.grsPhone||"—")+'</td>'+
+        '<td>'+esc(x.engineer||"—")+'</td><td>'+esc(x.engineerPhone||"—")+'</td>'+
+        '<td>'+x.ekyc.toFixed(1)+'%</td><td>'+x.abps.toFixed(1)+'%</td><td>'+x.persondays.toLocaleString()+'</td><td>'+x.families.toLocaleString()+'</td>'+
+        '<td>'+x.offerGap.toLocaleString()+'</td><td>'+x.availGap.toLocaleString()+'</td><td>'+x.geoPending.toLocaleString()+'</td><td>'+x.geoModerate.toLocaleString()+'</td>'+
+        '<td>'+pill(x.status)+'</td><td><b>'+esc(labelFor(activeTab,x))+'</b></td><td>'+esc(x.remarks||"—")+'</td></tr>').join("")+
+      '</tbody></table>';
+    document.getElementById("perfTable").innerHTML=table;
+    makeSortable(document.querySelector("#perfTable table"));
+
+    // Full GP Performance Table (all filtered GPs, not limited to 10).
+    document.getElementById("perfFullCount").textContent=filtered.length+" GPs";
+    const fullTable='<table class="sortable"><thead><tr>'+
+      '<th>S.No.</th><th>Block</th><th>GP</th>'+
+      '<th>GRS Name</th><th>GRS Phone</th>'+
+      '<th>Accredited Engineer</th><th>Engineer Phone</th>'+
+      '<th>e-KYC %</th><th>ABPS %</th><th>Total Persondays</th><th>125-Day Families</th>'+
+      '<th>Demand→Offer Gap</th><th>Demand→Avail Gap</th><th>Geo Pending</th><th>Geo Moderate / Acceptance</th>'+
+      '<th>Overall Status</th><th>Remarks</th>'+
+      '</tr></thead><tbody>'+
+      filtered.map(x=>'<tr><td>'+x.sno+'</td><td>'+esc(x.block)+'</td><td>'+esc(x.gp)+'</td>'+
+        '<td>'+esc(x.grs||"—")+'</td><td>'+esc(x.grsPhone||"—")+'</td>'+
+        '<td>'+esc(x.engineer||"—")+'</td><td>'+esc(x.engineerPhone||"—")+'</td>'+
+        '<td>'+x.ekyc.toFixed(1)+'%</td><td>'+x.abps.toFixed(1)+'%</td><td>'+x.persondays.toLocaleString()+'</td><td>'+x.families.toLocaleString()+'</td>'+
+        '<td>'+x.offerGap.toLocaleString()+'</td><td>'+x.availGap.toLocaleString()+'</td><td>'+x.geoPending.toLocaleString()+'</td><td>'+x.geoModerate.toLocaleString()+'</td>'+
+        '<td>'+pill(x.status)+'</td><td>'+esc(x.remarks||"—")+'</td></tr>').join("")+
+      '</tbody></table>';
+    document.getElementById("perfFullTable").innerHTML=fullTable;
+    makeSortable(document.querySelector("#perfFullTable table"));
+
+    const fullExport=document.getElementById("perfFullExport");
+    if(fullExport) fullExport.onclick=()=>{
+      const header=["S.No.","Block","GP","GRS Name","GRS Phone","Accredited Engineer","Engineer Phone","e-KYC %","ABPS %","Total Persondays","125-Day Families","Demand-Offer Gap","Demand-Avail Gap","Geo Pending","Geo Moderate / Acceptance","Overall Status","Remarks"];
+      const data=[header,...filtered.map(x=>[
+        x.sno,x.block,x.gp,x.grs,x.grsPhone,x.engineer,x.engineerPhone,
+        x.ekyc.toFixed(1)+"%",x.abps.toFixed(1)+"%",x.persondays,x.families,x.offerGap,x.availGap,x.geoPending,x.geoModerate,x.status,x.remarks
+      ])];
+      const csv=data.map(row=>row.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\n");
+      const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+      const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;
+      a.download="GP_Performance_Register_"+new Date().toISOString().slice(0,10)+".csv";
+      document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+    };
+  }
+
+  document.querySelectorAll("#perfTabs button").forEach(btn=>{
+    btn.onclick=()=>{
+      document.querySelectorAll("#perfTabs button").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      activeTab=btn.dataset.tab;
+      apply();
+    };
+  });
+
+  const exportBtn=document.getElementById("perfExport");
+  if(exportBtn) exportBtn.onclick=()=>{
+    const header=["Rank","Block","GP","GRS Name","GRS Phone","Accredited Engineer","Engineer Phone","e-KYC %","ABPS %","Total Persondays","125-Day Families","Demand-Offer Gap","Demand-Avail Gap","Geo Pending","Geo Moderate / Acceptance","Overall Status","Parameter","Remarks"];
+    const data=[header,...activeExportRows.map((x,i)=>[
+      i+1,x.block,x.gp,x.grs,x.grsPhone,x.grsStatus,x.grsNature,x.engineer,x.engineerPhone,x.engineerStatus,x.engineerNature,
+      x.ekyc.toFixed(1)+"%",x.abps.toFixed(1)+"%",x.persondays,x.families,x.offerGap,x.availGap,x.geoPending,x.geoModerate,x.status,labelFor(activeTab,x),x.remarks
+    ])];
+    const csv=data.map(row=>row.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\n");
+    const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+    const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;
+    a.download="Performance_Worst10_"+activeTab+"_"+new Date().toISOString().slice(0,10)+".csv";
+    document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  };
+
+  bs.onchange=()=>{updateGPs();apply()};
+  gs.onchange=apply;
+  search.oninput=apply;
+  document.getElementById("perfReset").onclick=()=>{bs.value="";updateGPs();gs.value="";search.value="";apply()};
+  updateGPs();
+  apply();
+}
+
 async function loadLiveData(){
   const meta=document.getElementById("liveMeta");
   setLiveStatus(true,"Connecting…");
@@ -1558,16 +1820,14 @@ async function loadLiveData(){
     window.liveSheetData=Object.fromEntries(results.map(x=>[x.sheet,x]));
     const ekycData=results.find(x=>x.sheet==="eKYC & ABPS" && !x.error); if(ekycData) renderEkycLive(ekycData);
     const contactsData=results.find(x=>x.sheet==="GP Contacts (1)" && !x.error) || results.find(x=>x.sheet==="GP Contacts" && !x.error);
-    const actionEkyc=results.find(x=>x.sheet==="eKYC & ABPS" && !x.error);
-    const actionPhysical=results.find(x=>x.sheet==="Physical Progress Report" && !x.error);
-    const actionGeo=results.find(x=>x.sheet==="Geo-tag" && !x.error);
-    renderActionLive(actionEkyc, actionPhysical, actionGeo);
+    const performanceData=results.find(x=>x.sheet==="Performance" && !x.error); if(performanceData) renderPerformanceLive(performanceData, contactsData);
     if(contactsData) renderContactsLive(contactsData);
     const physicalData=results.find(x=>x.sheet==="Physical Progress Report" && !x.error); if(physicalData) renderPhysicalLive(physicalData);
     const geoData=results.find(x=>x.sheet==="Geo-tag" && !x.error);
     renderGeoPage(geoData);
     renderWorst5Overview(ekycData, physicalData, geoData);
     updateOverviewLive(ekycData, physicalData);
+    decorateAllTablesForExport(document);
     setLiveStatus(true,"Updated "+stamp);
   }catch(e){
     setLiveStatus(false,"Connection error");
@@ -1575,6 +1835,7 @@ async function loadLiveData(){
   }
 }
 makeAllTablesSortable();
+decorateAllTablesForExport(document);
 loadLiveData();
 setInterval(loadLiveData, 5*60*1000);
 </script>
