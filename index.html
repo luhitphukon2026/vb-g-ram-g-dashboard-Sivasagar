@@ -32,6 +32,86 @@ footer{text-align:center;color:#718096;font-size:11px;padding:25px}
 .sortable th.sort-asc::after{content:" ↑";opacity:1}
 .sortable th.sort-desc::after{content:" ↓";opacity:1}
 </style>
+
+<style id="visibility-heading-style">
+.metric-heading, .panel h2.metric-heading, .panel h3.metric-heading{
+  font-size:16px !important;
+  font-weight:800 !important;
+  letter-spacing:.35px;
+  line-height:1.25;
+  color:#17324d !important;
+  margin-bottom:10px !important;
+}
+.metric-heading .metric-icon{font-size:18px;margin-right:6px;vertical-align:-1px}
+.metric-heading .metric-name{font-weight:850}
+.section-heading{
+  font-size:19px !important;
+  font-weight:850 !important;
+  letter-spacing:.25px;
+  color:#102a43 !important;
+}
+</style>
+
+<style id="modern-pending-reports">
+#reports .modern-hero{
+  background:linear-gradient(135deg,#16324f 0%,#274e6f 55%,#3f6f8e 100%);
+  color:#fff;border-radius:18px;padding:24px 26px;
+  box-shadow:0 12px 28px rgba(20,48,75,.14);
+}
+#reports .modern-hero h1{margin:0;font-size:25px;line-height:1.2;letter-spacing:.2px}
+#reports .modern-hero p{margin:8px 0 0;color:rgba(255,255,255,.82);font-size:13px}
+#reports .hero-badge{display:inline-flex;align-items:center;gap:7px;margin-top:15px;
+  padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.18);font-size:11px;font-weight:800}
+#reports .modern-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
+#reports .summary-card{background:#fff;border:1px solid #e6edf4;border-radius:15px;padding:16px 17px;
+  box-shadow:0 5px 16px rgba(25,55,80,.06)}
+#reports .summary-label{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:#718096;font-weight:800}
+#reports .summary-value{font-size:22px;font-weight:900;color:#17324d;margin-top:7px}
+#reports .summary-note{font-size:11px;color:#7b8794;margin-top:3px}
+#reports .report-card{background:#fff;border:1px solid #e4ebf2;border-radius:18px;margin-top:16px;
+  overflow:hidden;box-shadow:0 7px 20px rgba(25,55,80,.06)}
+#reports .report-card-head{padding:18px 20px;display:flex;justify-content:space-between;gap:15px;
+  align-items:flex-start;border-bottom:1px solid #edf2f7}
+#reports .report-title{font-size:17px;font-weight:900;color:#17324d;margin:0}
+#reports .report-ref{font-size:11px;color:#7b8794;margin-top:5px}
+#reports .priority-high{background:#fff0f0;color:#c62828;border:1px solid #ffd6d6}
+#reports .status-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;
+  font-size:10px;font-weight:900;white-space:nowrap}
+#reports .report-body{padding:17px 20px}
+#reports .deadline-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+#reports .deadline{background:#f7f9fc;border:1px solid #e8eef4;border-radius:11px;padding:11px 12px}
+#reports .deadline .dlabel{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:#7b8794;font-weight:800}
+#reports .deadline .dvalue{font-size:14px;font-weight:900;color:#17324d;margin-top:5px}
+#reports .deadline.block{background:#fff8ed;border-color:#ffe1ad}
+#reports .deadline.block .dvalue{color:#b54708}
+#reports .deadline.district{background:#eef6ff;border-color:#cfe2ff}
+#reports .deadline.district .dvalue{color:#155eef}
+#reports .action-line{margin-top:13px;padding:12px 13px;border-radius:11px;background:#f7f9fc;
+  color:#435466;font-size:12px;line-height:1.55}
+#reports .modern-tracker{margin-top:18px;background:#fff;border:1px solid #e4ebf2;border-radius:18px;
+  overflow:hidden;box-shadow:0 7px 20px rgba(25,55,80,.06)}
+#reports .tracker-head{padding:18px 20px;border-bottom:1px solid #edf2f7}
+#reports .tracker-head h2{margin:0;font-size:18px;color:#17324d}
+#reports .tracker-head p{margin:5px 0 0;font-size:11px;color:#7b8794}
+#reports .modern-table{width:100%;border-collapse:collapse;min-width:1050px}
+#reports .modern-table th{background:#f7f9fc;color:#66788a;font-size:9px;text-transform:uppercase;
+  letter-spacing:.55px;font-weight:900;padding:11px 12px;text-align:left;border-bottom:1px solid #e5ebf1}
+#reports .modern-table td{padding:13px 12px;font-size:11px;color:#34495e;border-bottom:1px solid #eef2f6;vertical-align:top}
+#reports .modern-table tr:last-child td{border-bottom:0}
+#reports .modern-table tr:hover td{background:#fbfdff}
+#reports .due-red{font-weight:900;color:#c62828}
+#reports .muted-cell{color:#8a97a5}
+#reports .modern-footer-note{margin-top:14px;font-size:10px;color:#7b8794;line-height:1.5}
+@media(max-width:900px){
+ #reports .modern-summary{grid-template-columns:repeat(2,1fr)}
+ #reports .deadline-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+ #reports .modern-summary{grid-template-columns:1fr}
+ #reports .deadline-grid{grid-template-columns:1fr 1fr}
+}
+</style>
 </head>
 <body>
 <div id="liveBanner" style="position:sticky;top:0;z-index:9999;background:#0b6b4b;color:#fff;padding:9px 16px;font-size:13px;display:flex;justify-content:space-between;gap:12px;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.12)">
@@ -62,7 +142,7 @@ footer{text-align:center;color:#718096;font-size:11px;padding:25px}
 
 <main>
 <section class="page active" id="overview"><div class="wrap">
-<div id="liveDataPanel" class="panel" style="margin-bottom:18px">
+<div id="liveDataPanel" class="panel" style="display:none !important">
   <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
     <div><h2 style="margin:0">🔄 Live Data Status</h2><div class="muted">Data is read directly from the connected Google Sheet</div></div>
     <div><button id="refreshLive" class="docBtn" onclick="loadLiveData()">↻ Refresh Now</button></div>
@@ -78,7 +158,7 @@ footer{text-align:center;color:#718096;font-size:11px;padding:25px}
 <div class="card"><div class="label">Persondays</div><div id="overviewPersondays" class="value">—</div></div>
 </div>
 <div class="grid">
-<div class="panel"><h2>Employment Snapshot</h2><table><thead><tr><th>Indicator</th><th>Household</th><th>Persons</th></tr></thead><tbody>
+<div class="panel"><h2 class="section-heading">Employment Snapshot</h2><table><thead><tr><th>Indicator</th><th>Household</th><th>Persons</th></tr></thead><tbody>
 <tr><td>Demanded</td><td>2,542</td><td>3,028</td></tr><tr><td>Offered</td><td>2,536</td><td>3,021</td></tr><tr><td>Availed</td><td>2,498</td><td>2,944</td></tr><tr><td class="bad">Demand → Offer Gap</td><td>6</td><td>7</td></tr><tr><td class="bad">Demand → Avail Gap</td><td>44</td><td>84</td></tr></tbody></table></div>
 <div class="panel"><h2>Block Overview</h2>
 <div class="rank"><b>Amguri</b><span>e-KYC 96.2%</span></div><div class="rank"><b>Demow</b><span>e-KYC 95.1%</span></div><div class="rank"><b>Gaurisagar</b><span>e-KYC 93.8%</span></div><div class="rank"><b>Nazira</b><span>e-KYC 97.2%</span></div><div class="rank"><b>Sivasagar</b><span class="bad">e-KYC 90.7%</span></div>
@@ -91,14 +171,22 @@ footer{text-align:center;color:#718096;font-size:11px;padding:25px}
   <span style="background:#fff1f0;color:#b42318;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:700">LIVE WORST RANKING</span>
  </div>
  <div class="grid3" style="margin-top:14px">
-  <div class="panel"><h3>e-KYC</h3><div id="worst5Ekyc"><div class="muted">Loading…</div></div></div>
-  <div class="panel"><h3>ABPS</h3><div id="worst5Abps"><div class="muted">Loading…</div></div></div>
-  <div class="panel"><h3>Total Persondays</h3><div id="worst5Persondays"><div class="muted">Loading…</div></div></div>
-  <div class="panel"><h3>Physical Progress</h3><div id="worst5Physical"><div class="muted">Loading…</div></div></div>
-  <div class="panel"><h3>Demand → Offer Gap</h3><div id="worst5OfferGap"><div class="muted">Loading…</div></div></div>
-  <div class="panel"><h3>Demand → Avail Gap</h3><div id="worst5AvailGap"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">✓</span><span class="metric-name">e-KYC</span></h3><div id="worst5Ekyc"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">₹</span><span class="metric-name">ABPS</span></h3><div id="worst5Abps"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">👥</span><span class="metric-name">TOTAL PERSONDAYS</span></h3><div id="worst5Persondays"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">📊</span><span class="metric-name">PHYSICAL PROGRESS</span></h3><div id="worst5Physical"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">⚠</span><span class="metric-name">DEMAND → OFFER GAP</span></h3><div id="worst5OfferGap"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">⚠</span><span class="metric-name">DEMAND → AVAIL GAP</span></h3><div id="worst5AvailGap"><div class="muted">Loading…</div></div></div>
  </div>
- <div class="panel" style="margin-top:14px"><h3>Geo-tag — Highest Attention</h3><div id="worst5Geo"><div class="muted">Loading…</div></div></div>
+ <div class="panel" style="margin-top:14px">
+ <h3>📍 Geo-tag — Highest Attention</h3>
+ <div class="grid3" style="margin-top:12px">
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">🔵</span><span class="metric-name">BEFORE GEO-TAG PENDING</span></h3><div id="worst5GeoBefore"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">🟠</span><span class="metric-name">DURING GEO-TAG PENDING</span></h3><div id="worst5GeoDuring"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">🟣</span><span class="metric-name">AFTER GEO-TAG PENDING</span></h3><div id="worst5GeoAfter"><div class="muted">Loading…</div></div></div>
+ </div>
+ <div class="panel" style="margin-top:14px"><h3 class="metric-heading"><span class="metric-icon">⚠</span><span class="metric-name">MODERATE / ACCEPTANCE PENDING — BLOCK LEVEL</span></h3><div id="worst5GeoAcceptance"><div class="muted">Loading…</div></div></div>
+</div>
 </div>
 </div></section>
 
@@ -314,7 +402,7 @@ footer{text-align:center;color:#718096;font-size:11px;padding:25px}
 <div class="grid" style="margin-top:18px">
  <div class="panel">
   <h2>📍 Geo-tag Monitoring — Stage-wise</h2>
-  <div class="muted">Each stage separately shows Pending and Moderate / Acceptance Pending</div>
+  <div class="muted">Each stage separately shows Pending and Moderate / Acceptance Pending at Block Level</div>
   <table>
    <thead><tr><th>Stage</th><th>Pending</th><th>Moderate / Acceptance Pending</th><th>Total Attention</th></tr></thead>
    <tbody>
@@ -327,7 +415,7 @@ footer{text-align:center;color:#718096;font-size:11px;padding:25px}
  </div>
  <div class="panel">
   <h2>📍 Block-wise Geo-tag Attention</h2>
-  <div class="muted">Pending and acceptance-pending are shown separately</div>
+  <div class="muted">Pending and acceptance-pending are shown separately at Block Level</div>
   <table>
    <thead><tr><th>Block</th><th>Before P</th><th>Before M</th><th>During P</th><th>During M</th><th>After P</th><th>After M</th></tr></thead>
    <tbody>
@@ -368,87 +456,134 @@ footer{text-align:center;color:#718096;font-size:11px;padding:25px}
 </div></section>
 
 <section class="page" id="documents"><div class="wrap">
-<div class="panel" style="min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center">
-  <div style="max-width:650px">
-    <div style="font-size:64px;margin-bottom:12px">📚</div>
-    <h1 style="margin:0 0 10px">Documents / Important SOPs & Guidelines</h1>
-    <div style="display:inline-block;padding:10px 18px;border-radius:999px;background:#fff4e5;color:#b54708;font-weight:800;font-size:14px;letter-spacing:.3px">
-      🚧 UNDER CONSTRUCTION
+<div class="panel">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+  <div><h2 class="section-heading">📚 Documents / Important SOPs & Guidelines</h2>
+  <p class="muted">Important letters, norms, SOPs and guidelines for monitoring and necessary action.</p></div>
+  <span style="background:#eef6ff;color:#155eef;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:800">IMPORTANT DOCUMENTS</span>
+ </div>
+</div>
+
+<div class="panel" style="margin-top:18px;border-left:5px solid #b54708">
+ <div style="display:flex;gap:14px;align-items:flex-start">
+  <div style="font-size:28px">📌</div>
+  <div style="flex:1">
+   <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap">
+    <div>
+     <h2 style="margin:0 0 7px">Revised SDRF Norms — Flood 2026</h2>
+     <div class="muted">Office of the District Commissioner, Sivasagar · District Disaster Management Authority</div>
     </div>
-    <p class="muted" style="margin-top:18px;font-size:15px;line-height:1.6">
-      The Documents module is currently under construction.
-      The final version will provide a central document library where important letters,
-      SOPs, guidelines, circulars and instructions can be pinned and downloaded.
-    </p>
-    <div style="margin-top:22px;padding:14px 16px;background:#f7f9fc;border-radius:12px;text-align:left">
-      <b>Planned module includes:</b>
-      <ul style="margin:10px 0 0 18px;line-height:1.8">
-        <li>Pinned important Letters / SOPs / Guidelines</li>
-        <li>Category-wise document organisation</li>
-        <li>Search and filter</li>
-        <li>Date / latest update information</li>
-        <li>Download / view document</li>
-        <li>Google Sheet / document-library integration</li>
-      </ul>
-    </div>
+    <span style="background:#fff4e5;color:#b54708;padding:6px 9px;border-radius:999px;font-size:11px;font-weight:800">ACTION REQUIRED</span>
+   </div>
+
+   <div class="grid3" style="margin-top:16px">
+    <div class="card"><div class="label">Letter No.</div><div class="value" style="font-size:17px">SVDM/Gr Flood/132/Pt-I/2026/</div></div>
+    <div class="card"><div class="label">Letter Date</div><div class="value" style="font-size:19px">17-08-2026</div></div>
+    <div class="card"><div class="label">Block Due Date</div><div class="value bad" style="font-size:19px">20-08-2026</div></div><div class="card"><div class="label">District Due Date</div><div class="value bad" style="font-size:19px">22-08-2026</div></div>
+   </div>
+
+   <div style="margin-top:16px;padding:14px 16px;background:#f7f9fc;border-radius:12px;line-height:1.65">
+    <b>Subject:</b> Forwarding of revised SDRF Norms under Point No. 11 — Infrastructure
+    (Repair/Restoration of damaged infrastructure) for information and necessary action.
+   </div>
+
+   <p style="margin:14px 0 0;line-height:1.65">
+    Particular attention is invited to <b>Point No. 11 (1), (2) & (4) — Infrastructure</b>,
+    covering immediate repair/restoration of damaged roads and bridges, drinking water supply schemes,
+    culverts, power infrastructure, Primary/Community Health Centres and community assets, subject to the prescribed norms, ceilings and conditions.
+   </p>
+
+   <p style="margin:10px 0 0;line-height:1.65">
+    Concerned authorities are requested to examine the infrastructure damaged during <b>Flood 2026</b>
+    and submit details of eligible repair/restoration works to the concerned Circle Office
+    <b>at Block level on or before <b>20-08-2026</b>, so that the District-level submission can be made on or before <b>22-08-2026</b>, along with the necessary assessment, estimates and supporting documents.
+   </p>
+
+   <div style="margin-top:14px">
+    <b>Key action:</b> Ensure proposals strictly conform to the prescribed SDRF norms and relate only to eligible immediate repair/restoration of damaged infrastructure.
+   </div>
   </div>
+ </div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <h2>Document Library</h2>
+ <div class="scroll">
+  <table class="sortable"><thead><tr><th>S.No.</th><th>Document</th><th>Reference No.</th><th>Date</th><th>Block Due Date</th><th>District Due Date</th><th>Subject / Action</th><th>Status</th></tr></thead>
+  <tbody>
+   <tr><td>1</td><td><b>Revised SDRF Norms — Flood 2026</b></td><td>SVDM/Gr Flood/132/Pt-I/2026/</td><td>17-08-2026</td><td class="bad">20-08-2026</td><td class="bad">22-08-2026</td><td>Point 11(1), (2) & (4): immediate repair/restoration of eligible damaged infrastructure</td><td class="bad">Action Required</td></tr>
+  </tbody></table>
+ </div>
 </div>
 </div></section>
 
 <section class="page" id="reports"><div class="wrap">
-<div class="panel" style="min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center">
-  <div style="max-width:650px">
-    <div style="font-size:64px;margin-bottom:12px">🔔</div>
-    <h1 style="margin:0 0 10px">Pending Reports</h1>
-    <div style="display:inline-block;padding:10px 18px;border-radius:999px;background:#fff4e5;color:#b54708;font-weight:800;font-size:14px;letter-spacing:.3px">
-      🚧 UNDER CONSTRUCTION
-    </div>
-    <p class="muted" style="margin-top:18px;font-size:15px;line-height:1.6">
-      The Pending Reports / Report Request module is currently under construction.
-      The final version will provide a central place to record reports requested from Blocks,
-      due dates, reminders and received status.
-    </p>
-    <div style="margin-top:22px;padding:14px 16px;background:#f7f9fc;border-radius:12px;text-align:left">
-      <b>Planned module includes:</b>
-      <ul style="margin:10px 0 0 18px;line-height:1.8">
-        <li>Report name and requesting Block</li>
-        <li>Requested date and due date</li>
-        <li>Pending / Received / Overdue status</li>
-        <li>Priority and reminder tracking</li>
-        <li>Search, Block filter and sorting</li>
-        <li>Live Google Sheet integration</li>
-      </ul>
-    </div>
+<div class="modern-hero">
+  <h1>Pending Reports & Action Tracker</h1>
+  <p>Live monitoring of reports, submissions, deadlines and follow-up actions.</p>
+  <div class="hero-badge">🔔 DATA SOURCE · CONNECTED GOOGLE SHEET</div>
+</div>
+
+<div class="modern-summary" id="pendingSummary">
+  <div class="summary-card"><div class="summary-label">Open Items</div><div id="pendingOpen" class="summary-value">—</div><div class="summary-note">From Pending Reports sheet</div></div>
+  <div class="summary-card"><div class="summary-label">High Priority</div><div id="pendingHigh" class="summary-value" style="color:#c62828">—</div><div class="summary-note">As recorded in sheet</div></div>
+  <div class="summary-card"><div class="summary-label">Block Deadlines</div><div id="pendingBlockDates" class="summary-value" style="font-size:18px">—</div><div class="summary-note">From source data</div></div>
+  <div class="summary-card"><div class="summary-label">District Deadlines</div><div id="pendingDistrictDates" class="summary-value" style="font-size:18px">—</div><div class="summary-note">From source data</div></div>
+</div>
+
+<div id="pendingReportCards"></div>
+
+<div class="modern-tracker">
+  <div class="tracker-head">
+    <h2>Pending Report Tracker</h2>
+    <p>All fields below are read from the connected <b>Pending Reports</b> Google Sheet.</p>
   </div>
+  <div class="scroll" id="pendingTrackerLive">
+    <div class="muted" style="padding:18px">Waiting for Pending Reports sheet data…</div>
+  </div>
+</div>
+
+<div class="modern-footer-note">
+  <b>Monitoring note:</b> This dashboard is for monitoring purposes only. The Pending Reports page is driven by the connected <b>Pending Reports</b> Google Sheet. Update the sheet to change report names, dates, status, received information, reminders and remarks shown here.
 </div>
 </div></section>
 
 <section class="page" id="geotag"><div class="wrap">
-<div class="panel" style="min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center">
-  <div style="max-width:650px">
-    <div style="font-size:64px;margin-bottom:12px">📍</div>
-    <h1 style="margin:0 0 10px">Geo-tag Monitoring</h1>
-    <div style="display:inline-block;padding:10px 18px;border-radius:999px;background:#fff4e5;color:#b54708;font-weight:800;font-size:14px;letter-spacing:.3px">
-      🚧 UNDER CONSTRUCTION
-    </div>
-    <p class="muted" style="margin-top:18px;font-size:15px;line-height:1.6">
-      The Geo-tag Monitoring module is currently under construction.
-      GP-wise and Block-wise <b>Before, During and After</b> geo-tag pending,
-      <b>Moderate / Acceptance Pending</b> status, filters and live Google Sheet integration
-      will be enabled in the final version.
-    </p>
-    <div style="margin-top:22px;padding:14px 16px;background:#f7f9fc;border-radius:12px;text-align:left">
-      <b>Planned module includes:</b>
-      <ul style="margin:10px 0 0 18px;line-height:1.8">
-        <li>Before Geo-tag Pending</li>
-        <li>During Geo-tag Pending</li>
-        <li>After Geo-tag Pending</li>
-        <li>Moderate / Acceptance Pending</li>
-        <li>Block-wise and GP-wise filters</li>
-        <li>Live Google Sheet data</li>
-      </ul>
-    </div>
-  </div>
+<div class="panel">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+  <div><h2 class="section-heading">📍 Geo-tag Monitoring</h2>
+  <div class="muted">GP-wise pending status and Block-level Moderate / Acceptance Pending</div></div>
+  <span id="geoPageState" style="background:#eef6ff;color:#155eef;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:700">WAITING FOR DATA</span>
+ </div>
+ <div class="filters" style="margin-top:14px">
+  <select id="geoPageBlock"><option value="">All Blocks</option></select>
+  <select id="geoPageGP"><option value="">All GPs</option></select>
+  <input id="geoPageSearch" type="text" placeholder="🔎 Search Block / GP" style="flex:1;min-width:220px">
+ </div>
+</div>
+
+<div class="cards" style="margin-top:18px;grid-template-columns:repeat(5,1fr)">
+ <div class="card"><div class="label">Before Pending</div><div id="geoBeforeTotal" class="value bad">—</div></div>
+ <div class="card"><div class="label">During Pending</div><div id="geoDuringTotal" class="value bad">—</div></div>
+ <div class="card"><div class="label">After Pending</div><div id="geoAfterTotal" class="value bad">—</div></div>
+ <div class="card"><div class="label">Moderate / Acceptance</div><div id="geoAcceptanceTotal" class="value bad">—</div><div class="muted">Block Level</div></div>
+ <div class="card"><div class="label">Total Attention</div><div id="geoTotalAttention" class="value">—</div></div>
+</div>
+
+<div class="grid3" style="margin-top:18px">
+ <div class="panel"><h3 class="metric-heading"><span class="metric-icon">🔵</span><span class="metric-name">BEFORE GEO-TAG PENDING</span></h3><div id="geoBeforeList"><div class="muted">Loading…</div></div></div>
+ <div class="panel"><h3 class="metric-heading"><span class="metric-icon">🟠</span><span class="metric-name">DURING GEO-TAG PENDING</span></h3><div id="geoDuringList"><div class="muted">Loading…</div></div></div>
+ <div class="panel"><h3 class="metric-heading"><span class="metric-icon">🟣</span><span class="metric-name">AFTER GEO-TAG PENDING</span></h3><div id="geoAfterList"><div class="muted">Loading…</div></div></div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <h3 class="metric-heading"><span class="metric-icon">⚠</span><span class="metric-name">MODERATE / ACCEPTANCE PENDING — BLOCK LEVEL</span></h3>
+ <div id="geoAcceptanceList"><div class="muted">Loading…</div></div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <h2>GP-wise Geo-tag Status</h2>
+ <div class="scroll" id="geoPageTable"><div class="muted">Waiting for Google Sheet data…</div></div>
 </div>
 </div></section>
 </main>
@@ -501,8 +636,9 @@ function esc(v){
   return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 }
 function tableHTML(d,limit=12){
-  let h="<div class='scroll'><table><thead><tr>"+d.cols.map(x=>"<th>"+esc(x)+"</th>").join("")+"</tr></thead><tbody>";
-  h+=d.rows.slice(0,limit).map(r=>"<tr>"+d.cols.map((_,i)=>"<td>"+esc(r[i]??"")+"</td>").join("")+"</tr>").join("");
+  const visibleCols=d.cols.slice(0,11);
+  let h="<div class='scroll'><table><thead><tr>"+visibleCols.map(x=>"<th>"+esc(x)+"</th>").join("")+"</tr></thead><tbody>";
+  h+=d.rows.slice(0,limit).map(r=>"<tr>"+visibleCols.map((_,i)=>"<td>"+esc(r[i]??"")+"</td>").join("")+"</tr>").join("");
   return h+"</tbody></table></div>";
 }
 function findPage(id){return document.getElementById(id);}
@@ -791,11 +927,17 @@ function renderWorst5Overview(ekycData, physicalData, geoData){
     output("worst5AvailGap",[...pr].sort((a,b)=>b.avail-a.avail),x=>x.avail.toLocaleString());
   }
   if(geo){
-    const c=geo.cols, ib=cidx(c,["Block"]), ig=cidx(c,["GP","GP Name","Gram Panchayat"]), it=cidx(c,["Total Attention"]);
-    const gr=geo.rows.map(r=>({name:(ib>=0?String(r[ib]||""):"")+(ig>=0&&r[ig]?" — "+String(r[ig]):""),attention:it>=0?num(r[it]):0})).filter(x=>x.name.trim());
-    output("worst5Geo",[...gr].sort((a,b)=>b.attention-a.attention),x=>x.attention.toLocaleString());
-  }
-}
+    const c=geo.cols, ib=cidx(c,["Block"]), ig=cidx(c,["GP","GP Name","Gram Panchayat"]);
+    const idx=(names)=>cidx(c,names);
+    const build=(colNames)=>geo.rows.map(r=>({
+      name:(ib>=0?String(r[ib]||""):"")+(ig>=0&&r[ig]?" — "+String(r[ig]):""),
+      attention:(idx(colNames)>=0?num(r[idx(colNames)]):0)
+    })).filter(x=>x.name.trim() && x.attention>0);
+    output("worst5GeoBefore",build(["Before Geo-tag Pending","Before Geo Pending","Before Pending","Before"]).sort((a,b)=>b.attention-a.attention),x=>x.attention.toLocaleString());
+    output("worst5GeoDuring",build(["During Geo-tag Pending","During Geo Pending","During Pending","During"]).sort((a,b)=>b.attention-a.attention),x=>x.attention.toLocaleString());
+    output("worst5GeoAfter",build(["After Geo-tag Pending","After Geo Pending","After Pending","After"]).sort((a,b)=>b.attention-a.attention),x=>x.attention.toLocaleString());
+    output("worst5GeoAcceptance",build(["Moderate / Acceptance Pending","Moderate/Acceptance Pending","Acceptance Pending","Moderate"]).sort((a,b)=>b.attention-a.attention),x=>x.attention.toLocaleString());
+  }}
 
 
 function renderContactsLive(d){
@@ -936,6 +1078,162 @@ function renderActionLive(ekycData, physicalData, geoData){
   document.getElementById("actionSearch").oninput=apply;
   updateGPs();apply();
 }
+
+function renderGeoPage(d){
+  if(!d || d.error) return;
+  const cols=d.cols||[], low=cols.map(x=>String(x).trim().toLowerCase());
+  const ci=(names)=>{for(const n of names){const i=low.indexOf(n.toLowerCase());if(i>=0)return i}return -1};
+  const ib=ci(["Block"]), ig=ci(["GP","GP Name","Gram Panchayat"]);
+  const idxBefore=ci(["Before Geo-tag Pending","Before Geo Pending","Before Pending","Before"]);
+  const idxDuring=ci(["During Geo-tag Pending","During Geo Pending","During Pending","During"]);
+  const idxAfter=ci(["After Geo-tag Pending","After Geo Pending","After Pending","After"]);
+  const idxAcc=ci(["Moderate / Acceptance Pending","Moderate/Acceptance Pending","Acceptance Pending","Moderate"]);
+  const rows=(d.rows||[]).map(r=>({
+    block:ib>=0?String(r[ib]||"").trim():"",
+    gp:ig>=0?String(r[ig]||"").trim():"",
+    before:idxBefore>=0?num(r[idxBefore]):0,
+    during:idxDuring>=0?num(r[idxDuring]):0,
+    after:idxAfter>=0?num(r[idxAfter]):0,
+    acceptance:idxAcc>=0?num(r[idxAcc]):0
+  })).filter(x=>x.block||x.gp);
+
+  const bs=document.getElementById("geoPageBlock"), gs=document.getElementById("geoPageGP"), q=document.getElementById("geoPageSearch");
+  const oldB=bs.value, oldG=gs.value;
+  const blocks=[...new Set(rows.map(x=>x.block).filter(Boolean))].sort();
+  bs.innerHTML='<option value="">All Blocks</option>'+blocks.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+  if(blocks.includes(oldB))bs.value=oldB;
+
+  function updateGPs(){
+    const b=bs.value, old=gs.value;
+    const gps=[...new Set(rows.filter(x=>!b||x.block===b).map(x=>x.gp).filter(Boolean))].sort();
+    gs.innerHTML='<option value="">All GPs</option>'+gps.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+    if(gps.includes(old))gs.value=old;
+  }
+  function listHTML(arr){
+    const a=[...arr].sort((x,y)=>y.value-x.value).slice(0,5);
+    return a.length?a.map((x,i)=>'<div class="rank"><b>'+(i+1)+'. '+esc(x.block)+(x.gp?' — '+esc(x.gp):'')+'</b><b class="bad">'+x.value.toLocaleString()+'</b></div>').join(""):'<div class="muted">No pending items</div>';
+  }
+  function apply(){
+    const b=bs.value,g=gs.value,term=(q.value||"").toLowerCase();
+    const f=rows.filter(x=>(!b||x.block===b)&&(!g||x.gp===g)&&(!term||[x.block,x.gp].join(" ").toLowerCase().includes(term)));
+    const sum=k=>f.reduce((a,x)=>a+x[k],0);
+    const before=sum("before"),during=sum("during"),after=sum("after"),acc=sum("acceptance");
+    document.getElementById("geoBeforeTotal").textContent=before.toLocaleString();
+    document.getElementById("geoDuringTotal").textContent=during.toLocaleString();
+    document.getElementById("geoAfterTotal").textContent=after.toLocaleString();
+    document.getElementById("geoAcceptanceTotal").textContent=acc.toLocaleString();
+    document.getElementById("geoTotalAttention").textContent=(before+during+after+acc).toLocaleString();
+
+    document.getElementById("geoBeforeList").innerHTML=listHTML(f.map(x=>({block:x.block,gp:x.gp,value:x.before})).filter(x=>x.value>0));
+    document.getElementById("geoDuringList").innerHTML=listHTML(f.map(x=>({block:x.block,gp:x.gp,value:x.during})).filter(x=>x.value>0));
+    document.getElementById("geoAfterList").innerHTML=listHTML(f.map(x=>({block:x.block,gp:x.gp,value:x.after})).filter(x=>x.value>0));
+    document.getElementById("geoAcceptanceList").innerHTML=listHTML(f.map(x=>({block:x.block,gp:x.gp,value:x.acceptance})).filter(x=>x.value>0));
+
+    const table='<table class="sortable"><thead><tr><th>S.No.</th><th>Block</th><th>GP</th><th>Before Pending</th><th>During Pending</th><th>After Pending</th><th>Moderate / Acceptance Pending (Block Level)</th><th>Total Attention</th></tr></thead><tbody>'+
+      f.map((x,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(x.block)+'</td><td>'+esc(x.gp)+'</td><td class="'+(x.before?'bad':'')+'">'+x.before+'</td><td class="'+(x.during?'bad':'')+'">'+x.during+'</td><td class="'+(x.after?'bad':'')+'">'+x.after+'</td><td class="'+(x.acceptance?'bad':'')+'">'+x.acceptance+'</td><td><b>'+(x.before+x.during+x.after+x.acceptance)+'</b></td></tr>').join("")+
+      '</tbody></table>';
+    document.getElementById("geoPageTable").innerHTML=table;
+    makeSortable(document.querySelector("#geoPageTable table"));
+    document.getElementById("geoPageState").textContent=f.length+" GP records";
+  }
+  bs.onchange=()=>{updateGPs();apply()};
+  gs.onchange=apply;
+  q.oninput=apply;
+  updateGPs();apply();
+}
+
+function renderPendingReportsLive(d){
+  if(!d || d.error){
+    const el=document.getElementById("pendingReportCards");
+    if(el) el.innerHTML='<div class="report-card"><div class="report-body"><b>Pending Reports sheet data could not be loaded.</b></div></div>';
+    return;
+  }
+  const c=d.cols||[], rows=d.rows||[];
+  const ci=(names)=>{
+    const low=c.map(x=>String(x).trim().toLowerCase());
+    for(const n of names){const i=low.indexOf(n.toLowerCase()); if(i>=0)return i;}
+    return -1;
+  };
+  const get=(r,names)=>{const i=ci(names); return i>=0?String(r[i]??"").trim():""};
+  const reportNames=["Report Name","Report","Requirement","Report / Requirement"];
+  const priorityNames=["Priority"];
+  const blockNames=["Block","Blocks"];
+  const reqNames=["Requested / Letter Date","Requested Date","Request Date","Letter Date"];
+  const blockDueNames=["Block Due Date","Block Deadline","Block Last Date"];
+  const distDueNames=["District Due Date","District Deadline","District Last Date"];
+  const statusNames=["Status"];
+  const receivedNames=["Received Date","Received"];
+  const reminderNames=["Reminder Sent","Reminder"];
+  const remarksNames=["Remarks","Remark","Purpose / Action","Action"];
+  const refNames=["Reference / Letter No.","Reference","Reference No.","Letter No.","Commissionerate Office Letter No."];
+  const lastNames=["Last Updated","Updated Date","Update Date"];
+
+  const data=rows.map((r,idx)=>({
+    _idx:idx+1,
+    report:get(r,reportNames)||"Pending Report",
+    priority:get(r,priorityNames),
+    block:get(r,blockNames),
+    requested:get(r,reqNames),
+    blockDue:get(r,blockDueNames),
+    districtDue:get(r,distDueNames),
+    status:get(r,statusNames),
+    received:get(r,receivedNames),
+    reminder:get(r,reminderNames),
+    remarks:get(r,remarksNames),
+    reference:get(r,refNames),
+    updated:get(r,lastNames)
+  })).filter(x=>x.report||x.block||x.status||x.requested||x.blockDue||x.districtDue||x.remarks);
+
+  const open=data.filter(x=>!x.status || /pending|action|required|overdue|not received/i.test(x.status)).length;
+  const high=data.filter(x=>/high/i.test(x.priority)).length;
+  const bdates=[...new Set(data.map(x=>x.blockDue).filter(Boolean))];
+  const ddates=[...new Set(data.map(x=>x.districtDue).filter(Boolean))];
+  document.getElementById("pendingOpen").textContent=open;
+  document.getElementById("pendingHigh").textContent=high;
+  document.getElementById("pendingBlockDates").textContent=bdates.length?bdates.join(" · "):"—";
+  document.getElementById("pendingDistrictDates").textContent=ddates.length?ddates.join(" · "):"—";
+
+  const cards=document.getElementById("pendingReportCards");
+  if(!data.length){
+    cards.innerHTML='<div class="report-card"><div class="report-body"><div class="muted">No pending report records found in the Google Sheet.</div></div></div>';
+  }else{
+    cards.innerHTML=data.map(x=>{
+      const priority=x.priority||"";
+      const status=x.status||"";
+      const receivedText=x.received||"Not received / blank in source";
+      const blockText=x.block||"Not specified in source";
+      return `<div class="report-card">
+        <div class="report-card-head">
+          <div>
+            <h2 class="report-title">📄 ${esc(x.report)}</h2>
+            <div class="report-ref">${esc(x.reference||"Reference not specified in source")}${x.requested?" · "+esc(x.requested):""}</div>
+          </div>
+          <span class="status-pill priority-high">${esc(priority||status||"STATUS NOT SPECIFIED")}</span>
+        </div>
+        <div class="report-body">
+          <div class="deadline-grid">
+            <div class="deadline"><div class="dlabel">Requested / Letter Date</div><div class="dvalue">${esc(x.requested||"—")}</div></div>
+            <div class="deadline block"><div class="dlabel">Block Due Date</div><div class="dvalue">${esc(x.blockDue||"—")}</div></div>
+            <div class="deadline district"><div class="dlabel">District Due Date</div><div class="dvalue">${esc(x.districtDue||"—")}</div></div>
+            <div class="deadline"><div class="dlabel">Report Not Received From</div><div class="dvalue" style="font-size:13px;color:#c62828">${esc(x.block||"Not specified in source")}</div></div>
+          </div>
+          <div class="action-line"><b>Status:</b> ${esc(status||"Not specified in source")} &nbsp; · &nbsp; <b>Received:</b> ${esc(receivedText)}${x.reminder?` &nbsp; · &nbsp; <b>Reminder:</b> ${esc(x.reminder)}`:""}${x.remarks?`<br><b>Remarks / Action:</b> ${esc(x.remarks)}`:""}</div>
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  const preferred=["S.No.","Priority","Report Name","Block","Reference / Letter No.","Requested / Letter Date","Block Due Date","District Due Date","Status","Received Date","Reminder Sent","Remarks / Action","Last Updated"];
+  const colIndex=preferred.map(name=>c.findIndex(x=>String(x).trim().toLowerCase()===name.toLowerCase()));
+  let table="<table class='modern-table sortable' id='pendingReportTrackerTable'><thead><tr>"+
+    preferred.map(x=>"<th>"+esc(x)+"</th>").join("")+"</tr></thead><tbody>";
+  table+=rows.map((r,i)=>"<tr>"+
+    colIndex.map((j,k)=>"<td>"+esc(j>=0?(r[j]??""):(k===0?i+1:""))+"</td>").join("")+
+    "</tr>").join("");
+  table+="</tbody></table>";
+  document.getElementById("pendingTrackerLive").innerHTML=table;
+  makeSortable(document.querySelector("#pendingReportTrackerTable"));
+}
 async function loadLiveData(){
   const meta=document.getElementById("liveMeta");
   setLiveStatus(true,"Connecting…");
@@ -966,7 +1264,8 @@ async function loadLiveData(){
       "Geo-tag":"geotag"
     };
     for(const d of good){
-      if(map[d.sheet]) updatePageTable(map[d.sheet],d);
+      if(d.sheet==="Pending Reports") renderPendingReportsLive(d);
+      else if(map[d.sheet]) updatePageTable(map[d.sheet],d);
     }
     // Store live data for future dashboard calculations.
     window.liveSheetData=Object.fromEntries(results.map(x=>[x.sheet,x]));
@@ -979,6 +1278,7 @@ async function loadLiveData(){
     if(contactsData) renderContactsLive(contactsData);
     const physicalData=results.find(x=>x.sheet==="Physical Progress Report" && !x.error); if(physicalData) renderPhysicalLive(physicalData);
     const geoData=results.find(x=>x.sheet==="Geo-tag" && !x.error);
+    renderGeoPage(geoData);
     renderWorst5Overview(ekycData, physicalData, geoData);
     updateOverviewLive(ekycData, physicalData);
     setLiveStatus(true,"Updated "+stamp);
