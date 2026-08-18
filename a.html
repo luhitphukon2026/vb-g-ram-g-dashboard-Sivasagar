@@ -1,0 +1,1598 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sivasagar VB-G RAM G Dashboard — Demo</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:#f5f7fb;color:#172033}
+.hero{min-height:205px;color:#fff;padding:30px 32px;display:flex;align-items:center;background:linear-gradient(90deg,rgba(8,27,58,.92),rgba(15,65,110,.65)),url('https://upload.wikimedia.org/wikipedia/commons/0/02/Sivasagar_Siva_dol.jpg') center/cover}
+.hero h1{margin:0;font-size:30px}.hero p{margin:7px 0 0;opacity:.88}.live{margin-top:13px;font-size:12px;opacity:.9}
+nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #e5eaf2;padding:10px 18px;display:flex;gap:7px;overflow:auto}
+nav button{white-space:nowrap;border:0;padding:10px 14px;border-radius:10px;background:#eef2f8;color:#24344d;cursor:pointer;font-weight:650}
+nav button.active{background:#17365d;color:#fff}.page{display:none}.page.active{display:block}.wrap{max-width:1500px;margin:auto;padding:22px}
+.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.card,.panel{background:#fff;border:1px solid #e7edf5;border-radius:16px;padding:18px;box-shadow:0 5px 20px #1720330b}
+.card{min-height:108px}.label{font-size:11px;color:#68758a;text-transform:uppercase;letter-spacing:.5px}.value{font-size:29px;font-weight:800;margin-top:8px}
+.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;margin-top:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+h2{font-size:18px;margin:0 0 14px}h3{font-size:14px;margin:0 0 8px}.muted{color:#718096;font-size:12px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center}select,input[type=text]{padding:10px 12px;border:1px solid #d7deea;border-radius:10px;background:#fff}.range{display:flex;align-items:center;gap:9px;padding:8px 11px;background:#f7f9fc;border:1px solid #e5eaf2;border-radius:10px;font-size:12px}.range input{width:150px;accent-color:#2f6fed}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}th,td{padding:11px 9px;border-bottom:1px solid #edf1f6;text-align:left}th{background:#f7f9fc;color:#59677b;font-size:10px;text-transform:uppercase;position:sticky;top:0}tbody tr:hover{background:#f8fbff}
+.scroll{overflow:auto;max-height:560px}.rank{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #edf1f6}.rank:last-child{border-bottom:0}.good{color:#087443;font-weight:700}.bad{color:#b42318;font-weight:700}
+.bar{height:10px;background:#e9eef5;border-radius:99px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#2f6fed,#5c8ef2);border-radius:99px}
+.alert{padding:12px;border-radius:10px;margin:8px 0;background:#fff4f2;border-left:4px solid #d92d20}.notice{padding:12px;border-radius:10px;margin:8px 0;background:#fff9e8;border-left:4px solid #f59e0b}
+footer{text-align:center;color:#718096;font-size:11px;padding:25px}
+@media(max-width:1050px){.cards{grid-template-columns:repeat(3,1fr)}.grid,.grid3{grid-template-columns:1fr}}
+@media(max-width:650px){.cards{grid-template-columns:repeat(2,1fr)}.wrap{padding:12px}.hero{padding:25px 18px}.hero h1{font-size:23px}.range{width:100%}.range input{flex:1}}
+.docBtn{border:1px solid #d7deea;background:#fff;border-radius:9px;padding:8px 10px;cursor:pointer;font-weight:650;color:#24344d}.docBtn:hover{background:#f4f7fb}</style>
+
+<style>
+.sortable th{cursor:pointer;user-select:none;white-space:nowrap}
+.sortable th:hover{background:#eaf2fb}
+.sortable th::after{content:" ↕";font-size:10px;opacity:.45}
+.sortable th.sort-asc::after{content:" ↑";opacity:1}
+.sortable th.sort-desc::after{content:" ↓";opacity:1}
+</style>
+
+<style id="visibility-heading-style">
+.metric-heading, .panel h2.metric-heading, .panel h3.metric-heading{
+  font-size:16px !important;
+  font-weight:800 !important;
+  letter-spacing:.35px;
+  line-height:1.25;
+  color:#17324d !important;
+  margin-bottom:10px !important;
+}
+.metric-heading .metric-icon{font-size:18px;margin-right:6px;vertical-align:-1px}
+.metric-heading .metric-name{font-weight:850}
+.section-heading{
+  font-size:19px !important;
+  font-weight:850 !important;
+  letter-spacing:.25px;
+  color:#102a43 !important;
+}
+</style>
+
+<style id="modern-pending-reports">
+#reports .modern-hero{
+  background:linear-gradient(135deg,#16324f 0%,#274e6f 55%,#3f6f8e 100%);
+  color:#fff;border-radius:18px;padding:24px 26px;
+  box-shadow:0 12px 28px rgba(20,48,75,.14);
+}
+#reports .modern-hero h1{margin:0;font-size:25px;line-height:1.2;letter-spacing:.2px}
+#reports .modern-hero p{margin:8px 0 0;color:rgba(255,255,255,.82);font-size:13px}
+#reports .hero-badge{display:inline-flex;align-items:center;gap:7px;margin-top:15px;
+  padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.18);font-size:11px;font-weight:800}
+#reports .modern-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
+#reports .summary-card{background:#fff;border:1px solid #e6edf4;border-radius:15px;padding:16px 17px;
+  box-shadow:0 5px 16px rgba(25,55,80,.06)}
+#reports .summary-label{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:#718096;font-weight:800}
+#reports .summary-value{font-size:22px;font-weight:900;color:#17324d;margin-top:7px}
+#reports .summary-note{font-size:11px;color:#7b8794;margin-top:3px}
+#reports .report-card{background:#fff;border:1px solid #e4ebf2;border-radius:18px;margin-top:16px;
+  overflow:hidden;box-shadow:0 7px 20px rgba(25,55,80,.06)}
+#reports .report-card-head{padding:18px 20px;display:flex;justify-content:space-between;gap:15px;
+  align-items:flex-start;border-bottom:1px solid #edf2f7}
+#reports .report-title{font-size:17px;font-weight:900;color:#17324d;margin:0}
+#reports .report-ref{font-size:11px;color:#7b8794;margin-top:5px}
+#reports .priority-high{background:#fff0f0;color:#c62828;border:1px solid #ffd6d6}
+#reports .status-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;
+  font-size:10px;font-weight:900;white-space:nowrap}
+#reports .report-body{padding:17px 20px}
+#reports .deadline-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+#reports .deadline{background:#f7f9fc;border:1px solid #e8eef4;border-radius:11px;padding:11px 12px}
+#reports .deadline .dlabel{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:#7b8794;font-weight:800}
+#reports .deadline .dvalue{font-size:14px;font-weight:900;color:#17324d;margin-top:5px}
+#reports .deadline.block{background:#fff8ed;border-color:#ffe1ad}
+#reports .deadline.block .dvalue{color:#b54708}
+#reports .deadline.district{background:#eef6ff;border-color:#cfe2ff}
+#reports .deadline.district .dvalue{color:#155eef}
+#reports .action-line{margin-top:13px;padding:12px 13px;border-radius:11px;background:#f7f9fc;
+  color:#435466;font-size:12px;line-height:1.55}
+#reports .modern-tracker{margin-top:18px;background:#fff;border:1px solid #e4ebf2;border-radius:18px;
+  overflow:hidden;box-shadow:0 7px 20px rgba(25,55,80,.06)}
+#reports .tracker-head{padding:18px 20px;border-bottom:1px solid #edf2f7}
+#reports .tracker-head h2{margin:0;font-size:18px;color:#17324d}
+#reports .tracker-head p{margin:5px 0 0;font-size:11px;color:#7b8794}
+#reports .modern-table{width:100%;border-collapse:collapse;min-width:1050px}
+#reports .modern-table th{background:#f7f9fc;color:#66788a;font-size:9px;text-transform:uppercase;
+  letter-spacing:.55px;font-weight:900;padding:11px 12px;text-align:left;border-bottom:1px solid #e5ebf1}
+#reports .modern-table td{padding:13px 12px;font-size:11px;color:#34495e;border-bottom:1px solid #eef2f6;vertical-align:top}
+#reports .modern-table tr:last-child td{border-bottom:0}
+#reports .modern-table tr:hover td{background:#fbfdff}
+#reports .due-red{font-weight:900;color:#c62828}
+#reports .muted-cell{color:#8a97a5}
+#reports .modern-footer-note{margin-top:14px;font-size:10px;color:#7b8794;line-height:1.5}
+@media(max-width:900px){
+ #reports .modern-summary{grid-template-columns:repeat(2,1fr)}
+ #reports .deadline-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+ #reports .modern-summary{grid-template-columns:1fr}
+ #reports .deadline-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+
+<style id="bottom-refresh-style">
+#bottomRefreshBtn{
+  position:fixed;right:22px;bottom:18px;z-index:9998;
+  border:0;border-radius:999px;padding:10px 16px;
+  background:#17324d;color:#fff;font-size:12px;font-weight:800;
+  box-shadow:0 7px 20px rgba(20,48,75,.22);cursor:pointer;
+}
+#bottomRefreshBtn:hover{transform:translateY(-1px)}
+#bottomRefreshBtn:disabled{opacity:.65;cursor:wait}
+@media(max-width:600px){#bottomRefreshBtn{right:12px;bottom:12px}}
+</style>
+
+<style id="gp-contacts-modern">
+#contacts .cards{grid-template-columns:repeat(6,1fr)}
+#contacts #contactsTable table{min-width:1250px}
+#contacts #contactsTable th{white-space:nowrap}
+@media(max-width:1100px){#contacts .cards{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:650px){#contacts .cards{grid-template-columns:repeat(2,1fr)}}
+</style>
+<style id="gp-contacts-modern-v2">
+#contacts .gp-head{padding:18px 20px}.gp-title-row,#contacts .gp-panel-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+#contacts .gp-title-row h2{margin:3px 0;font-size:18px}.eyebrow{font-size:9px;font-weight:800;letter-spacing:.12em;color:#6b7d90}
+.gp-live{background:#eef6ff;color:#155eef;border-radius:999px;padding:7px 11px;font-size:10px;font-weight:800}
+#contacts .gp-filters{margin-top:14px;display:grid;grid-template-columns:160px 180px 160px minmax(240px,1fr) auto;gap:8px}
+#contacts .gp-filters select,#contacts .gp-filters input{min-width:0}.gp-reset{border:1px solid #d6e0ea;background:#fff;border-radius:8px;padding:9px 14px;font-weight:700;color:#334e68;cursor:pointer}
+.gp-reset:hover{background:#f5f8fb}.gp-legend{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:10px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px}.dot.permanent{background:#0b7a53}.dot.ic{background:#c45a00}.dot.vacant{background:#c62828}
+#contacts .gp-kpis{grid-template-columns:repeat(5,minmax(130px,1fr));margin-top:14px;gap:10px}.gp-kpis .card{min-height:92px}.gp-ic{color:#b54708}.gp-ic-text{color:#b54708;font-weight:800}
+.gp-coverage{margin-top:12px}.gp-coverage h3,.gp-table-panel h3{margin:0;font-size:14px}.coverage-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:15px}
+.coverage-label{display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin-bottom:7px}.bar{height:9px;border-radius:99px;background:#e8eef4;overflow:hidden}.bar span{display:block;height:100%;width:0%;background:#1b73e8;border-radius:99px;transition:width .25s ease}
+.gp-attention{background:#fff3f3;color:#b42318;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:800}.gp-table-panel{margin-top:12px}.gp-count{background:#f1f5f9;color:#334e68;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:800}
+#contactsTable{margin-top:12px}#contactsTable table{min-width:1280px}#contactsTable th{position:sticky;top:0;z-index:2;white-space:nowrap}#contactsTable tbody tr:hover td{background:#f8fbff}
+.gp-note{margin-top:12px;font-size:10px;line-height:1.7}
+@media(max-width:1000px){#contacts .gp-filters{grid-template-columns:1fr 1fr}#contacts .gp-kpis{grid-template-columns:repeat(3,1fr)}}@media(max-width:650px){#contacts .gp-filters,.coverage-grid{grid-template-columns:1fr}#contacts .gp-kpis{grid-template-columns:repeat(2,1fr)}}
+</style><style id="gp-two-row-summary">
+#contacts .gp-staff-summary{margin-top:14px;padding:14px 16px}
+#contacts .gp-summary-wrap{overflow:auto;margin-top:10px}
+#contacts .gp-summary-table{width:100%;min-width:760px;border-collapse:separate;border-spacing:0;font-size:11px}
+#contacts .gp-summary-table th{background:#f5f8fb;color:#64748b;font-size:9px;text-transform:uppercase;letter-spacing:.04em;text-align:left;padding:9px 10px;border-bottom:1px solid #dfe7ef;white-space:nowrap}
+#contacts .gp-summary-table td{padding:11px 10px;border-bottom:1px solid #edf1f5;font-weight:700;white-space:nowrap}
+#contacts .gp-summary-table tbody tr:last-child td{border-bottom:0}
+#contacts .gp-summary-table tbody tr:hover td{background:#f8fbff}
+#contacts .good-text{color:#087443}.ic-text{color:#b54708}.bad-text{color:#b42318}
+#contacts .coverage-pill{display:inline-block;min-width:48px;text-align:center;padding:4px 8px;border-radius:999px;background:#edf5ff;color:#155eef;font-weight:800}
+</style><style id="gp-contacts-front-modern">
+#contacts .gp-modern-hero{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:22px 24px;border-radius:18px;background:linear-gradient(135deg,#17324d,#2a5f89);color:#fff;box-shadow:0 10px 28px rgba(23,50,77,.18)}
+#contacts .gp-eyebrow{font-size:9px;font-weight:900;letter-spacing:.12em;opacity:.72}
+#contacts .gp-modern-hero h2{margin:6px 0 4px;font-size:22px}
+#contacts .gp-modern-hero p{margin:0;opacity:.82;font-size:12px}
+#contacts .gp-hero-status{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);font-size:10px;font-weight:800;white-space:nowrap}
+#contacts .gp-status-dot{width:8px;height:8px;border-radius:50%;background:#73d13d;box-shadow:0 0 0 4px rgba(115,209,61,.16)}
+#contacts .gp-filter-card{margin-top:14px;background:#fff;border:1px solid #e2eaf2;border-radius:16px;padding:16px 18px;box-shadow:0 5px 18px rgba(24,54,84,.06)}
+#contacts .gp-filter-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:12px}
+#contacts .gp-filter-title{font-size:13px;font-weight:850;color:#17324d}
+#contacts .gp-reset-modern{border:1px solid #d6e1eb;background:#fff;color:#29445f;border-radius:9px;padding:8px 12px;font-size:11px;font-weight:800;cursor:pointer}
+#contacts .gp-reset-modern:hover{background:#f6f9fc}
+#contacts .gp-filter-grid{display:grid;grid-template-columns:1fr 1.2fr 1fr 2fr;gap:10px}
+#contacts .gp-field label{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.06em;font-weight:850;color:#6d7f92;margin:0 0 5px}
+#contacts .gp-field select,#contacts .gp-search-box{width:100%;height:38px;border:1px solid #d7e1eb;border-radius:9px;background:#fff}
+#contacts .gp-field select{padding:0 10px;color:#334e68}
+#contacts .gp-search-box{display:flex;align-items:center;gap:8px;padding:0 10px}
+#contacts .gp-search-box span{font-size:18px;color:#7b8b9b}
+#contacts .gp-search-box input{border:0;outline:0;flex:1;height:100%;font-size:11px;background:transparent}
+#contacts .gp-legend-modern{display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-top:12px;font-size:10px}
+#contacts .gp-legend-modern .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px}
+#contacts .gp-legend-modern .dot.permanent{background:#0b7a53}
+#contacts .gp-legend-modern .dot.ic{background:#c45a00}
+#contacts .gp-legend-modern .dot.vacant{background:#c62828}
+#contacts .gp-legend-note{color:#7d8b9a}
+#contacts .gp-staffing-strip{display:flex;align-items:center;gap:16px;margin:12px 0 4px;padding:11px 15px;background:#f7f9fc;border:1px solid #e2e8f0;border-radius:12px}
+#contacts .gp-strip-item{display:flex;align-items:baseline;gap:8px}
+#contacts .gp-strip-label{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:#7b8794;font-weight:850}
+#contacts .gp-strip-item strong{font-size:13px;color:#17324d}
+#contacts .gp-strip-divider{height:18px;width:1px;background:#dbe3eb}
+@media(max-width:900px){#contacts .gp-filter-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){#contacts .gp-modern-hero{padding:18px;align-items:flex-start;flex-direction:column}#contacts .gp-filter-grid{grid-template-columns:1fr}#contacts .gp-staffing-strip{flex-wrap:wrap}}
+</style></head>
+<body>
+
+
+<header class="hero">
+<div>
+<h1>VB-G RAM G Dashboard</h1>
+<p>District-level monitoring · GP & Block-wise performance<div class="muted" style="margin-top:7px;font-size:11px">For monitoring purposes only. Data reflects the latest information available after the Administrator updates the source data.</div></p>
+<div class="live">● MONITORING PURPOSE ONLY · Data reflects the latest information updated by the Administrator</div>
+</div>
+</header>
+
+<nav>
+<button class="tab active" data-page="overview">🏠 District Overview</button>
+<button class="tab" data-page="ekyc">📊 e-KYC & ABPS</button>
+<button class="tab" data-page="employment">💼 PHYSICAL PROGRESS REPORT</button>
+<button class="tab" data-page="contacts">👷 GP Contacts</button>
+<button class="tab" data-page="action">🚨 Action Required</button>
+<button class="tab" data-page="ranking">🏆 Performance</button>
+<button class="tab" data-page="analytics">📈 Analytics</button>
+<button class="tab" data-page="documents">📚 Documents</button>
+<button class="tab" data-page="reports">🔔 Pending Reports</button>
+<button class="tab" data-page="geotag">📍 Geo-tag</button>
+</nav>
+
+<main>
+<section class="page active" id="overview"><div class="wrap">
+<div id="liveDataPanel" class="panel" style="display:none !important">
+  <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
+    <div><h2 style="margin:0">🔄 Live Data Status</h2><div class="muted">Data is read directly from the connected Google Sheet</div></div>
+    <div><button id="refreshLive" class="docBtn" onclick="loadLiveData()">↻ Refresh Now</button></div>
+  </div>
+  <div id="liveMeta" style="margin-top:10px;font-size:13px">Waiting for Google Sheet…</div>
+</div>
+
+<div class="cards">
+<div class="card"><div class="label">Blocks</div><div id="overviewBlocks" class="value">—</div></div>
+<div class="card"><div class="label">Gram Panchayats</div><div id="overviewGPs" class="value">—</div></div>
+<div class="card"><div class="label">e-KYC</div><div id="overviewEkyc" class="value">—</div></div>
+<div class="card"><div class="label">ABPS</div><div id="overviewAbps" class="value">—</div></div>
+<div class="card"><div class="label">Persondays</div><div id="overviewPersondays" class="value">—</div></div>
+</div>
+<div class="grid">
+<div class="panel"><h2 class="section-heading">Employment Snapshot</h2><table><thead><tr><th>Indicator</th><th>Household</th><th>Persons</th></tr></thead><tbody>
+<tr><td>Demanded</td><td>2,542</td><td>3,028</td></tr><tr><td>Offered</td><td>2,536</td><td>3,021</td></tr><tr><td>Availed</td><td>2,498</td><td>2,944</td></tr><tr><td class="bad">Demand → Offer Gap</td><td>6</td><td>7</td></tr><tr><td class="bad">Demand → Avail Gap</td><td>44</td><td>84</td></tr></tbody></table></div>
+<div class="panel"><h2>Block Overview</h2>
+<div class="rank"><b>Amguri</b><span>e-KYC 96.2%</span></div><div class="rank"><b>Demow</b><span>e-KYC 95.1%</span></div><div class="rank"><b>Gaurisagar</b><span>e-KYC 93.8%</span></div><div class="rank"><b>Nazira</b><span>e-KYC 97.2%</span></div><div class="rank"><b>Sivasagar</b><span class="bad">e-KYC 90.7%</span></div>
+</div></div>
+<div class="grid3"></div></div><div class="muted">Families completed</div></div></div>
+
+<div class="panel" style="margin-top:18px">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+  <div><h2>🔴 Worst 5 GP — District Overview</h2><div class="muted">Dynamic ranking from Google Sheet data</div></div>
+  <span style="background:#fff1f0;color:#b42318;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:700">LIVE WORST RANKING</span>
+ </div>
+ <div class="grid3" style="margin-top:14px">
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">✓</span><span class="metric-name">e-KYC</span></h3><div id="worst5Ekyc"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">₹</span><span class="metric-name">ABPS</span></h3><div id="worst5Abps"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">👥</span><span class="metric-name">TOTAL PERSONDAYS</span></h3><div id="worst5Persondays"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">📊</span><span class="metric-name">PHYSICAL PROGRESS</span></h3><div id="worst5Physical"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">⚠</span><span class="metric-name">DEMAND → OFFER GAP</span></h3><div id="worst5OfferGap"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">⚠</span><span class="metric-name">DEMAND → AVAIL GAP</span></h3><div id="worst5AvailGap"><div class="muted">Loading…</div></div></div>
+ </div>
+ <div class="panel" style="margin-top:14px">
+ <h3>📍 Geo-tag — Highest Attention</h3>
+ <div class="grid3" style="margin-top:12px">
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">🔵</span><span class="metric-name">BEFORE GEO-TAG PENDING</span></h3><div id="worst5GeoBefore"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">🟠</span><span class="metric-name">DURING GEO-TAG PENDING</span></h3><div id="worst5GeoDuring"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3 class="metric-heading"><span class="metric-icon">🟣</span><span class="metric-name">AFTER GEO-TAG PENDING</span></h3><div id="worst5GeoAfter"><div class="muted">Loading…</div></div></div>
+ </div>
+ <div class="panel" style="margin-top:14px"><h3 class="metric-heading"><span class="metric-icon">⚠</span><span class="metric-name">MODERATE / ACCEPTANCE PENDING — BLOCK LEVEL</span></h3><div id="worst5GeoAcceptance"><div class="muted">Loading…</div></div></div>
+</div>
+</div>
+</div></section>
+
+<section class="page" id="ekyc"><div class="wrap">
+<div class="panel">
+ <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
+  <div><h2>📊 e-KYC & ABPS Monitoring</h2><div class="muted">Live GP-wise data from Google Sheet</div></div>
+  <span id="ekycLiveState" style="background:#eef6ff;color:#155eef;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:700">WAITING FOR DATA</span>
+ </div>
+ <div class="filters" style="margin-top:14px">
+  <select id="ekycBlockFilter"><option value="">All Blocks</option></select>
+  <label class="range">e-KYC Threshold <input id="ekycThreshold" type="range" min="0" max="100" value="95"><b id="ekycThresholdVal">95%</b></label>
+  <label class="range">ABPS Threshold <input id="abpsThreshold" type="range" min="0" max="100" value="95"><b id="abpsThresholdVal">95%</b></label>
+ </div>
+</div>
+
+<div class="cards" style="margin-top:18px">
+ <div class="card"><div class="label">e-KYC Average</div><div id="ekycAvg" class="value">—</div><div class="muted">GP-wise weighted average</div></div>
+ <div class="card"><div class="label">ABPS Average</div><div id="abpsAvg" class="value">—</div><div class="muted">GP-wise weighted average</div></div>
+ <div class="card"><div class="label"> in e-KYC</div><div id="bestEkyc" class="value" style="font-size:20px">—</div></div>
+ <div class="card"><div class="label">Worst GP in e-KYC</div><div id="worstEkyc" class="value" style="font-size:20px">—</div></div>
+ <div class="card"><div class="label">GPs below e-KYC threshold</div><div id="ekycBelow" class="value">—</div></div>
+ <div class="card"><div class="label">GPs below ABPS threshold</div><div id="abpsBelow" class="value">—</div></div>
+</div>
+
+<div class="grid3" style="margin-top:18px">
+ <div class="panel"><h2>🟢  in e-KYC</h2><div id="bestEkycList"><div class="muted">Waiting for live data…</div></div></div>
+ <div class="panel"><h2>🔴 Worst GP in e-KYC</h2><div id="worstEkycList"><div class="muted">Waiting for live data…</div></div></div>
+ <div class="panel"><h2>📊 ABPS Performance</h2><div id="abpsSummary"><div class="muted">Waiting for live data…</div></div></div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+  <div><h2>GP-wise e-KYC & ABPS Data</h2><div class="muted">Actual rows loaded from the “eKYC & ABPS” Google Sheet tab</div></div>
+  <input id="ekycSearch" type="text" placeholder="🔎 Search Block / GP..." style="min-width:220px">
+ </div>
+ <div id="ekycTable" class="scroll" style="margin-top:12px"><div class="muted">Waiting for Google Sheet data…</div></div>
+</div>
+</div></section>
+
+<section class="page" id="employment"><div class="wrap">
+<div class="panel">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+  <div><h2>📋 PHYSICAL PROGRESS REPORT</h2><div class="muted">Live Block-wise & GP-wise employment progress</div></div>
+  <span id="physicalLiveState" style="background:#eef6ff;color:#155eef;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:700">WAITING FOR DATA</span>
+ </div>
+ <div class="filters" style="margin-top:14px">
+  <select id="physicalBlockFilter"><option value="">All Blocks</option></select>
+  <select id="physicalGPFilter"><option value="">All GPs</option></select>
+  <select id="physicalStatusFilter">
+   <option value="">All Status</option><option value="Good">Good</option><option value="Attention">Attention</option>
+  </select>
+  <label class="range">Demand→Offer Gap
+   <input id="offerGapFilter" type="range" min="0" max="100" value="100">
+   <b id="offerGapFilterVal">≤100</b>
+  </label>
+  <label class="range">Demand→Avail Gap
+   <input id="availGapFilter" type="range" min="0" max="100" value="100">
+   <b id="availGapFilterVal">≤100</b>
+  </label>
+  <label class="range">Persondays
+   <input id="persondaysFilter" type="range" min="0" max="100000" value="100000">
+   <b id="persondaysFilterVal">≤100000</b>
+  </label>
+</div>
+</div>
+
+<div class="cards" style="margin-top:18px">
+ <div class="card"><div class="label">Demanded HH</div><div id="ppDemandHH" class="value">—</div></div>
+ <div class="card"><div class="label">Offered HH</div><div id="ppOfferHH" class="value">—</div></div>
+ <div class="card"><div class="label">Availed HH</div><div id="ppAvailHH" class="value">—</div></div>
+ <div class="card"><div class="label">Demand→Offer Gap</div><div id="ppOfferGap" class="value">—</div></div>
+ <div class="card"><div class="label">Demand→Avail Gap</div><div id="ppAvailGap" class="value">—</div></div>
+ <div class="card"><div class="label">Total Persondays</div><div id="ppPersondays" class="value">—</div></div>
+ <div class="card"><div class="label">125-Day Families</div><div id="ppFamilies125" class="value">—</div><div class="muted">Families completed 125 days</div></div>
+ <div class="card"><div class="label">GP Records</div><div id="ppGPCount" class="value">—</div><div class="muted">Loaded from Google Sheet</div></div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+  <div><h2>Block / GP-wise Physical Progress</h2><div class="muted">Filters apply instantly to the live Google Sheet rows</div></div>
+  <input id="physicalSearch" type="text" placeholder="🔎 Search Block / GP..." style="min-width:220px">
+ </div>
+ <div id="physicalTable" class="scroll" style="margin-top:12px"><div class="muted">Waiting for Google Sheet data…</div></div>
+</div>
+</div></section>
+
+<section class="page" id="contacts"><div class="wrap">
+<div class="gp-modern-hero">
+  <div class="gp-hero-main">
+    <div class="gp-eyebrow">FIELD STAFFING · LIVE MONITORING</div>
+    <h2>👷 GP-wise GRS & Accredited Engineers</h2>
+    <p>Contact directory, staffing status and functional coverage across Gram Panchayats.</p>
+  </div>
+  <div class="gp-hero-status">
+    <span class="gp-status-dot"></span>
+    <span id="contactsLiveState">WAITING FOR DATA</span>
+  </div>
+</div>
+
+<div class="gp-filter-card">
+  <div class="gp-filter-head">
+    <div>
+      <div class="gp-filter-title">Find a GP or Staff Member</div>
+      <div class="muted">Use one or more filters. The register updates instantly.</div>
+    </div>
+    <button id="contactsReset" type="button" class="gp-reset-modern">↻ Reset</button>
+  </div>
+  <div class="gp-filter-grid">
+    <div class="gp-field">
+      <label>Block</label>
+      <select id="contactsBlockFilter"><option value="">All Blocks</option></select>
+    </div>
+    <div class="gp-field">
+      <label>Gram Panchayat</label>
+      <select id="contactsGPFilter"><option value="">All GPs</option></select>
+    </div>
+    <div class="gp-field">
+      <label>Occupancy</label>
+      <select id="contactsStatusFilter"><option value="">All Occupancy</option></select>
+    </div>
+    <div class="gp-field gp-search">
+      <label>Search</label>
+      <div class="gp-search-box"><span>⌕</span><input id="contactsSearch" type="text" placeholder="GP / Name / Phone / Remarks"></div>
+    </div>
+  </div>
+  <div class="gp-legend-modern">
+    <span><i class="dot permanent"></i> Permanent</span>
+    <span><i class="dot ic"></i> I/C</span>
+    <span><i class="dot vacant"></i> Vacant</span>
+    <span class="gp-legend-note">I/C = functionally covered, but not Permanent</span>
+  </div>
+</div>
+
+<div class="gp-staffing-strip">
+  <div class="gp-strip-item"><span class="gp-strip-label">Live Records</span><strong id="contactsResultCount">—</strong></div>
+  <div class="gp-strip-divider"></div>
+  <div class="gp-strip-item"><span class="gp-strip-label">Attention</span><strong id="contactsAttention">—</strong></div>
+  <div class="gp-strip-divider"></div>
+  <div class="gp-strip-item"><span class="gp-strip-label">Data Source</span><strong>Google Sheet</strong></div>
+</div>
+
+<div class="panel gp-staff-summary">
+ <div class="gp-panel-head">
+  <div><h3>Staffing & Vacancy Summary</h3><span class="muted">Two-row view — first row GRS, second row Accredited Engineer</span></div>
+ </div>
+ <div class="gp-summary-wrap">
+  <table class="gp-summary-table">
+   <thead><tr>
+    <th>Category</th><th>Total GP</th><th>Permanent</th><th>I/C</th><th>Vacant</th><th>Functionally Covered</th><th>Coverage</th>
+   </tr></thead>
+   <tbody>
+    <tr>
+     <td><b>👷 GRS</b></td>
+     <td id="contactsGPCount">—</td>
+     <td id="contactsGRSPermanent" class="good-text">—</td>
+     <td id="contactsGRSIC" class="ic-text">—</td>
+     <td id="contactsGRSVacant" class="bad-text">—</td>
+     <td id="contactsGRSFunctional">—</td>
+     <td><span id="contactsGRSPct" class="coverage-pill">—</span></td>
+    </tr>
+    <tr>
+     <td><b>🛠 Accredited Engineer</b></td>
+     <td id="contactsEngineerGPCount">—</td>
+     <td id="contactsEngineerPermanent" class="good-text">—</td>
+     <td id="contactsEngineerIC" class="ic-text">—</td>
+     <td id="contactsEngineerVacant" class="bad-text">—</td>
+     <td id="contactsEngineerFunctional">—</td>
+     <td><span id="contactsEngineerPct" class="coverage-pill">—</span></td>
+    </tr>
+   </tbody>
+  </table>
+ </div>
+</div>
+<div class="panel gp-coverage">
+ <div class="gp-panel-head"><div><h3>Coverage Snapshot</h3><span class="muted">Based on current filtered records</span></div><span id="contactsAttention" class="gp-attention">—</span></div>
+ <div class="coverage-grid">
+  <div><div class="coverage-label"><span>GRS functional coverage</span><b id="contactsGRSPct">—</b></div><div class="bar"><span id="contactsGRSBar"></span></div></div>
+  <div><div class="coverage-label"><span>Engineer functional coverage</span><b id="contactsEngineerPct">—</b></div><div class="bar"><span id="contactsEngineerBar"></span></div></div>
+ </div>
+</div>
+
+<div class="panel gp-table-panel">
+ <div class="gp-panel-head"><div><h3>GP Contact Register</h3><span class="muted">Filter or search to locate a GP quickly.</span></div><span id="contactsResultCount" class="gp-count">—</span></div>
+ <div class="scroll" id="contactsTable"><div class="muted">Waiting for Google Sheet data…</div></div>
+</div>
+
+<div class="panel gp-note"><b>Vacancy interpretation:</b> <span class="bad">Vacant</span> = post not functionally covered. <span class="gp-ic-text">I/C</span> = functionally covered but not Permanent. <span class="muted">Regular vacancy and functional vacancy are different monitoring indicators.</span></div>
+</div></section>
+
+<section class="page" id="action"><div class="wrap">
+<div class="panel">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+  <div><h2>🚨 Action Required</h2><p class="muted">Live priority actions generated from current Google Sheet data.</p></div>
+  <span id="actionLiveState" style="background:#eef6ff;color:#155eef;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:700">WAITING FOR DATA</span>
+ </div>
+ <div class="filters" style="margin-top:14px">
+  <select id="actionBlockFilter"><option value="">All Blocks</option></select>
+  <select id="actionGPFilter"><option value="">All GPs</option></select>
+  <select id="actionPriorityFilter"><option value="">All Priority</option><option value="High">High</option><option value="Medium">Medium</option></select>
+  <input id="actionSearch" type="text" placeholder="🔎 Search issue / Block / GP..." style="flex:1;min-width:220px">
+ </div>
+</div>
+
+<div class="cards" style="margin-top:18px">
+ <div class="card"><div class="label">High Priority</div><div id="actionHigh" class="value bad">—</div><div class="muted">GPs</div></div>
+ <div class="card"><div class="label">Medium Priority</div><div id="actionMedium" class="value">—</div><div class="muted">GPs</div></div>
+ <div class="card"><div class="label">Total Actions</div><div id="actionTotal" class="value">—</div><div class="muted">Current issues</div></div>
+ <div class="card"><div class="label">Performing Well</div><div id="actionGood" class="value good">—</div><div class="muted">GPs with no current action</div></div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <h2>Current Action Items</h2>
+ <div id="actionTable" class="scroll"><div class="muted">Waiting for Google Sheet data…</div></div>
+</div>
+</div></section>
+
+<section class="page" id="ranking"><div class="wrap"><div class="grid">
+<div class="panel"><h2>🏆 Best Performing</h2><div class="rank"><b>1. Sukafa</b><span class="good">100% e-KYC</span></div><div class="rank"><b>2. Rajabari</b><span class="good">100% e-KYC</span></div><div class="rank"><b>3. Borbam</b><span class="good">99.8% e-KYC</span></div><div class="rank"><b>4. Nazira GP</b><span class="good">98.9% ABPS</span></div><div class="rank"><b>5. Demow GP</b><span class="good">1,180 Persondays</span></div></div>
+<div class="panel"><h2>⚠️ Needs Attention</h2><div class="rank"><b>1. </b><span class="bad"> e-KYC</span></div><div class="rank"><b>2. GP-B</b><span class="bad"> ABPS</span></div><div class="rank"><b>3. GP-C</b><span class="bad">18 persons gap</span></div><div class="rank"><b>4. GP-D</b><span class="bad"> Persondays</span></div></div></div></div></section>
+
+<section class="page" id="analytics"><div class="wrap">
+<div class="panel">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div><h2>📈 District Analytics</h2><div class="muted">Visual comparison of employment, e-KYC, ABPS and persondays</div></div>
+    <div class="filters"><select><option>All Blocks</option><option>Amguri</option><option>Demow</option><option>Gaurisagar</option><option>Nazira</option><option>Sivasagar</option></select><select><option>Current Period</option><option>Previous Period</option></select></div>
+  </div>
+</div>
+
+<div class="cards" style="margin-top:18px">
+ <div class="card"><div class="label">e-KYC</div><div class="value">94.6%</div><div class="muted">District average</div></div>
+ <div class="card"><div class="label">ABPS</div><div class="value">96.8%</div><div class="muted">District average</div></div>
+ <div class="card"><div class="label">Persondays</div><div class="value">34,679</div><div class="muted">Total generated</div></div>
+ <div class="card"><div class="label">Demand → Offer</div><div class="value">99.8%</div><div class="muted">Fulfilment</div></div>
+ <div class="card"><div class="label">Demand → Avail</div><div class="value">97.2%</div><div class="muted">Fulfilment</div></div>
+ <div class="card"><div class="label">📍 Geo Pending</div><div class="value">204</div><div class="muted">Before + During + After</div></div>
+ <div class="card"><div class="label">🟡 Geo Moderate</div><div class="value">53</div><div class="muted">Acceptance Pending</div></div>
+</div>
+
+<div class="grid" style="margin-top:18px">
+ <div class="panel">
+  <h2>📊 e-KYC by Block</h2>
+  <div class="bar" style="height:24px;margin:12px 0"><div class="fill" style="width:96.2%"></div></div><div class="rank"><b>Amguri</b><span>96.2%</span></div>
+  <div class="bar" style="height:24px;margin:12px 0"><div class="fill" style="width:95.1%"></div></div><div class="rank"><b>Demow</b><span>95.1%</span></div>
+  <div class="bar" style="height:24px;margin:12px 0"><div class="fill" style="width:93.8%"></div></div><div class="rank"><b>Gaurisagar</b><span>93.8%</span></div>
+  <div class="bar" style="height:24px;margin:12px 0"><div class="fill" style="width:97.2%"></div></div><div class="rank"><b>Nazira</b><span>97.2%</span></div>
+  <div class="bar" style="height:24px;margin:12px 0"><div class="fill" style="width:90.7%"></div></div><div class="rank"><b>Sivasagar</b><span class="bad">90.7%</span></div>
+ </div>
+
+ <div class="panel">
+  <h2>📊 Persondays by Block</h2>
+  <div class="rank"><b>Nazira</b><strong>8,420</strong></div>
+  <div class="bar"><div class="fill" style="width:100%"></div></div>
+  <div class="rank"><b>Amguri</b><strong>7,610</strong></div>
+  <div class="bar"><div class="fill" style="width:90.4%"></div></div>
+  <div class="rank"><b>Demow</b><strong>6,950</strong></div>
+  <div class="bar"><div class="fill" style="width:82.5%"></div></div>
+  <div class="rank"><b>Gaurisagar</b><strong>6,430</strong></div>
+  <div class="bar"><div class="fill" style="width:76.4%"></div></div>
+  <div class="rank"><b>Sivasagar</b><strong>5,269</strong></div>
+  <div class="bar"><div class="fill" style="width:62.6%"></div></div>
+ </div>
+</div>
+
+<div class="grid3">
+ <div class="panel">
+  <h2>📊 Demand vs Offer vs Avail</h2>
+  <div class="muted">Households</div>
+  <div class="rank"><span>Demand</span><b>2,542</b></div>
+  <div class="bar"><div class="fill" style="width:100%"></div></div>
+  <div class="rank"><span>Offer</span><b>2,536</b></div>
+  <div class="bar"><div class="fill" style="width:99.8%"></div></div>
+  <div class="rank"><span>Avail</span><b>2,498</b></div>
+  <div class="bar"><div class="fill" style="width:98.3%"></div></div>
+ </div>
+
+ <div class="panel">
+  <h2>📊 Employment Gap</h2>
+  <div class="rank"><span>Demand → Offer</span><b class="bad">6 HH / 7 Persons</b></div>
+  <div class="rank"><span>Demand → Avail</span><b class="bad">44 HH / 84 Persons</b></div>
+  <div class="rank"><span>Gap-free Blocks</span><b class="good">2</b></div>
+ </div>
+
+ <div class="panel">
+  <h2>🎯 125-Day Completion</h2>
+  <div class="value">16</div>
+  <div class="muted">Families completed 125 days</div>
+  <div class="bar" style="margin-top:16px"><div class="fill" style="width:64%"></div></div>
+  <div class="muted" style="margin-top:7px">Demo progress indicator</div>
+ </div>
+</div>
+
+<div class="grid" style="margin-top:18px">
+ <div class="panel">
+  <h2>📍 Geo-tag Monitoring — Stage-wise</h2>
+  <div class="muted">Each stage separately shows Pending and Moderate / Acceptance Pending at Block Level</div>
+  <table>
+   <thead><tr><th>Stage</th><th>Pending</th><th>Moderate / Acceptance Pending</th><th>Total Attention</th></tr></thead>
+   <tbody>
+    <tr><td>🔵 Before Geo-tag</td><td class="bad">125</td><td>22</td><td class="bad">147</td></tr>
+    <tr><td>🟠 During Geo-tag</td><td class="bad">48</td><td>17</td><td class="bad">65</td></tr>
+    <tr><td>🟣 After Geo-tag</td><td class="bad">31</td><td>14</td><td class="bad">45</td></tr>
+    <tr><td><b>Total</b></td><td class="bad"><b>204</b></td><td><b>53</b></td><td class="bad"><b>257</b></td></tr>
+   </tbody>
+  </table>
+ </div>
+ <div class="panel">
+  <h2>📍 Block-wise Geo-tag Attention</h2>
+  <div class="muted">Pending and acceptance-pending are shown separately at Block Level</div>
+  <table>
+   <thead><tr><th>Block</th><th>Before P</th><th>Before M</th><th>During P</th><th>During M</th><th>After P</th><th>After M</th></tr></thead>
+   <tbody>
+    <tr><td>Sivasagar</td><td class="bad">40</td><td>8</td><td class="bad">14</td><td>6</td><td class="bad">9</td><td>4</td></tr>
+    <tr><td>Gaurisagar</td><td class="bad">35</td><td>7</td><td class="bad">15</td><td>5</td><td>8</td><td>3</td></tr>
+    <tr><td>Amguri</td><td>20</td><td>3</td><td>8</td><td>3</td><td>6</td><td>3</td></tr>
+    <tr><td>Demow</td><td>18</td><td>2</td><td>6</td><td>2</td><td>5</td><td>2</td></tr>
+    <tr><td>Nazira</td><td>12</td><td>2</td><td>5</td><td>1</td><td>3</td><td>2</td></tr>
+   </tbody>
+  </table>
+ </div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <h2>🚨 GP-wise Geo-tag Attention</h2>
+ <div class="muted">P = Pending · M = Moderate / Acceptance Pending</div>
+ <div class="scroll">
+ <table>
+  <thead><tr><th>S.No.</th><th>Block</th><th>GP</th><th>Before P</th><th>Before M</th><th>During P</th><th>During M</th><th>After P</th><th>After M</th><th>Total Attention</th></tr></thead>
+  <tbody>
+   <tr><td>1</td><td>Sivasagar</td><td></td><td class="bad">12</td><td>3</td><td>5</td><td>2</td><td>3</td><td>1</td><td class="bad">26</td></tr>
+   <tr><td>2</td><td>Gaurisagar</td><td>GP-B</td><td class="bad">10</td><td>2</td><td>6</td><td>2</td><td>2</td><td>1</td><td class="bad">23</td></tr>
+   <tr><td>3</td><td>Amguri</td><td>GP-C</td><td>7</td><td>1</td><td>4</td><td>2</td><td>2</td><td>1</td><td>17</td></tr>
+   <tr><td>4</td><td>Demow</td><td>GP-D</td><td>5</td><td>1</td><td>3</td><td>1</td><td>2</td><td>1</td><td>13</td></tr>
+  </tbody>
+ </table>
+ </div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <h2>🧭 Management View</h2>
+ <div class="grid3" style="margin-top:0">
+  <div><h3>Strongest</h3><div class="good">Nazira — highest e-KYC & persondays</div></div>
+  <div><h3>Watch</h3><div>Gaurisagar — moderate e-KYC with higher geo/report monitoring needs</div></div>
+  <div><h3>Priority</h3><div class="bad">Sivasagar — lowest demo e-KYC and persondays</div></div>
+ </div>
+</div>
+</div></section>
+
+<section class="page" id="documents"><div class="wrap">
+<div class="panel">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+  <div><h2 class="section-heading">📚 Documents / Important SOPs & Guidelines</h2>
+  <p class="muted">Important letters, norms, SOPs and guidelines for monitoring and necessary action.</p></div>
+  <span style="background:#eef6ff;color:#155eef;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:800">IMPORTANT DOCUMENTS</span>
+ </div>
+</div>
+
+<div class="panel" style="margin-top:18px;border-left:5px solid #b54708">
+ <div style="display:flex;gap:14px;align-items:flex-start">
+  <div style="font-size:28px">📌</div>
+  <div style="flex:1">
+   <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap">
+    <div>
+     <h2 style="margin:0 0 7px">Revised SDRF Norms — Flood 2026</h2>
+     <div class="muted">Office of the District Commissioner, Sivasagar · District Disaster Management Authority</div>
+    </div>
+    <span style="background:#fff4e5;color:#b54708;padding:6px 9px;border-radius:999px;font-size:11px;font-weight:800">ACTION REQUIRED</span>
+   </div>
+
+   <div class="grid3" style="margin-top:16px">
+    <div class="card"><div class="label">Letter No.</div><div class="value" style="font-size:17px">SVDM/Gr Flood/132/Pt-I/2026/</div></div>
+    <div class="card"><div class="label">Letter Date</div><div class="value" style="font-size:19px">17-08-2026</div></div>
+    <div class="card"><div class="label">Block Due Date</div><div class="value bad" style="font-size:19px">20-08-2026</div></div><div class="card"><div class="label">District Due Date</div><div class="value bad" style="font-size:19px">22-08-2026</div></div>
+   </div>
+
+   <div style="margin-top:16px;padding:14px 16px;background:#f7f9fc;border-radius:12px;line-height:1.65">
+    <b>Subject:</b> Forwarding of revised SDRF Norms under Point No. 11 — Infrastructure
+    (Repair/Restoration of damaged infrastructure) for information and necessary action.
+   </div>
+
+   <p style="margin:14px 0 0;line-height:1.65">
+    Particular attention is invited to <b>Point No. 11 (1), (2) & (4) — Infrastructure</b>,
+    covering immediate repair/restoration of damaged roads and bridges, drinking water supply schemes,
+    culverts, power infrastructure, Primary/Community Health Centres and community assets, subject to the prescribed norms, ceilings and conditions.
+   </p>
+
+   <p style="margin:10px 0 0;line-height:1.65">
+    Concerned authorities are requested to examine the infrastructure damaged during <b>Flood 2026</b>
+    and submit details of eligible repair/restoration works to the concerned Circle Office
+    <b>at Block level on or before <b>20-08-2026</b>, so that the District-level submission can be made on or before <b>22-08-2026</b>, along with the necessary assessment, estimates and supporting documents.
+   </p>
+
+   <div style="margin-top:14px">
+    <b>Key action:</b> Ensure proposals strictly conform to the prescribed SDRF norms and relate only to eligible immediate repair/restoration of damaged infrastructure.
+   </div>
+  </div>
+ </div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <h2>Document Library</h2>
+ <div class="scroll">
+  <table class="sortable"><thead><tr><th>S.No.</th><th>Document</th><th>Reference No.</th><th>Date</th><th>Block Due Date</th><th>District Due Date</th><th>Subject / Action</th><th>Status</th></tr></thead>
+  <tbody>
+   <tr><td>1</td><td><b>Revised SDRF Norms — Flood 2026</b></td><td>SVDM/Gr Flood/132/Pt-I/2026/</td><td>17-08-2026</td><td class="bad">20-08-2026</td><td class="bad">22-08-2026</td><td>Point 11(1), (2) & (4): immediate repair/restoration of eligible damaged infrastructure</td><td class="bad">Action Required</td></tr>
+  </tbody></table>
+ </div>
+</div>
+</div></section>
+
+<section class="page" id="reports"><div class="wrap">
+<div class="modern-hero">
+  <h1>Pending Reports & Action Tracker</h1>
+  <p>Live monitoring of reports, submissions, deadlines and follow-up actions.</p>
+  <div class="hero-badge">🔔 DATA SOURCE · CONNECTED GOOGLE SHEET</div>
+</div>
+
+<div class="modern-summary" id="pendingSummary">
+  <div class="summary-card"><div class="summary-label">Open Items</div><div id="pendingOpen" class="summary-value">—</div><div class="summary-note">From Pending Reports sheet</div></div>
+  <div class="summary-card"><div class="summary-label">High Priority</div><div id="pendingHigh" class="summary-value" style="color:#c62828">—</div><div class="summary-note">As recorded in sheet</div></div>
+  <div class="summary-card"><div class="summary-label">Block Deadlines</div><div id="pendingBlockDates" class="summary-value" style="font-size:18px">—</div><div class="summary-note">From source data</div></div>
+  <div class="summary-card"><div class="summary-label">District Deadlines</div><div id="pendingDistrictDates" class="summary-value" style="font-size:18px">—</div><div class="summary-note">From source data</div></div>
+</div>
+
+<div id="pendingReportCards"></div>
+
+<div class="modern-tracker">
+  <div class="tracker-head">
+    <h2>Pending Report Tracker</h2>
+    <p>All fields below are read from the connected <b>Pending Reports</b> Google Sheet.</p>
+  </div>
+  <div class="scroll" id="pendingTrackerLive">
+    <div class="muted" style="padding:18px">Waiting for Pending Reports sheet data…</div>
+  </div>
+</div>
+
+<div class="modern-footer-note">
+  <b>Monitoring note:</b> This dashboard is for monitoring purposes only. The Pending Reports page is driven by the connected <b>Pending Reports</b> Google Sheet. Update the sheet to change report names, dates, status, received information, reminders and remarks shown here.
+</div>
+</div></section>
+
+<section class="page" id="geotag"><div class="wrap">
+<div class="panel">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+  <div><h2 class="section-heading">📍 Geo-tag Monitoring</h2>
+  <div class="muted">GP-wise pending status and Block-level Moderate / Acceptance Pending</div></div>
+  <span id="geoPageState" style="background:#eef6ff;color:#155eef;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:700">WAITING FOR DATA</span>
+ </div>
+ <div class="filters" style="margin-top:14px">
+  <select id="geoPageBlock"><option value="">All Blocks</option></select>
+  <select id="geoPageGP"><option value="">All GPs</option></select>
+  <input id="geoPageSearch" type="text" placeholder="🔎 Search Block / GP" style="flex:1;min-width:220px">
+ </div>
+</div>
+
+<div class="cards" style="margin-top:18px;grid-template-columns:repeat(5,1fr)">
+ <div class="card"><div class="label">Before Pending</div><div id="geoBeforeTotal" class="value bad">—</div></div>
+ <div class="card"><div class="label">During Pending</div><div id="geoDuringTotal" class="value bad">—</div></div>
+ <div class="card"><div class="label">After Pending</div><div id="geoAfterTotal" class="value bad">—</div></div>
+ <div class="card"><div class="label">Moderate / Acceptance</div><div id="geoAcceptanceTotal" class="value bad">—</div><div class="muted">Block Level</div></div>
+ <div class="card"><div class="label">Total Attention</div><div id="geoTotalAttention" class="value">—</div></div>
+</div>
+
+<div class="grid3" style="margin-top:18px">
+ <div class="panel"><h3 class="metric-heading"><span class="metric-icon">🔵</span><span class="metric-name">BEFORE GEO-TAG PENDING</span></h3><div id="geoBeforeList"><div class="muted">Loading…</div></div></div>
+ <div class="panel"><h3 class="metric-heading"><span class="metric-icon">🟠</span><span class="metric-name">DURING GEO-TAG PENDING</span></h3><div id="geoDuringList"><div class="muted">Loading…</div></div></div>
+ <div class="panel"><h3 class="metric-heading"><span class="metric-icon">🟣</span><span class="metric-name">AFTER GEO-TAG PENDING</span></h3><div id="geoAfterList"><div class="muted">Loading…</div></div></div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <h3 class="metric-heading"><span class="metric-icon">⚠</span><span class="metric-name">MODERATE / ACCEPTANCE PENDING — BLOCK LEVEL</span></h3>
+ <div id="geoAcceptanceList"><div class="muted">Loading…</div></div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <h2>GP-wise Geo-tag Status</h2>
+ <div class="scroll" id="geoPageTable"><div class="muted">Waiting for Google Sheet data…</div></div>
+</div>
+</div></section>
+</main>
+<footer>VB-G RAM G · Sivasagar District · DEMO VERSION · Sample figures only · Google Sheet connection will replace sample data</footer>
+
+<script>
+const tabs=[...document.querySelectorAll(".tab")],pages=[...document.querySelectorAll(".page")];
+tabs.forEach(tab=>tab.addEventListener("click",()=>{
+ tabs.forEach(t=>t.classList.remove("active"));tab.classList.add("active");
+ pages.forEach(p=>p.classList.toggle("active",p.id===tab.dataset.page));
+ window.scrollTo({top:0,behavior:"smooth"});
+}));
+document.querySelectorAll('input[type="range"]').forEach(r=>{
+ const b=r.parentElement.querySelector("b");
+ if(b){r.addEventListener("input",()=>b.textContent=r.value+(r.max==="100"?"%":""))}
+});
+</script>
+
+<script>
+const GOOGLE_SHEET_ID = "1DdrQU-w0KNA6OIJZNuNRva-zOkdV1Jr5";
+const LIVE_SHEETS = [
+  "District Overview","eKYC & ABPS","Physical Progress Report","GP Contacts",
+  "GP Contacts (1)","Action Required","Performance","Analytics","Documents","Pending Reports","Geo-tag"
+];
+
+function gvizUrl(sheet){
+  return "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEET_ID +
+         "/gviz/tq?tqx=out:json&sheet=" + encodeURIComponent(sheet);
+}
+function parseGViz(text){
+  const a=text.indexOf("{"), b=text.lastIndexOf("}");
+  if(a<0 || b<0) throw new Error("Invalid Google Sheets response");
+  return JSON.parse(text.slice(a,b+1));
+}
+async function fetchSheet(sheet){
+  const res=await fetch(gvizUrl(sheet), {cache:"no-store"});
+  if(!res.ok) throw new Error(sheet+" HTTP "+res.status);
+  const data=parseGViz(await res.text());
+  const cols=(data.table.cols||[]).map((c,i)=>c.label || ("Column "+(i+1)));
+  const rows=(data.table.rows||[]).map(r=>(r.c||[]).map(c=>c ? (c.f ?? c.v ?? "") : ""));
+  return {sheet,cols,rows};
+}
+function setLiveStatus(ok,msg){
+  const s=document.getElementById("liveStatus");
+  const b=document.getElementById("liveBanner");
+  if(s) s.textContent=msg;
+  if(b) b.style.background=ok ? "#0b6b4b" : "#a33a2b";
+}
+function esc(v){
+  return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+function tableHTML(d,limit=12){
+  const visibleCols=d.cols.slice(0,11);
+  let h="<div class='scroll'><table><thead><tr>"+visibleCols.map(x=>"<th>"+esc(x)+"</th>").join("")+"</tr></thead><tbody>";
+  h+=d.rows.slice(0,limit).map(r=>"<tr>"+visibleCols.map((_,i)=>"<td>"+esc(r[i]??"")+"</td>").join("")+"</tr>").join("");
+  return h+"</tbody></table></div>";
+}
+function findPage(id){return document.getElementById(id);}
+function updatePageTable(pageId, sheetData){
+  const p=findPage(pageId); if(!p) return;
+  const tables=p.querySelectorAll("table");
+  if(!tables.length) return;
+  const t=tables[tables.length-1];
+  const wrap=t.parentElement;
+  wrap.innerHTML=tableHTML(sheetData, 20);
+}
+
+function num(v){
+  if(v===null||v===undefined||v==="") return 0;
+  const n=parseFloat(String(v).replace(/[% ,]/g,""));
+  return Number.isFinite(n) ? n : 0;
+}
+function pct(v){
+  const n=num(v);
+  return n > 1 ? n : n*100;
+}
+function findCol(cols, names){
+  const lower=cols.map(x=>String(x).trim().toLowerCase());
+  for(const name of names){
+    const i=lower.indexOf(name.toLowerCase());
+    if(i>=0) return i;
+  }
+  return -1;
+}
+
+function updateOverviewLive(ekycData, physicalData){
+  const ek=ekycData && !ekycData.error ? ekycData : null;
+  const pp=physicalData && !physicalData.error ? physicalData : null;
+  const rows=ek ? ek.rows : [];
+  const cols=ek ? ek.cols : [];
+  const ci=(names)=>{
+    const low=cols.map(x=>String(x).trim().toLowerCase());
+    for(const n of names){const i=low.indexOf(n.toLowerCase());if(i>=0)return i;}
+    return -1;
+  };
+  const ib=ci(["Block"]), ig=ci(["GP","GP Name","Gram Panchayat"]), it=ci(["Total Workers","Total Worker","Workers"]);
+  const ie=ci(["e-KYC %","eKYC %"]), ia=ci(["ABPS %","ABPS %"]);
+  const blocks=new Set(), gps=new Set();
+  let workers=0, ekDone=0, abDone=0;
+  rows.forEach(r=>{
+    const b=ib>=0?String(r[ib]||"").trim():"";
+    const g=ig>=0?String(r[ig]||"").trim():"";
+    if(b)blocks.add(b);
+    if(g)gps.add((b+"||"+g).toLowerCase());
+    const total=it>=0?num(r[it]):0;
+    workers+=total;
+    const ep=ie>=0?pct(r[ie]):0, ap=ia>=0?pct(r[ia]):0;
+    ekDone+=total*ep/100; abDone+=total*ap/100;
+  });
+  const avgE=workers?ekDone/workers*100:0, avgA=workers?abDone/workers*100:0;
+  let persondays=0, families125=0;
+  if(pp){
+    const pc=pp.cols.map(x=>String(x).trim().toLowerCase());
+    const pi=pc.findIndex(x=>x==="total persondays"||x==="persondays");
+    const fi=pc.findIndex(x=>x==="families completed 125 days"||x==="125-day families"||x==="families completed 125-day");
+    if(pi>=0) pp.rows.forEach(r=>persondays+=num(r[pi]));
+    if(fi>=0) pp.rows.forEach(r=>families125+=num(r[fi]));
+  }
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+  set("overviewBlocks",blocks.size);
+  set("overviewGPs",gps.size);
+  set("overviewEkyc",avgE?avgE.toFixed(1)+"%":"—");
+  set("overviewAbps",avgA?avgA.toFixed(1)+"%":"—");
+  set("overviewPersondays",persondays?persondays.toLocaleString():"—");
+}
+function renderEkycLive(d){
+  if(!d || d.error || !d.rows.length) return;
+  const cols=d.cols;
+  const ib=findCol(cols,["Block"]);
+  const ig=findCol(cols,["GP","GP Name","Gram Panchayat"]);
+  const it=findCol(cols,["Total Workers","Total Worker","Workers"]);
+  const ie=findCol(cols,["e-KYC %","eKYC %","e-KYC Percentage"]);
+  const iec=findCol(cols,["e-KYC Done","eKYC Done"]);
+  const ia=findCol(cols,["ABPS %","ABPS Percentage"]);
+  const iac=findCol(cols,["ABPS Done"]);
+  const rows=d.rows.map(r=>{
+    const total=num(it>=0?r[it]:"");
+    const ek=ie>=0?pct(r[ie]):(total?num(iec>=0?r[iec]:"")/total*100:0);
+    const ab=ia>=0?pct(r[ia]):(total?num(iac>=0?r[iac]:"")/total*100:0);
+    return {block:ib>=0?r[ib]:"",gp:ig>=0?r[ig]:"",total,ek,ab};
+  }).filter(x=>x.block||x.gp||x.total||x.ek||x.ab);
+
+  const blockSel=document.getElementById("ekycBlockFilter");
+  const current=blockSel.value;
+  const blocks=[...new Set(rows.map(x=>x.block).filter(Boolean))].sort();
+  blockSel.innerHTML='<option value="">All Blocks</option>'+blocks.map(b=>'<option value="'+esc(b)+'">'+esc(b)+'</option>').join("");
+  if(blocks.includes(current)) blockSel.value=current;
+
+  function apply(){
+    const block=blockSel.value;
+    const q=(document.getElementById("ekycSearch").value||"").toLowerCase();
+    const et=num(document.getElementById("ekycThreshold").value);
+    const at=num(document.getElementById("abpsThreshold").value);
+    const filtered=rows.filter(x=>(!block||x.block===block)&&(!q||String(x.block).toLowerCase().includes(q)||String(x.gp).toLowerCase().includes(q)));
+    const total=filtered.reduce((a,x)=>a+x.total,0);
+    const ekAvg=total?filtered.reduce((a,x)=>a+x.ek*x.total,0)/total:(filtered.length?filtered.reduce((a,x)=>a+x.ek,0)/filtered.length:0);
+    const abAvg=total?filtered.reduce((a,x)=>a+x.ab*x.total,0)/total:(filtered.length?filtered.reduce((a,x)=>a+x.ab,0)/filtered.length:0);
+    const sorted=[...filtered].sort((a,b)=>b.ek-a.ek);
+    const best=sorted[0], worst=sorted[sorted.length-1];
+    document.getElementById("ekycAvg").textContent=ekAvg.toFixed(1)+"%";
+    document.getElementById("abpsAvg").textContent=abAvg.toFixed(1)+"%";
+    document.getElementById("bestEkyc").textContent=best?(best.gp||"—")+" "+best.ek.toFixed(1)+"%":"—";
+    document.getElementById("worstEkyc").textContent=worst?(worst.gp||"—")+" "+worst.ek.toFixed(1)+"%":"—";
+    document.getElementById("ekycBelow").textContent=filtered.filter(x=>x.ek<et).length;
+    document.getElementById("abpsBelow").textContent=filtered.filter(x=>x.ab<at).length;
+    document.getElementById("bestEkycList").innerHTML=sorted.slice(0,5).map((x,i)=>'<div class="rank"><b>'+(i+1)+'. '+esc(x.gp)+'</b><b>'+x.ek.toFixed(1)+'%</b></div>').join("")||'<div class="muted">No data</div>';
+    document.getElementById("worstEkycList").innerHTML=sorted.slice(-5).reverse().map((x,i)=>'<div class="rank"><b>'+(i+1)+'. '+esc(x.gp)+'</b><b class="bad">'+x.ek.toFixed(1)+'%</b></div>').join("")||'<div class="muted">No data</div>';
+    document.getElementById("abpsSummary").innerHTML=
+      '<div class="rank"><b>Average</b><b>'+abAvg.toFixed(1)+'%</b></div>'+
+      '<div class="rank"><b></b><b class="good">'+(filtered.length?esc([...filtered].sort((a,b)=>b.ab-a.ab)[0].gp):"—")+'</b></div>'+
+      '<div class="rank"><b>Below threshold</b><b class="bad">'+filtered.filter(x=>x.ab<at).length+'</b></div>';
+    const t='<table><thead><tr><th>S.No.</th><th>Block</th><th>GP</th><th>Total Workers</th><th>e-KYC Done</th><th>e-KYC %</th><th>ABPS Done</th><th>ABPS %</th><th>Status</th></tr></thead><tbody>'+
+      filtered.map((x,i)=>{
+        const ekDone=Math.round(x.total*x.ek/100), abDone=Math.round(x.total*x.ab/100);
+        const status=(x.ek<et||x.ab<at)?"Attention":"Good";
+        return '<tr><td>'+(i+1)+'</td><td>'+esc(x.block)+'</td><td>'+esc(x.gp)+'</td><td>'+x.total+'</td><td>'+ekDone+'</td><td class="'+(x.ek<et?'bad':'')+'">'+x.ek.toFixed(1)+'%</td><td>'+abDone+'</td><td class="'+(x.ab<at?'bad':'')+'">'+x.ab.toFixed(1)+'%</td><td>'+status+'</td></tr>';
+      }).join("")+'</tbody></table>';
+    document.getElementById("ekycTable").innerHTML=t;
+    makeSortable(document.querySelector("#ekycTable table"));
+    document.getElementById("ekycLiveState").textContent=filtered.length+" GP records loaded";
+  }
+  document.getElementById("ekycThreshold").oninput=e=>{document.getElementById("ekycThresholdVal").textContent=e.target.value+"%";apply()};
+  document.getElementById("abpsThreshold").oninput=e=>{document.getElementById("abpsThresholdVal").textContent=e.target.value+"%";apply()};
+  document.getElementById("ekycBlockFilter").onchange=apply;
+  document.getElementById("ekycSearch").oninput=apply;
+  apply();
+}
+
+
+function makeSortable(table){
+  if(!table) return;
+  table.classList.add("sortable");
+  const headers=table.querySelectorAll("thead th");
+  headers.forEach((th,index)=>{
+    th.onclick=()=>{
+      const tbody=table.tBodies[0]; if(!tbody) return;
+      const rows=[...tbody.rows];
+      const current=th.dataset.sortDir==="asc"?"desc":"asc";
+      headers.forEach(h=>{h.dataset.sortDir="";h.classList.remove("sort-asc","sort-desc")});
+      th.dataset.sortDir=current;
+      th.classList.add(current==="asc"?"sort-asc":"sort-desc");
+      const numeric=rows.every(r=>{
+        const v=(r.cells[index]?.textContent||"").replace(/[% ,₹]/g,"").trim();
+        return v!=="" && !isNaN(Number(v));
+      });
+      rows.sort((a,b)=>{
+        let av=(a.cells[index]?.textContent||"").trim(), bv=(b.cells[index]?.textContent||"").trim();
+        if(numeric){av=parseFloat(av.replace(/[% ,₹]/g,""))||0;bv=parseFloat(bv.replace(/[% ,₹]/g,""))||0}
+        else {av=av.toLowerCase();bv=bv.toLowerCase()}
+        if(av<bv)return current==="asc"?-1:1;
+        if(av>bv)return current==="asc"?1:-1;
+        return 0;
+      });
+      rows.forEach(r=>tbody.appendChild(r));
+    };
+  });
+}
+function makeAllTablesSortable(root=document){
+  root.querySelectorAll("table").forEach(makeSortable);
+}
+function renderPhysicalLive(d){
+  if(!d || d.error || !d.rows.length) return;
+  const cols=d.cols;
+  const col=(names)=>{
+    const low=cols.map(x=>String(x).trim().toLowerCase());
+    for(const n of names){const i=low.indexOf(n.toLowerCase());if(i>=0)return i;}
+    return -1;
+  };
+  const ib=col(["Block"]), ig=col(["GP","GP Name","Gram Panchayat"]);
+  const dh=col(["Demand HH","Demand Household","Employment Demanded HH"]);
+  const dp=col(["Demand Persons","Demand Person"]);
+  const oh=col(["Offer HH","Offer Household","Employment Offered HH"]);
+  const op=col(["Offer Persons","Offer Person"]);
+  const ah=col(["Avail HH","Availability HH","Employment Availed HH"]);
+  const ap=col(["Avail Persons","Availability Persons","Employment Availed Persons"]);
+  const oph=col(["Demand-Offer Gap HH"]);
+  const opp=col(["Demand-Offer Gap Persons"]);
+  const aph=col(["Demand-Avail Gap HH"]);
+  const app=col(["Demand-Avail Gap Persons"]);
+  const pd=col(["Total Persondays","Persondays"]);
+  const fam=col(["Families Completed 125 Days","125-Day Families"]);
+  const statusI=col(["Status"]);
+
+  const n=(r,i)=>i>=0?num(r[i]):0;
+  const rows=d.rows.map(r=>{
+    const demandHH=n(r,dh), demandP=n(r,dp), offerHH=n(r,oh), offerP=n(r,op), availHH=n(r,ah), availP=n(r,ap);
+    const goh=oph>=0?n(r,oph):Math.max(demandHH-offerHH,0);
+    const gop=opp>=0?n(r,opp):Math.max(demandP-offerP,0);
+    const gah=aph>=0?n(r,aph):Math.max(demandHH-availHH,0);
+    const gap=app>=0?n(r,app):Math.max(demandP-availP,0);
+    const person=n(r,pd), families=n(r,fam);
+    const status=statusI>=0?String(r[statusI]||""):(gop>0||gap>0?"Attention":(goh>0||gah>0?"Watch":"Good"));
+    return {block:ib>=0?r[ib]:"",gp:ig>=0?r[ig]:"",demandHH,demandP,offerHH,offerP,availHH,availP,goh,gop,gah,gap,person,families,status};
+  }).filter(x=>x.block||x.gp||x.demandHH||x.demandP||x.person);
+
+  const bSel=document.getElementById("physicalBlockFilter");
+  const gSel=document.getElementById("physicalGPFilter");
+  const statusSel=document.getElementById("physicalStatusFilter");
+  const search=document.getElementById("physicalSearch");
+
+  // Set filter ranges from the actual live data so the default view never hides valid GP records.
+  const maxOfferGap=Math.max(100,...rows.map(x=>x.gop));
+  const maxAvailGap=Math.max(100,...rows.map(x=>x.gap));
+  const maxPersondays=Math.max(100000,...rows.map(x=>x.person));
+  const offerSlider=document.getElementById("offerGapFilter");
+  const availSlider=document.getElementById("availGapFilter");
+  const pdSlider=document.getElementById("persondaysFilter");
+  offerSlider.max=Math.ceil(maxOfferGap); offerSlider.value=Math.ceil(maxOfferGap);
+  availSlider.max=Math.ceil(maxAvailGap); availSlider.value=Math.ceil(maxAvailGap);
+  pdSlider.max=Math.ceil(maxPersondays); pdSlider.value=Math.ceil(maxPersondays);
+  document.getElementById("offerGapFilterVal").textContent="All";
+  document.getElementById("availGapFilterVal").textContent="All";
+  document.getElementById("persondaysFilterVal").textContent="All";
+  const bCurrent=bSel.value, gCurrent=gSel.value;
+  const blocks=[...new Set(rows.map(x=>x.block).filter(Boolean))].sort();
+  bSel.innerHTML='<option value="">All Blocks</option>'+blocks.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+  if(blocks.includes(bCurrent)) bSel.value=bCurrent;
+
+  function updateGPOptions(){
+    const b=bSel.value, old=gSel.value;
+    const gps=[...new Set(rows.filter(x=>!b||x.block===b).map(x=>x.gp).filter(Boolean))].sort();
+    gSel.innerHTML='<option value="">All GPs</option>'+gps.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+    if(gps.includes(old))gSel.value=old;
+  }
+  function apply(){
+    const b=bSel.value,g=gSel.value,st=statusSel.value,q=(search.value||"").toLowerCase();
+    const maxOffer=num(document.getElementById("offerGapFilter").value);
+    const maxAvail=num(document.getElementById("availGapFilter").value);
+    const maxPD=num(document.getElementById("persondaysFilter").value);
+    const filtered=rows.filter(x=>
+      (!b||x.block===b)&&(!g||x.gp===g)&&(!st||x.status===st)&&
+      x.gop<=maxOffer&&x.gap<=maxAvail&&x.person<=maxPD&&
+      (!q||String(x.block).toLowerCase().includes(q)||String(x.gp).toLowerCase().includes(q))
+    );
+    const sum=k=>filtered.reduce((a,x)=>a+x[k],0);
+    document.getElementById("ppGPCount").textContent=filtered.length;
+    document.getElementById("ppDemandHH").textContent=sum("demandHH").toLocaleString();
+    document.getElementById("ppOfferHH").textContent=sum("offerHH").toLocaleString();
+    document.getElementById("ppAvailHH").textContent=sum("availHH").toLocaleString();
+    document.getElementById("ppOfferGap").textContent=sum("gop").toLocaleString();
+    document.getElementById("ppAvailGap").textContent=sum("gap").toLocaleString();
+    document.getElementById("ppPersondays").textContent=sum("person").toLocaleString();
+    document.getElementById("ppFamilies125").textContent=sum("families").toLocaleString();
+    document.getElementById("ppFamilies125").textContent=sum("families").toLocaleString();
+
+    const table='<table><thead><tr><th>S.No.</th><th>Block</th><th>GP</th><th>Demand HH</th><th>Demand Persons</th><th>Offer HH</th><th>Offer Persons</th><th>Avail HH</th><th>Avail Persons</th><th>Demand→Offer Gap</th><th>Demand→Avail Gap</th><th>Persondays</th><th>125-Day Families</th><th>Status</th></tr></thead><tbody>'+
+      filtered.map((x,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(x.block)+'</td><td>'+esc(x.gp)+'</td><td>'+x.demandHH+'</td><td>'+x.demandP+'</td><td>'+x.offerHH+'</td><td>'+x.offerP+'</td><td>'+x.availHH+'</td><td>'+x.availP+'</td><td class="'+(x.gop>0?'bad':'')+'">'+x.gop+'</td><td class="'+(x.gap>0?'bad':'')+'">'+x.gap+'</td><td>'+x.person.toLocaleString()+'</td><td>'+x.families+'</td><td>'+esc(x.status)+'</td></tr>').join("")+
+      '</tbody></table>';
+    document.getElementById("physicalTable").innerHTML=table;
+    makeSortable(document.querySelector("#physicalTable table"));
+    document.getElementById("physicalLiveState").textContent=filtered.length+" records loaded";
+  }
+  bSel.onchange=()=>{updateGPOptions();apply()};
+  gSel.onchange=apply;
+  statusSel.onchange=apply;
+  search.oninput=apply;
+  document.getElementById("offerGapFilter").oninput=e=>{const x=+e.target.value;document.getElementById("offerGapFilterVal").textContent=x>=+e.target.max?"All":"≤"+x;apply()};
+  document.getElementById("availGapFilter").oninput=e=>{const x=+e.target.value;document.getElementById("availGapFilterVal").textContent=x>=+e.target.max?"All":"≤"+x;apply()};
+  document.getElementById("persondaysFilter").oninput=e=>{const x=+e.target.value;document.getElementById("persondaysFilterVal").textContent=x>=+e.target.max?"All":"≤"+x;apply()};
+  updateGPOptions();apply();
+}
+
+function renderWorst5Overview(ekycData, physicalData, geoData){
+  const ek=ekycData && !ekycData.error ? ekycData : null;
+  const pp=physicalData && !physicalData.error ? physicalData : null;
+  const geo=geoData && !geoData.error ? geoData : null;
+  const cidx=(cols,names)=>{const low=cols.map(x=>String(x).trim().toLowerCase());for(const n of names){const i=low.indexOf(n.toLowerCase());if(i>=0)return i}return -1};
+  const output=(id,arr,formatter)=>{const el=document.getElementById(id);if(!el)return;el.innerHTML=arr.slice(0,5).map((x,i)=>'<div class="rank"><b>'+(i+1)+'. '+esc(x.name)+'</b><b class="bad">'+formatter(x)+'</b></div>').join("")||'<div class="muted">No data</div>';};
+  if(ek){
+    const c=ek.cols, ib=cidx(c,["Block"]), ig=cidx(c,["GP","GP Name","Gram Panchayat"]), ie=cidx(c,["e-KYC %","eKYC %"]), ia=cidx(c,["ABPS %"]);
+    const er=ek.rows.map(r=>({name:(ib>=0?String(r[ib]||""):"")+(ig>=0&&r[ig]?" — "+String(r[ig]):""),ek:ie>=0?pct(r[ie]):0,ab:ia>=0?pct(r[ia]):0})).filter(x=>x.name.trim());
+    output("worst5Ekyc",[...er].sort((a,b)=>a.ek-b.ek),x=>x.ek.toFixed(1)+"%");
+    output("worst5Abps",[...er].sort((a,b)=>a.ab-b.ab),x=>x.ab.toFixed(1)+"%");
+  }
+  if(pp){
+    const c=pp.cols, ib=cidx(c,["Block"]), ig=cidx(c,["GP","GP Name","Gram Panchayat"]), dp=cidx(c,["Demand Persons"]), op=cidx(c,["Offer Persons"]), ap=cidx(c,["Avail Persons"]), pd=cidx(c,["Total Persondays","Persondays"]);
+    const pr=pp.rows.map(r=>{const d=dp>=0?num(r[dp]):0,o=op>=0?num(r[op]):0,a=ap>=0?num(r[ap]):0;return{name:(ib>=0?String(r[ib]||""):"")+(ig>=0&&r[ig]?" — "+String(r[ig]):""),pd:pd>=0?num(r[pd]):0,offer:Math.max(d-o,0),avail:Math.max(d-a,0),physical:d?((o/d+a/d)/2)*100:0}}).filter(x=>x.name.trim());
+    output("worst5Persondays",[...pr].sort((a,b)=>a.pd-b.pd),x=>x.pd.toLocaleString());
+    output("worst5Physical",[...pr].sort((a,b)=>a.physical-b.physical),x=>x.physical.toFixed(1)+"%");
+    output("worst5OfferGap",[...pr].sort((a,b)=>b.offer-a.offer),x=>x.offer.toLocaleString());
+    output("worst5AvailGap",[...pr].sort((a,b)=>b.avail-a.avail),x=>x.avail.toLocaleString());
+  }
+  if(geo){
+    const c=geo.cols, ib=cidx(c,["Block"]), ig=cidx(c,["GP","GP Name","Gram Panchayat"]);
+    const idx=(names)=>cidx(c,names);
+    const build=(colNames)=>geo.rows.map(r=>({
+      name:(ib>=0?String(r[ib]||""):"")+(ig>=0&&r[ig]?" — "+String(r[ig]):""),
+      attention:(idx(colNames)>=0?num(r[idx(colNames)]):0)
+    })).filter(x=>x.name.trim() && x.attention>0);
+    output("worst5GeoBefore",build(["Before Geo-tag Pending","Before Geo Pending","Before Pending","Before"]).sort((a,b)=>b.attention-a.attention),x=>x.attention.toLocaleString());
+    output("worst5GeoDuring",build(["During Geo-tag Pending","During Geo Pending","During Pending","During"]).sort((a,b)=>b.attention-a.attention),x=>x.attention.toLocaleString());
+    output("worst5GeoAfter",build(["After Geo-tag Pending","After Geo Pending","After Pending","After"]).sort((a,b)=>b.attention-a.attention),x=>x.attention.toLocaleString());
+    output("worst5GeoAcceptance",build(["Moderate / Acceptance Pending","Moderate/Acceptance Pending","Acceptance Pending","Moderate"]).sort((a,b)=>b.attention-a.attention),x=>x.attention.toLocaleString());
+  }}
+
+
+function renderContactsLive(d){
+  if(!d || d.error || !Array.isArray(d.rows) || !d.rows.length) return;
+
+  // Current master GP Contacts schema:
+  // A S.No, B Block, C GP, D GRS Name, E GRS Phone, F GRS Status,
+  // G GRS Nature, H Accredited Engineer Name, I Engineer Phone,
+  // J Engineer Status, K Engineer Nature, L Remarks, M Last Updated,
+  // N-Q vacancy indicators, R Overall Functional Status.
+  const c=(d.cols||[]).map(x=>String(x??"").trim().toLowerCase());
+  const has18=d.rows.some(r=>Array.isArray(r) && r.length>=18);
+
+  const ci=(names)=>{
+    for(const n of names){
+      const i=c.indexOf(n.toLowerCase());
+      if(i>=0) return i;
+    }
+    return -1;
+  };
+  const val=(r,i)=>i>=0 && r[i]!==undefined && r[i]!==null ? String(r[i]).trim():"";
+
+  // Prefer fixed positions for the 18-column vacancy sheet. Header matching
+  // remains as fallback for the older contact sheet.
+  const ib=has18?1:ci(["Block"]);
+  const ig=has18?2:ci(["GP","GP Name","Gram Panchayat"]);
+  const igrs=has18?3:ci(["GRS Name","GRS"]);
+  const igrsPhone=has18?4:ci(["GRS Phone","GRS Mobile","GRS Contact"]);
+  const igrsStatus=has18?5:ci(["GRS Status"]);
+  const igrsNature=has18?6:ci(["GRS Nature","GRS Nature of Occupancy","GRS Occupancy"]);
+  const ie=has18?7:ci(["Accredited Engineer Name","Accredited Engineer","Engineer Name"]);
+  const iep=has18?8:ci(["Engineer Phone","Accredited Engineer Phone","Engineer Mobile","Engineer Contact"]);
+  const ieStatus=has18?9:ci(["Engineer Status","Accredited Engineer Status"]);
+  const ieNature=has18?10:ci(["Engineer Nature","Accredited Engineer Nature","Engineer Nature of Occupancy","Engineer Occupancy"]);
+  const irm=has18?11:ci(["Remarks","Remark","Notes"]);
+
+  // IMPORTANT: Status and Nature are separate fields.
+  // Nature controls Permanent / I/C / Vacant staffing classification.
+  // Status is displayed separately and must NOT override Nature.
+  const normalize=(status,nature,name)=>{
+    const st=(status||"").trim(), n=(nature||"").trim();
+    const z=n.toLowerCase().replace(/[\s.\-_]/g,"");
+    if(z.includes("vacant")) return "Vacant";
+    if(z.includes("i/c") || z.includes("ic") || z.includes("incharge")) return "I/C";
+    if(z.includes("permanent") || z.includes("regular")) return "Permanent";
+    // If Nature is blank, use Status only as a fallback.
+    const zs=st.toLowerCase().replace(/[\s.\-_]/g,"");
+    if(zs.includes("vacant")) return "Vacant";
+    if(zs.includes("i/c") || zs.includes("ic") || zs.includes("incharge")) return "I/C";
+    if(zs.includes("permanent") || zs.includes("regular") || /working|active|posted/i.test(st)) return "Permanent";
+    return n;
+  };
+
+  const rows=d.rows.map(r=>{
+    const grs=val(r,igrs), engineer=val(r,ie);
+    const gs=val(r,igrsStatus), gn=normalize(gs,val(r,igrsNature),grs);
+    const es=val(r,ieStatus), en=normalize(es,val(r,ieNature),engineer);
+    return {
+      block:val(r,ib), gp:val(r,ig),
+      grs, grsPhone:val(r,igrsPhone), grsStatus:gs||gn, grsNature:gn,
+      engineer, engineerPhone:val(r,iep), engineerStatus:es||en, engineerNature:en,
+      remarks:val(r,irm)
+    };
+  }).filter(x=>x.block||x.gp||x.grs||x.engineer);
+
+  const bs=document.getElementById("contactsBlockFilter");
+  const gps=document.getElementById("contactsGPFilter");
+  const ss=document.getElementById("contactsStatusFilter");
+  const search=document.getElementById("contactsSearch");
+
+  if(ss){
+    const occCount={Permanent:0,"I/C":0,Vacant:0};
+    const classify=(status,nature)=>{
+      const n=(nature||"").trim().toLowerCase().replace(/[\s._-]/g,"");
+      const st=(status||"").trim().toLowerCase().replace(/[\s._-]/g,"");
+      if(n.includes("vacant")) return "Vacant";
+      if(n.includes("ic")||n.includes("incharge")) return "I/C";
+      if(n.includes("permanent")||n.includes("regular")) return "Permanent";
+      if(st.includes("vacant")) return "Vacant";
+      if(st.includes("ic")||st.includes("incharge")) return "I/C";
+      if(st.includes("permanent")||st.includes("regular")||/working|active|posted/.test(st)) return "Permanent";
+      return "";
+    };
+    rows.forEach(x=>{
+      const g=classify(x.grsStatus,x.grsNature);
+      const e=classify(x.engineerStatus,x.engineerNature);
+      if(g) occCount[g]++;
+      if(e) occCount[e]++;
+    });
+    const current=ss.value;
+    const total=occCount.Permanent+occCount["I/C"]+occCount.Vacant;
+    ss.innerHTML=
+      '<option value="">All Occupancy</option>'+
+      '<option value="Permanent">Permanent</option>'+
+      '<option value="I/C">I/C</option>'+
+      '<option value="Vacant">Vacant</option>';
+    if(["Permanent","I/C","Vacant"].includes(current)) ss.value=current;
+  }
+  if(!bs||!gps||!search) return;
+
+  const oldB=bs.value, oldG=gps.value, oldS=ss?ss.value:"";
+  const blocks=[...new Set(rows.map(x=>x.block).filter(Boolean))].sort();
+  bs.innerHTML='<option value="">All Blocks</option>'+blocks.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+  if(blocks.includes(oldB)) bs.value=oldB;
+
+  function updateGPs(){
+    const b=bs.value, old=gps.value;
+    const list=[...new Set(rows.filter(x=>!b||x.block===b).map(x=>x.gp).filter(Boolean))].sort();
+    gps.innerHTML='<option value="">All GPs</option>'+list.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+    if(list.includes(old)) gps.value=old;
+  }
+
+  function apply(){
+    const b=bs.value,g=gps.value,wanted=ss?ss.value:"",q=(search.value||"").toLowerCase().trim();
+    // Staffing summary uses ALL records for the selected Block/GP.
+    // Occupancy is a table filter only and must not change Total GP or
+    // Permanent/I/C/Vacant totals in the monitoring summary.
+    const baseRows=rows.filter(x=>
+      (!b||x.block===b)&&(!g||x.gp===g)
+    );
+    const filtered=baseRows.filter(x=>
+      (!wanted||x.grsNature===wanted||x.engineerNature===wanted)&&
+      (!q||[x.block,x.gp,x.grs,x.grsPhone,x.grsStatus,x.grsNature,x.remarks,x.engineer,x.engineerPhone,x.engineerStatus,x.engineerNature]
+        .join(" ").toLowerCase().includes(q))
+    );
+
+    const gpKeys=new Set(baseRows.map(x=>(x.block+"||"+x.gp).toLowerCase()).filter(x=>x!=="||"));
+    const count=(field,status)=>baseRows.filter(x=>x[field]===status).length;
+    const total=baseRows.length;
+    const grsCovered=count("grsNature","Permanent")+count("grsNature","I/C");
+    const engCovered=count("engineerNature","Permanent")+count("engineerNature","I/C");
+    const grsPct=total?Math.round(grsCovered/total*100):0;
+    const engPct=total?Math.round(engCovered/total*100):0;
+    const attention=count("grsNature","Vacant")+count("engineerNature","Vacant");
+
+    const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+    const width=(id,v)=>{const e=document.getElementById(id);if(e)e.style.width=Math.max(0,Math.min(100,v))+"%"};
+
+    set("contactsGPCount",gpKeys.size);
+    set("contactsEngineerGPCount",gpKeys.size);
+    set("contactsGRSPermanent",count("grsNature","Permanent"));
+    set("contactsGRSIC",count("grsNature","I/C"));
+    set("contactsGRSVacant",count("grsNature","Vacant"));
+    set("contactsEngineerPermanent",count("engineerNature","Permanent"));
+    set("contactsEngineerIC",count("engineerNature","I/C"));
+    set("contactsEngineerVacant",count("engineerNature","Vacant"));
+    set("contactsGRSFunctional",grsCovered);
+    set("contactsEngineerFunctional",engCovered);
+    set("contactsGRSPct",grsPct+"%");
+    set("contactsEngineerPct",engPct+"%");
+    set("contactsAttention",attention ? attention+" vacancy"+(attention===1?"":"ies")+" need attention" : "No vacancies");
+    set("contactsResultCount",total+" record"+(total===1?"":"s"));
+    width("contactsGRSBar",grsPct); width("contactsEngineerBar",engPct);
+
+    const pill=x=>{
+      if(!x)return '<span class="muted">—</span>';
+      if(x==="Permanent")return '<span style="background:#eaf7ef;color:#087443;padding:5px 8px;border-radius:999px;font-size:10px;font-weight:800">PERMANENT</span>';
+      if(x==="I/C")return '<span style="background:#fff4e5;color:#b54708;padding:5px 8px;border-radius:999px;font-size:10px;font-weight:800">I/C</span>';
+      if(x==="Vacant")return '<span style="background:#fff0f0;color:#b42318;padding:5px 8px;border-radius:999px;font-size:10px;font-weight:800">VACANT</span>';
+      return esc(x);
+    };
+
+    document.getElementById("contactsTable").innerHTML=
+      '<table class="sortable"><thead><tr>'+
+      '<th>Block</th><th>GP</th><th>GRS Name</th><th>GRS Phone</th><th>GRS Status</th><th>GRS Nature</th><th>Remarks</th>'+
+      '<th>Accredited Engineer</th><th>Engineer Phone</th><th>Engineer Status</th><th>Engineer Nature</th>'+
+      '</tr></thead><tbody>'+
+      filtered.map(x=>'<tr>'+
+        '<td>'+esc(x.block)+'</td><td>'+esc(x.gp)+'</td>'+
+        '<td>'+esc(x.grs||"—")+'</td><td>'+esc(x.grsPhone||"—")+'</td><td>'+pill(x.grsStatus)+'</td><td>'+pill(x.grsNature)+'</td><td>'+esc(x.remarks||"—")+'</td>'+
+        '<td>'+esc(x.engineer||"—")+'</td><td>'+esc(x.engineerPhone||"—")+'</td><td>'+pill(x.engineerStatus)+'</td><td>'+pill(x.engineerNature)+'</td>'+
+      '</tr>').join("")+
+      '</tbody></table>';
+
+    makeSortable(document.querySelector("#contactsTable table"));
+    const state=document.getElementById("contactsLiveState");
+    if(state) state.textContent=filtered.length+" GP records loaded";
+  }
+
+  bs.onchange=()=>{updateGPs();apply()};
+  gps.onchange=apply;
+  if(ss) ss.onchange=apply;
+  search.oninput=apply;
+  const reset=document.getElementById("contactsReset");
+  if(reset) reset.onclick=()=>{bs.value="";updateGPs();gps.value="";if(ss)ss.value="";search.value="";apply()};
+  updateGPs();
+  if(ss && ["Permanent","I/C","Vacant"].includes(oldS)) ss.value=oldS;
+  apply();
+}
+
+function renderActionLive(ekycData, physicalData, geoData){
+  const issues=[];
+  const add=(block,gp,module,issue,value,priority)=>{
+    if(!gp)return;
+    issues.push({block,gp,module,issue,value,priority});
+  };
+  const parseCols=(d)=>d?d.cols.map(x=>String(x).trim().toLowerCase()):[];
+  const ci=(c,names)=>{for(const n of names){const i=c.indexOf(n.toLowerCase());if(i>=0)return i}return -1};
+
+  if(ekycData && !ekycData.error){
+    const c=parseCols(ekycData), ib=ci(c,["Block"]), ig=ci(c,["GP","GP Name","Gram Panchayat"]),
+      ie=ci(c,["e-KYC %","eKYC %"]), ia=ci(c,["ABPS %"]);
+    ekycData.rows.forEach(r=>{
+      const b=ib>=0?String(r[ib]||""):"",g=ig>=0?String(r[ig]||""):"";
+      const ek=ie>=0?pct(r[ie]):0, ab=ia>=0?pct(r[ia]):0;
+      if(ek<90)add(b,g,"e-KYC","e-KYC below 90%",ek.toFixed(1)+"%","High");
+      else if(ek<95)add(b,g,"e-KYC","e-KYC below 95%",ek.toFixed(1)+"%","Medium");
+      if(ab<90)add(b,g,"ABPS","ABPS below 90%",ab.toFixed(1)+"%","High");
+      else if(ab<95)add(b,g,"ABPS","ABPS below 95%",ab.toFixed(1)+"%","Medium");
+    });
+  }
+
+  if(physicalData && !physicalData.error){
+    const c=parseCols(physicalData), ib=ci(c,["Block"]), ig=ci(c,["GP","GP Name","Gram Panchayat"]),
+      dp=ci(c,["Demand Persons"]), op=ci(c,["Offer Persons"]), ap=ci(c,["Avail Persons"]),
+      pd=ci(c,["Total Persondays","Persondays"]), fam=ci(c,["Families Completed 125 Days","125-Day Families"]);
+    physicalData.rows.forEach(r=>{
+      const b=ib>=0?String(r[ib]||""):"",g=ig>=0?String(r[ig]||""):"";
+      const d=dp>=0?num(r[dp]):0,o=op>=0?num(r[op]):0,a=ap>=0?num(r[ap]):0,pdVal=pd>=0?num(r[pd]):0,f=fam>=0?num(r[fam]):0;
+      const go=Math.max(d-o,0), ga=Math.max(d-a,0);
+      if(go>0)add(b,g,"Physical Progress","Demand → Offer gap",go+" persons","High");
+      if(ga>0)add(b,g,"Physical Progress","Demand → Avail gap",ga+" persons","High");
+      if(pdVal===0)add(b,g,"Persondays","Nil persondays", "0","High");
+      if(f>0){} // retained for future 125-day threshold logic
+    });
+  }
+
+  if(geoData && !geoData.error){
+    const c=parseCols(geoData), ib=ci(c,["Block"]), ig=ci(c,["GP","GP Name","Gram Panchayat"]), it=ci(c,["Total Attention"]);
+    geoData.rows.forEach(r=>{
+      const b=ib>=0?String(r[ib]||""):"",g=ig>=0?String(r[ig]||""):"",v=it>=0?num(r[it]):0;
+      if(v>0)add(b,g,"Geo-tag","Geo-tag pending / acceptance attention",v+" items",v>=15?"High":"Medium");
+    });
+  }
+
+  // De-duplicate exact action rows.
+  const unique=[...new Map(issues.map(x=>[x.block+"|"+x.gp+"|"+x.module+"|"+x.issue, x])).values()];
+  const blocks=[...new Set(unique.map(x=>x.block).filter(Boolean))].sort();
+  const bs=document.getElementById("actionBlockFilter"), gs=document.getElementById("actionGPFilter");
+  const oldB=bs.value, oldG=gs.value;
+  bs.innerHTML='<option value="">All Blocks</option>'+blocks.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+  if(blocks.includes(oldB))bs.value=oldB;
+
+  function updateGPs(){
+    const b=bs.value,old=gs.value;
+    const gps=[...new Set(unique.filter(x=>!b||x.block===b).map(x=>x.gp).filter(Boolean))].sort();
+    gs.innerHTML='<option value="">All GPs</option>'+gps.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+    if(gps.includes(old))gs.value=old;
+  }
+  function apply(){
+    const b=bs.value,g=gs.value,p=document.getElementById("actionPriorityFilter").value,q=(document.getElementById("actionSearch").value||"").toLowerCase();
+    const rows=unique.filter(x=>(!b||x.block===b)&&(!g||x.gp===g)&&(!p||x.priority===p)&&
+      (!q||[x.block,x.gp,x.module,x.issue,x.value].join(" ").toLowerCase().includes(q)));
+    const high=new Set(rows.filter(x=>x.priority==="High").map(x=>x.gp)).size;
+    const med=new Set(rows.filter(x=>x.priority==="Medium").map(x=>x.gp)).size;
+    const total=rows.length;
+    document.getElementById("actionHigh").textContent=high;
+    document.getElementById("actionMedium").textContent=med;
+    document.getElementById("actionTotal").textContent=total;
+    document.getElementById("actionGood").textContent=Math.max(0,82-new Set(rows.map(x=>x.gp)).size);
+    const table='<table class="sortable"><thead><tr><th>S.No.</th><th>Priority</th><th>Block</th><th>GP</th><th>Module</th><th>Issue</th><th>Value</th></tr></thead><tbody>'+
+      rows.map((x,i)=>'<tr><td>'+(i+1)+'</td><td class="'+(x.priority==="High"?"bad":"")+'">'+x.priority+'</td><td>'+esc(x.block)+'</td><td>'+esc(x.gp)+'</td><td>'+esc(x.module)+'</td><td>'+esc(x.issue)+'</td><td>'+esc(x.value)+'</td></tr>').join("")+
+      '</tbody></table>';
+    document.getElementById("actionTable").innerHTML=table;
+    makeSortable(document.querySelector("#actionTable table"));
+    document.getElementById("actionLiveState").textContent=rows.length+" live actions";
+  }
+  bs.onchange=()=>{updateGPs();apply()};
+  gs.onchange=apply;
+  document.getElementById("actionPriorityFilter").onchange=apply;
+  document.getElementById("actionSearch").oninput=apply;
+  updateGPs();apply();
+}
+
+function renderGeoPage(d){
+  if(!d || d.error) return;
+  const cols=d.cols||[], low=cols.map(x=>String(x).trim().toLowerCase());
+  const ci=(names)=>{for(const n of names){const i=low.indexOf(n.toLowerCase());if(i>=0)return i}return -1};
+  const ib=ci(["Block"]), ig=ci(["GP","GP Name","Gram Panchayat"]);
+  const idxBefore=ci(["Before Geo-tag Pending","Before Geo Pending","Before Pending","Before"]);
+  const idxDuring=ci(["During Geo-tag Pending","During Geo Pending","During Pending","During"]);
+  const idxAfter=ci(["After Geo-tag Pending","After Geo Pending","After Pending","After"]);
+  const idxAcc=ci(["Moderate / Acceptance Pending","Moderate/Acceptance Pending","Acceptance Pending","Moderate"]);
+  const rows=(d.rows||[]).map(r=>({
+    block:ib>=0?String(r[ib]||"").trim():"",
+    gp:ig>=0?String(r[ig]||"").trim():"",
+    before:idxBefore>=0?num(r[idxBefore]):0,
+    during:idxDuring>=0?num(r[idxDuring]):0,
+    after:idxAfter>=0?num(r[idxAfter]):0,
+    acceptance:idxAcc>=0?num(r[idxAcc]):0
+  })).filter(x=>x.block||x.gp);
+
+  const bs=document.getElementById("geoPageBlock"), gs=document.getElementById("geoPageGP"), q=document.getElementById("geoPageSearch");
+  const oldB=bs.value, oldG=gs.value;
+  const blocks=[...new Set(rows.map(x=>x.block).filter(Boolean))].sort();
+  bs.innerHTML='<option value="">All Blocks</option>'+blocks.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+  if(blocks.includes(oldB))bs.value=oldB;
+
+  function updateGPs(){
+    const b=bs.value, old=gs.value;
+    const gps=[...new Set(rows.filter(x=>!b||x.block===b).map(x=>x.gp).filter(Boolean))].sort();
+    gs.innerHTML='<option value="">All GPs</option>'+gps.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+    if(gps.includes(old))gs.value=old;
+  }
+  function listHTML(arr){
+    const a=[...arr].sort((x,y)=>y.value-x.value).slice(0,5);
+    return a.length?a.map((x,i)=>'<div class="rank"><b>'+(i+1)+'. '+esc(x.block)+(x.gp?' — '+esc(x.gp):'')+'</b><b class="bad">'+x.value.toLocaleString()+'</b></div>').join(""):'<div class="muted">No pending items</div>';
+  }
+  function apply(){
+    const b=bs.value,g=gs.value,term=(q.value||"").toLowerCase();
+    const f=rows.filter(x=>(!b||x.block===b)&&(!g||x.gp===g)&&(!term||[x.block,x.gp].join(" ").toLowerCase().includes(term)));
+    const sum=k=>f.reduce((a,x)=>a+x[k],0);
+    const before=sum("before"),during=sum("during"),after=sum("after"),acc=sum("acceptance");
+    document.getElementById("geoBeforeTotal").textContent=before.toLocaleString();
+    document.getElementById("geoDuringTotal").textContent=during.toLocaleString();
+    document.getElementById("geoAfterTotal").textContent=after.toLocaleString();
+    document.getElementById("geoAcceptanceTotal").textContent=acc.toLocaleString();
+    document.getElementById("geoTotalAttention").textContent=(before+during+after+acc).toLocaleString();
+
+    document.getElementById("geoBeforeList").innerHTML=listHTML(f.map(x=>({block:x.block,gp:x.gp,value:x.before})).filter(x=>x.value>0));
+    document.getElementById("geoDuringList").innerHTML=listHTML(f.map(x=>({block:x.block,gp:x.gp,value:x.during})).filter(x=>x.value>0));
+    document.getElementById("geoAfterList").innerHTML=listHTML(f.map(x=>({block:x.block,gp:x.gp,value:x.after})).filter(x=>x.value>0));
+    document.getElementById("geoAcceptanceList").innerHTML=listHTML(f.map(x=>({block:x.block,gp:x.gp,value:x.acceptance})).filter(x=>x.value>0));
+
+    const table='<table class="sortable"><thead><tr><th>S.No.</th><th>Block</th><th>GP</th><th>Before Pending</th><th>During Pending</th><th>After Pending</th><th>Moderate / Acceptance Pending (Block Level)</th><th>Total Attention</th></tr></thead><tbody>'+
+      f.map((x,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(x.block)+'</td><td>'+esc(x.gp)+'</td><td class="'+(x.before?'bad':'')+'">'+x.before+'</td><td class="'+(x.during?'bad':'')+'">'+x.during+'</td><td class="'+(x.after?'bad':'')+'">'+x.after+'</td><td class="'+(x.acceptance?'bad':'')+'">'+x.acceptance+'</td><td><b>'+(x.before+x.during+x.after+x.acceptance)+'</b></td></tr>').join("")+
+      '</tbody></table>';
+    document.getElementById("geoPageTable").innerHTML=table;
+    makeSortable(document.querySelector("#geoPageTable table"));
+    document.getElementById("geoPageState").textContent=f.length+" GP records";
+  }
+  bs.onchange=()=>{updateGPs();apply()};
+  gs.onchange=apply;
+  q.oninput=apply;
+  updateGPs();apply();
+}
+
+function renderPendingReportsLive(d){
+  if(!d || d.error){
+    const el=document.getElementById("pendingReportCards");
+    if(el) el.innerHTML='<div class="report-card"><div class="report-body"><b>Pending Reports sheet data could not be loaded.</b></div></div>';
+    return;
+  }
+  const c=d.cols||[], rows=d.rows||[];
+  const ci=(names)=>{
+    const low=c.map(x=>String(x).trim().toLowerCase());
+    for(const n of names){const i=low.indexOf(n.toLowerCase()); if(i>=0)return i;}
+    return -1;
+  };
+  const get=(r,names)=>{const i=ci(names); return i>=0?String(r[i]??"").trim():""};
+  const reportNames=["Report Name","Report","Requirement","Report / Requirement"];
+  const priorityNames=["Priority"];
+  const blockNames=["Block","Blocks"];
+  const reqNames=["Requested / Letter Date","Requested Date","Request Date","Letter Date"];
+  const blockDueNames=["Block Due Date","Block Deadline","Block Last Date"];
+  const distDueNames=["District Due Date","District Deadline","District Last Date"];
+  const statusNames=["Status"];
+  const receivedNames=["Received Date","Received"];
+  const reminderNames=["Reminder Sent","Reminder"];
+  const remarksNames=["Remarks","Remark","Purpose / Action","Action"];
+  const refNames=["Reference / Letter No.","Reference","Reference No.","Letter No.","Commissionerate Office Letter No."];
+  const lastNames=["Last Updated","Updated Date","Update Date"];
+
+  const data=rows.map((r,idx)=>({
+    _idx:idx+1,
+    report:get(r,reportNames)||"Pending Report",
+    priority:get(r,priorityNames),
+    block:get(r,blockNames),
+    requested:get(r,reqNames),
+    blockDue:get(r,blockDueNames),
+    districtDue:get(r,distDueNames),
+    status:get(r,statusNames),
+    received:get(r,receivedNames),
+    reminder:get(r,reminderNames),
+    remarks:get(r,remarksNames),
+    reference:get(r,refNames),
+    updated:get(r,lastNames)
+  })).filter(x=>x.report||x.block||x.status||x.requested||x.blockDue||x.districtDue||x.remarks);
+
+  const open=data.filter(x=>!x.status || /pending|action|required|overdue|not received/i.test(x.status)).length;
+  const high=data.filter(x=>/high/i.test(x.priority)).length;
+  const bdates=[...new Set(data.map(x=>x.blockDue).filter(Boolean))];
+  const ddates=[...new Set(data.map(x=>x.districtDue).filter(Boolean))];
+  document.getElementById("pendingOpen").textContent=open;
+  document.getElementById("pendingHigh").textContent=high;
+  document.getElementById("pendingBlockDates").textContent=bdates.length?bdates.join(" · "):"—";
+  document.getElementById("pendingDistrictDates").textContent=ddates.length?ddates.join(" · "):"—";
+
+  const cards=document.getElementById("pendingReportCards");
+  if(!data.length){
+    cards.innerHTML='<div class="report-card"><div class="report-body"><div class="muted">No pending report records found in the Google Sheet.</div></div></div>';
+  }else{
+    cards.innerHTML=data.map(x=>{
+      const priority=x.priority||"";
+      const status=x.status||"";
+      const receivedText=x.received||"Not received / blank in source";
+      const blockText=x.block||"Not specified in source";
+      return `<div class="report-card">
+        <div class="report-card-head">
+          <div>
+            <h2 class="report-title">📄 ${esc(x.report)}</h2>
+            <div class="report-ref">${esc(x.reference||"Reference not specified in source")}${x.requested?" · "+esc(x.requested):""}</div>
+          </div>
+          <span class="status-pill priority-high">${esc(priority||status||"STATUS NOT SPECIFIED")}</span>
+        </div>
+        <div class="report-body">
+          <div class="deadline-grid">
+            <div class="deadline"><div class="dlabel">Requested / Letter Date</div><div class="dvalue">${esc(x.requested||"—")}</div></div>
+            <div class="deadline block"><div class="dlabel">Block Due Date</div><div class="dvalue">${esc(x.blockDue||"—")}</div></div>
+            <div class="deadline district"><div class="dlabel">District Due Date</div><div class="dvalue">${esc(x.districtDue||"—")}</div></div>
+            <div class="deadline"><div class="dlabel">Report Not Received From</div><div class="dvalue" style="font-size:13px;color:#c62828">${esc(x.block||"Not specified in source")}</div></div>
+          </div>
+          <div class="action-line"><b>Status:</b> ${esc(status||"Not specified in source")} &nbsp; · &nbsp; <b>Received:</b> ${esc(receivedText)}${x.reminder?` &nbsp; · &nbsp; <b>Reminder:</b> ${esc(x.reminder)}`:""}${x.remarks?`<br><b>Remarks / Action:</b> ${esc(x.remarks)}`:""}</div>
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  const preferred=["S.No.","Priority","Report Name","Block","Reference / Letter No.","Requested / Letter Date","Block Due Date","District Due Date","Status","Received Date","Reminder Sent","Remarks / Action","Last Updated"];
+  const colIndex=preferred.map(name=>c.findIndex(x=>String(x).trim().toLowerCase()===name.toLowerCase()));
+  let table="<table class='modern-table sortable' id='pendingReportTrackerTable'><thead><tr>"+
+    preferred.map(x=>"<th>"+esc(x)+"</th>").join("")+"</tr></thead><tbody>";
+  table+=rows.map((r,i)=>"<tr>"+
+    colIndex.map((j,k)=>"<td>"+esc(j>=0?(r[j]??""):(k===0?i+1:""))+"</td>").join("")+
+    "</tr>").join("");
+  table+="</tbody></table>";
+  document.getElementById("pendingTrackerLive").innerHTML=table;
+  makeSortable(document.querySelector("#pendingReportTrackerTable"));
+}
+async function loadLiveData(){
+  const meta=document.getElementById("liveMeta");
+  setLiveStatus(true,"Connecting…");
+  try{
+    const results=[];
+    for(const name of LIVE_SHEETS){
+      try{ results.push(await fetchSheet(name)); }
+      catch(e){ results.push({sheet:name,error:e.message,cols:[],rows:[]}); }
+    }
+    const failed=results.filter(x=>x.error);
+    const good=results.filter(x=>!x.error);
+    const now=new Date();
+    const stamp=now.toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"});
+    if(meta){
+      meta.innerHTML="<b>Last Updated:</b> "+esc(stamp)+
+        " &nbsp; · &nbsp; <b>Sheets loaded:</b> "+good.length+"/"+results.length+
+        (failed.length ? " &nbsp; · &nbsp; <span style='color:#b42318'><b>Failed:</b> "+failed.map(x=>esc(x.sheet)).join(", ")+"</span>" : "");
+    }
+    // Populate useful live tables without destroying the dashboard layout.
+    const map={
+      "eKYC & ABPS":"ekyc",
+      "Physical Progress Report":"employment",
+      "Action Required":"action",
+      "Performance":"ranking",
+      "Analytics":"analytics",
+      "Documents":"documents",
+      "Pending Reports":"reports",
+      "Geo-tag":"geotag"
+    };
+    for(const d of good){
+      if(d.sheet==="Pending Reports") renderPendingReportsLive(d);
+      else if(map[d.sheet]) updatePageTable(map[d.sheet],d);
+    }
+    // Store live data for future dashboard calculations.
+    window.liveSheetData=Object.fromEntries(results.map(x=>[x.sheet,x]));
+    const ekycData=results.find(x=>x.sheet==="eKYC & ABPS" && !x.error); if(ekycData) renderEkycLive(ekycData);
+    const contactsData=results.find(x=>x.sheet==="GP Contacts (1)" && !x.error) || results.find(x=>x.sheet==="GP Contacts" && !x.error);
+    const actionEkyc=results.find(x=>x.sheet==="eKYC & ABPS" && !x.error);
+    const actionPhysical=results.find(x=>x.sheet==="Physical Progress Report" && !x.error);
+    const actionGeo=results.find(x=>x.sheet==="Geo-tag" && !x.error);
+    renderActionLive(actionEkyc, actionPhysical, actionGeo);
+    if(contactsData) renderContactsLive(contactsData);
+    const physicalData=results.find(x=>x.sheet==="Physical Progress Report" && !x.error); if(physicalData) renderPhysicalLive(physicalData);
+    const geoData=results.find(x=>x.sheet==="Geo-tag" && !x.error);
+    renderGeoPage(geoData);
+    renderWorst5Overview(ekycData, physicalData, geoData);
+    updateOverviewLive(ekycData, physicalData);
+    setLiveStatus(true,"Updated "+stamp);
+  }catch(e){
+    setLiveStatus(false,"Connection error");
+    if(meta) meta.innerHTML="<span style='color:#b42318'><b>Connection failed:</b> "+esc(e.message)+"</span><br>Check that the Google Sheet is shared so the published/linked data can be read.";
+  }
+}
+makeAllTablesSortable();
+loadLiveData();
+setInterval(loadLiveData, 5*60*1000);
+</script>
+
+<button id="bottomRefreshBtn" type="button" onclick="refreshDashboardFromBottom()">
+  ↻ Refresh Data
+</button>
+<script>
+function refreshDashboardFromBottom(){
+  const b=document.getElementById("bottomRefreshBtn");
+  if(b){b.disabled=true;b.textContent="↻ Refreshing…";}
+  if(typeof loadLiveData==="function"){
+    Promise.resolve(loadLiveData()).finally(()=>{
+      if(b){b.disabled=false;b.textContent="↻ Refresh Data";}
+    });
+  }else if(b){
+    b.disabled=false;b.textContent="↻ Refresh Data";
+  }
+}
+</script>
+</body></html>
