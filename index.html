@@ -112,12 +112,21 @@ footer{text-align:center;color:#718096;font-size:11px;padding:25px}
  #reports .deadline-grid{grid-template-columns:1fr 1fr}
 }
 </style>
+
+<style id="bottom-refresh-style">
+#bottomRefreshBtn{
+  position:fixed;right:22px;bottom:18px;z-index:9998;
+  border:0;border-radius:999px;padding:10px 16px;
+  background:#17324d;color:#fff;font-size:12px;font-weight:800;
+  box-shadow:0 7px 20px rgba(20,48,75,.22);cursor:pointer;
+}
+#bottomRefreshBtn:hover{transform:translateY(-1px)}
+#bottomRefreshBtn:disabled{opacity:.65;cursor:wait}
+@media(max-width:600px){#bottomRefreshBtn{right:12px;bottom:12px}}
+</style>
 </head>
 <body>
-<div id="liveBanner" style="position:sticky;top:0;z-index:9999;background:#0b6b4b;color:#fff;padding:9px 16px;font-size:13px;display:flex;justify-content:space-between;gap:12px;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.12)">
-  <span>🟢 <b>LIVE — Google Sheet Connected</b> · Sivasagar VB-G RAM G</span>
-  <span id="liveStatus">Connecting…</span>
-</div>
+
 
 <header class="hero">
 <div>
@@ -1290,5 +1299,22 @@ async function loadLiveData(){
 makeAllTablesSortable();
 loadLiveData();
 setInterval(loadLiveData, 5*60*1000);
+</script>
+
+<button id="bottomRefreshBtn" type="button" onclick="refreshDashboardFromBottom()">
+  ↻ Refresh Data
+</button>
+<script>
+function refreshDashboardFromBottom(){
+  const b=document.getElementById("bottomRefreshBtn");
+  if(b){b.disabled=true;b.textContent="↻ Refreshing…";}
+  if(typeof loadLiveData==="function"){
+    Promise.resolve(loadLiveData()).finally(()=>{
+      if(b){b.disabled=false;b.textContent="↻ Refresh Data";}
+    });
+  }else if(b){
+    b.disabled=false;b.textContent="↻ Refresh Data";
+  }
+}
 </script>
 </body></html>
