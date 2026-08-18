@@ -124,7 +124,72 @@ footer{text-align:center;color:#718096;font-size:11px;padding:25px}
 #bottomRefreshBtn:disabled{opacity:.65;cursor:wait}
 @media(max-width:600px){#bottomRefreshBtn{right:12px;bottom:12px}}
 </style>
-</head>
+
+<style id="gp-contacts-modern">
+#contacts .cards{grid-template-columns:repeat(6,1fr)}
+#contacts #contactsTable table{min-width:1250px}
+#contacts #contactsTable th{white-space:nowrap}
+@media(max-width:1100px){#contacts .cards{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:650px){#contacts .cards{grid-template-columns:repeat(2,1fr)}}
+</style>
+<style id="gp-contacts-modern-v2">
+#contacts .gp-head{padding:18px 20px}.gp-title-row,#contacts .gp-panel-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+#contacts .gp-title-row h2{margin:3px 0;font-size:18px}.eyebrow{font-size:9px;font-weight:800;letter-spacing:.12em;color:#6b7d90}
+.gp-live{background:#eef6ff;color:#155eef;border-radius:999px;padding:7px 11px;font-size:10px;font-weight:800}
+#contacts .gp-filters{margin-top:14px;display:grid;grid-template-columns:160px 180px 160px minmax(240px,1fr) auto;gap:8px}
+#contacts .gp-filters select,#contacts .gp-filters input{min-width:0}.gp-reset{border:1px solid #d6e0ea;background:#fff;border-radius:8px;padding:9px 14px;font-weight:700;color:#334e68;cursor:pointer}
+.gp-reset:hover{background:#f5f8fb}.gp-legend{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:10px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px}.dot.permanent{background:#0b7a53}.dot.ic{background:#c45a00}.dot.vacant{background:#c62828}
+#contacts .gp-kpis{grid-template-columns:repeat(5,minmax(130px,1fr));margin-top:14px;gap:10px}.gp-kpis .card{min-height:92px}.gp-ic{color:#b54708}.gp-ic-text{color:#b54708;font-weight:800}
+.gp-coverage{margin-top:12px}.gp-coverage h3,.gp-table-panel h3{margin:0;font-size:14px}.coverage-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:15px}
+.coverage-label{display:flex;justify-content:space-between;font-size:11px;font-weight:700;margin-bottom:7px}.bar{height:9px;border-radius:99px;background:#e8eef4;overflow:hidden}.bar span{display:block;height:100%;width:0%;background:#1b73e8;border-radius:99px;transition:width .25s ease}
+.gp-attention{background:#fff3f3;color:#b42318;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:800}.gp-table-panel{margin-top:12px}.gp-count{background:#f1f5f9;color:#334e68;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:800}
+#contactsTable{margin-top:12px}#contactsTable table{min-width:1280px}#contactsTable th{position:sticky;top:0;z-index:2;white-space:nowrap}#contactsTable tbody tr:hover td{background:#f8fbff}
+.gp-note{margin-top:12px;font-size:10px;line-height:1.7}
+@media(max-width:1000px){#contacts .gp-filters{grid-template-columns:1fr 1fr}#contacts .gp-kpis{grid-template-columns:repeat(3,1fr)}}@media(max-width:650px){#contacts .gp-filters,.coverage-grid{grid-template-columns:1fr}#contacts .gp-kpis{grid-template-columns:repeat(2,1fr)}}
+</style><style id="gp-two-row-summary">
+#contacts .gp-staff-summary{margin-top:14px;padding:14px 16px}
+#contacts .gp-summary-wrap{overflow:auto;margin-top:10px}
+#contacts .gp-summary-table{width:100%;min-width:760px;border-collapse:separate;border-spacing:0;font-size:11px}
+#contacts .gp-summary-table th{background:#f5f8fb;color:#64748b;font-size:9px;text-transform:uppercase;letter-spacing:.04em;text-align:left;padding:9px 10px;border-bottom:1px solid #dfe7ef;white-space:nowrap}
+#contacts .gp-summary-table td{padding:11px 10px;border-bottom:1px solid #edf1f5;font-weight:700;white-space:nowrap}
+#contacts .gp-summary-table tbody tr:last-child td{border-bottom:0}
+#contacts .gp-summary-table tbody tr:hover td{background:#f8fbff}
+#contacts .good-text{color:#087443}.ic-text{color:#b54708}.bad-text{color:#b42318}
+#contacts .coverage-pill{display:inline-block;min-width:48px;text-align:center;padding:4px 8px;border-radius:999px;background:#edf5ff;color:#155eef;font-weight:800}
+</style><style id="gp-contacts-front-modern">
+#contacts .gp-modern-hero{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:22px 24px;border-radius:18px;background:linear-gradient(135deg,#17324d,#2a5f89);color:#fff;box-shadow:0 10px 28px rgba(23,50,77,.18)}
+#contacts .gp-eyebrow{font-size:9px;font-weight:900;letter-spacing:.12em;opacity:.72}
+#contacts .gp-modern-hero h2{margin:6px 0 4px;font-size:22px}
+#contacts .gp-modern-hero p{margin:0;opacity:.82;font-size:12px}
+#contacts .gp-hero-status{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);font-size:10px;font-weight:800;white-space:nowrap}
+#contacts .gp-status-dot{width:8px;height:8px;border-radius:50%;background:#73d13d;box-shadow:0 0 0 4px rgba(115,209,61,.16)}
+#contacts .gp-filter-card{margin-top:14px;background:#fff;border:1px solid #e2eaf2;border-radius:16px;padding:16px 18px;box-shadow:0 5px 18px rgba(24,54,84,.06)}
+#contacts .gp-filter-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:12px}
+#contacts .gp-filter-title{font-size:13px;font-weight:850;color:#17324d}
+#contacts .gp-reset-modern{border:1px solid #d6e1eb;background:#fff;color:#29445f;border-radius:9px;padding:8px 12px;font-size:11px;font-weight:800;cursor:pointer}
+#contacts .gp-reset-modern:hover{background:#f6f9fc}
+#contacts .gp-filter-grid{display:grid;grid-template-columns:1fr 1.2fr 1fr 2fr;gap:10px}
+#contacts .gp-field label{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.06em;font-weight:850;color:#6d7f92;margin:0 0 5px}
+#contacts .gp-field select,#contacts .gp-search-box{width:100%;height:38px;border:1px solid #d7e1eb;border-radius:9px;background:#fff}
+#contacts .gp-field select{padding:0 10px;color:#334e68}
+#contacts .gp-search-box{display:flex;align-items:center;gap:8px;padding:0 10px}
+#contacts .gp-search-box span{font-size:18px;color:#7b8b9b}
+#contacts .gp-search-box input{border:0;outline:0;flex:1;height:100%;font-size:11px;background:transparent}
+#contacts .gp-legend-modern{display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-top:12px;font-size:10px}
+#contacts .gp-legend-modern .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:5px}
+#contacts .gp-legend-modern .dot.permanent{background:#0b7a53}
+#contacts .gp-legend-modern .dot.ic{background:#c45a00}
+#contacts .gp-legend-modern .dot.vacant{background:#c62828}
+#contacts .gp-legend-note{color:#7d8b9a}
+#contacts .gp-staffing-strip{display:flex;align-items:center;gap:16px;margin:12px 0 4px;padding:11px 15px;background:#f7f9fc;border:1px solid #e2e8f0;border-radius:12px}
+#contacts .gp-strip-item{display:flex;align-items:baseline;gap:8px}
+#contacts .gp-strip-label{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:#7b8794;font-weight:850}
+#contacts .gp-strip-item strong{font-size:13px;color:#17324d}
+#contacts .gp-strip-divider{height:18px;width:1px;background:#dbe3eb}
+@media(max-width:900px){#contacts .gp-filter-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){#contacts .gp-modern-hero{padding:18px;align-items:flex-start;flex-direction:column}#contacts .gp-filter-grid{grid-template-columns:1fr}#contacts .gp-staffing-strip{flex-wrap:wrap}}
+</style></head>
 <body>
 
 
@@ -284,26 +349,106 @@ footer{text-align:center;color:#718096;font-size:11px;padding:25px}
 </div></section>
 
 <section class="page" id="contacts"><div class="wrap">
-<div class="panel">
- <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-  <div><h2>👷 GP-wise GRS & Accredited Engineers</h2><p class="muted">Field Contact Directory</p></div>
-  <span id="contactsLiveState" style="background:#eef6ff;color:#155eef;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:700">WAITING FOR DATA</span>
+<div class="gp-modern-hero">
+  <div class="gp-hero-main">
+    <div class="gp-eyebrow">FIELD STAFFING · LIVE MONITORING</div>
+    <h2>👷 GP-wise GRS & Accredited Engineers</h2>
+    <p>Contact directory, staffing status and functional coverage across Gram Panchayats.</p>
+  </div>
+  <div class="gp-hero-status">
+    <span class="gp-status-dot"></span>
+    <span id="contactsLiveState">WAITING FOR DATA</span>
+  </div>
+</div>
+
+<div class="gp-filter-card">
+  <div class="gp-filter-head">
+    <div>
+      <div class="gp-filter-title">Find a GP or Staff Member</div>
+      <div class="muted">Use one or more filters. The register updates instantly.</div>
+    </div>
+    <button id="contactsReset" type="button" class="gp-reset-modern">↻ Reset</button>
+  </div>
+  <div class="gp-filter-grid">
+    <div class="gp-field">
+      <label>Block</label>
+      <select id="contactsBlockFilter"><option value="">All Blocks</option></select>
+    </div>
+    <div class="gp-field">
+      <label>Gram Panchayat</label>
+      <select id="contactsGPFilter"><option value="">All GPs</option></select>
+    </div>
+    <div class="gp-field">
+      <label>Occupancy</label>
+      <select id="contactsStatusFilter"><option value="">All Occupancy</option></select>
+    </div>
+    <div class="gp-field gp-search">
+      <label>Search</label>
+      <div class="gp-search-box"><span>⌕</span><input id="contactsSearch" type="text" placeholder="GP / Name / Phone / Remarks"></div>
+    </div>
+  </div>
+  <div class="gp-legend-modern">
+    <span><i class="dot permanent"></i> Permanent</span>
+    <span><i class="dot ic"></i> I/C</span>
+    <span><i class="dot vacant"></i> Vacant</span>
+    <span class="gp-legend-note">I/C = functionally covered, but not Permanent</span>
+  </div>
+</div>
+
+<div class="gp-staffing-strip">
+  <div class="gp-strip-item"><span class="gp-strip-label">Live Records</span><strong id="contactsResultCount">—</strong></div>
+  <div class="gp-strip-divider"></div>
+  <div class="gp-strip-item"><span class="gp-strip-label">Attention</span><strong id="contactsAttention">—</strong></div>
+  <div class="gp-strip-divider"></div>
+  <div class="gp-strip-item"><span class="gp-strip-label">Data Source</span><strong>Google Sheet</strong></div>
+</div>
+
+<div class="panel gp-staff-summary">
+ <div class="gp-panel-head">
+  <div><h3>Staffing & Vacancy Summary</h3><span class="muted">Two-row view — first row GRS, second row Accredited Engineer</span></div>
  </div>
- <div class="filters" style="margin-top:14px">
-  <select id="contactsBlockFilter"><option value="">All Blocks</option></select>
-  <select id="contactsGPFilter"><option value="">All GPs</option></select>
-  <input id="contactsSearch" type="text" placeholder="🔎 Search GP / Name / Phone" style="flex:1;min-width:220px">
+ <div class="gp-summary-wrap">
+  <table class="gp-summary-table">
+   <thead><tr>
+    <th>Category</th><th>Total GP</th><th>Permanent</th><th>I/C</th><th>Vacant</th><th>Functionally Covered</th><th>Coverage</th>
+   </tr></thead>
+   <tbody>
+    <tr>
+     <td><b>👷 GRS</b></td>
+     <td id="contactsGPCount">—</td>
+     <td id="contactsGRSPermanent" class="good-text">—</td>
+     <td id="contactsGRSIC" class="ic-text">—</td>
+     <td id="contactsGRSVacant" class="bad-text">—</td>
+     <td id="contactsGRSFunctional">—</td>
+     <td><span id="contactsGRSPct" class="coverage-pill">—</span></td>
+    </tr>
+    <tr>
+     <td><b>🛠 Accredited Engineer</b></td>
+     <td id="contactsEngineerGPCount">—</td>
+     <td id="contactsEngineerPermanent" class="good-text">—</td>
+     <td id="contactsEngineerIC" class="ic-text">—</td>
+     <td id="contactsEngineerVacant" class="bad-text">—</td>
+     <td id="contactsEngineerFunctional">—</td>
+     <td><span id="contactsEngineerPct" class="coverage-pill">—</span></td>
+    </tr>
+   </tbody>
+  </table>
  </div>
 </div>
-<div class="cards" style="margin-top:18px;grid-template-columns:repeat(4,1fr)">
- <div class="card"><div class="label">GP Contacts</div><div id="contactsGPCount" class="value">—</div></div>
- <div class="card"><div class="label">GRS Contacts</div><div id="contactsGRSCount" class="value">—</div></div>
- <div class="card"><div class="label">Accredited Engineers</div><div id="contactsEngineerCount" class="value">—</div></div>
- <div class="card"><div class="label">Status</div><div id="contactsStatus" class="value" style="font-size:20px">—</div></div>
+<div class="panel gp-coverage">
+ <div class="gp-panel-head"><div><h3>Coverage Snapshot</h3><span class="muted">Based on current filtered records</span></div><span id="contactsAttention" class="gp-attention">—</span></div>
+ <div class="coverage-grid">
+  <div><div class="coverage-label"><span>GRS functional coverage</span><b id="contactsGRSPct">—</b></div><div class="bar"><span id="contactsGRSBar"></span></div></div>
+  <div><div class="coverage-label"><span>Engineer functional coverage</span><b id="contactsEngineerPct">—</b></div><div class="bar"><span id="contactsEngineerBar"></span></div></div>
+ </div>
 </div>
-<div class="panel" style="margin-top:18px">
+
+<div class="panel gp-table-panel">
+ <div class="gp-panel-head"><div><h3>GP Contact Register</h3><span class="muted">Filter or search to locate a GP quickly.</span></div><span id="contactsResultCount" class="gp-count">—</span></div>
  <div class="scroll" id="contactsTable"><div class="muted">Waiting for Google Sheet data…</div></div>
 </div>
+
+<div class="panel gp-note"><b>Vacancy interpretation:</b> <span class="bad">Vacant</span> = post not functionally covered. <span class="gp-ic-text">I/C</span> = functionally covered but not Permanent. <span class="muted">Regular vacancy and functional vacancy are different monitoring indicators.</span></div>
 </div></section>
 
 <section class="page" id="action"><div class="wrap">
@@ -615,7 +760,7 @@ document.querySelectorAll('input[type="range"]').forEach(r=>{
 const GOOGLE_SHEET_ID = "1DdrQU-w0KNA6OIJZNuNRva-zOkdV1Jr5";
 const LIVE_SHEETS = [
   "District Overview","eKYC & ABPS","Physical Progress Report","GP Contacts",
-  "Action Required","Performance","Analytics","Documents","Pending Reports","Geo-tag"
+  "GP Contacts (1)","Action Required","Performance","Analytics","Documents","Pending Reports","Geo-tag"
 ];
 
 function gvizUrl(sheet){
@@ -950,58 +1095,191 @@ function renderWorst5Overview(ekycData, physicalData, geoData){
 
 
 function renderContactsLive(d){
-  if(!d || d.error || !d.rows.length) return;
-  const c=d.cols.map(x=>String(x).trim().toLowerCase());
-  const ci=(names)=>{for(const n of names){const i=c.indexOf(n.toLowerCase());if(i>=0)return i}return -1};
-  const ib=ci(["Block"]), ig=ci(["GP","GP Name","Gram Panchayat"]);
-  const igrs=ci(["GRS Name","GRS"]), ipg=ci(["GRS Phone","Phone"]);
-  const ie=ci(["Accredited Engineer Name","Accredited Engineer","Engineer Name"]);
-  const iep=ci(["Engineer Phone","Accredited Engineer Phone"]);
-  const irm=ci(["Remarks","Remark","Notes"]);
-  const rows=d.rows.map(r=>({
-    block:ib>=0?String(r[ib]||""):"",
-    gp:ig>=0?String(r[ig]||""):"",
-    grs:igrs>=0?String(r[igrs]||""):"",
-    grsPhone:ipg>=0?String(r[ipg]||""):"",
-    engineer:ie>=0?String(r[ie]||""):"",
-    engineerPhone:iep>=0?String(r[iep]||""):"",
-    remarks:irm>=0?String(r[irm]||""):""
-  })).filter(x=>x.block||x.gp||x.grs||x.engineer);
+  if(!d || d.error || !Array.isArray(d.rows) || !d.rows.length) return;
 
-  const bs=document.getElementById("contactsBlockFilter"), gs=document.getElementById("contactsGPFilter");
+  // Current master GP Contacts schema:
+  // A S.No, B Block, C GP, D GRS Name, E GRS Phone, F GRS Status,
+  // G GRS Nature, H Accredited Engineer Name, I Engineer Phone,
+  // J Engineer Status, K Engineer Nature, L Remarks, M Last Updated,
+  // N-Q vacancy indicators, R Overall Functional Status.
+  const c=(d.cols||[]).map(x=>String(x??"").trim().toLowerCase());
+  const has18=d.rows.some(r=>Array.isArray(r) && r.length>=18);
+
+  const ci=(names)=>{
+    for(const n of names){
+      const i=c.indexOf(n.toLowerCase());
+      if(i>=0) return i;
+    }
+    return -1;
+  };
+  const val=(r,i)=>i>=0 && r[i]!==undefined && r[i]!==null ? String(r[i]).trim():"";
+
+  // Prefer fixed positions for the 18-column vacancy sheet. Header matching
+  // remains as fallback for the older contact sheet.
+  const ib=has18?1:ci(["Block"]);
+  const ig=has18?2:ci(["GP","GP Name","Gram Panchayat"]);
+  const igrs=has18?3:ci(["GRS Name","GRS"]);
+  const igrsPhone=has18?4:ci(["GRS Phone","GRS Mobile","GRS Contact"]);
+  const igrsStatus=has18?5:ci(["GRS Status"]);
+  const igrsNature=has18?6:ci(["GRS Nature","GRS Nature of Occupancy","GRS Occupancy"]);
+  const ie=has18?7:ci(["Accredited Engineer Name","Accredited Engineer","Engineer Name"]);
+  const iep=has18?8:ci(["Engineer Phone","Accredited Engineer Phone","Engineer Mobile","Engineer Contact"]);
+  const ieStatus=has18?9:ci(["Engineer Status","Accredited Engineer Status"]);
+  const ieNature=has18?10:ci(["Engineer Nature","Accredited Engineer Nature","Engineer Nature of Occupancy","Engineer Occupancy"]);
+  const irm=has18?11:ci(["Remarks","Remark","Notes"]);
+
+  // IMPORTANT: Status and Nature are separate fields.
+  // Nature controls Permanent / I/C / Vacant staffing classification.
+  // Status is displayed separately and must NOT override Nature.
+  const normalize=(status,nature,name)=>{
+    const st=(status||"").trim(), n=(nature||"").trim();
+    const z=n.toLowerCase().replace(/[\s.\-_]/g,"");
+    if(z.includes("vacant")) return "Vacant";
+    if(z.includes("i/c") || z.includes("ic") || z.includes("incharge")) return "I/C";
+    if(z.includes("permanent") || z.includes("regular")) return "Permanent";
+    // If Nature is blank, use Status only as a fallback.
+    const zs=st.toLowerCase().replace(/[\s.\-_]/g,"");
+    if(zs.includes("vacant")) return "Vacant";
+    if(zs.includes("i/c") || zs.includes("ic") || zs.includes("incharge")) return "I/C";
+    if(zs.includes("permanent") || zs.includes("regular") || /working|active|posted/i.test(st)) return "Permanent";
+    return n;
+  };
+
+  const rows=d.rows.map(r=>{
+    const grs=val(r,igrs), engineer=val(r,ie);
+    const gs=val(r,igrsStatus), gn=normalize(gs,val(r,igrsNature),grs);
+    const es=val(r,ieStatus), en=normalize(es,val(r,ieNature),engineer);
+    return {
+      block:val(r,ib), gp:val(r,ig),
+      grs, grsPhone:val(r,igrsPhone), grsStatus:gs||gn, grsNature:gn,
+      engineer, engineerPhone:val(r,iep), engineerStatus:es||en, engineerNature:en,
+      remarks:val(r,irm)
+    };
+  }).filter(x=>x.block||x.gp||x.grs||x.engineer);
+
+  const bs=document.getElementById("contactsBlockFilter");
+  const gps=document.getElementById("contactsGPFilter");
+  const ss=document.getElementById("contactsStatusFilter");
   const search=document.getElementById("contactsSearch");
-  const oldB=bs.value, oldG=gs.value;
+
+  if(ss){
+    const occCount={Permanent:0,"I/C":0,Vacant:0};
+    const classify=(status,nature)=>{
+      const n=(nature||"").trim().toLowerCase().replace(/[\s._-]/g,"");
+      const st=(status||"").trim().toLowerCase().replace(/[\s._-]/g,"");
+      if(n.includes("vacant")) return "Vacant";
+      if(n.includes("ic")||n.includes("incharge")) return "I/C";
+      if(n.includes("permanent")||n.includes("regular")) return "Permanent";
+      if(st.includes("vacant")) return "Vacant";
+      if(st.includes("ic")||st.includes("incharge")) return "I/C";
+      if(st.includes("permanent")||st.includes("regular")||/working|active|posted/.test(st)) return "Permanent";
+      return "";
+    };
+    rows.forEach(x=>{
+      const g=classify(x.grsStatus,x.grsNature);
+      const e=classify(x.engineerStatus,x.engineerNature);
+      if(g) occCount[g]++;
+      if(e) occCount[e]++;
+    });
+    const current=ss.value;
+    const total=occCount.Permanent+occCount["I/C"]+occCount.Vacant;
+    ss.innerHTML=
+      '<option value="">All Occupancy</option>'+
+      '<option value="Permanent">Permanent</option>'+
+      '<option value="I/C">I/C</option>'+
+      '<option value="Vacant">Vacant</option>';
+    if(["Permanent","I/C","Vacant"].includes(current)) ss.value=current;
+  }
+  if(!bs||!gps||!search) return;
+
+  const oldB=bs.value, oldG=gps.value, oldS=ss?ss.value:"";
   const blocks=[...new Set(rows.map(x=>x.block).filter(Boolean))].sort();
   bs.innerHTML='<option value="">All Blocks</option>'+blocks.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
-  if(blocks.includes(oldB))bs.value=oldB;
+  if(blocks.includes(oldB)) bs.value=oldB;
 
   function updateGPs(){
-    const b=bs.value, old=gs.value;
-    const gps=[...new Set(rows.filter(x=>!b||x.block===b).map(x=>x.gp).filter(Boolean))].sort();
-    gs.innerHTML='<option value="">All GPs</option>'+gps.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
-    if(gps.includes(old))gs.value=old;
+    const b=bs.value, old=gps.value;
+    const list=[...new Set(rows.filter(x=>!b||x.block===b).map(x=>x.gp).filter(Boolean))].sort();
+    gps.innerHTML='<option value="">All GPs</option>'+list.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+    if(list.includes(old)) gps.value=old;
   }
+
   function apply(){
-    const b=bs.value,g=gs.value,q=(search.value||"").toLowerCase();
-    const filtered=rows.filter(x=>
-      (!b||x.block===b)&&(!g||x.gp===g)&&
-      (!q||[x.block,x.gp,x.grs,x.grsPhone,x.engineer,x.engineerPhone,x.remarks].join(" ").toLowerCase().includes(q))
+    const b=bs.value,g=gps.value,wanted=ss?ss.value:"",q=(search.value||"").toLowerCase().trim();
+    // Staffing summary uses ALL records for the selected Block/GP.
+    // Occupancy is a table filter only and must not change Total GP or
+    // Permanent/I/C/Vacant totals in the monitoring summary.
+    const baseRows=rows.filter(x=>
+      (!b||x.block===b)&&(!g||x.gp===g)
     );
-    document.getElementById("contactsGPCount").textContent=filtered.filter(x=>x.gp).length;
-    document.getElementById("contactsGRSCount").textContent=filtered.filter(x=>x.grs).length;
-    document.getElementById("contactsEngineerCount").textContent=filtered.filter(x=>x.engineer).length;
-    document.getElementById("contactsStatus").textContent=filtered.length+" records";
-    const table='<table class="sortable"><thead><tr><th>S.No.</th><th>Block</th><th>GP</th><th>GRS Name</th><th>Phone</th><th>Accredited Engineer</th><th>Phone</th><th>Remarks</th></tr></thead><tbody>'+
-      filtered.map((x,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(x.block)+'</td><td>'+esc(x.gp)+'</td><td>'+esc(x.grs)+'</td><td>'+esc(x.grsPhone)+'</td><td>'+esc(x.engineer)+'</td><td>'+esc(x.engineerPhone)+'</td><td>'+esc(x.remarks)+'</td></tr>').join("")+
+    const filtered=baseRows.filter(x=>
+      (!wanted||x.grsNature===wanted||x.engineerNature===wanted)&&
+      (!q||[x.block,x.gp,x.grs,x.grsPhone,x.grsStatus,x.grsNature,x.remarks,x.engineer,x.engineerPhone,x.engineerStatus,x.engineerNature]
+        .join(" ").toLowerCase().includes(q))
+    );
+
+    const gpKeys=new Set(baseRows.map(x=>(x.block+"||"+x.gp).toLowerCase()).filter(x=>x!=="||"));
+    const count=(field,status)=>baseRows.filter(x=>x[field]===status).length;
+    const total=baseRows.length;
+    const grsCovered=count("grsNature","Permanent")+count("grsNature","I/C");
+    const engCovered=count("engineerNature","Permanent")+count("engineerNature","I/C");
+    const grsPct=total?Math.round(grsCovered/total*100):0;
+    const engPct=total?Math.round(engCovered/total*100):0;
+    const attention=count("grsNature","Vacant")+count("engineerNature","Vacant");
+
+    const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+    const width=(id,v)=>{const e=document.getElementById(id);if(e)e.style.width=Math.max(0,Math.min(100,v))+"%"};
+
+    set("contactsGPCount",gpKeys.size);
+    set("contactsEngineerGPCount",gpKeys.size);
+    set("contactsGRSPermanent",count("grsNature","Permanent"));
+    set("contactsGRSIC",count("grsNature","I/C"));
+    set("contactsGRSVacant",count("grsNature","Vacant"));
+    set("contactsEngineerPermanent",count("engineerNature","Permanent"));
+    set("contactsEngineerIC",count("engineerNature","I/C"));
+    set("contactsEngineerVacant",count("engineerNature","Vacant"));
+    set("contactsGRSFunctional",grsCovered);
+    set("contactsEngineerFunctional",engCovered);
+    set("contactsGRSPct",grsPct+"%");
+    set("contactsEngineerPct",engPct+"%");
+    set("contactsAttention",attention ? attention+" vacancy"+(attention===1?"":"ies")+" need attention" : "No vacancies");
+    set("contactsResultCount",total+" record"+(total===1?"":"s"));
+    width("contactsGRSBar",grsPct); width("contactsEngineerBar",engPct);
+
+    const pill=x=>{
+      if(!x)return '<span class="muted">—</span>';
+      if(x==="Permanent")return '<span style="background:#eaf7ef;color:#087443;padding:5px 8px;border-radius:999px;font-size:10px;font-weight:800">PERMANENT</span>';
+      if(x==="I/C")return '<span style="background:#fff4e5;color:#b54708;padding:5px 8px;border-radius:999px;font-size:10px;font-weight:800">I/C</span>';
+      if(x==="Vacant")return '<span style="background:#fff0f0;color:#b42318;padding:5px 8px;border-radius:999px;font-size:10px;font-weight:800">VACANT</span>';
+      return esc(x);
+    };
+
+    document.getElementById("contactsTable").innerHTML=
+      '<table class="sortable"><thead><tr>'+
+      '<th>Block</th><th>GP</th><th>GRS Name</th><th>GRS Phone</th><th>GRS Status</th><th>GRS Nature</th><th>Remarks</th>'+
+      '<th>Accredited Engineer</th><th>Engineer Phone</th><th>Engineer Status</th><th>Engineer Nature</th>'+
+      '</tr></thead><tbody>'+
+      filtered.map(x=>'<tr>'+
+        '<td>'+esc(x.block)+'</td><td>'+esc(x.gp)+'</td>'+
+        '<td>'+esc(x.grs||"—")+'</td><td>'+esc(x.grsPhone||"—")+'</td><td>'+pill(x.grsStatus)+'</td><td>'+pill(x.grsNature)+'</td><td>'+esc(x.remarks||"—")+'</td>'+
+        '<td>'+esc(x.engineer||"—")+'</td><td>'+esc(x.engineerPhone||"—")+'</td><td>'+pill(x.engineerStatus)+'</td><td>'+pill(x.engineerNature)+'</td>'+
+      '</tr>').join("")+
       '</tbody></table>';
-    document.getElementById("contactsTable").innerHTML=table;
+
     makeSortable(document.querySelector("#contactsTable table"));
-    document.getElementById("contactsLiveState").textContent=filtered.length+" records loaded";
+    const state=document.getElementById("contactsLiveState");
+    if(state) state.textContent=filtered.length+" GP records loaded";
   }
+
   bs.onchange=()=>{updateGPs();apply()};
-  gs.onchange=apply;
+  gps.onchange=apply;
+  if(ss) ss.onchange=apply;
   search.oninput=apply;
-  updateGPs();apply();
+  const reset=document.getElementById("contactsReset");
+  if(reset) reset.onclick=()=>{bs.value="";updateGPs();gps.value="";if(ss)ss.value="";search.value="";apply()};
+  updateGPs();
+  if(ss && ["Permanent","I/C","Vacant"].includes(oldS)) ss.value=oldS;
+  apply();
 }
 
 function renderActionLive(ekycData, physicalData, geoData){
@@ -1279,7 +1557,7 @@ async function loadLiveData(){
     // Store live data for future dashboard calculations.
     window.liveSheetData=Object.fromEntries(results.map(x=>[x.sheet,x]));
     const ekycData=results.find(x=>x.sheet==="eKYC & ABPS" && !x.error); if(ekycData) renderEkycLive(ekycData);
-    const contactsData=results.find(x=>x.sheet==="GP Contacts" && !x.error);
+    const contactsData=results.find(x=>x.sheet==="GP Contacts (1)" && !x.error) || results.find(x=>x.sheet==="GP Contacts" && !x.error);
     const actionEkyc=results.find(x=>x.sheet==="eKYC & ABPS" && !x.error);
     const actionPhysical=results.find(x=>x.sheet==="Physical Progress Report" && !x.error);
     const actionGeo=results.find(x=>x.sheet==="Geo-tag" && !x.error);
