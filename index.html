@@ -1,51 +1,994 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sivasagar District e-KYC & NPCI Dashboard</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sivasagar VB-G RAM G Dashboard — Demo</title>
 <style>
-body{font-family:Arial,sans-serif;margin:0;background:#f4f7fb;color:#172033}header{background:#17365d;color:#fff;padding:22px 28px}
-h1{margin:0;font-size:25px}.wrap{padding:22px;max-width:1500px;margin:auto}.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-.card,.panel{background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 10px #00000010}.label{font-size:13px;color:#657085}.value{font-size:28px;font-weight:700;margin-top:7px}
-.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}select{padding:9px;border:1px solid #ccd3df;border-radius:8px;background:#fff}
-.grid{display:grid;grid-template-columns:1.35fr .65fr;gap:18px;margin-top:18px}table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{padding:9px;border-bottom:1px solid #e7ebf0;text-align:left}th{background:#f6f8fb;position:sticky;top:0}
-.bad{color:#b42318;font-weight:700}.good{color:#087443;font-weight:700}.bar{height:12px;background:#e8edf4;border-radius:8px;overflow:hidden}.fill{height:100%;background:#2f6fed}
-.scroll{overflow:auto;max-height:520px}@media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}}
-</style></head><body>
-<header><h1>VB-G RAM G Dashboard</h1><div>Under Sivasagar District</div></header>
-<div class="wrap"><div class="cards" id="cards"></div>
-<div class="panel"><h2>Filters</h2><div class="filters">
-<select id="block"><option value="All">All Blocks</option></select>
-<select id="status"><option value="All">All e-KYC Status</option><option value="Below 95%">Below 95%</option><option value="95% or Above">95% or Above</option></select>
-<select id="abps"><option value="All">All ABPS Status</option><option value="Below 95%">Below 95%</option><option value="95% or Above">95% or Above</option></select>
-</div></div>
-<div class="grid">
-<div class="panel"><h2>e-KYC and ABPS Performance</h2><div class="scroll"><table><thead><tr><th>S.No.</th><th>Block</th><th>GP</th><th>Workers</th><th>e-KYC Done</th><th>e-KYC %</th><th>ABPS %</th><th>e-KYC Status</th><th>ABPS Status</th></tr></thead><tbody id="rows"></tbody></table></div></div>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:#f5f7fb;color:#172033}
+.hero{min-height:205px;color:#fff;padding:30px 32px;display:flex;align-items:center;background:linear-gradient(90deg,rgba(8,27,58,.92),rgba(15,65,110,.65)),url('https://upload.wikimedia.org/wikipedia/commons/0/02/Sivasagar_Siva_dol.jpg') center/cover}
+.hero h1{margin:0;font-size:30px}.hero p{margin:7px 0 0;opacity:.88}.live{margin-top:13px;font-size:12px;opacity:.9}
+nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid #e5eaf2;padding:10px 18px;display:flex;gap:7px;overflow:auto}
+nav button{white-space:nowrap;border:0;padding:10px 14px;border-radius:10px;background:#eef2f8;color:#24344d;cursor:pointer;font-weight:650}
+nav button.active{background:#17365d;color:#fff}.page{display:none}.page.active{display:block}.wrap{max-width:1500px;margin:auto;padding:22px}
+.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.card,.panel{background:#fff;border:1px solid #e7edf5;border-radius:16px;padding:18px;box-shadow:0 5px 20px #1720330b}
+.card{min-height:108px}.label{font-size:11px;color:#68758a;text-transform:uppercase;letter-spacing:.5px}.value{font-size:29px;font-weight:800;margin-top:8px}
+.grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;margin-top:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+h2{font-size:18px;margin:0 0 14px}h3{font-size:14px;margin:0 0 8px}.muted{color:#718096;font-size:12px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center}select,input[type=text]{padding:10px 12px;border:1px solid #d7deea;border-radius:10px;background:#fff}.range{display:flex;align-items:center;gap:9px;padding:8px 11px;background:#f7f9fc;border:1px solid #e5eaf2;border-radius:10px;font-size:12px}.range input{width:150px;accent-color:#2f6fed}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}th,td{padding:11px 9px;border-bottom:1px solid #edf1f6;text-align:left}th{background:#f7f9fc;color:#59677b;font-size:10px;text-transform:uppercase;position:sticky;top:0}tbody tr:hover{background:#f8fbff}
+.scroll{overflow:auto;max-height:560px}.rank{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #edf1f6}.rank:last-child{border-bottom:0}.good{color:#087443;font-weight:700}.bad{color:#b42318;font-weight:700}
+.bar{height:10px;background:#e9eef5;border-radius:99px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#2f6fed,#5c8ef2);border-radius:99px}
+.alert{padding:12px;border-radius:10px;margin:8px 0;background:#fff4f2;border-left:4px solid #d92d20}.notice{padding:12px;border-radius:10px;margin:8px 0;background:#fff9e8;border-left:4px solid #f59e0b}
+footer{text-align:center;color:#718096;font-size:11px;padding:25px}
+@media(max-width:1050px){.cards{grid-template-columns:repeat(3,1fr)}.grid,.grid3{grid-template-columns:1fr}}
+@media(max-width:650px){.cards{grid-template-columns:repeat(2,1fr)}.wrap{padding:12px}.hero{padding:25px 18px}.hero h1{font-size:23px}.range{width:100%}.range input{flex:1}}
+.docBtn{border:1px solid #d7deea;background:#fff;border-radius:9px;padding:8px 10px;cursor:pointer;font-weight:650;color:#24344d}.docBtn:hover{background:#f4f7fb}</style>
+
+<style>
+.sortable th{cursor:pointer;user-select:none;white-space:nowrap}
+.sortable th:hover{background:#eaf2fb}
+.sortable th::after{content:" ↕";font-size:10px;opacity:.45}
+.sortable th.sort-asc::after{content:" ↑";opacity:1}
+.sortable th.sort-desc::after{content:" ↓";opacity:1}
+</style>
+</head>
+<body>
+<div id="liveBanner" style="position:sticky;top:0;z-index:9999;background:#0b6b4b;color:#fff;padding:9px 16px;font-size:13px;display:flex;justify-content:space-between;gap:12px;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.12)">
+  <span>🟢 <b>LIVE — Google Sheet Connected</b> · Sivasagar VB-G RAM G</span>
+  <span id="liveStatus">Connecting…</span>
+</div>
+
+<header class="hero">
 <div>
-<div class="panel"><h2>Lowest e-KYC</h2><div id="bars"></div></div>
-<div class="panel" style="margin-top:18px"><h2>Below 95% e-KYC Panchayats</h2><div class="scroll"><table><thead><tr><th>S.No.</th><th>Block</th><th>GP</th><th>e-KYC %</th></tr></thead><tbody id="below90"></tbody></table></div></div>
-</div></div></div>
+<h1>VB-G RAM G Dashboard</h1>
+<p>District-level monitoring · GP & Block-wise performance<div class="muted" style="margin-top:7px;font-size:11px">For monitoring purposes only. Data reflects the latest information available after the Administrator updates the source data.</div></p>
+<div class="live">● MONITORING PURPOSE ONLY · Data reflects the latest information updated by the Administrator</div>
+</div>
+</header>
+
+<nav>
+<button class="tab active" data-page="overview">🏠 District Overview</button>
+<button class="tab" data-page="ekyc">📊 e-KYC & ABPS</button>
+<button class="tab" data-page="employment">💼 PHYSICAL PROGRESS REPORT</button>
+<button class="tab" data-page="contacts">👷 GP Contacts</button>
+<button class="tab" data-page="action">🚨 Action Required</button>
+<button class="tab" data-page="ranking">🏆 Performance</button>
+<button class="tab" data-page="analytics">📈 Analytics</button>
+<button class="tab" data-page="documents">📚 Documents</button>
+<button class="tab" data-page="reports">🔔 Pending Reports</button>
+<button class="tab" data-page="geotag">📍 Geo-tag</button>
+</nav>
+
+<main>
+<section class="page active" id="overview"><div class="wrap">
+<div id="liveDataPanel" class="panel" style="margin-bottom:18px">
+  <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
+    <div><h2 style="margin:0">🔄 Live Data Status</h2><div class="muted">Data is read directly from the connected Google Sheet</div></div>
+    <div><button id="refreshLive" class="docBtn" onclick="loadLiveData()">↻ Refresh Now</button></div>
+  </div>
+  <div id="liveMeta" style="margin-top:10px;font-size:13px">Waiting for Google Sheet…</div>
+</div>
+
+<div class="cards">
+<div class="card"><div class="label">Blocks</div><div id="overviewBlocks" class="value">—</div></div>
+<div class="card"><div class="label">Gram Panchayats</div><div id="overviewGPs" class="value">—</div></div>
+<div class="card"><div class="label">e-KYC</div><div id="overviewEkyc" class="value">—</div></div>
+<div class="card"><div class="label">ABPS</div><div id="overviewAbps" class="value">—</div></div>
+<div class="card"><div class="label">Persondays</div><div id="overviewPersondays" class="value">—</div></div>
+</div>
+<div class="grid">
+<div class="panel"><h2>Employment Snapshot</h2><table><thead><tr><th>Indicator</th><th>Household</th><th>Persons</th></tr></thead><tbody>
+<tr><td>Demanded</td><td>2,542</td><td>3,028</td></tr><tr><td>Offered</td><td>2,536</td><td>3,021</td></tr><tr><td>Availed</td><td>2,498</td><td>2,944</td></tr><tr><td class="bad">Demand → Offer Gap</td><td>6</td><td>7</td></tr><tr><td class="bad">Demand → Avail Gap</td><td>44</td><td>84</td></tr></tbody></table></div>
+<div class="panel"><h2>Block Overview</h2>
+<div class="rank"><b>Amguri</b><span>e-KYC 96.2%</span></div><div class="rank"><b>Demow</b><span>e-KYC 95.1%</span></div><div class="rank"><b>Gaurisagar</b><span>e-KYC 93.8%</span></div><div class="rank"><b>Nazira</b><span>e-KYC 97.2%</span></div><div class="rank"><b>Sivasagar</b><span class="bad">e-KYC 90.7%</span></div>
+</div></div>
+<div class="grid3"></div></div><div class="muted">Families completed</div></div></div>
+
+<div class="panel" style="margin-top:18px">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+  <div><h2>🔴 Worst 5 GP — District Overview</h2><div class="muted">Dynamic ranking from Google Sheet data</div></div>
+  <span style="background:#fff1f0;color:#b42318;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:700">LIVE WORST RANKING</span>
+ </div>
+ <div class="grid3" style="margin-top:14px">
+  <div class="panel"><h3>e-KYC</h3><div id="worst5Ekyc"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3>ABPS</h3><div id="worst5Abps"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3>Total Persondays</h3><div id="worst5Persondays"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3>Physical Progress</h3><div id="worst5Physical"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3>Demand → Offer Gap</h3><div id="worst5OfferGap"><div class="muted">Loading…</div></div></div>
+  <div class="panel"><h3>Demand → Avail Gap</h3><div id="worst5AvailGap"><div class="muted">Loading…</div></div></div>
+ </div>
+ <div class="panel" style="margin-top:14px"><h3>Geo-tag — Highest Attention</h3><div id="worst5Geo"><div class="muted">Loading…</div></div></div>
+</div>
+</div></section>
+
+<section class="page" id="ekyc"><div class="wrap">
+<div class="panel">
+ <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
+  <div><h2>📊 e-KYC & ABPS Monitoring</h2><div class="muted">Live GP-wise data from Google Sheet</div></div>
+  <span id="ekycLiveState" style="background:#eef6ff;color:#155eef;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:700">WAITING FOR DATA</span>
+ </div>
+ <div class="filters" style="margin-top:14px">
+  <select id="ekycBlockFilter"><option value="">All Blocks</option></select>
+  <label class="range">e-KYC Threshold <input id="ekycThreshold" type="range" min="0" max="100" value="95"><b id="ekycThresholdVal">95%</b></label>
+  <label class="range">ABPS Threshold <input id="abpsThreshold" type="range" min="0" max="100" value="95"><b id="abpsThresholdVal">95%</b></label>
+ </div>
+</div>
+
+<div class="cards" style="margin-top:18px">
+ <div class="card"><div class="label">e-KYC Average</div><div id="ekycAvg" class="value">—</div><div class="muted">GP-wise weighted average</div></div>
+ <div class="card"><div class="label">ABPS Average</div><div id="abpsAvg" class="value">—</div><div class="muted">GP-wise weighted average</div></div>
+ <div class="card"><div class="label"> in e-KYC</div><div id="bestEkyc" class="value" style="font-size:20px">—</div></div>
+ <div class="card"><div class="label">Worst GP in e-KYC</div><div id="worstEkyc" class="value" style="font-size:20px">—</div></div>
+ <div class="card"><div class="label">GPs below e-KYC threshold</div><div id="ekycBelow" class="value">—</div></div>
+ <div class="card"><div class="label">GPs below ABPS threshold</div><div id="abpsBelow" class="value">—</div></div>
+</div>
+
+<div class="grid3" style="margin-top:18px">
+ <div class="panel"><h2>🟢  in e-KYC</h2><div id="bestEkycList"><div class="muted">Waiting for live data…</div></div></div>
+ <div class="panel"><h2>🔴 Worst GP in e-KYC</h2><div id="worstEkycList"><div class="muted">Waiting for live data…</div></div></div>
+ <div class="panel"><h2>📊 ABPS Performance</h2><div id="abpsSummary"><div class="muted">Waiting for live data…</div></div></div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+  <div><h2>GP-wise e-KYC & ABPS Data</h2><div class="muted">Actual rows loaded from the “eKYC & ABPS” Google Sheet tab</div></div>
+  <input id="ekycSearch" type="text" placeholder="🔎 Search Block / GP..." style="min-width:220px">
+ </div>
+ <div id="ekycTable" class="scroll" style="margin-top:12px"><div class="muted">Waiting for Google Sheet data…</div></div>
+</div>
+</div></section>
+
+<section class="page" id="employment"><div class="wrap">
+<div class="panel">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+  <div><h2>📋 PHYSICAL PROGRESS REPORT</h2><div class="muted">Live Block-wise & GP-wise employment progress</div></div>
+  <span id="physicalLiveState" style="background:#eef6ff;color:#155eef;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:700">WAITING FOR DATA</span>
+ </div>
+ <div class="filters" style="margin-top:14px">
+  <select id="physicalBlockFilter"><option value="">All Blocks</option></select>
+  <select id="physicalGPFilter"><option value="">All GPs</option></select>
+  <select id="physicalStatusFilter">
+   <option value="">All Status</option><option value="Good">Good</option><option value="Attention">Attention</option>
+  </select>
+  <label class="range">Demand→Offer Gap
+   <input id="offerGapFilter" type="range" min="0" max="100" value="100">
+   <b id="offerGapFilterVal">≤100</b>
+  </label>
+  <label class="range">Demand→Avail Gap
+   <input id="availGapFilter" type="range" min="0" max="100" value="100">
+   <b id="availGapFilterVal">≤100</b>
+  </label>
+  <label class="range">Persondays
+   <input id="persondaysFilter" type="range" min="0" max="100000" value="100000">
+   <b id="persondaysFilterVal">≤100000</b>
+  </label>
+</div>
+</div>
+
+<div class="cards" style="margin-top:18px">
+ <div class="card"><div class="label">Demanded HH</div><div id="ppDemandHH" class="value">—</div></div>
+ <div class="card"><div class="label">Offered HH</div><div id="ppOfferHH" class="value">—</div></div>
+ <div class="card"><div class="label">Availed HH</div><div id="ppAvailHH" class="value">—</div></div>
+ <div class="card"><div class="label">Demand→Offer Gap</div><div id="ppOfferGap" class="value">—</div></div>
+ <div class="card"><div class="label">Demand→Avail Gap</div><div id="ppAvailGap" class="value">—</div></div>
+ <div class="card"><div class="label">Total Persondays</div><div id="ppPersondays" class="value">—</div></div>
+ <div class="card"><div class="label">125-Day Families</div><div id="ppFamilies125" class="value">—</div><div class="muted">Families completed 125 days</div></div>
+ <div class="card"><div class="label">GP Records</div><div id="ppGPCount" class="value">—</div><div class="muted">Loaded from Google Sheet</div></div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+  <div><h2>Block / GP-wise Physical Progress</h2><div class="muted">Filters apply instantly to the live Google Sheet rows</div></div>
+  <input id="physicalSearch" type="text" placeholder="🔎 Search Block / GP..." style="min-width:220px">
+ </div>
+ <div id="physicalTable" class="scroll" style="margin-top:12px"><div class="muted">Waiting for Google Sheet data…</div></div>
+</div>
+</div></section>
+
+<section class="page" id="contacts"><div class="wrap">
+<div class="panel">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+  <div><h2>👷 GP-wise GRS & Accredited Engineers</h2><p class="muted">Field Contact Directory</p></div>
+  <span id="contactsLiveState" style="background:#eef6ff;color:#155eef;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:700">WAITING FOR DATA</span>
+ </div>
+ <div class="filters" style="margin-top:14px">
+  <select id="contactsBlockFilter"><option value="">All Blocks</option></select>
+  <select id="contactsGPFilter"><option value="">All GPs</option></select>
+  <input id="contactsSearch" type="text" placeholder="🔎 Search GP / Name / Phone" style="flex:1;min-width:220px">
+ </div>
+</div>
+<div class="cards" style="margin-top:18px;grid-template-columns:repeat(4,1fr)">
+ <div class="card"><div class="label">GP Contacts</div><div id="contactsGPCount" class="value">—</div></div>
+ <div class="card"><div class="label">GRS Contacts</div><div id="contactsGRSCount" class="value">—</div></div>
+ <div class="card"><div class="label">Accredited Engineers</div><div id="contactsEngineerCount" class="value">—</div></div>
+ <div class="card"><div class="label">Status</div><div id="contactsStatus" class="value" style="font-size:20px">—</div></div>
+</div>
+<div class="panel" style="margin-top:18px">
+ <div class="scroll" id="contactsTable"><div class="muted">Waiting for Google Sheet data…</div></div>
+</div>
+</div></section>
+
+<section class="page" id="action"><div class="wrap">
+<div class="panel">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+  <div><h2>🚨 Action Required</h2><p class="muted">Live priority actions generated from current Google Sheet data.</p></div>
+  <span id="actionLiveState" style="background:#eef6ff;color:#155eef;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:700">WAITING FOR DATA</span>
+ </div>
+ <div class="filters" style="margin-top:14px">
+  <select id="actionBlockFilter"><option value="">All Blocks</option></select>
+  <select id="actionGPFilter"><option value="">All GPs</option></select>
+  <select id="actionPriorityFilter"><option value="">All Priority</option><option value="High">High</option><option value="Medium">Medium</option></select>
+  <input id="actionSearch" type="text" placeholder="🔎 Search issue / Block / GP..." style="flex:1;min-width:220px">
+ </div>
+</div>
+
+<div class="cards" style="margin-top:18px">
+ <div class="card"><div class="label">High Priority</div><div id="actionHigh" class="value bad">—</div><div class="muted">GPs</div></div>
+ <div class="card"><div class="label">Medium Priority</div><div id="actionMedium" class="value">—</div><div class="muted">GPs</div></div>
+ <div class="card"><div class="label">Total Actions</div><div id="actionTotal" class="value">—</div><div class="muted">Current issues</div></div>
+ <div class="card"><div class="label">Performing Well</div><div id="actionGood" class="value good">—</div><div class="muted">GPs with no current action</div></div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <h2>Current Action Items</h2>
+ <div id="actionTable" class="scroll"><div class="muted">Waiting for Google Sheet data…</div></div>
+</div>
+</div></section>
+
+<section class="page" id="ranking"><div class="wrap"><div class="grid">
+<div class="panel"><h2>🏆 Best Performing</h2><div class="rank"><b>1. Sukafa</b><span class="good">100% e-KYC</span></div><div class="rank"><b>2. Rajabari</b><span class="good">100% e-KYC</span></div><div class="rank"><b>3. Borbam</b><span class="good">99.8% e-KYC</span></div><div class="rank"><b>4. Nazira GP</b><span class="good">98.9% ABPS</span></div><div class="rank"><b>5. Demow GP</b><span class="good">1,180 Persondays</span></div></div>
+<div class="panel"><h2>⚠️ Needs Attention</h2><div class="rank"><b>1. </b><span class="bad"> e-KYC</span></div><div class="rank"><b>2. GP-B</b><span class="bad"> ABPS</span></div><div class="rank"><b>3. GP-C</b><span class="bad">18 persons gap</span></div><div class="rank"><b>4. GP-D</b><span class="bad"> Persondays</span></div></div></div></div></section>
+
+<section class="page" id="analytics"><div class="wrap">
+<div class="panel">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div><h2>📈 District Analytics</h2><div class="muted">Visual comparison of employment, e-KYC, ABPS and persondays</div></div>
+    <div class="filters"><select><option>All Blocks</option><option>Amguri</option><option>Demow</option><option>Gaurisagar</option><option>Nazira</option><option>Sivasagar</option></select><select><option>Current Period</option><option>Previous Period</option></select></div>
+  </div>
+</div>
+
+<div class="cards" style="margin-top:18px">
+ <div class="card"><div class="label">e-KYC</div><div class="value">94.6%</div><div class="muted">District average</div></div>
+ <div class="card"><div class="label">ABPS</div><div class="value">96.8%</div><div class="muted">District average</div></div>
+ <div class="card"><div class="label">Persondays</div><div class="value">34,679</div><div class="muted">Total generated</div></div>
+ <div class="card"><div class="label">Demand → Offer</div><div class="value">99.8%</div><div class="muted">Fulfilment</div></div>
+ <div class="card"><div class="label">Demand → Avail</div><div class="value">97.2%</div><div class="muted">Fulfilment</div></div>
+ <div class="card"><div class="label">📍 Geo Pending</div><div class="value">204</div><div class="muted">Before + During + After</div></div>
+ <div class="card"><div class="label">🟡 Geo Moderate</div><div class="value">53</div><div class="muted">Acceptance Pending</div></div>
+</div>
+
+<div class="grid" style="margin-top:18px">
+ <div class="panel">
+  <h2>📊 e-KYC by Block</h2>
+  <div class="bar" style="height:24px;margin:12px 0"><div class="fill" style="width:96.2%"></div></div><div class="rank"><b>Amguri</b><span>96.2%</span></div>
+  <div class="bar" style="height:24px;margin:12px 0"><div class="fill" style="width:95.1%"></div></div><div class="rank"><b>Demow</b><span>95.1%</span></div>
+  <div class="bar" style="height:24px;margin:12px 0"><div class="fill" style="width:93.8%"></div></div><div class="rank"><b>Gaurisagar</b><span>93.8%</span></div>
+  <div class="bar" style="height:24px;margin:12px 0"><div class="fill" style="width:97.2%"></div></div><div class="rank"><b>Nazira</b><span>97.2%</span></div>
+  <div class="bar" style="height:24px;margin:12px 0"><div class="fill" style="width:90.7%"></div></div><div class="rank"><b>Sivasagar</b><span class="bad">90.7%</span></div>
+ </div>
+
+ <div class="panel">
+  <h2>📊 Persondays by Block</h2>
+  <div class="rank"><b>Nazira</b><strong>8,420</strong></div>
+  <div class="bar"><div class="fill" style="width:100%"></div></div>
+  <div class="rank"><b>Amguri</b><strong>7,610</strong></div>
+  <div class="bar"><div class="fill" style="width:90.4%"></div></div>
+  <div class="rank"><b>Demow</b><strong>6,950</strong></div>
+  <div class="bar"><div class="fill" style="width:82.5%"></div></div>
+  <div class="rank"><b>Gaurisagar</b><strong>6,430</strong></div>
+  <div class="bar"><div class="fill" style="width:76.4%"></div></div>
+  <div class="rank"><b>Sivasagar</b><strong>5,269</strong></div>
+  <div class="bar"><div class="fill" style="width:62.6%"></div></div>
+ </div>
+</div>
+
+<div class="grid3">
+ <div class="panel">
+  <h2>📊 Demand vs Offer vs Avail</h2>
+  <div class="muted">Households</div>
+  <div class="rank"><span>Demand</span><b>2,542</b></div>
+  <div class="bar"><div class="fill" style="width:100%"></div></div>
+  <div class="rank"><span>Offer</span><b>2,536</b></div>
+  <div class="bar"><div class="fill" style="width:99.8%"></div></div>
+  <div class="rank"><span>Avail</span><b>2,498</b></div>
+  <div class="bar"><div class="fill" style="width:98.3%"></div></div>
+ </div>
+
+ <div class="panel">
+  <h2>📊 Employment Gap</h2>
+  <div class="rank"><span>Demand → Offer</span><b class="bad">6 HH / 7 Persons</b></div>
+  <div class="rank"><span>Demand → Avail</span><b class="bad">44 HH / 84 Persons</b></div>
+  <div class="rank"><span>Gap-free Blocks</span><b class="good">2</b></div>
+ </div>
+
+ <div class="panel">
+  <h2>🎯 125-Day Completion</h2>
+  <div class="value">16</div>
+  <div class="muted">Families completed 125 days</div>
+  <div class="bar" style="margin-top:16px"><div class="fill" style="width:64%"></div></div>
+  <div class="muted" style="margin-top:7px">Demo progress indicator</div>
+ </div>
+</div>
+
+<div class="grid" style="margin-top:18px">
+ <div class="panel">
+  <h2>📍 Geo-tag Monitoring — Stage-wise</h2>
+  <div class="muted">Each stage separately shows Pending and Moderate / Acceptance Pending</div>
+  <table>
+   <thead><tr><th>Stage</th><th>Pending</th><th>Moderate / Acceptance Pending</th><th>Total Attention</th></tr></thead>
+   <tbody>
+    <tr><td>🔵 Before Geo-tag</td><td class="bad">125</td><td>22</td><td class="bad">147</td></tr>
+    <tr><td>🟠 During Geo-tag</td><td class="bad">48</td><td>17</td><td class="bad">65</td></tr>
+    <tr><td>🟣 After Geo-tag</td><td class="bad">31</td><td>14</td><td class="bad">45</td></tr>
+    <tr><td><b>Total</b></td><td class="bad"><b>204</b></td><td><b>53</b></td><td class="bad"><b>257</b></td></tr>
+   </tbody>
+  </table>
+ </div>
+ <div class="panel">
+  <h2>📍 Block-wise Geo-tag Attention</h2>
+  <div class="muted">Pending and acceptance-pending are shown separately</div>
+  <table>
+   <thead><tr><th>Block</th><th>Before P</th><th>Before M</th><th>During P</th><th>During M</th><th>After P</th><th>After M</th></tr></thead>
+   <tbody>
+    <tr><td>Sivasagar</td><td class="bad">40</td><td>8</td><td class="bad">14</td><td>6</td><td class="bad">9</td><td>4</td></tr>
+    <tr><td>Gaurisagar</td><td class="bad">35</td><td>7</td><td class="bad">15</td><td>5</td><td>8</td><td>3</td></tr>
+    <tr><td>Amguri</td><td>20</td><td>3</td><td>8</td><td>3</td><td>6</td><td>3</td></tr>
+    <tr><td>Demow</td><td>18</td><td>2</td><td>6</td><td>2</td><td>5</td><td>2</td></tr>
+    <tr><td>Nazira</td><td>12</td><td>2</td><td>5</td><td>1</td><td>3</td><td>2</td></tr>
+   </tbody>
+  </table>
+ </div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <h2>🚨 GP-wise Geo-tag Attention</h2>
+ <div class="muted">P = Pending · M = Moderate / Acceptance Pending</div>
+ <div class="scroll">
+ <table>
+  <thead><tr><th>S.No.</th><th>Block</th><th>GP</th><th>Before P</th><th>Before M</th><th>During P</th><th>During M</th><th>After P</th><th>After M</th><th>Total Attention</th></tr></thead>
+  <tbody>
+   <tr><td>1</td><td>Sivasagar</td><td></td><td class="bad">12</td><td>3</td><td>5</td><td>2</td><td>3</td><td>1</td><td class="bad">26</td></tr>
+   <tr><td>2</td><td>Gaurisagar</td><td>GP-B</td><td class="bad">10</td><td>2</td><td>6</td><td>2</td><td>2</td><td>1</td><td class="bad">23</td></tr>
+   <tr><td>3</td><td>Amguri</td><td>GP-C</td><td>7</td><td>1</td><td>4</td><td>2</td><td>2</td><td>1</td><td>17</td></tr>
+   <tr><td>4</td><td>Demow</td><td>GP-D</td><td>5</td><td>1</td><td>3</td><td>1</td><td>2</td><td>1</td><td>13</td></tr>
+  </tbody>
+ </table>
+ </div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <h2>🧭 Management View</h2>
+ <div class="grid3" style="margin-top:0">
+  <div><h3>Strongest</h3><div class="good">Nazira — highest e-KYC & persondays</div></div>
+  <div><h3>Watch</h3><div>Gaurisagar — moderate e-KYC with higher geo/report monitoring needs</div></div>
+  <div><h3>Priority</h3><div class="bad">Sivasagar — lowest demo e-KYC and persondays</div></div>
+ </div>
+</div>
+</div></section>
+
+<section class="page" id="documents"><div class="wrap">
+<div class="panel" style="min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center">
+  <div style="max-width:650px">
+    <div style="font-size:64px;margin-bottom:12px">📚</div>
+    <h1 style="margin:0 0 10px">Documents / Important SOPs & Guidelines</h1>
+    <div style="display:inline-block;padding:10px 18px;border-radius:999px;background:#fff4e5;color:#b54708;font-weight:800;font-size:14px;letter-spacing:.3px">
+      🚧 UNDER CONSTRUCTION
+    </div>
+    <p class="muted" style="margin-top:18px;font-size:15px;line-height:1.6">
+      The Documents module is currently under construction.
+      The final version will provide a central document library where important letters,
+      SOPs, guidelines, circulars and instructions can be pinned and downloaded.
+    </p>
+    <div style="margin-top:22px;padding:14px 16px;background:#f7f9fc;border-radius:12px;text-align:left">
+      <b>Planned module includes:</b>
+      <ul style="margin:10px 0 0 18px;line-height:1.8">
+        <li>Pinned important Letters / SOPs / Guidelines</li>
+        <li>Category-wise document organisation</li>
+        <li>Search and filter</li>
+        <li>Date / latest update information</li>
+        <li>Download / view document</li>
+        <li>Google Sheet / document-library integration</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div></section>
+
+<section class="page" id="reports"><div class="wrap">
+<div class="panel" style="min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center">
+  <div style="max-width:650px">
+    <div style="font-size:64px;margin-bottom:12px">🔔</div>
+    <h1 style="margin:0 0 10px">Pending Reports</h1>
+    <div style="display:inline-block;padding:10px 18px;border-radius:999px;background:#fff4e5;color:#b54708;font-weight:800;font-size:14px;letter-spacing:.3px">
+      🚧 UNDER CONSTRUCTION
+    </div>
+    <p class="muted" style="margin-top:18px;font-size:15px;line-height:1.6">
+      The Pending Reports / Report Request module is currently under construction.
+      The final version will provide a central place to record reports requested from Blocks,
+      due dates, reminders and received status.
+    </p>
+    <div style="margin-top:22px;padding:14px 16px;background:#f7f9fc;border-radius:12px;text-align:left">
+      <b>Planned module includes:</b>
+      <ul style="margin:10px 0 0 18px;line-height:1.8">
+        <li>Report name and requesting Block</li>
+        <li>Requested date and due date</li>
+        <li>Pending / Received / Overdue status</li>
+        <li>Priority and reminder tracking</li>
+        <li>Search, Block filter and sorting</li>
+        <li>Live Google Sheet integration</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div></section>
+
+<section class="page" id="geotag"><div class="wrap">
+<div class="panel" style="min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center">
+  <div style="max-width:650px">
+    <div style="font-size:64px;margin-bottom:12px">📍</div>
+    <h1 style="margin:0 0 10px">Geo-tag Monitoring</h1>
+    <div style="display:inline-block;padding:10px 18px;border-radius:999px;background:#fff4e5;color:#b54708;font-weight:800;font-size:14px;letter-spacing:.3px">
+      🚧 UNDER CONSTRUCTION
+    </div>
+    <p class="muted" style="margin-top:18px;font-size:15px;line-height:1.6">
+      The Geo-tag Monitoring module is currently under construction.
+      GP-wise and Block-wise <b>Before, During and After</b> geo-tag pending,
+      <b>Moderate / Acceptance Pending</b> status, filters and live Google Sheet integration
+      will be enabled in the final version.
+    </p>
+    <div style="margin-top:22px;padding:14px 16px;background:#f7f9fc;border-radius:12px;text-align:left">
+      <b>Planned module includes:</b>
+      <ul style="margin:10px 0 0 18px;line-height:1.8">
+        <li>Before Geo-tag Pending</li>
+        <li>During Geo-tag Pending</li>
+        <li>After Geo-tag Pending</li>
+        <li>Moderate / Acceptance Pending</li>
+        <li>Block-wise and GP-wise filters</li>
+        <li>Live Google Sheet data</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div></section>
+</main>
+<footer>VB-G RAM G · Sivasagar District · DEMO VERSION · Sample figures only · Google Sheet connection will replace sample data</footer>
+
 <script>
-const data=[{"Panchayat": "Amguri", "Total Workers": 2036, "Aadhaar Seeded": 1957, "e-KYC Done": 1895, "Eligible for ABPS": 1902, "e-KYC %": 0.9307465618860511, "e-KYC Status": "90% or Above", "ABPS %": 0.9341846758349706, "Block": "Amguri"}, {"Panchayat": "Baruah Ali", "Total Workers": 2059, "Aadhaar Seeded": 2058, "e-KYC Done": 1720, "Eligible for ABPS": 1984, "e-KYC %": 0.8353569694026226, "e-KYC Status": "Below 90%", "ABPS %": 0.9635745507527926, "Block": "Amguri"}, {"Panchayat": "Borahi Bari", "Total Workers": 1371, "Aadhaar Seeded": 1370, "e-KYC Done": 1308, "Eligible for ABPS": 1347, "e-KYC %": 0.9540481400437637, "e-KYC Status": "90% or Above", "ABPS %": 0.9824945295404814, "Block": "Amguri"}, {"Panchayat": "Borbam", "Total Workers": 733, "Aadhaar Seeded": 733, "e-KYC Done": 705, "Eligible for ABPS": 705, "e-KYC %": 0.9618008185538881, "e-KYC Status": "90% or Above", "ABPS %": 0.9618008185538881, "Block": "Sivasagar"}, {"Panchayat": "Borboruah", "Total Workers": 796, "Aadhaar Seeded": 795, "e-KYC Done": 766, "Eligible for ABPS": 781, "e-KYC %": 0.9623115577889447, "e-KYC Status": "90% or Above", "ABPS %": 0.9811557788944724, "Block": "Amguri"}, {"Panchayat": "Borsila", "Total Workers": 1851, "Aadhaar Seeded": 1847, "e-KYC Done": 1747, "Eligible for ABPS": 1774, "e-KYC %": 0.9438141545110751, "e-KYC Status": "90% or Above", "ABPS %": 0.958400864397623, "Block": "Amguri"}, {"Panchayat": "Galekey", "Total Workers": 906, "Aadhaar Seeded": 904, "e-KYC Done": 853, "Eligible for ABPS": 894, "e-KYC %": 0.9415011037527594, "e-KYC Status": "90% or Above", "ABPS %": 0.9867549668874173, "Block": "Amguri"}, {"Panchayat": "Lalimchapari", "Total Workers": 1513, "Aadhaar Seeded": 1504, "e-KYC Done": 1397, "Eligible for ABPS": 1483, "e-KYC %": 0.923331130204891, "e-KYC Status": "90% or Above", "ABPS %": 0.9801718440185063, "Block": "Amguri"}, {"Panchayat": "Namtydol", "Total Workers": 1006, "Aadhaar Seeded": 1006, "e-KYC Done": 963, "Eligible for ABPS": 985, "e-KYC %": 0.9572564612326043, "e-KYC Status": "90% or Above", "ABPS %": 0.9791252485089463, "Block": "Amguri"}, {"Panchayat": "Napam Baruwati", "Total Workers": 1219, "Aadhaar Seeded": 1217, "e-KYC Done": 1137, "Eligible for ABPS": 1192, "e-KYC %": 0.9327317473338802, "e-KYC Status": "90% or Above", "ABPS %": 0.977850697292863, "Block": "Amguri"}, {"Panchayat": "Napukhuri", "Total Workers": 1184, "Aadhaar Seeded": 1184, "e-KYC Done": 1108, "Eligible for ABPS": 1155, "e-KYC %": 0.9358108108108109, "e-KYC Status": "90% or Above", "ABPS %": 0.9755067567567568, "Block": "Amguri"}, {"Panchayat": "Pengera", "Total Workers": 1609, "Aadhaar Seeded": 1609, "e-KYC Done": 1501, "Eligible for ABPS": 1589, "e-KYC %": 0.9328775637041641, "e-KYC Status": "90% or Above", "ABPS %": 0.9875699192044748, "Block": "Amguri"}, {"Panchayat": "Peoliphukan", "Total Workers": 969, "Aadhaar Seeded": 969, "e-KYC Done": 958, "Eligible for ABPS": 960, "e-KYC %": 0.9886480908152735, "e-KYC Status": "90% or Above", "ABPS %": 0.9907120743034056, "Block": "Amguri"}, {"Panchayat": "Rajabheta", "Total Workers": 1337, "Aadhaar Seeded": 1336, "e-KYC Done": 1110, "Eligible for ABPS": 1300, "e-KYC %": 0.8302169035153328, "e-KYC Status": "Below 90%", "ABPS %": 0.9723261032161555, "Block": "Amguri"}, {"Panchayat": "Athabari", "Total Workers": 1062, "Aadhaar Seeded": 1062, "e-KYC Done": 962, "Eligible for ABPS": 1041, "e-KYC %": 0.9058380414312618, "e-KYC Status": "90% or Above", "ABPS %": 0.980225988700565, "Block": "Demow"}, {"Panchayat": "Demow", "Total Workers": 1276, "Aadhaar Seeded": 1273, "e-KYC Done": 1148, "Eligible for ABPS": 1244, "e-KYC %": 0.8996865203761756, "e-KYC Status": "Below 90%", "ABPS %": 0.9749216300940439, "Block": "Demow"}, {"Panchayat": "Gohainpukhuri", "Total Workers": 2801, "Aadhaar Seeded": 2800, "e-KYC Done": 2560, "Eligible for ABPS": 2714, "e-KYC %": 0.9139593002499108, "e-KYC Status": "90% or Above", "ABPS %": 0.9689396644055694, "Block": "Demow"}, {"Panchayat": "Khorahat", "Total Workers": 2012, "Aadhaar Seeded": 2011, "e-KYC Done": 1830, "Eligible for ABPS": 1952, "e-KYC %": 0.9095427435387674, "e-KYC Status": "90% or Above", "ABPS %": 0.9701789264413518, "Block": "Demow"}, {"Panchayat": "Moharani", "Total Workers": 1858, "Aadhaar Seeded": 1858, "e-KYC Done": 1629, "Eligible for ABPS": 1797, "e-KYC %": 0.8767491926803014, "e-KYC Status": "Below 90%", "ABPS %": 0.9671689989235738, "Block": "Demow"}, {"Panchayat": "Nahat", "Total Workers": 2109, "Aadhaar Seeded": 2109, "e-KYC Done": 1972, "Eligible for ABPS": 2053, "e-KYC %": 0.9350403034613561, "e-KYC Status": "90% or Above", "ABPS %": 0.9734471313418682, "Block": "Demow"}, {"Panchayat": "Netaipukhuri", "Total Workers": 1968, "Aadhaar Seeded": 1966, "e-KYC Done": 1818, "Eligible for ABPS": 1909, "e-KYC %": 0.9237804878048781, "e-KYC Status": "90% or Above", "ABPS %": 0.970020325203252, "Block": "Demow"}, {"Panchayat": "Pachim Panidehing", "Total Workers": 3034, "Aadhaar Seeded": 3034, "e-KYC Done": 2722, "Eligible for ABPS": 2955, "e-KYC %": 0.8971654581410679, "e-KYC Status": "Below 90%", "ABPS %": 0.9739617666446935, "Block": "Demow"}, {"Panchayat": "Palengi", "Total Workers": 2006, "Aadhaar Seeded": 2006, "e-KYC Done": 1910, "Eligible for ABPS": 1992, "e-KYC %": 0.9521435692921236, "e-KYC Status": "90% or Above", "ABPS %": 0.9930209371884346, "Block": "Demow"}, {"Panchayat": "Panidehing", "Total Workers": 2291, "Aadhaar Seeded": 2291, "e-KYC Done": 2154, "Eligible for ABPS": 2235, "e-KYC %": 0.9402007856831078, "e-KYC Status": "90% or Above", "ABPS %": 0.975556525534701, "Block": "Demow"}, {"Panchayat": "Rajabari", "Total Workers": 3279, "Aadhaar Seeded": 3279, "e-KYC Done": 3046, "Eligible for ABPS": 3201, "e-KYC %": 0.9289417505336993, "e-KYC Status": "90% or Above", "ABPS %": 0.9762122598353157, "Block": "Demow"}, {"Panchayat": "Rupjyoti", "Total Workers": 1548, "Aadhaar Seeded": 1540, "e-KYC Done": 1332, "Eligible for ABPS": 1486, "e-KYC %": 0.8604651162790697, "e-KYC Status": "Below 90%", "ABPS %": 0.9599483204134367, "Block": "Demow"}, {"Panchayat": "Saraguwa", "Total Workers": 1867, "Aadhaar Seeded": 1867, "e-KYC Done": 1828, "Eligible for ABPS": 1817, "e-KYC %": 0.9791108730583824, "e-KYC Status": "90% or Above", "ABPS %": 0.9732190680235672, "Block": "Demow"}, {"Panchayat": "Sukanpukhuri", "Total Workers": 1393, "Aadhaar Seeded": 1393, "e-KYC Done": 1259, "Eligible for ABPS": 1360, "e-KYC %": 0.9038047379755922, "e-KYC Status": "90% or Above", "ABPS %": 0.9763101220387652, "Block": "Demow"}, {"Panchayat": "Thowradole", "Total Workers": 2023, "Aadhaar Seeded": 2023, "e-KYC Done": 1921, "Eligible for ABPS": 1949, "e-KYC %": 0.9495798319327731, "e-KYC Status": "90% or Above", "ABPS %": 0.9634206623826, "Block": "Demow"}, {"Panchayat": "Banmukh", "Total Workers": 1148, "Aadhaar Seeded": 1148, "e-KYC Done": 1015, "Eligible for ABPS": 1108, "e-KYC %": 0.8841463414634146, "e-KYC Status": "Below 90%", "ABPS %": 0.9651567944250871, "Block": "Gaurisagar"}, {"Panchayat": "Barua Pukhuri", "Total Workers": 1974, "Aadhaar Seeded": 1974, "e-KYC Done": 1905, "Eligible for ABPS": 1952, "e-KYC %": 0.9650455927051672, "e-KYC Status": "90% or Above", "ABPS %": 0.9888551165146909, "Block": "Gaurisagar"}, {"Panchayat": "Bhuyanhat", "Total Workers": 1563, "Aadhaar Seeded": 1563, "e-KYC Done": 1377, "Eligible for ABPS": 1544, "e-KYC %": 0.8809980806142035, "e-KYC Status": "Below 90%", "ABPS %": 0.9878438899552143, "Block": "Gaurisagar"}, {"Panchayat": "Charing", "Total Workers": 817, "Aadhaar Seeded": 817, "e-KYC Done": 773, "Eligible for ABPS": 805, "e-KYC %": 0.9461444308445532, "e-KYC Status": "90% or Above", "ABPS %": 0.98531211750306, "Block": "Gaurisagar"}, {"Panchayat": "Cherekapar", "Total Workers": 1222, "Aadhaar Seeded": 1222, "e-KYC Done": 1187, "Eligible for ABPS": 1195, "e-KYC %": 0.9713584288052373, "e-KYC Status": "90% or Above", "ABPS %": 0.9779050736497545, "Block": "Gaurisagar"}, {"Panchayat": "Choulkora", "Total Workers": 613, "Aadhaar Seeded": 613, "e-KYC Done": 553, "Eligible for ABPS": 588, "e-KYC %": 0.9021207177814029, "e-KYC Status": "90% or Above", "ABPS %": 0.9592169657422512, "Block": "Gaurisagar"}, {"Panchayat": "Dekhowmukh", "Total Workers": 2200, "Aadhaar Seeded": 2200, "e-KYC Done": 1776, "Eligible for ABPS": 2082, "e-KYC %": 0.8072727272727273, "e-KYC Status": "Below 90%", "ABPS %": 0.9463636363636364, "Block": "Gaurisagar"}, {"Panchayat": "Desangdhaiali", "Total Workers": 1700, "Aadhaar Seeded": 1700, "e-KYC Done": 1650, "Eligible for ABPS": 1649, "e-KYC %": 0.9705882352941176, "e-KYC Status": "90% or Above", "ABPS %": 0.97, "Block": "Gaurisagar"}, {"Panchayat": "Desangmukh", "Total Workers": 3091, "Aadhaar Seeded": 3090, "e-KYC Done": 2871, "Eligible for ABPS": 3041, "e-KYC %": 0.9288256227758007, "e-KYC Status": "90% or Above", "ABPS %": 0.9838240051763183, "Block": "Gaurisagar"}, {"Panchayat": "Dewraja", "Total Workers": 1098, "Aadhaar Seeded": 1098, "e-KYC Done": 1098, "Eligible for ABPS": 1084, "e-KYC %": 1.0, "e-KYC Status": "90% or Above", "ABPS %": 0.9872495446265938, "Block": "Gaurisagar"}, {"Panchayat": "Diksu", "Total Workers": 1548, "Aadhaar Seeded": 1548, "e-KYC Done": 1402, "Eligible for ABPS": 1520, "e-KYC %": 0.9056847545219638, "e-KYC Status": "90% or Above", "ABPS %": 0.9819121447028424, "Block": "Gaurisagar"}, {"Panchayat": "Dolakhoria", "Total Workers": 861, "Aadhaar Seeded": 860, "e-KYC Done": 857, "Eligible for ABPS": 829, "e-KYC %": 0.9953542392566783, "e-KYC Status": "90% or Above", "ABPS %": 0.9628339140534262, "Block": "Gaurisagar"}, {"Panchayat": "Hafaluting", "Total Workers": 1092, "Aadhaar Seeded": 1092, "e-KYC Done": 1082, "Eligible for ABPS": 1063, "e-KYC %": 0.9908424908424909, "e-KYC Status": "90% or Above", "ABPS %": 0.9734432234432234, "Block": "Gaurisagar"}, {"Panchayat": "Hanchara", "Total Workers": 1058, "Aadhaar Seeded": 1055, "e-KYC Done": 903, "Eligible for ABPS": 1029, "e-KYC %": 0.8534971644612477, "e-KYC Status": "Below 90%", "ABPS %": 0.9725897920604915, "Block": "Gaurisagar"}, {"Panchayat": "Hatighuli", "Total Workers": 1264, "Aadhaar Seeded": 1263, "e-KYC Done": 1200, "Eligible for ABPS": 1258, "e-KYC %": 0.9493670886075949, "e-KYC Status": "90% or Above", "ABPS %": 0.995253164556962, "Block": "Gaurisagar"}, {"Panchayat": "Kawaimari", "Total Workers": 1815, "Aadhaar Seeded": 1815, "e-KYC Done": 1668, "Eligible for ABPS": 1744, "e-KYC %": 0.9190082644628099, "e-KYC Status": "90% or Above", "ABPS %": 0.9608815426997245, "Block": "Gaurisagar"}, {"Panchayat": "Khonamukh", "Total Workers": 1943, "Aadhaar Seeded": 1942, "e-KYC Done": 1605, "Eligible for ABPS": 1810, "e-KYC %": 0.8260422027792074, "e-KYC Status": "Below 90%", "ABPS %": 0.9315491507977355, "Block": "Gaurisagar"}, {"Panchayat": "Konwarpur", "Total Workers": 1053, "Aadhaar Seeded": 1052, "e-KYC Done": 940, "Eligible for ABPS": 1024, "e-KYC %": 0.8926875593542261, "e-KYC Status": "Below 90%", "ABPS %": 0.9724596391263058, "Block": "Gaurisagar"}, {"Panchayat": "Mogarahat", "Total Workers": 795, "Aadhaar Seeded": 795, "e-KYC Done": 795, "Eligible for ABPS": 780, "e-KYC %": 1.0, "e-KYC Status": "90% or Above", "ABPS %": 0.9811320754716981, "Block": "Gaurisagar"}, {"Panchayat": "Momaitamuli", "Total Workers": 927, "Aadhaar Seeded": 927, "e-KYC Done": 886, "Eligible for ABPS": 886, "e-KYC %": 0.9557713052858684, "e-KYC Status": "90% or Above", "ABPS %": 0.9557713052858684, "Block": "Gaurisagar"}, {"Panchayat": "Morabazar", "Total Workers": 964, "Aadhaar Seeded": 964, "e-KYC Done": 909, "Eligible for ABPS": 958, "e-KYC %": 0.9429460580912863, "e-KYC Status": "90% or Above", "ABPS %": 0.9937759336099585, "Block": "Gaurisagar"}, {"Panchayat": "Namti ali", "Total Workers": 1431, "Aadhaar Seeded": 1425, "e-KYC Done": 1254, "Eligible for ABPS": 1399, "e-KYC %": 0.8763102725366876, "e-KYC Status": "Below 90%", "ABPS %": 0.9776380153738644, "Block": "Gaurisagar"}, {"Panchayat": "Panbecha", "Total Workers": 1651, "Aadhaar Seeded": 1650, "e-KYC Done": 1448, "Eligible for ABPS": 1593, "e-KYC %": 0.8770442156268928, "e-KYC Status": "Below 90%", "ABPS %": 0.964869775893398, "Block": "Gaurisagar"}, {"Panchayat": "Rongpur", "Total Workers": 1083, "Aadhaar Seeded": 1083, "e-KYC Done": 966, "Eligible for ABPS": 1058, "e-KYC %": 0.8919667590027701, "e-KYC Status": "Below 90%", "ABPS %": 0.976915974145891, "Block": "Gaurisagar"}, {"Panchayat": "Rudrasagar", "Total Workers": 1113, "Aadhaar Seeded": 1112, "e-KYC Done": 934, "Eligible for ABPS": 1062, "e-KYC %": 0.839173405211141, "e-KYC Status": "Below 90%", "ABPS %": 0.954177897574124, "Block": "Gaurisagar"}, {"Panchayat": "Salaguri", "Total Workers": 1051, "Aadhaar Seeded": 1050, "e-KYC Done": 1040, "Eligible for ABPS": 999, "e-KYC %": 0.9895337773549001, "e-KYC Status": "90% or Above", "ABPS %": 0.950523311132255, "Block": "Gaurisagar"}, {"Panchayat": "Santipur", "Total Workers": 848, "Aadhaar Seeded": 848, "e-KYC Done": 800, "Eligible for ABPS": 819, "e-KYC %": 0.9433962264150944, "e-KYC Status": "90% or Above", "ABPS %": 0.9658018867924528, "Block": "Gaurisagar"}, {"Panchayat": "Bantung", "Total Workers": 1248, "Aadhaar Seeded": 1248, "e-KYC Done": 1221, "Eligible for ABPS": 1222, "e-KYC %": 0.9783653846153846, "e-KYC Status": "90% or Above", "ABPS %": 0.9791666666666666, "Block": "Nazira"}, {"Panchayat": "Bihubor", "Total Workers": 1577, "Aadhaar Seeded": 1575, "e-KYC Done": 1442, "Eligible for ABPS": 1500, "e-KYC %": 0.9143944197844007, "e-KYC Status": "90% or Above", "ABPS %": 0.9511731135066582, "Block": "Nazira"}, {"Panchayat": "Borphukan", "Total Workers": 1424, "Aadhaar Seeded": 1424, "e-KYC Done": 1417, "Eligible for ABPS": 1382, "e-KYC %": 0.9950842696629213, "e-KYC Status": "90% or Above", "ABPS %": 0.9705056179775281, "Block": "Nazira"}, {"Panchayat": "Jaymoti", "Total Workers": 1147, "Aadhaar Seeded": 1147, "e-KYC Done": 1147, "Eligible for ABPS": 1127, "e-KYC %": 1.0, "e-KYC Status": "90% or Above", "ABPS %": 0.9825632083696599, "Block": "Nazira"}, {"Panchayat": "Khotkhoti", "Total Workers": 1447, "Aadhaar Seeded": 1447, "e-KYC Done": 1444, "Eligible for ABPS": 1418, "e-KYC %": 0.9979267449896337, "e-KYC Status": "90% or Above", "ABPS %": 0.9799585348997927, "Block": "Nazira"}, {"Panchayat": "Lengibor", "Total Workers": 1107, "Aadhaar Seeded": 1106, "e-KYC Done": 1035, "Eligible for ABPS": 1071, "e-KYC %": 0.9349593495934959, "e-KYC Status": "90% or Above", "ABPS %": 0.967479674796748, "Block": "Nazira"}, {"Panchayat": "Mackeypore", "Total Workers": 1443, "Aadhaar Seeded": 1443, "e-KYC Done": 1377, "Eligible for ABPS": 1429, "e-KYC %": 0.9542619542619543, "e-KYC Status": "90% or Above", "ABPS %": 0.9902979902979903, "Block": "Nazira"}, {"Panchayat": "Nazira", "Total Workers": 1354, "Aadhaar Seeded": 1353, "e-KYC Done": 1275, "Eligible for ABPS": 1315, "e-KYC %": 0.9416543574593796, "e-KYC Status": "90% or Above", "ABPS %": 0.9711964549483013, "Block": "Nazira"}, {"Panchayat": "Phulpaniboruah", "Total Workers": 935, "Aadhaar Seeded": 935, "e-KYC Done": 908, "Eligible for ABPS": 922, "e-KYC %": 0.9711229946524064, "e-KYC Status": "90% or Above", "ABPS %": 0.986096256684492, "Block": "Nazira"}, {"Panchayat": "Ramoni", "Total Workers": 886, "Aadhaar Seeded": 886, "e-KYC Done": 832, "Eligible for ABPS": 862, "e-KYC %": 0.9390519187358917, "e-KYC Status": "90% or Above", "ABPS %": 0.9729119638826185, "Block": "Nazira"}, {"Panchayat": "Rohdoipukhuri", "Total Workers": 785, "Aadhaar Seeded": 785, "e-KYC Done": 777, "Eligible for ABPS": 782, "e-KYC %": 0.9898089171974522, "e-KYC Status": "90% or Above", "ABPS %": 0.9961783439490446, "Block": "Nazira"}, {"Panchayat": "Simaluguri", "Total Workers": 806, "Aadhaar Seeded": 806, "e-KYC Done": 806, "Eligible for ABPS": 799, "e-KYC %": 1.0, "e-KYC Status": "90% or Above", "ABPS %": 0.9913151364764268, "Block": "Nazira"}, {"Panchayat": "Sukafa", "Total Workers": 1622, "Aadhaar Seeded": 1622, "e-KYC Done": 1622, "Eligible for ABPS": 1612, "e-KYC %": 1.0, "e-KYC Status": "90% or Above", "ABPS %": 0.9938347718865598, "Block": "Nazira"}, {"Panchayat": "Bakhar Bengena", "Total Workers": 1798, "Aadhaar Seeded": 1796, "e-KYC Done": 1686, "Eligible for ABPS": 1757, "e-KYC %": 0.9377085650723026, "e-KYC Status": "90% or Above", "ABPS %": 0.9771968854282537, "Block": "Sivasagar"}, {"Panchayat": "Betbari", "Total Workers": 1315, "Aadhaar Seeded": 1313, "e-KYC Done": 1232, "Eligible for ABPS": 1275, "e-KYC %": 0.9368821292775665, "e-KYC Status": "90% or Above", "ABPS %": 0.9695817490494296, "Block": "Sivasagar"}, {"Panchayat": "Borbam", "Total Workers": 1593, "Aadhaar Seeded": 1593, "e-KYC Done": 1549, "Eligible for ABPS": 1551, "e-KYC %": 0.9723791588198368, "e-KYC Status": "90% or Above", "ABPS %": 0.9736346516007532, "Block": "Sivasagar"}, {"Panchayat": "Desangpar", "Total Workers": 1367, "Aadhaar Seeded": 1367, "e-KYC Done": 1305, "Eligible for ABPS": 1352, "e-KYC %": 0.9546452084857352, "e-KYC Status": "90% or Above", "ABPS %": 0.9890270665691295, "Block": "Sivasagar"}, {"Panchayat": "Gargaon", "Total Workers": 930, "Aadhaar Seeded": 926, "e-KYC Done": 903, "Eligible for ABPS": 868, "e-KYC %": 0.9709677419354839, "e-KYC Status": "90% or Above", "ABPS %": 0.9333333333333333, "Block": "Sivasagar"}, {"Panchayat": "Kheluwa", "Total Workers": 1708, "Aadhaar Seeded": 1708, "e-KYC Done": 1647, "Eligible for ABPS": 1649, "e-KYC %": 0.9642857142857143, "e-KYC Status": "90% or Above", "ABPS %": 0.9654566744730679, "Block": "Sivasagar"}, {"Panchayat": "Lachit", "Total Workers": 1198, "Aadhaar Seeded": 1198, "e-KYC Done": 1139, "Eligible for ABPS": 1156, "e-KYC %": 0.9507512520868113, "e-KYC Status": "90% or Above", "ABPS %": 0.9649415692821369, "Block": "Sivasagar"}, {"Panchayat": "Lakuwa", "Total Workers": 1362, "Aadhaar Seeded": 1361, "e-KYC Done": 1361, "Eligible for ABPS": 1361, "e-KYC %": 0.9992657856093979, "e-KYC Status": "90% or Above", "ABPS %": 0.9992657856093979, "Block": "Sivasagar"}, {"Panchayat": "Nagarmahal", "Total Workers": 606, "Aadhaar Seeded": 606, "e-KYC Done": 523, "Eligible for ABPS": 571, "e-KYC %": 0.863036303630363, "e-KYC Status": "Below 90%", "ABPS %": 0.9422442244224423, "Block": "Sivasagar"}, {"Panchayat": "Nangalamora", "Total Workers": 1734, "Aadhaar Seeded": 1733, "e-KYC Done": 1462, "Eligible for ABPS": 1674, "e-KYC %": 0.8431372549019608, "e-KYC Status": "Below 90%", "ABPS %": 0.9653979238754326, "Block": "Sivasagar"}, {"Panchayat": "Nemuguri", "Total Workers": 2023, "Aadhaar Seeded": 2023, "e-KYC Done": 1862, "Eligible for ABPS": 1965, "e-KYC %": 0.9204152249134948, "e-KYC Status": "90% or Above", "ABPS %": 0.9713297083539298, "Block": "Sivasagar"}, {"Panchayat": "Parijat", "Total Workers": 1927, "Aadhaar Seeded": 1927, "e-KYC Done": 1913, "Eligible for ABPS": 1855, "e-KYC %": 0.9927348209652309, "e-KYC Status": "90% or Above", "ABPS %": 0.9626362221069019, "Block": "Sivasagar"}, {"Panchayat": "Silakuti", "Total Workers": 1325, "Aadhaar Seeded": 1325, "e-KYC Done": 1308, "Eligible for ABPS": 1286, "e-KYC %": 0.9871698113207548, "e-KYC Status": "90% or Above", "ABPS %": 0.970566037735849, "Block": "Sivasagar"}];
-const pct=x=>(x*100).toFixed(2)+'%';
-const blockSel=document.getElementById('block');
-[...new Set(data.map(r=>r.Block))].sort().forEach(b=>{let o=document.createElement('option');o.value=b;o.textContent=b;blockSel.appendChild(o)});
-function render(){
- const b=blockSel.value, s=document.getElementById('status').value, a=document.getElementById('abps').value;
- const arr=data.filter(r=>(b==='All'||r.Block===b)&&(s==='All'||((+r["e-KYC %"]||0)<.95?'Below 95%':'95% or Above')===s)&&(a==='All'||((+r["ABPS %"]||0)<.95?'Below 95%':'95% or Above')===a));
- const total=arr.reduce((a,r)=>a+(+r["Total Workers"]||0),0);
- const aad=arr.reduce((a,r)=>a+(+r["Aadhaar Seeded"]||0),0);
- const ek=arr.reduce((a,r)=>a+(+r["e-KYC Done"]||0),0);
- const overall=total?ek/total:0;
- const below=arr.filter(r=>(+r["e-KYC %"]||0)<.9).length;
- document.getElementById('cards').innerHTML=[
- ['Total Workers',total.toLocaleString()],['Aadhaar Seeded',aad.toLocaleString()],
- ['e-KYC Done',ek.toLocaleString()],['Overall e-KYC %',pct(overall)],['Below 90% Panchayats',below]
- ].map(x=>'<div class="card"><div class="label">'+x[0]+'</div><div class="value">'+x[1]+'</div></div>').join('');
- const sorted=[...arr].sort((a,b)=>(+a["e-KYC %"]||0)-(+b["e-KYC %"]||0));
- document.getElementById('rows').innerHTML=sorted.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+r.Block+'</td><td>'+r.Panchayat+'</td><td>'+Number(r["Total Workers"]).toLocaleString()+'</td><td>'+Number(r["e-KYC Done"]).toLocaleString()+'</td><td>'+pct(+r["e-KYC %"]||0)+'</td><td>'+pct(+r["ABPS %"]||0)+'</td><td class="'+((+r["e-KYC %"]||0)<.95?'bad':'good')+'">'+((+r["e-KYC %"]||0)<.95?'Below 95%':'95% or Above')+'</td><td class="'+((+r["ABPS %"]||0)<.95?'bad':'good')+'">'+((+r["ABPS %"]||0)<.95?'Below 95%':'95% or Above')+'</td></tr>').join('');
- const low=sorted.slice(0,10);
- document.getElementById('bars').innerHTML=low.map(r=>'<div style="margin:12px 0"><div style="display:flex;justify-content:space-between"><span>'+r.Block+' — '+r.Panchayat+'</span><b>'+pct(+r["e-KYC %"]||0)+'</b></div><div class="bar"><div class="fill" style="width:'+Math.max(0,Math.min(1,(+r["e-KYC %"]||0)))*100+'%"></div></div></div>').join('');
- const low90=sorted.filter(r=>(+r["e-KYC %"]||0)<.95);
- document.getElementById('below90').innerHTML=low90.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+r.Block+'</td><td>'+r.Panchayat+'</td><td class="bad">'+pct(+r["e-KYC %"]||0)+'</td></tr>').join('');
+const tabs=[...document.querySelectorAll(".tab")],pages=[...document.querySelectorAll(".page")];
+tabs.forEach(tab=>tab.addEventListener("click",()=>{
+ tabs.forEach(t=>t.classList.remove("active"));tab.classList.add("active");
+ pages.forEach(p=>p.classList.toggle("active",p.id===tab.dataset.page));
+ window.scrollTo({top:0,behavior:"smooth"});
+}));
+document.querySelectorAll('input[type="range"]').forEach(r=>{
+ const b=r.parentElement.querySelector("b");
+ if(b){r.addEventListener("input",()=>b.textContent=r.value+(r.max==="100"?"%":""))}
+});
+</script>
+
+<script>
+const GOOGLE_SHEET_ID = "1DdrQU-w0KNA6OIJZNuNRva-zOkdV1Jr5";
+const LIVE_SHEETS = [
+  "District Overview","eKYC & ABPS","Physical Progress Report","GP Contacts",
+  "Action Required","Performance","Analytics","Documents","Pending Reports","Geo-tag"
+];
+
+function gvizUrl(sheet){
+  return "https://docs.google.com/spreadsheets/d/" + GOOGLE_SHEET_ID +
+         "/gviz/tq?tqx=out:json&sheet=" + encodeURIComponent(sheet);
 }
-blockSel.addEventListener('change',render);document.getElementById('status').addEventListener('change',render);document.getElementById('abps').addEventListener('change',render);render();
-</script></body></html>
+function parseGViz(text){
+  const a=text.indexOf("{"), b=text.lastIndexOf("}");
+  if(a<0 || b<0) throw new Error("Invalid Google Sheets response");
+  return JSON.parse(text.slice(a,b+1));
+}
+async function fetchSheet(sheet){
+  const res=await fetch(gvizUrl(sheet), {cache:"no-store"});
+  if(!res.ok) throw new Error(sheet+" HTTP "+res.status);
+  const data=parseGViz(await res.text());
+  const cols=(data.table.cols||[]).map((c,i)=>c.label || ("Column "+(i+1)));
+  const rows=(data.table.rows||[]).map(r=>(r.c||[]).map(c=>c ? (c.f ?? c.v ?? "") : ""));
+  return {sheet,cols,rows};
+}
+function setLiveStatus(ok,msg){
+  const s=document.getElementById("liveStatus");
+  const b=document.getElementById("liveBanner");
+  if(s) s.textContent=msg;
+  if(b) b.style.background=ok ? "#0b6b4b" : "#a33a2b";
+}
+function esc(v){
+  return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+function tableHTML(d,limit=12){
+  let h="<div class='scroll'><table><thead><tr>"+d.cols.map(x=>"<th>"+esc(x)+"</th>").join("")+"</tr></thead><tbody>";
+  h+=d.rows.slice(0,limit).map(r=>"<tr>"+d.cols.map((_,i)=>"<td>"+esc(r[i]??"")+"</td>").join("")+"</tr>").join("");
+  return h+"</tbody></table></div>";
+}
+function findPage(id){return document.getElementById(id);}
+function updatePageTable(pageId, sheetData){
+  const p=findPage(pageId); if(!p) return;
+  const tables=p.querySelectorAll("table");
+  if(!tables.length) return;
+  const t=tables[tables.length-1];
+  const wrap=t.parentElement;
+  wrap.innerHTML=tableHTML(sheetData, 20);
+}
+
+function num(v){
+  if(v===null||v===undefined||v==="") return 0;
+  const n=parseFloat(String(v).replace(/[% ,]/g,""));
+  return Number.isFinite(n) ? n : 0;
+}
+function pct(v){
+  const n=num(v);
+  return n > 1 ? n : n*100;
+}
+function findCol(cols, names){
+  const lower=cols.map(x=>String(x).trim().toLowerCase());
+  for(const name of names){
+    const i=lower.indexOf(name.toLowerCase());
+    if(i>=0) return i;
+  }
+  return -1;
+}
+
+function updateOverviewLive(ekycData, physicalData){
+  const ek=ekycData && !ekycData.error ? ekycData : null;
+  const pp=physicalData && !physicalData.error ? physicalData : null;
+  const rows=ek ? ek.rows : [];
+  const cols=ek ? ek.cols : [];
+  const ci=(names)=>{
+    const low=cols.map(x=>String(x).trim().toLowerCase());
+    for(const n of names){const i=low.indexOf(n.toLowerCase());if(i>=0)return i;}
+    return -1;
+  };
+  const ib=ci(["Block"]), ig=ci(["GP","GP Name","Gram Panchayat"]), it=ci(["Total Workers","Total Worker","Workers"]);
+  const ie=ci(["e-KYC %","eKYC %"]), ia=ci(["ABPS %","ABPS %"]);
+  const blocks=new Set(), gps=new Set();
+  let workers=0, ekDone=0, abDone=0;
+  rows.forEach(r=>{
+    const b=ib>=0?String(r[ib]||"").trim():"";
+    const g=ig>=0?String(r[ig]||"").trim():"";
+    if(b)blocks.add(b);
+    if(g)gps.add((b+"||"+g).toLowerCase());
+    const total=it>=0?num(r[it]):0;
+    workers+=total;
+    const ep=ie>=0?pct(r[ie]):0, ap=ia>=0?pct(r[ia]):0;
+    ekDone+=total*ep/100; abDone+=total*ap/100;
+  });
+  const avgE=workers?ekDone/workers*100:0, avgA=workers?abDone/workers*100:0;
+  let persondays=0, families125=0;
+  if(pp){
+    const pc=pp.cols.map(x=>String(x).trim().toLowerCase());
+    const pi=pc.findIndex(x=>x==="total persondays"||x==="persondays");
+    const fi=pc.findIndex(x=>x==="families completed 125 days"||x==="125-day families"||x==="families completed 125-day");
+    if(pi>=0) pp.rows.forEach(r=>persondays+=num(r[pi]));
+    if(fi>=0) pp.rows.forEach(r=>families125+=num(r[fi]));
+  }
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};
+  set("overviewBlocks",blocks.size);
+  set("overviewGPs",gps.size);
+  set("overviewEkyc",avgE?avgE.toFixed(1)+"%":"—");
+  set("overviewAbps",avgA?avgA.toFixed(1)+"%":"—");
+  set("overviewPersondays",persondays?persondays.toLocaleString():"—");
+}
+function renderEkycLive(d){
+  if(!d || d.error || !d.rows.length) return;
+  const cols=d.cols;
+  const ib=findCol(cols,["Block"]);
+  const ig=findCol(cols,["GP","GP Name","Gram Panchayat"]);
+  const it=findCol(cols,["Total Workers","Total Worker","Workers"]);
+  const ie=findCol(cols,["e-KYC %","eKYC %","e-KYC Percentage"]);
+  const iec=findCol(cols,["e-KYC Done","eKYC Done"]);
+  const ia=findCol(cols,["ABPS %","ABPS Percentage"]);
+  const iac=findCol(cols,["ABPS Done"]);
+  const rows=d.rows.map(r=>{
+    const total=num(it>=0?r[it]:"");
+    const ek=ie>=0?pct(r[ie]):(total?num(iec>=0?r[iec]:"")/total*100:0);
+    const ab=ia>=0?pct(r[ia]):(total?num(iac>=0?r[iac]:"")/total*100:0);
+    return {block:ib>=0?r[ib]:"",gp:ig>=0?r[ig]:"",total,ek,ab};
+  }).filter(x=>x.block||x.gp||x.total||x.ek||x.ab);
+
+  const blockSel=document.getElementById("ekycBlockFilter");
+  const current=blockSel.value;
+  const blocks=[...new Set(rows.map(x=>x.block).filter(Boolean))].sort();
+  blockSel.innerHTML='<option value="">All Blocks</option>'+blocks.map(b=>'<option value="'+esc(b)+'">'+esc(b)+'</option>').join("");
+  if(blocks.includes(current)) blockSel.value=current;
+
+  function apply(){
+    const block=blockSel.value;
+    const q=(document.getElementById("ekycSearch").value||"").toLowerCase();
+    const et=num(document.getElementById("ekycThreshold").value);
+    const at=num(document.getElementById("abpsThreshold").value);
+    const filtered=rows.filter(x=>(!block||x.block===block)&&(!q||String(x.block).toLowerCase().includes(q)||String(x.gp).toLowerCase().includes(q)));
+    const total=filtered.reduce((a,x)=>a+x.total,0);
+    const ekAvg=total?filtered.reduce((a,x)=>a+x.ek*x.total,0)/total:(filtered.length?filtered.reduce((a,x)=>a+x.ek,0)/filtered.length:0);
+    const abAvg=total?filtered.reduce((a,x)=>a+x.ab*x.total,0)/total:(filtered.length?filtered.reduce((a,x)=>a+x.ab,0)/filtered.length:0);
+    const sorted=[...filtered].sort((a,b)=>b.ek-a.ek);
+    const best=sorted[0], worst=sorted[sorted.length-1];
+    document.getElementById("ekycAvg").textContent=ekAvg.toFixed(1)+"%";
+    document.getElementById("abpsAvg").textContent=abAvg.toFixed(1)+"%";
+    document.getElementById("bestEkyc").textContent=best?(best.gp||"—")+" "+best.ek.toFixed(1)+"%":"—";
+    document.getElementById("worstEkyc").textContent=worst?(worst.gp||"—")+" "+worst.ek.toFixed(1)+"%":"—";
+    document.getElementById("ekycBelow").textContent=filtered.filter(x=>x.ek<et).length;
+    document.getElementById("abpsBelow").textContent=filtered.filter(x=>x.ab<at).length;
+    document.getElementById("bestEkycList").innerHTML=sorted.slice(0,5).map((x,i)=>'<div class="rank"><b>'+(i+1)+'. '+esc(x.gp)+'</b><b>'+x.ek.toFixed(1)+'%</b></div>').join("")||'<div class="muted">No data</div>';
+    document.getElementById("worstEkycList").innerHTML=sorted.slice(-5).reverse().map((x,i)=>'<div class="rank"><b>'+(i+1)+'. '+esc(x.gp)+'</b><b class="bad">'+x.ek.toFixed(1)+'%</b></div>').join("")||'<div class="muted">No data</div>';
+    document.getElementById("abpsSummary").innerHTML=
+      '<div class="rank"><b>Average</b><b>'+abAvg.toFixed(1)+'%</b></div>'+
+      '<div class="rank"><b></b><b class="good">'+(filtered.length?esc([...filtered].sort((a,b)=>b.ab-a.ab)[0].gp):"—")+'</b></div>'+
+      '<div class="rank"><b>Below threshold</b><b class="bad">'+filtered.filter(x=>x.ab<at).length+'</b></div>';
+    const t='<table><thead><tr><th>S.No.</th><th>Block</th><th>GP</th><th>Total Workers</th><th>e-KYC Done</th><th>e-KYC %</th><th>ABPS Done</th><th>ABPS %</th><th>Status</th></tr></thead><tbody>'+
+      filtered.map((x,i)=>{
+        const ekDone=Math.round(x.total*x.ek/100), abDone=Math.round(x.total*x.ab/100);
+        const status=(x.ek<et||x.ab<at)?"Attention":"Good";
+        return '<tr><td>'+(i+1)+'</td><td>'+esc(x.block)+'</td><td>'+esc(x.gp)+'</td><td>'+x.total+'</td><td>'+ekDone+'</td><td class="'+(x.ek<et?'bad':'')+'">'+x.ek.toFixed(1)+'%</td><td>'+abDone+'</td><td class="'+(x.ab<at?'bad':'')+'">'+x.ab.toFixed(1)+'%</td><td>'+status+'</td></tr>';
+      }).join("")+'</tbody></table>';
+    document.getElementById("ekycTable").innerHTML=t;
+    makeSortable(document.querySelector("#ekycTable table"));
+    document.getElementById("ekycLiveState").textContent=filtered.length+" GP records loaded";
+  }
+  document.getElementById("ekycThreshold").oninput=e=>{document.getElementById("ekycThresholdVal").textContent=e.target.value+"%";apply()};
+  document.getElementById("abpsThreshold").oninput=e=>{document.getElementById("abpsThresholdVal").textContent=e.target.value+"%";apply()};
+  document.getElementById("ekycBlockFilter").onchange=apply;
+  document.getElementById("ekycSearch").oninput=apply;
+  apply();
+}
+
+
+function makeSortable(table){
+  if(!table) return;
+  table.classList.add("sortable");
+  const headers=table.querySelectorAll("thead th");
+  headers.forEach((th,index)=>{
+    th.onclick=()=>{
+      const tbody=table.tBodies[0]; if(!tbody) return;
+      const rows=[...tbody.rows];
+      const current=th.dataset.sortDir==="asc"?"desc":"asc";
+      headers.forEach(h=>{h.dataset.sortDir="";h.classList.remove("sort-asc","sort-desc")});
+      th.dataset.sortDir=current;
+      th.classList.add(current==="asc"?"sort-asc":"sort-desc");
+      const numeric=rows.every(r=>{
+        const v=(r.cells[index]?.textContent||"").replace(/[% ,₹]/g,"").trim();
+        return v!=="" && !isNaN(Number(v));
+      });
+      rows.sort((a,b)=>{
+        let av=(a.cells[index]?.textContent||"").trim(), bv=(b.cells[index]?.textContent||"").trim();
+        if(numeric){av=parseFloat(av.replace(/[% ,₹]/g,""))||0;bv=parseFloat(bv.replace(/[% ,₹]/g,""))||0}
+        else {av=av.toLowerCase();bv=bv.toLowerCase()}
+        if(av<bv)return current==="asc"?-1:1;
+        if(av>bv)return current==="asc"?1:-1;
+        return 0;
+      });
+      rows.forEach(r=>tbody.appendChild(r));
+    };
+  });
+}
+function makeAllTablesSortable(root=document){
+  root.querySelectorAll("table").forEach(makeSortable);
+}
+function renderPhysicalLive(d){
+  if(!d || d.error || !d.rows.length) return;
+  const cols=d.cols;
+  const col=(names)=>{
+    const low=cols.map(x=>String(x).trim().toLowerCase());
+    for(const n of names){const i=low.indexOf(n.toLowerCase());if(i>=0)return i;}
+    return -1;
+  };
+  const ib=col(["Block"]), ig=col(["GP","GP Name","Gram Panchayat"]);
+  const dh=col(["Demand HH","Demand Household","Employment Demanded HH"]);
+  const dp=col(["Demand Persons","Demand Person"]);
+  const oh=col(["Offer HH","Offer Household","Employment Offered HH"]);
+  const op=col(["Offer Persons","Offer Person"]);
+  const ah=col(["Avail HH","Availability HH","Employment Availed HH"]);
+  const ap=col(["Avail Persons","Availability Persons","Employment Availed Persons"]);
+  const oph=col(["Demand-Offer Gap HH"]);
+  const opp=col(["Demand-Offer Gap Persons"]);
+  const aph=col(["Demand-Avail Gap HH"]);
+  const app=col(["Demand-Avail Gap Persons"]);
+  const pd=col(["Total Persondays","Persondays"]);
+  const fam=col(["Families Completed 125 Days","125-Day Families"]);
+  const statusI=col(["Status"]);
+
+  const n=(r,i)=>i>=0?num(r[i]):0;
+  const rows=d.rows.map(r=>{
+    const demandHH=n(r,dh), demandP=n(r,dp), offerHH=n(r,oh), offerP=n(r,op), availHH=n(r,ah), availP=n(r,ap);
+    const goh=oph>=0?n(r,oph):Math.max(demandHH-offerHH,0);
+    const gop=opp>=0?n(r,opp):Math.max(demandP-offerP,0);
+    const gah=aph>=0?n(r,aph):Math.max(demandHH-availHH,0);
+    const gap=app>=0?n(r,app):Math.max(demandP-availP,0);
+    const person=n(r,pd), families=n(r,fam);
+    const status=statusI>=0?String(r[statusI]||""):(gop>0||gap>0?"Attention":(goh>0||gah>0?"Watch":"Good"));
+    return {block:ib>=0?r[ib]:"",gp:ig>=0?r[ig]:"",demandHH,demandP,offerHH,offerP,availHH,availP,goh,gop,gah,gap,person,families,status};
+  }).filter(x=>x.block||x.gp||x.demandHH||x.demandP||x.person);
+
+  const bSel=document.getElementById("physicalBlockFilter");
+  const gSel=document.getElementById("physicalGPFilter");
+  const statusSel=document.getElementById("physicalStatusFilter");
+  const search=document.getElementById("physicalSearch");
+
+  // Set filter ranges from the actual live data so the default view never hides valid GP records.
+  const maxOfferGap=Math.max(100,...rows.map(x=>x.gop));
+  const maxAvailGap=Math.max(100,...rows.map(x=>x.gap));
+  const maxPersondays=Math.max(100000,...rows.map(x=>x.person));
+  const offerSlider=document.getElementById("offerGapFilter");
+  const availSlider=document.getElementById("availGapFilter");
+  const pdSlider=document.getElementById("persondaysFilter");
+  offerSlider.max=Math.ceil(maxOfferGap); offerSlider.value=Math.ceil(maxOfferGap);
+  availSlider.max=Math.ceil(maxAvailGap); availSlider.value=Math.ceil(maxAvailGap);
+  pdSlider.max=Math.ceil(maxPersondays); pdSlider.value=Math.ceil(maxPersondays);
+  document.getElementById("offerGapFilterVal").textContent="All";
+  document.getElementById("availGapFilterVal").textContent="All";
+  document.getElementById("persondaysFilterVal").textContent="All";
+  const bCurrent=bSel.value, gCurrent=gSel.value;
+  const blocks=[...new Set(rows.map(x=>x.block).filter(Boolean))].sort();
+  bSel.innerHTML='<option value="">All Blocks</option>'+blocks.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+  if(blocks.includes(bCurrent)) bSel.value=bCurrent;
+
+  function updateGPOptions(){
+    const b=bSel.value, old=gSel.value;
+    const gps=[...new Set(rows.filter(x=>!b||x.block===b).map(x=>x.gp).filter(Boolean))].sort();
+    gSel.innerHTML='<option value="">All GPs</option>'+gps.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+    if(gps.includes(old))gSel.value=old;
+  }
+  function apply(){
+    const b=bSel.value,g=gSel.value,st=statusSel.value,q=(search.value||"").toLowerCase();
+    const maxOffer=num(document.getElementById("offerGapFilter").value);
+    const maxAvail=num(document.getElementById("availGapFilter").value);
+    const maxPD=num(document.getElementById("persondaysFilter").value);
+    const filtered=rows.filter(x=>
+      (!b||x.block===b)&&(!g||x.gp===g)&&(!st||x.status===st)&&
+      x.gop<=maxOffer&&x.gap<=maxAvail&&x.person<=maxPD&&
+      (!q||String(x.block).toLowerCase().includes(q)||String(x.gp).toLowerCase().includes(q))
+    );
+    const sum=k=>filtered.reduce((a,x)=>a+x[k],0);
+    document.getElementById("ppGPCount").textContent=filtered.length;
+    document.getElementById("ppDemandHH").textContent=sum("demandHH").toLocaleString();
+    document.getElementById("ppOfferHH").textContent=sum("offerHH").toLocaleString();
+    document.getElementById("ppAvailHH").textContent=sum("availHH").toLocaleString();
+    document.getElementById("ppOfferGap").textContent=sum("gop").toLocaleString();
+    document.getElementById("ppAvailGap").textContent=sum("gap").toLocaleString();
+    document.getElementById("ppPersondays").textContent=sum("person").toLocaleString();
+    document.getElementById("ppFamilies125").textContent=sum("families").toLocaleString();
+    document.getElementById("ppFamilies125").textContent=sum("families").toLocaleString();
+
+    const table='<table><thead><tr><th>S.No.</th><th>Block</th><th>GP</th><th>Demand HH</th><th>Demand Persons</th><th>Offer HH</th><th>Offer Persons</th><th>Avail HH</th><th>Avail Persons</th><th>Demand→Offer Gap</th><th>Demand→Avail Gap</th><th>Persondays</th><th>125-Day Families</th><th>Status</th></tr></thead><tbody>'+
+      filtered.map((x,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(x.block)+'</td><td>'+esc(x.gp)+'</td><td>'+x.demandHH+'</td><td>'+x.demandP+'</td><td>'+x.offerHH+'</td><td>'+x.offerP+'</td><td>'+x.availHH+'</td><td>'+x.availP+'</td><td class="'+(x.gop>0?'bad':'')+'">'+x.gop+'</td><td class="'+(x.gap>0?'bad':'')+'">'+x.gap+'</td><td>'+x.person.toLocaleString()+'</td><td>'+x.families+'</td><td>'+esc(x.status)+'</td></tr>').join("")+
+      '</tbody></table>';
+    document.getElementById("physicalTable").innerHTML=table;
+    makeSortable(document.querySelector("#physicalTable table"));
+    document.getElementById("physicalLiveState").textContent=filtered.length+" records loaded";
+  }
+  bSel.onchange=()=>{updateGPOptions();apply()};
+  gSel.onchange=apply;
+  statusSel.onchange=apply;
+  search.oninput=apply;
+  document.getElementById("offerGapFilter").oninput=e=>{const x=+e.target.value;document.getElementById("offerGapFilterVal").textContent=x>=+e.target.max?"All":"≤"+x;apply()};
+  document.getElementById("availGapFilter").oninput=e=>{const x=+e.target.value;document.getElementById("availGapFilterVal").textContent=x>=+e.target.max?"All":"≤"+x;apply()};
+  document.getElementById("persondaysFilter").oninput=e=>{const x=+e.target.value;document.getElementById("persondaysFilterVal").textContent=x>=+e.target.max?"All":"≤"+x;apply()};
+  updateGPOptions();apply();
+}
+
+function renderWorst5Overview(ekycData, physicalData, geoData){
+  const ek=ekycData && !ekycData.error ? ekycData : null;
+  const pp=physicalData && !physicalData.error ? physicalData : null;
+  const geo=geoData && !geoData.error ? geoData : null;
+  const cidx=(cols,names)=>{const low=cols.map(x=>String(x).trim().toLowerCase());for(const n of names){const i=low.indexOf(n.toLowerCase());if(i>=0)return i}return -1};
+  const output=(id,arr,formatter)=>{const el=document.getElementById(id);if(!el)return;el.innerHTML=arr.slice(0,5).map((x,i)=>'<div class="rank"><b>'+(i+1)+'. '+esc(x.name)+'</b><b class="bad">'+formatter(x)+'</b></div>').join("")||'<div class="muted">No data</div>';};
+  if(ek){
+    const c=ek.cols, ib=cidx(c,["Block"]), ig=cidx(c,["GP","GP Name","Gram Panchayat"]), ie=cidx(c,["e-KYC %","eKYC %"]), ia=cidx(c,["ABPS %"]);
+    const er=ek.rows.map(r=>({name:(ib>=0?String(r[ib]||""):"")+(ig>=0&&r[ig]?" — "+String(r[ig]):""),ek:ie>=0?pct(r[ie]):0,ab:ia>=0?pct(r[ia]):0})).filter(x=>x.name.trim());
+    output("worst5Ekyc",[...er].sort((a,b)=>a.ek-b.ek),x=>x.ek.toFixed(1)+"%");
+    output("worst5Abps",[...er].sort((a,b)=>a.ab-b.ab),x=>x.ab.toFixed(1)+"%");
+  }
+  if(pp){
+    const c=pp.cols, ib=cidx(c,["Block"]), ig=cidx(c,["GP","GP Name","Gram Panchayat"]), dp=cidx(c,["Demand Persons"]), op=cidx(c,["Offer Persons"]), ap=cidx(c,["Avail Persons"]), pd=cidx(c,["Total Persondays","Persondays"]);
+    const pr=pp.rows.map(r=>{const d=dp>=0?num(r[dp]):0,o=op>=0?num(r[op]):0,a=ap>=0?num(r[ap]):0;return{name:(ib>=0?String(r[ib]||""):"")+(ig>=0&&r[ig]?" — "+String(r[ig]):""),pd:pd>=0?num(r[pd]):0,offer:Math.max(d-o,0),avail:Math.max(d-a,0),physical:d?((o/d+a/d)/2)*100:0}}).filter(x=>x.name.trim());
+    output("worst5Persondays",[...pr].sort((a,b)=>a.pd-b.pd),x=>x.pd.toLocaleString());
+    output("worst5Physical",[...pr].sort((a,b)=>a.physical-b.physical),x=>x.physical.toFixed(1)+"%");
+    output("worst5OfferGap",[...pr].sort((a,b)=>b.offer-a.offer),x=>x.offer.toLocaleString());
+    output("worst5AvailGap",[...pr].sort((a,b)=>b.avail-a.avail),x=>x.avail.toLocaleString());
+  }
+  if(geo){
+    const c=geo.cols, ib=cidx(c,["Block"]), ig=cidx(c,["GP","GP Name","Gram Panchayat"]), it=cidx(c,["Total Attention"]);
+    const gr=geo.rows.map(r=>({name:(ib>=0?String(r[ib]||""):"")+(ig>=0&&r[ig]?" — "+String(r[ig]):""),attention:it>=0?num(r[it]):0})).filter(x=>x.name.trim());
+    output("worst5Geo",[...gr].sort((a,b)=>b.attention-a.attention),x=>x.attention.toLocaleString());
+  }
+}
+
+
+function renderContactsLive(d){
+  if(!d || d.error || !d.rows.length) return;
+  const c=d.cols.map(x=>String(x).trim().toLowerCase());
+  const ci=(names)=>{for(const n of names){const i=c.indexOf(n.toLowerCase());if(i>=0)return i}return -1};
+  const ib=ci(["Block"]), ig=ci(["GP","GP Name","Gram Panchayat"]);
+  const igrs=ci(["GRS Name","GRS"]), ipg=ci(["GRS Phone","Phone"]);
+  const ie=ci(["Accredited Engineer Name","Accredited Engineer","Engineer Name"]);
+  const iep=ci(["Engineer Phone","Accredited Engineer Phone"]);
+  const irm=ci(["Remarks","Remark","Notes"]);
+  const rows=d.rows.map(r=>({
+    block:ib>=0?String(r[ib]||""):"",
+    gp:ig>=0?String(r[ig]||""):"",
+    grs:igrs>=0?String(r[igrs]||""):"",
+    grsPhone:ipg>=0?String(r[ipg]||""):"",
+    engineer:ie>=0?String(r[ie]||""):"",
+    engineerPhone:iep>=0?String(r[iep]||""):"",
+    remarks:irm>=0?String(r[irm]||""):""
+  })).filter(x=>x.block||x.gp||x.grs||x.engineer);
+
+  const bs=document.getElementById("contactsBlockFilter"), gs=document.getElementById("contactsGPFilter");
+  const search=document.getElementById("contactsSearch");
+  const oldB=bs.value, oldG=gs.value;
+  const blocks=[...new Set(rows.map(x=>x.block).filter(Boolean))].sort();
+  bs.innerHTML='<option value="">All Blocks</option>'+blocks.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+  if(blocks.includes(oldB))bs.value=oldB;
+
+  function updateGPs(){
+    const b=bs.value, old=gs.value;
+    const gps=[...new Set(rows.filter(x=>!b||x.block===b).map(x=>x.gp).filter(Boolean))].sort();
+    gs.innerHTML='<option value="">All GPs</option>'+gps.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+    if(gps.includes(old))gs.value=old;
+  }
+  function apply(){
+    const b=bs.value,g=gs.value,q=(search.value||"").toLowerCase();
+    const filtered=rows.filter(x=>
+      (!b||x.block===b)&&(!g||x.gp===g)&&
+      (!q||[x.block,x.gp,x.grs,x.grsPhone,x.engineer,x.engineerPhone,x.remarks].join(" ").toLowerCase().includes(q))
+    );
+    document.getElementById("contactsGPCount").textContent=filtered.filter(x=>x.gp).length;
+    document.getElementById("contactsGRSCount").textContent=filtered.filter(x=>x.grs).length;
+    document.getElementById("contactsEngineerCount").textContent=filtered.filter(x=>x.engineer).length;
+    document.getElementById("contactsStatus").textContent=filtered.length+" records";
+    const table='<table class="sortable"><thead><tr><th>S.No.</th><th>Block</th><th>GP</th><th>GRS Name</th><th>Phone</th><th>Accredited Engineer</th><th>Phone</th><th>Remarks</th></tr></thead><tbody>'+
+      filtered.map((x,i)=>'<tr><td>'+(i+1)+'</td><td>'+esc(x.block)+'</td><td>'+esc(x.gp)+'</td><td>'+esc(x.grs)+'</td><td>'+esc(x.grsPhone)+'</td><td>'+esc(x.engineer)+'</td><td>'+esc(x.engineerPhone)+'</td><td>'+esc(x.remarks)+'</td></tr>').join("")+
+      '</tbody></table>';
+    document.getElementById("contactsTable").innerHTML=table;
+    makeSortable(document.querySelector("#contactsTable table"));
+    document.getElementById("contactsLiveState").textContent=filtered.length+" records loaded";
+  }
+  bs.onchange=()=>{updateGPs();apply()};
+  gs.onchange=apply;
+  search.oninput=apply;
+  updateGPs();apply();
+}
+
+function renderActionLive(ekycData, physicalData, geoData){
+  const issues=[];
+  const add=(block,gp,module,issue,value,priority)=>{
+    if(!gp)return;
+    issues.push({block,gp,module,issue,value,priority});
+  };
+  const parseCols=(d)=>d?d.cols.map(x=>String(x).trim().toLowerCase()):[];
+  const ci=(c,names)=>{for(const n of names){const i=c.indexOf(n.toLowerCase());if(i>=0)return i}return -1};
+
+  if(ekycData && !ekycData.error){
+    const c=parseCols(ekycData), ib=ci(c,["Block"]), ig=ci(c,["GP","GP Name","Gram Panchayat"]),
+      ie=ci(c,["e-KYC %","eKYC %"]), ia=ci(c,["ABPS %"]);
+    ekycData.rows.forEach(r=>{
+      const b=ib>=0?String(r[ib]||""):"",g=ig>=0?String(r[ig]||""):"";
+      const ek=ie>=0?pct(r[ie]):0, ab=ia>=0?pct(r[ia]):0;
+      if(ek<90)add(b,g,"e-KYC","e-KYC below 90%",ek.toFixed(1)+"%","High");
+      else if(ek<95)add(b,g,"e-KYC","e-KYC below 95%",ek.toFixed(1)+"%","Medium");
+      if(ab<90)add(b,g,"ABPS","ABPS below 90%",ab.toFixed(1)+"%","High");
+      else if(ab<95)add(b,g,"ABPS","ABPS below 95%",ab.toFixed(1)+"%","Medium");
+    });
+  }
+
+  if(physicalData && !physicalData.error){
+    const c=parseCols(physicalData), ib=ci(c,["Block"]), ig=ci(c,["GP","GP Name","Gram Panchayat"]),
+      dp=ci(c,["Demand Persons"]), op=ci(c,["Offer Persons"]), ap=ci(c,["Avail Persons"]),
+      pd=ci(c,["Total Persondays","Persondays"]), fam=ci(c,["Families Completed 125 Days","125-Day Families"]);
+    physicalData.rows.forEach(r=>{
+      const b=ib>=0?String(r[ib]||""):"",g=ig>=0?String(r[ig]||""):"";
+      const d=dp>=0?num(r[dp]):0,o=op>=0?num(r[op]):0,a=ap>=0?num(r[ap]):0,pdVal=pd>=0?num(r[pd]):0,f=fam>=0?num(r[fam]):0;
+      const go=Math.max(d-o,0), ga=Math.max(d-a,0);
+      if(go>0)add(b,g,"Physical Progress","Demand → Offer gap",go+" persons","High");
+      if(ga>0)add(b,g,"Physical Progress","Demand → Avail gap",ga+" persons","High");
+      if(pdVal===0)add(b,g,"Persondays","Nil persondays", "0","High");
+      if(f>0){} // retained for future 125-day threshold logic
+    });
+  }
+
+  if(geoData && !geoData.error){
+    const c=parseCols(geoData), ib=ci(c,["Block"]), ig=ci(c,["GP","GP Name","Gram Panchayat"]), it=ci(c,["Total Attention"]);
+    geoData.rows.forEach(r=>{
+      const b=ib>=0?String(r[ib]||""):"",g=ig>=0?String(r[ig]||""):"",v=it>=0?num(r[it]):0;
+      if(v>0)add(b,g,"Geo-tag","Geo-tag pending / acceptance attention",v+" items",v>=15?"High":"Medium");
+    });
+  }
+
+  // De-duplicate exact action rows.
+  const unique=[...new Map(issues.map(x=>[x.block+"|"+x.gp+"|"+x.module+"|"+x.issue, x])).values()];
+  const blocks=[...new Set(unique.map(x=>x.block).filter(Boolean))].sort();
+  const bs=document.getElementById("actionBlockFilter"), gs=document.getElementById("actionGPFilter");
+  const oldB=bs.value, oldG=gs.value;
+  bs.innerHTML='<option value="">All Blocks</option>'+blocks.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+  if(blocks.includes(oldB))bs.value=oldB;
+
+  function updateGPs(){
+    const b=bs.value,old=gs.value;
+    const gps=[...new Set(unique.filter(x=>!b||x.block===b).map(x=>x.gp).filter(Boolean))].sort();
+    gs.innerHTML='<option value="">All GPs</option>'+gps.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
+    if(gps.includes(old))gs.value=old;
+  }
+  function apply(){
+    const b=bs.value,g=gs.value,p=document.getElementById("actionPriorityFilter").value,q=(document.getElementById("actionSearch").value||"").toLowerCase();
+    const rows=unique.filter(x=>(!b||x.block===b)&&(!g||x.gp===g)&&(!p||x.priority===p)&&
+      (!q||[x.block,x.gp,x.module,x.issue,x.value].join(" ").toLowerCase().includes(q)));
+    const high=new Set(rows.filter(x=>x.priority==="High").map(x=>x.gp)).size;
+    const med=new Set(rows.filter(x=>x.priority==="Medium").map(x=>x.gp)).size;
+    const total=rows.length;
+    document.getElementById("actionHigh").textContent=high;
+    document.getElementById("actionMedium").textContent=med;
+    document.getElementById("actionTotal").textContent=total;
+    document.getElementById("actionGood").textContent=Math.max(0,82-new Set(rows.map(x=>x.gp)).size);
+    const table='<table class="sortable"><thead><tr><th>S.No.</th><th>Priority</th><th>Block</th><th>GP</th><th>Module</th><th>Issue</th><th>Value</th></tr></thead><tbody>'+
+      rows.map((x,i)=>'<tr><td>'+(i+1)+'</td><td class="'+(x.priority==="High"?"bad":"")+'">'+x.priority+'</td><td>'+esc(x.block)+'</td><td>'+esc(x.gp)+'</td><td>'+esc(x.module)+'</td><td>'+esc(x.issue)+'</td><td>'+esc(x.value)+'</td></tr>').join("")+
+      '</tbody></table>';
+    document.getElementById("actionTable").innerHTML=table;
+    makeSortable(document.querySelector("#actionTable table"));
+    document.getElementById("actionLiveState").textContent=rows.length+" live actions";
+  }
+  bs.onchange=()=>{updateGPs();apply()};
+  gs.onchange=apply;
+  document.getElementById("actionPriorityFilter").onchange=apply;
+  document.getElementById("actionSearch").oninput=apply;
+  updateGPs();apply();
+}
+async function loadLiveData(){
+  const meta=document.getElementById("liveMeta");
+  setLiveStatus(true,"Connecting…");
+  try{
+    const results=[];
+    for(const name of LIVE_SHEETS){
+      try{ results.push(await fetchSheet(name)); }
+      catch(e){ results.push({sheet:name,error:e.message,cols:[],rows:[]}); }
+    }
+    const failed=results.filter(x=>x.error);
+    const good=results.filter(x=>!x.error);
+    const now=new Date();
+    const stamp=now.toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"});
+    if(meta){
+      meta.innerHTML="<b>Last Updated:</b> "+esc(stamp)+
+        " &nbsp; · &nbsp; <b>Sheets loaded:</b> "+good.length+"/"+results.length+
+        (failed.length ? " &nbsp; · &nbsp; <span style='color:#b42318'><b>Failed:</b> "+failed.map(x=>esc(x.sheet)).join(", ")+"</span>" : "");
+    }
+    // Populate useful live tables without destroying the dashboard layout.
+    const map={
+      "eKYC & ABPS":"ekyc",
+      "Physical Progress Report":"employment",
+      "Action Required":"action",
+      "Performance":"ranking",
+      "Analytics":"analytics",
+      "Documents":"documents",
+      "Pending Reports":"reports",
+      "Geo-tag":"geotag"
+    };
+    for(const d of good){
+      if(map[d.sheet]) updatePageTable(map[d.sheet],d);
+    }
+    // Store live data for future dashboard calculations.
+    window.liveSheetData=Object.fromEntries(results.map(x=>[x.sheet,x]));
+    const ekycData=results.find(x=>x.sheet==="eKYC & ABPS" && !x.error); if(ekycData) renderEkycLive(ekycData);
+    const contactsData=results.find(x=>x.sheet==="GP Contacts" && !x.error);
+    const actionEkyc=results.find(x=>x.sheet==="eKYC & ABPS" && !x.error);
+    const actionPhysical=results.find(x=>x.sheet==="Physical Progress Report" && !x.error);
+    const actionGeo=results.find(x=>x.sheet==="Geo-tag" && !x.error);
+    renderActionLive(actionEkyc, actionPhysical, actionGeo);
+    if(contactsData) renderContactsLive(contactsData);
+    const physicalData=results.find(x=>x.sheet==="Physical Progress Report" && !x.error); if(physicalData) renderPhysicalLive(physicalData);
+    const geoData=results.find(x=>x.sheet==="Geo-tag" && !x.error);
+    renderWorst5Overview(ekycData, physicalData, geoData);
+    updateOverviewLive(ekycData, physicalData);
+    setLiveStatus(true,"Updated "+stamp);
+  }catch(e){
+    setLiveStatus(false,"Connection error");
+    if(meta) meta.innerHTML="<span style='color:#b42318'><b>Connection failed:</b> "+esc(e.message)+"</span><br>Check that the Google Sheet is shared so the published/linked data can be read.";
+  }
+}
+makeAllTablesSortable();
+loadLiveData();
+setInterval(loadLiveData, 5*60*1000);
+</script>
+</body></html>
