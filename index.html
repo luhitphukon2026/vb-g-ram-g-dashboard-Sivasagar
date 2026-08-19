@@ -1674,7 +1674,7 @@ document.querySelectorAll('input[type="range"]').forEach(r=>{
 <script>
 const GOOGLE_SHEET_ID = "1dfJYdQvb0zgjNt0B6bxAWVt5qX3gJGjZQW75DKKgPZA";
 const LIVE_SHEETS = [
-  "District Overview","eKYC & ABPS","Physical Progress Report","GP Contacts",
+  "District Overview","eKYC & ABPS","Priority Works","Physical Progress Report","GP Contacts",
   "GP Contacts (1)","Action Required","Performance","Analytics","Documents","Pending Reports","Geo-tag"
 ];
 
@@ -2927,33 +2927,86 @@ function refreshDashboardFromBottom(){
     return data.record || null;
   }
 
-  async function liveFind(code){
-    // Authoritative source: Google Sheet through Apps Script.
-    try{
-      const r=await fetchPriorityWorkByCode(code);
-      if(r){
-        // Exact sheet columns are returned by Apps Script:
-        // F = wage, G = material, O = 16th Finance.
-        return {
-          code:clean(r.code),
-          category:clean(r.category),
-          name:clean(r.name),
-          block:clean(r.block),
-          gp:clean(r.gp),
-          wage:clean(r.wage),
-          material:clean(r.material),
-          total:clean(r.total),
-          finance_16th:clean(r.finance_16th),
-          lat:clean(r.lat),
-          long:clean(r.long),
-          status:clean(r.status),
-          progress:clean(r.progress),
-          remarks:clean(r.remarks)
-        };
+  function fetchPriorityWorkJSONP(code){
+    return new Promise((resolve,reject)=>{
+      const cb="pwcb_"+Date.now()+"_"+Math.floor(Math.random()*100000);
+      const script=document.createElement("script");
+      const timer=setTimeout(()=>{
+        cleanup();
+        reject(new Error("Priority Works JSONP timeout"));
+      },12000);
+
+      function cleanup(){
+        clearTimeout(timer);
+        try{delete window[cb];}catch(e){window[cb]=undefined;}
+        if(script.parentNode)script.parentNode.removeChild(script);
       }
+
+      window[cb]=function(data){
+        cleanup();
+        if(data && data.ok && data.record) resolve(data.record);
+        else reject(new Error(data && data.error ? data.error : "Work Code not found"));
+      };
+
+      script.onerror=function(){
+        cleanup();
+        reject(new Error("Could not connect to Priority Works Apps Script"));
+      };
+
+      script.src=PRIORITY_READ_URL+
+        "?action=get_priority_work_jsonp&work_code="+
+        encodeURIComponent(code)+"&callback="+
+        encodeURIComponent(cb)+"&t="+Date.now();
+
+      document.head.appendChild(script);
+    });
+  }
+
+  async function liveFind(code){
+    // PRIMARY: JSONP Apps Script read. No CORS dependency.
+    try{
+      const r=await fetchPriorityWorkJSONP(code);
+      return {
+        code:clean(r.code),
+        category:clean(r.category),
+        name:clean(r.name),
+        block:clean(r.block),
+        gp:clean(r.gp),
+        wage:clean(r.wage),
+        material:clean(r.material),
+        total:clean(r.total),
+        finance_16th:clean(r.finance_16th),
+        lat:clean(r.lat),
+        long:clean(r.long),
+        status:clean(r.status),
+        progress:clean(r.progress),
+        remarks:clean(r.remarks)
+      };
     }catch(e){
-      console.error("Priority Works read failed:",e);
+      console.warn("Priority Works JSONP failed:",e);
     }
+
+    // SECONDARY: existing direct Google Sheet / Apps Script methods.
+    try{
+      const d=await fetchSheet("Priority Works");
+      if(d && Array.isArray(d.rows)){
+        const ci=colIndex(d.cols,["Work Code","WorkCode","Code","Scheme Code","Scheme ID"]);
+        if(ci>=0){
+          const row=d.rows.find(r=>clean(r[ci]).toLowerCase()===clean(code).toLowerCase());
+          if(row){
+            return {
+              code:clean(row[0]), category:clean(row[1]), name:clean(row[2]),
+              block:clean(row[3]), gp:clean(row[4]),
+              wage:clean(row[5]), material:clean(row[6]), total:clean(row[7]),
+              lat:clean(row[8]), long:clean(row[9]), status:clean(row[10]),
+              progress:clean(row[11]), remarks:clean(row[13]),
+              finance_16th:clean(row[14])
+            };
+          }
+        }
+      }
+    }catch(e){}
+
     return savedWork(code);
   }
 
