@@ -1369,7 +1369,6 @@ priorityGrid.innerHTML = priorityWorks.map((x,i)=>`
         <option>Physically Complete</option><option>Completed</option><option>Not Feasible</option>
       </select></div>
       <div class="form-group"><label>Physical Progress (%)</label><input id="pwsProgress" type="number" min="0" max="100" step="0.01" placeholder="0–100"></div>
-      <div class="form-group"><label>Last Updated</label><input id="pwsDate" type="date" readonly></div>
       <div class="form-group"><label>Latitude</label><input id="pwsLat" type="text" placeholder="Enter latitude"></div>
       <div class="form-group"><label>Longitude</label><input id="pwsLong" type="text" placeholder="Enter longitude"></div>
       <div class="form-group priority-wide"><label>Remarks</label><textarea id="pwsRemarks" rows="2" placeholder="Enter remarks"></textarea></div>
@@ -1536,9 +1535,6 @@ function prioritySetAutomaticDates(){
 
   const newDate = document.getElementById("pwfUpdateDate");
   if(newDate) newDate.value = value;
-
-  const statusDate = document.getElementById("pwsDate");
-  if(statusDate) statusDate.value = value;
 }
 
 if(document.readyState === "loading"){
@@ -1581,6 +1577,19 @@ document.getElementById("priorityWorkForm").addEventListener("submit",async e=>{
   const form=e.currentTarget;
   if(!form.checkValidity()){form.reportValidity();return;}
   const data=priorityFormData();
+
+  // Keep a complete local copy so Update Status can recover the exact
+  // wage/material/16th-Finance values even before the next live-sheet refresh.
+  try{
+    const key="sivasagar_priority_work_submissions";
+    const rows=JSON.parse(localStorage.getItem(key)||"[]");
+    const safeRows=Array.isArray(rows)?rows:[];
+    const ix=safeRows.findIndex(r=>String(r.work_code||r.code||"").trim().toLowerCase()===String(data.work_code||"").trim().toLowerCase());
+    if(ix>=0) safeRows[ix]={...safeRows[ix],...data};
+    else safeRows.push(data);
+    localStorage.setItem(key,JSON.stringify(safeRows));
+  }catch(e){}
+
   if(data.progress<0 || data.progress>100){
     showPriorityFormMessage("Physical progress must be between 0% and 100%.","err");
     return;
@@ -2700,7 +2709,7 @@ function refreshDashboardFromBottom(){
     const clear=q("pwsClearBtn");
     if(clear){
       clear.addEventListener("click",()=>{
-        ["pwsCode","pwsWorkName","pwsWage","pwsMaterial","pwsFinance16","pwsProgress","pwsLat","pwsLong","pwsDate","pwsRemarks"].forEach(id=>{
+        ["pwsCode","pwsWorkName","pwsWage","pwsMaterial","pwsFinance16","pwsProgress","pwsLat","pwsLong","","pwsRemarks"].forEach(id=>{
           if(q(id))q(id).value="";
         });
         ["pwsStatus","pwsBlock","pwsGP"].forEach(id=>{
@@ -2830,9 +2839,14 @@ function refreshDashboardFromBottom(){
         category:clean(r.category||r.priority_work_category),
         name:clean(r.scheme||r.work_name||r.workName),
         block:clean(r.block), gp:clean(r.gp),
-        wage:clean(r.wage_amount||r.wage),
-        material:clean(r.material_amount||r.material),
-        lat:clean(r.latitude||r.lat), long:clean(r.longitude||r.long||r.lng),
+
+        // Support every name used by the submission form.
+        wage:clean(r.wage||r.wage_amount||r.vbg_wage||r["Wage Amount"]||r["Wage Amount from VB-G RAM G"]),
+        material:clean(r.material||r.material_amount||r.vbg_material||r["Material Amount"]||r["Material Amount from VB-G RAM G"]),
+        finance_16th:clean(r.finance_16th||r.finance16||r["16th Finance Commission Amount"]),
+
+        lat:clean(r.latitude||r.lat),
+        long:clean(r.longitude||r.long||r.lng),
         status:clean(r.status||r.current_status),
         progress:clean(r.progress||r.progress_pct),
         date:clean(r.updated_date||r.last_updated||r.date),
@@ -2841,6 +2855,57 @@ function refreshDashboardFromBottom(){
     }catch(e){return null;}
   }
 
+  async function fetchPriorityWorksFixedColumns(){
+    const url=(typeof PRIORITY_READ_URL!=="undefined"?PRIORITY_READ_URL:"");
+    if(!url)return null;
+
+    const res=await fetch(
+      url+"?action=get_priority_works&t="+Date.now(),
+      {cache:"no-store"}
+    );
+    if(!res.ok)throw new Error("Priority Works API HTTP "+res.status);
+
+    const data=await res.json();
+    if(!data || data.ok!==true || !Array.isArray(data.rows)){
+      throw new Error(data && data.error ? data.error : "Invalid Priority Works data");
+    }
+
+    return data;
+  }
+
+  function fixedPriorityRecord(data,code){
+    if(!data || !Array.isArray(data.rows))return null;
+
+    const target=clean(code).toLowerCase();
+    const row=data.rows.find(r=>{
+      return Array.isArray(r) &&
+        clean(r[0]).toLowerCase()===target;
+    });
+    if(!row)return null;
+
+    // IMPORTANT: Priority Works sheet layout:
+    // A Work Code, B Category, C Work Name, D Block, E GP,
+    // F Wage Amount, G Material Amount, H Total Amount,
+    // I Latitude, J Longitude, K Status, L Progress,
+    // O 16th Finance Commission Amount.
+    return {
+      code:clean(row[0]),
+      category:clean(row[1]),
+      name:clean(row[2]),
+      block:clean(row[3]),
+      gp:clean(row[4]),
+      wage:clean(row[5]),
+      material:clean(row[6]),
+      total:clean(row[7]),
+      lat:clean(row[8]),
+      long:clean(row[9]),
+      status:clean(row[10]),
+      progress:clean(row[11]),
+      date:clean(row[12]),
+      remarks:clean(row[13]),
+      finance_16th:clean(row[14])
+    };
+  }
 
   async function fetchPriorityWorkByCode(code){
     const url = (typeof PRIORITY_READ_URL !== "undefined" ? PRIORITY_READ_URL : "");
@@ -2866,35 +2931,60 @@ function refreshDashboardFromBottom(){
   }
 
   async function liveFind(code){
-    // PRIMARY: read the exact Work Code directly from the same Apps Script
-    // deployment that writes the Priority Works Google Sheet.
+    let merged=null;
+
+    // 1. Read the exact record endpoint.
     try{
       const record=await fetchPriorityWorkByCode(code);
-      if(record)return record;
+      if(record) merged={...record};
     }catch(e){
       console.warn("Priority Work direct read failed:",e);
     }
 
-    // FALLBACK: existing live sheet data.
-    const live=window.liveSheetData||{};
+    // 2. Read the full sheet and force the known A/F/G/O layout.
+    try{
+      const all=await fetchPriorityWorksFixedColumns();
+      const fixed=fixedPriorityRecord(all,code);
+      if(fixed){
+        merged=merged ? {...fixed,...merged} : fixed;
+
+        // Never allow an empty direct-API value to overwrite a real F/G/O value.
+        if(!clean(merged.wage)) merged.wage=fixed.wage;
+        if(!clean(merged.material)) merged.material=fixed.material;
+        if(!clean(merged.finance_16th)) merged.finance_16th=fixed.finance_16th;
+      }
+    }catch(e){
+      console.warn("Priority Works fixed-column read failed:",e);
+    }
+
+    // 3. Existing live-sheet reader.
+    const liveData=window.liveSheetData||{};
     const names=["Priority Works","Priority Work","Priority Works Master","Priority Work List"];
 
     for(const n of names){
-      const found=findByCodeInNormalized(live[n],code);
-      if(found)return found;
-    }
-
-    if(typeof fetchSheet==="function"){
-      for(const n of names){
-        try{
-          const d=await fetchSheet(n);
-          const found=findByCodeInNormalized(d,code);
-          if(found)return found;
-        }catch(e){}
+      const found=findByCodeInNormalized(liveData[n],code);
+      if(found){
+        if(!merged) merged={...found};
+        else{
+          for(const k of ["category","name","block","gp","wage","material","finance_16th","lat","long","status","progress","date","remarks"]){
+            if(!clean(merged[k]) && clean(found[k])) merged[k]=found[k];
+          }
+        }
       }
     }
 
-    return savedWork(code);
+    // 4. Local browser copy.
+    const local=savedWork(code);
+    if(local){
+      if(!merged) merged={...local};
+      else{
+        for(const k of ["category","name","block","gp","wage","material","finance_16th","lat","long","status","progress","date","remarks"]){
+          if(!clean(merged[k]) && clean(local[k])) merged[k]=local[k];
+        }
+      }
+    }
+
+    return merged;
   }
 
   function setVal(id,value){
@@ -2957,12 +3047,6 @@ function refreshDashboardFromBottom(){
       setVal("pwsLong",String(r.long));
     }
 
-    // Last Updated is automatic; never leave it blank.
-    const now=new Date();
-    const todayValue =
-      now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0");
-    setVal("pwsDate", todayValue);
-
     setVal("pwsRemarks",r.remarks);
     if(nameEl)nameEl.placeholder="Auto-fetched from Google Sheet";
   }
@@ -2981,8 +3065,7 @@ function refreshDashboardFromBottom(){
     const progress=clean(document.getElementById("pwsProgress")?.value);
     const lat=clean(document.getElementById("pwsLat")?.value);
     const lon=clean(document.getElementById("pwsLong")?.value);
-    const date=clean(document.getElementById("pwsDate")?.value);
-    const remarks=clean(document.getElementById("pwsRemarks")?.value);
+const remarks=clean(document.getElementById("pwsRemarks")?.value);
 
     if(!name){
       alert("Work Name is required.");
@@ -3008,8 +3091,6 @@ function refreshDashboardFromBottom(){
       progress:progress===""?"":Number(progress),
       latitude:lat,
       longitude:lon,
-      updated_date:date,
-      last_updated:date,
       remarks:remarks
     };
 
@@ -3218,18 +3299,7 @@ function refreshDashboardFromBottom(){
 })();
 </script>
 
-<script id="priority-auto-date-fallback">
-(function(){
-  function setToday(){
-    const el=document.getElementById("pwsDate");
-    if(!el || el.value)return;
-    const d=new Date();
-    el.value=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-  }
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",setToday);
-  else setToday();
-})();
-</script>
+
 
 <script id="priority-update-robust-handler">
 (function(){
@@ -3240,12 +3310,7 @@ function refreshDashboardFromBottom(){
     if(m){m.textContent=text;m.className="form-message "+(type||"ok");}
     else alert(text);
   }
-  function today(){
-    const d=new Date();
-    return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-  }
-
-  async function update(){
+async function update(){
     const code=clean(el("pwsCode")?.value);
     const name=clean(el("pwsWorkName")?.value);
     const block=clean(el("pwsBlock")?.value);
@@ -3265,8 +3330,7 @@ function refreshDashboardFromBottom(){
     }
     const lat=clean(el("pwsLat")?.value);
     const lon=clean(el("pwsLong")?.value);
-    const date=clean(el("pwsDate")?.value)||today();
-    const remarks=clean(el("pwsRemarks")?.value);
+const remarks=clean(el("pwsRemarks")?.value);
 
     if(!code){message("Please enter Work Code.","err");return;}
     if(!name){message("Work Name is not available for this Work Code.","err");return;}
@@ -3301,8 +3365,6 @@ function refreshDashboardFromBottom(){
       progress_pct:progress===""?"":Number(progress),
       latitude:lat,
       longitude:lon,
-      updated_date:date,
-      last_updated:date,
       remarks:remarks
     };
 
@@ -3329,10 +3391,7 @@ function refreshDashboardFromBottom(){
       ev.stopImmediatePropagation();
       update();
     });
-    const date=el("pwsDate");
-    if(date&&!date.value)date.value=today();
-
-    const statusEl=el("pwsStatus");
+const statusEl=el("pwsStatus");
     const progressEl=el("pwsProgress");
     if(statusEl && progressEl){
       statusEl.addEventListener("change",function(){
