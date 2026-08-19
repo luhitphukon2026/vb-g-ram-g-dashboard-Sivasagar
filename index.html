@@ -1641,8 +1641,8 @@ priorityGrid.innerHTML = priorityWorks.map((x,i)=>`
 
 
 <script id="priority-submission-form-script">
-const PRIORITY_READ_URL="https://script.google.com/macros/s/AKfycbzAzM-VZ0hgQj0NpXBx-Xq-KtF0Ab4su955iZsQ1bntRfZOgsAeshJEGNU0exQhRzVxxg/exec";
-const PRIORITY_SUBMIT_URL="https://script.google.com/macros/s/AKfycbzAzM-VZ0hgQj0NpXBx-Xq-KtF0Ab4su955iZsQ1bntRfZOgsAeshJEGNU0exQhRzVxxg/exec";
+const PRIORITY_READ_URL="https://script.google.com/macros/s/AKfycby6zcSMMRog0cfehhDjmZNKwvJPKNy4giitf1JKqzgP4RewLP9HLPSo3ho_sF63Q9LKyg/exec";
+const PRIORITY_SUBMIT_URL="https://script.google.com/macros/s/AKfycby6zcSMMRog0cfehhDjmZNKwvJPKNy4giitf1JKqzgP4RewLP9HLPSo3ho_sF63Q9LKyg/exec";
 window.PRIORITY_SUBMIT_URL = PRIORITY_SUBMIT_URL; // Paste your Google Apps Script Web App /exec URL here.
 
 
@@ -3776,42 +3776,21 @@ function doPost(e) {
 </body></html>
 <script id="priority-all-works-update-script">
 (function(){
-  const READ_URL = "https://script.google.com/macros/s/AKfycby6zcSMMRog0cfehhDjmZNKwvJPKNy4giitf1JKqzgP4RewLP9HLPSo3ho_sF63Q9LKyg/exec";
-  const SUBMIT_URL = READ_URL;
-
+  const READ_URL="https://script.google.com/macros/s/AKfycby6zcSMMRog0cfehhDjmZNKwvJPKNy4giitf1JKqzgP4RewLP9HLPSo3ho_sF63Q9LKyg/exec";
+  const SUBMIT_URL=READ_URL;
   let allPriorityRows=[];
   let selectedWorkCode="";
 
-  function esc(v){
-    return String(v==null?"":v).replace(/[&<>"']/g,s=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[s]));
-  }
-
-  function num(v){
-    const n=Number(String(v??"").replace(/,/g,"").replace(/₹/g,"").trim());
-    return Number.isFinite(n)?n:0;
-  }
-
-  function money(v){
-    if(v===""||v==null)return "";
-    return num(v).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
-  }
-
-  function uniqueSorted(rows,index){
-    return [...new Set(rows.map(r=>String(r[index]??"").trim()).filter(Boolean))]
-      .sort((a,b)=>a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"}));
-  }
-
+  const $=id=>document.getElementById(id);
+  function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,s=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[s]));}
+  function num(v){const n=Number(String(v??"").replace(/,/g,"").replace(/₹/g,"").trim());return Number.isFinite(n)?n:0;}
+  function money(v){if(v===""||v==null)return "";return num(v).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function uniqueSorted(rows,i){return [...new Set(rows.map(r=>String(r[i]??"").trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"}));}
   function fillFilter(id,values,placeholder){
-    const el=document.getElementById(id);
-    if(!el)return;
+    const el=$(id); if(!el)return;
     const current=el.value;
     el.innerHTML='<option value="">'+esc(placeholder)+'</option>';
-    values.forEach(v=>{
-      const o=document.createElement("option");
-      o.value=v;
-      o.textContent=v;
-      el.appendChild(o);
-    });
+    values.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;el.appendChild(o);});
     if(values.includes(current))el.value=current;
   }
 
@@ -3823,208 +3802,127 @@ function doPost(e) {
   }
 
   function filteredRows(){
-    const search=(document.getElementById("pwFilterSearch")?.value||"").trim().toLowerCase();
-    const block=document.getElementById("pwFilterBlock")?.value||"";
-    const gp=document.getElementById("pwFilterGP")?.value||"";
-    const type=document.getElementById("pwFilterType")?.value||"";
-    const status=document.getElementById("pwFilterStatus")?.value||"";
-
+    const search=($("pwFilterSearch")?.value||"").trim().toLowerCase();
+    const block=$("pwFilterBlock")?.value||"";
+    const gp=$("pwFilterGP")?.value||"";
+    const type=$("pwFilterType")?.value||"";
+    const status=$("pwFilterStatus")?.value||"";
     return allPriorityRows.filter(r=>{
-      const searchable=[
-        String(r[0]??""),String(r[1]??""),String(r[2]??""),
-        String(r[3]??""),String(r[4]??"")
-      ].join(" ").toLowerCase();
-
-      return (!search || searchable.includes(search)) &&
-             (!block || String(r[3]??"").trim()===block) &&
-             (!gp || String(r[4]??"").trim()===gp) &&
-             (!type || String(r[1]??"").trim()===type) &&
-             (!status || String(r[10]??"").trim()===status);
+      const searchable=[r[0],r[1],r[2],r[3],r[4]].join(" ").toLowerCase();
+      return (!search||searchable.includes(search)) &&
+             (!block||String(r[3]??"").trim()===block) &&
+             (!gp||String(r[4]??"").trim()===gp) &&
+             (!type||String(r[1]??"").trim()===type) &&
+             (!status||String(r[10]??"").trim()===status);
     });
   }
 
   function renderTable(){
-    const tbody=document.getElementById("priorityWorksUpdateTbody");
-    if(!tbody)return;
-
+    const tbody=$("priorityWorksUpdateTbody"); if(!tbody)return;
     const rows=filteredRows();
-
-    const summary=document.getElementById("pwFilterSummary");
-    if(summary){
-      summary.textContent="Showing "+rows.length+" of "+allPriorityRows.length+" Priority Works";
-    }
+    const summary=$("pwFilterSummary");
+    if(summary)summary.textContent="Showing "+rows.length+" of "+allPriorityRows.length+" Priority Works";
 
     if(!rows.length){
-      tbody.innerHTML='<tr><td colspan="14" style="text-align:center;padding:18px;">No works match the selected filters.</td></tr>';
+      tbody.innerHTML='<tr><td colspan="14" class="md-empty">No Priority Works found.</td></tr>';
       return;
     }
 
     tbody.innerHTML=rows.map((r,i)=>{
       const code=String(r[0]||"").trim();
       const status=String(r[10]||"").trim();
-      const progress=(status==="Completed"||status==="Physically Complete")
-        ? "100"
-        : String(r[11]??"").trim();
-
-      const vbgTotal=num(r[5])+num(r[6]);
-      const schemeTotal=vbgTotal+num(r[14]);
-
-      return `
-        <tr data-work-code="${esc(code)}">
-          <td>${i+1}</td>
-          <td><strong>${esc(code)}</strong></td>
-          <td>${esc(r[1])}</td>
-          <td>${esc(r[2])}</td>
-          <td>${esc(r[3])}</td>
-          <td>${esc(r[4])}</td>
-          <td style="text-align:right;">${money(r[5])}</td>
-          <td style="text-align:right;">${money(r[6])}</td>
-          <td style="text-align:right;font-weight:600;">${money(vbgTotal)}</td>
-          <td style="text-align:right;">${money(r[14])}</td>
-          <td style="text-align:right;font-weight:700;">${money(schemeTotal)}</td>
-          <td><span class="md-chip">${esc(status||"Not Updated")}</span></td>
-          <td style="text-align:center;font-weight:700;">${esc(progress)}${progress!==""?"%":""}</td>
-          <td style="white-space:nowrap;">
-            <button type="button" class="primary-btn priority-row-update-btn" data-code="${esc(code)}">Update</button>
-          </td>
-        </tr>
-      `;
+      const progress=(status==="Completed"||status==="Physically Complete")?"100":String(r[11]??"").trim();
+      const vbg=num(r[5])+num(r[6]);
+      const scheme=vbg+num(r[14]);
+      return `<tr>
+        <td>${i+1}</td>
+        <td><strong>${esc(code)}</strong></td>
+        <td>${esc(r[1])}</td>
+        <td>${esc(r[2])}</td>
+        <td>${esc(r[3])}</td>
+        <td>${esc(r[4])}</td>
+        <td style="text-align:right;">${money(r[5])}</td>
+        <td style="text-align:right;">${money(r[6])}</td>
+        <td style="text-align:right;font-weight:600;">${money(vbg)}</td>
+        <td style="text-align:right;">${money(r[14])}</td>
+        <td style="text-align:right;font-weight:700;">${money(scheme)}</td>
+        <td><span class="md-chip">${esc(status||"Not Updated")}</span></td>
+        <td style="text-align:center;font-weight:700;">${esc(progress)}${progress!==""?"%":""}</td>
+        <td><button type="button" class="primary-btn priority-row-update-btn" data-code="${esc(code)}">Update</button></td>
+      </tr>`;
     }).join("");
 
-    tbody.querySelectorAll(".priority-row-update-btn").forEach(btn=>{
-      btn.addEventListener("click",()=>openInlineUpdate(btn.dataset.code));
-    });
+    tbody.querySelectorAll(".priority-row-update-btn").forEach(b=>b.addEventListener("click",()=>openInlineUpdate(b.dataset.code)));
+  }
+
+  async function loadPriorityWorks(){
+    const tbody=$("priorityWorksUpdateTbody"); if(!tbody)return;
+    const rs=$("priorityDataRefreshStatus");
+    tbody.innerHTML='<tr><td colspan="14" class="md-empty">Loading Priority Works…</td></tr>';
+    if(rs)rs.textContent="Loading live Priority Works data…";
+
+    try{
+      const response=await fetch(READ_URL+"?action=get_priority_works&t="+Date.now(),{cache:"no-store"});
+      const text=await response.text();
+      let data;
+      try{data=JSON.parse(text);}catch(e){throw new Error("Apps Script returned a non-JSON response.");}
+      if(!data.ok||!Array.isArray(data.rows))throw new Error(data.error||"Priority Works list was not returned.");
+      allPriorityRows=data.rows.filter(r=>Array.isArray(r)&&String(r[0]??"").trim()!=="");
+      loadFilterOptions(allPriorityRows);
+      renderTable();
+      if(rs)rs.textContent="Live data loaded • "+allPriorityRows.length+" works";
+    }catch(err){
+      console.error(err);
+      tbody.innerHTML='<tr><td colspan="14" class="md-empty" style="color:#b42318;">'+esc(err.message||err)+'</td></tr>';
+      if(rs)rs.textContent="Unable to load live data";
+    }
   }
 
   function openInlineUpdate(code){
     const r=allPriorityRows.find(x=>String(x[0]||"").trim()===String(code).trim());
     if(!r)return;
-
     selectedWorkCode=code;
-
-    const panel=document.getElementById("priorityInlineUpdate");
-    panel.style.display="block";
-
-    document.getElementById("priorityInlineWorkTitle").innerHTML =
-      "<b>Work Code:</b> "+esc(r[0])+
-      " &nbsp; | &nbsp; <b>Work:</b> "+esc(r[2])+
-      " &nbsp; | &nbsp; <b>Block:</b> "+esc(r[3])+
-      " &nbsp; | &nbsp; <b>GP:</b> "+esc(r[4]);
-
-    document.getElementById("pwsStatus").value=String(r[10]||"");
-    document.getElementById("pwsProgress").value=
-      (String(r[10]||"")==="Completed"||String(r[10]||"")==="Physically Complete")
-      ? "100" : String(r[11]??"");
-    document.getElementById("pwsLat").value=String(r[8]??"");
-    document.getElementById("pwsLong").value=String(r[9]??"");
-    document.getElementById("pwsRemarks").value=String(r[13]??"");
-    document.getElementById("pwsUpdateMessage").textContent="";
-
-    panel.scrollIntoView({behavior:"smooth",block:"start"});
+    $("priorityInlineUpdate").style.display="block";
+    $("priorityInlineWorkTitle").innerHTML="<b>Work Code:</b> "+esc(r[0])+" &nbsp; | &nbsp; <b>Work:</b> "+esc(r[2])+" &nbsp; | &nbsp; <b>Block:</b> "+esc(r[3])+" &nbsp; | &nbsp; <b>GP:</b> "+esc(r[4]);
+    $("pwsStatus").value=String(r[10]||"");
+    $("pwsProgress").value=(r[10]==="Completed"||r[10]==="Physically Complete")?"100":String(r[11]??"");
+    $("pwsLat").value=String(r[8]??"");
+    $("pwsLong").value=String(r[9]??"");
+    $("pwsRemarks").value=String(r[13]??"");
+    $("pwsUpdateMessage").textContent="";
+    $("priorityInlineUpdate").scrollIntoView({behavior:"smooth",block:"start"});
   }
 
   async function saveInlineUpdate(){
     if(!selectedWorkCode)return;
-
-    let status=document.getElementById("pwsStatus").value;
-    let progress=document.getElementById("pwsProgress").value;
-
-    if(status==="Completed"||status==="Physically Complete"){
-      progress="100";
-      document.getElementById("pwsProgress").value="100";
-    }
-
-    const payload=new URLSearchParams({
-      action:"update_status",
-      work_code:selectedWorkCode,
-      status:status,
-      progress:progress,
-      latitude:document.getElementById("pwsLat").value,
-      longitude:document.getElementById("pwsLong").value,
-      remarks:document.getElementById("pwsRemarks").value
+    let status=$("pwsStatus").value, progress=$("pwsProgress").value;
+    if(status==="Completed"||status==="Physically Complete"){progress="100";$("pwsProgress").value="100";}
+    const body=new URLSearchParams({
+      action:"update_status",work_code:selectedWorkCode,status,progress,
+      latitude:$("pwsLat").value,longitude:$("pwsLong").value,remarks:$("pwsRemarks").value
     });
-
-    const msg=document.getElementById("pwsUpdateMessage");
-    msg.textContent="Updating...";
-
+    $("pwsUpdateMessage").textContent="Updating…";
     try{
-      const res=await fetch(SUBMIT_URL,{method:"POST",body:payload});
+      const res=await fetch(SUBMIT_URL,{method:"POST",body});
       const data=await res.json();
-
-      if(!data||data.ok!==true)throw new Error(data&&data.error?data.error:"Update failed");
-
-      msg.textContent="✓ Work status updated successfully.";
+      if(!data.ok)throw new Error(data.error||"Update failed");
+      $("pwsUpdateMessage").textContent="✓ Updated successfully.";
       await loadPriorityWorks();
-
-      setTimeout(()=>{
-        document.getElementById("priorityInlineUpdate").style.display="none";
-        selectedWorkCode="";
-      },700);
-
-    }catch(err){
-      msg.textContent="✗ "+(err.message||"Update failed");
-    }
-  }
-
-  async function loadPriorityWorks(){
-    const tbody=document.getElementById("priorityWorksUpdateTbody");
-    if(!tbody)return;
-
-    tbody.innerHTML='<tr><td colspan="14" class="md-empty">Loading Priority Works...</td></tr>';
-    const refreshStatus=document.getElementById("priorityDataRefreshStatus");
-    if(refreshStatus)refreshStatus.textContent="Refreshing live Priority Works data…";
-
-    try{
-      const res=await fetch(READ_URL+"?action=get_priority_works&t="+Date.now(),{cache:"no-store"});
-      const data=await res.json();
-
-      if(!data||data.ok!==true||!Array.isArray(data.rows)){
-        throw new Error(data&&data.error?data.error:"Unable to read Priority Works");
-      }
-
-      allPriorityRows=data.rows.filter(r=>Array.isArray(r)&&String(r[0]||"").trim());
-
-      loadFilterOptions(allPriorityRows);
-      renderTable();
-      const refreshStatus=document.getElementById("priorityDataRefreshStatus");
-      if(refreshStatus)refreshStatus.textContent="Live data loaded • "+allPriorityRows.length+" works";
-
-    }catch(err){
-      console.error(err);
-      tbody.innerHTML=`<tr><td colspan="14" style="text-align:center;padding:18px;color:#b42318;">
-        Unable to load Priority Works: ${esc(err.message||err)}
-      </td></tr>`;
-    }
+      setTimeout(()=>{$("priorityInlineUpdate").style.display="none";selectedWorkCode="";},700);
+    }catch(e){$("pwsUpdateMessage").textContent="✗ "+(e.message||"Update failed");}
   }
 
   document.addEventListener("DOMContentLoaded",()=>{
     ["pwFilterSearch","pwFilterBlock","pwFilterGP","pwFilterType","pwFilterStatus"].forEach(id=>{
-      const el=document.getElementById(id);
-      if(el)el.addEventListener("change",renderTable);
+      const el=$(id);if(el)el.addEventListener("input",renderTable);if(el)el.addEventListener("change",renderTable);
     });
-
-    const clear=document.getElementById("pwClearFilters");
-    if(clear){
-      clear.addEventListener("click",()=>{
-        ["pwFilterSearch","pwFilterBlock","pwFilterGP","pwFilterType","pwFilterStatus"].forEach(id=>{
-          const el=document.getElementById(id);
-          if(el)el.value="";
-        });
-        renderTable();
-      });
-    }
-
-    const refresh=document.getElementById("priorityRefreshBtn");
-    if(refresh)refresh.addEventListener("click",loadPriorityWorks);
-
-    const btn=document.getElementById("pwsUpdateBtn");
-    const cancel=document.getElementById("pwsClearBtn");
-    if(btn)btn.addEventListener("click",saveInlineUpdate);
-    if(cancel)cancel.addEventListener("click",()=>{
-      selectedWorkCode="";
-      document.getElementById("priorityInlineUpdate").style.display="none";
+    $("pwClearFilters")?.addEventListener("click",()=>{
+      ["pwFilterSearch","pwFilterBlock","pwFilterGP","pwFilterType","pwFilterStatus"].forEach(id=>{if($(id))$(id).value="";});
+      renderTable();
     });
-
+    $("priorityRefreshBtn")?.addEventListener("click",loadPriorityWorks);
+    $("pwsUpdateBtn")?.addEventListener("click",saveInlineUpdate);
+    $("pwsClearBtn")?.addEventListener("click",()=>{$("priorityInlineUpdate").style.display="none";selectedWorkCode="";});
     loadPriorityWorks();
   });
 })();
