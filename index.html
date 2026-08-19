@@ -1382,8 +1382,8 @@ priorityGrid.innerHTML = priorityWorks.map((x,i)=>`
 </div></section>
 
 <script id="priority-submission-form-script">
-const PRIORITY_READ_URL="https://script.google.com/macros/s/AKfycbzay7pFFkV3vkOnJr5vFcDVZBhqIZAlD7-w2sM5HVuflLUKIEiD2UVIbp7nTLLAeHHh7w/exec";
-const PRIORITY_SUBMIT_URL = "https://script.google.com/macros/s/AKfycbzay7pFFkV3vkOnJr5vFcDVZBhqIZAlD7-w2sM5HVuflLUKIEiD2UVIbp7nTLLAeHHh7w/exec";
+const PRIORITY_READ_URL="https://script.google.com/macros/s/AKfycbzAzM-VZ0hgQj0NpXBx-Xq-KtF0Ab4su955iZsQ1bntRfZOgsAeshJEGNU0exQhRzVxxg/exec";
+const PRIORITY_SUBMIT_URL="https://script.google.com/macros/s/AKfycbzAzM-VZ0hgQj0NpXBx-Xq-KtF0Ab4su955iZsQ1bntRfZOgsAeshJEGNU0exQhRzVxxg/exec";
 window.PRIORITY_SUBMIT_URL = PRIORITY_SUBMIT_URL; // Paste your Google Apps Script Web App /exec URL here.
 
 
@@ -2908,88 +2908,58 @@ function refreshDashboardFromBottom(){
   }
 
   async function fetchPriorityWorkByCode(code){
-    const url = (typeof PRIORITY_READ_URL !== "undefined" ? PRIORITY_READ_URL : "");
+    const url=PRIORITY_READ_URL;
     if(!url || !code) return null;
 
-    const res = await fetch(
-      url + "?action=get_priority_work&work_code=" +
-      encodeURIComponent(code) + "&t=" + Date.now(),
+    const res=await fetch(
+      url+"?action=get_priority_work&work_code="+
+      encodeURIComponent(code)+"&t="+Date.now(),
       {cache:"no-store"}
     );
 
-    if(!res.ok){
-      throw new Error("Priority Works API HTTP " + res.status);
-    }
+    if(!res.ok) throw new Error("HTTP "+res.status);
 
-    const data = await res.json();
-
-    if(!data || data.ok !== true){
-      throw new Error(data && data.error ? data.error : "Invalid Priority Works response");
+    const data=await res.json();
+    if(!data || data.ok!==true) {
+      throw new Error(data && data.error ? data.error : "Invalid API response");
     }
 
     return data.record || null;
   }
 
   async function liveFind(code){
-    let merged=null;
-
-    // 1. Read the exact record endpoint.
+    // Authoritative source: Google Sheet through Apps Script.
     try{
-      const record=await fetchPriorityWorkByCode(code);
-      if(record) merged={...record};
-    }catch(e){
-      console.warn("Priority Work direct read failed:",e);
-    }
-
-    // 2. Read the full sheet and force the known A/F/G/O layout.
-    try{
-      const all=await fetchPriorityWorksFixedColumns();
-      const fixed=fixedPriorityRecord(all,code);
-      if(fixed){
-        merged=merged ? {...fixed,...merged} : fixed;
-
-        // Never allow an empty direct-API value to overwrite a real F/G/O value.
-        if(!clean(merged.wage)) merged.wage=fixed.wage;
-        if(!clean(merged.material)) merged.material=fixed.material;
-        if(!clean(merged.finance_16th)) merged.finance_16th=fixed.finance_16th;
+      const r=await fetchPriorityWorkByCode(code);
+      if(r){
+        // Exact sheet columns are returned by Apps Script:
+        // F = wage, G = material, O = 16th Finance.
+        return {
+          code:clean(r.code),
+          category:clean(r.category),
+          name:clean(r.name),
+          block:clean(r.block),
+          gp:clean(r.gp),
+          wage:clean(r.wage),
+          material:clean(r.material),
+          total:clean(r.total),
+          finance_16th:clean(r.finance_16th),
+          lat:clean(r.lat),
+          long:clean(r.long),
+          status:clean(r.status),
+          progress:clean(r.progress),
+          remarks:clean(r.remarks)
+        };
       }
     }catch(e){
-      console.warn("Priority Works fixed-column read failed:",e);
+      console.error("Priority Works read failed:",e);
     }
-
-    // 3. Existing live-sheet reader.
-    const liveData=window.liveSheetData||{};
-    const names=["Priority Works","Priority Work","Priority Works Master","Priority Work List"];
-
-    for(const n of names){
-      const found=findByCodeInNormalized(liveData[n],code);
-      if(found){
-        if(!merged) merged={...found};
-        else{
-          for(const k of ["category","name","block","gp","wage","material","finance_16th","lat","long","status","progress","date","remarks"]){
-            if(!clean(merged[k]) && clean(found[k])) merged[k]=found[k];
-          }
-        }
-      }
-    }
-
-    // 4. Local browser copy.
-    const local=savedWork(code);
-    if(local){
-      if(!merged) merged={...local};
-      else{
-        for(const k of ["category","name","block","gp","wage","material","finance_16th","lat","long","status","progress","date","remarks"]){
-          if(!clean(merged[k]) && clean(local[k])) merged[k]=local[k];
-        }
-      }
-    }
-
-    return merged;
+    return savedWork(code);
   }
 
   function setVal(id,value){
     const el=document.getElementById(id);
-    if(!el || value===undefined || value===null || value==="")return;
+    if(!el || value===undefined || value===null)return;
     if(el.tagName==="SELECT"){
       const wanted=String(value);
       const exists=[...el.options].some(o=>String(o.value).toLowerCase()===wanted.toLowerCase());
@@ -3028,9 +2998,7 @@ function refreshDashboardFromBottom(){
     setVal("pwsBlock",r.block);
     setVal("pwsGP",r.gp);
     setVal("pwsCategory",r.category);
-    setVal("pwsWage",r.wage);
-    setVal("pwsMaterial",r.material);
-    setVal("pwsFinance16",r.finance_16th);
+    setVal("pwsWage",r.wage); setVal("pwsMaterial",r.material); setVal("pwsFinance16",r.finance_16th);
     setVal("pwsStatus",r.status);
     setVal("pwsProgress",r.progress);
 
