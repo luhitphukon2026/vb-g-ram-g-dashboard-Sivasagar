@@ -292,7 +292,157 @@ td{font-size:11.5px!important;padding:10px!important;line-height:1.35}
 .table-export-btn{border:1px solid #17324d;background:#17324d;color:#fff;border-radius:8px;padding:7px 10px;font:700 10px Inter,"Segoe UI",Arial,sans-serif;cursor:pointer}
 .table-export-btn:hover{background:#24547d}
 .table-export-btn:active{transform:translateY(1px)}
-</style></head>
+</style><style id="permissible-page-css">
+/* Separate Permissible Works page */
+.page{display:none}.page.active{display:block}
+.topnav{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+.topnav button{border:0;border-radius:9px;padding:9px 13px;background:#eaf0f7;color:#17365d;font-weight:700;cursor:pointer}
+.topnav button.active{background:#17365d;color:#fff}
+.pw-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.pw-title{margin:0 0 5px}.pw-sub{color:#657085;font-size:13px}
+.pw-stats{display:grid;grid-template-columns:repeat(3,minmax(120px,1fr));gap:10px;margin:16px 0}
+.pw-stat{background:#f6f8fb;border:1px solid #e4e9f0;border-radius:10px;padding:12px}
+.pw-stat b{display:block;font-size:22px;color:#17365d;margin-top:4px}
+.pw-controls{display:grid;grid-template-columns:1.7fr 1fr 1.5fr auto;gap:10px;margin:16px 0}
+.pw-controls input,.pw-controls select{width:100%;box-sizing:border-box;padding:10px 11px;border:1px solid #ccd3df;border-radius:8px;background:#fff}
+.pw-controls button{padding:10px 14px;border:0;border-radius:8px;background:#657085;color:#fff;font-weight:700;cursor:pointer}
+.pw-table-wrap{overflow:auto;max-height:650px;border:1px solid #e5e9ef;border-radius:10px}
+.pw-table{width:100%;border-collapse:collapse;min-width:950px;font-size:13px}
+.pw-table th{background:#17365d;color:#fff;position:sticky;top:0;z-index:2;cursor:pointer}
+.pw-table th,.pw-table td{padding:10px;border-bottom:1px solid #e8ecf1;text-align:left;vertical-align:top}
+.pw-table tr:hover{background:#f7faff}
+.pw-no{width:70px}.pw-cat{width:220px}.pw-sub{width:350px}.pw-work{min-width:360px}
+.pw-foot{margin-top:12px;color:#657085;font-size:12px}
+@media(max-width:900px){
+  .pw-controls{grid-template-columns:1fr 1fr}
+  .pw-stats{grid-template-columns:1fr 1fr 1fr}
+}
+@media(max-width:600px){
+  .pw-controls{grid-template-columns:1fr}
+  .pw-stats{grid-template-columns:1fr}
+}
+</style><style id="permissible-dropdown-fix">
+#permissible .pw-controls select,
+#permissible #pwCategory,
+#permissible #pwSubCategory{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  height:40px!important;
+  padding:0 34px 0 11px!important;
+  border:1px solid #ccd6e2!important;
+  border-radius:9px!important;
+  background:#fff!important;
+  color:#24344d!important;
+  font:600 12px Inter,"Segoe UI",Arial,sans-serif!important;
+  line-height:40px!important;
+  cursor:pointer!important;
+  appearance:auto!important;
+  -webkit-appearance:auto!important;
+  box-sizing:border-box!important;
+}
+#permissible .pw-controls select:focus{
+  outline:0!important;
+  border-color:#2f6fed!important;
+  box-shadow:0 0 0 3px rgba(47,111,237,.12)!important;
+}
+#permissible .pw-controls label{
+  display:block!important;
+  margin-bottom:6px!important;
+}
+#permissible .pw-controls{
+  align-items:end!important;
+}
+#permissible .pw-controls .pw-sub{
+  width:auto!important;
+  height:auto!important;
+  padding:0!important;
+  border:0!important;
+  background:transparent!important;
+}
+#permissible .pw-subtitle{
+  color:#657085;
+  font-size:13px;
+  line-height:1.4;
+}
+</style><style id="priority-works-style">
+#priority .pw-hero{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap;padding:22px 24px;border-radius:18px;background:linear-gradient(135deg,#17324d,#315f84);color:#fff}
+#priority .pw-hero h1{margin:4px 0;font-size:24px!important}
+#priority .pw-hero p{margin:0;font-size:12px;opacity:.84}
+#priority .pw-pill{padding:8px 12px;border-radius:999px;background:#ffffff1f;border:1px solid #ffffff2e;font-size:10px;font-weight:850}
+#priority .priority-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+#priority .priority-card{background:#fff;border:1px solid #e1e8f0;border-radius:15px;padding:17px;box-shadow:0 5px 15px rgba(25,45,70,.05)}
+#priority .priority-card h3{margin:0 0 12px;color:#17324d;font-size:15px;line-height:1.35}
+#priority .priority-cost{font-size:22px;font-weight:900;color:#17324d;margin-bottom:12px}
+#priority .priority-meta{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+#priority .priority-meta div{background:#f6f8fb;border-radius:9px;padding:9px}
+#priority .priority-meta span{display:block;font-size:8px;text-transform:uppercase;letter-spacing:.06em;color:#718096;font-weight:850;margin-bottom:4px}
+#priority .priority-meta b{font-size:11px;color:#26384d;line-height:1.35}
+#priority .priority-note{margin-top:14px;padding:11px 13px;border:1px solid #e0e7ef;border-radius:10px;background:#f8fafc;color:#657085;font-size:10px;line-height:1.5}
+@media(max-width:750px){#priority .priority-grid{grid-template-columns:1fr}#priority .priority-meta{grid-template-columns:1fr}}
+</style>
+<style id="priority-submission-form-style">
+#priority-submit .submit-hero{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap;padding:22px 24px;border-radius:18px;background:linear-gradient(135deg,#17324d,#315f84);color:#fff}
+#priority-submit .submit-hero h1{margin:4px 0;font-size:24px!important}
+#priority-submit .submit-hero p{margin:0;font-size:12px;opacity:.86}
+#priority-submit .submit-pill{padding:8px 12px;border-radius:999px;background:#ffffff1f;border:1px solid #ffffff2e;font-size:10px;font-weight:850}
+#priority-submit .form-panel{margin-top:14px;background:#fff;border:1px solid #e1e8f0;border-radius:16px;padding:18px}
+#priority-submit .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+#priority-submit .form-field.full{grid-column:1/-1}
+#priority-submit .form-field label{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:#65758a;font-weight:900;margin-bottom:6px}
+#priority-submit .form-field input,#priority-submit .form-field select,#priority-submit .form-field textarea{width:100%;box-sizing:border-box;border:1px solid #d4dee9;border-radius:9px;background:#fff;padding:10px 11px;font:600 12px Inter,"Segoe UI",Arial,sans-serif;color:#24344d}
+#priority-submit .form-field textarea{min-height:82px;resize:vertical}
+#priority-submit .form-field input:focus,#priority-submit .form-field select:focus,#priority-submit .form-field textarea:focus{outline:0;border-color:#2f6fed;box-shadow:0 0 0 3px rgba(47,111,237,.12)}
+#priority-submit .required{color:#b42318}
+#priority-submit .form-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:16px;flex-wrap:wrap}
+#priority-submit .btn-primary,#priority-submit .btn-secondary{border:0;border-radius:9px;padding:10px 15px;font-weight:850;cursor:pointer}
+#priority-submit .btn-primary{background:#17324d;color:#fff}
+#priority-submit .btn-secondary{background:#eef3f8;color:#334e68}
+#priority-submit .form-message{display:none;margin-top:13px;padding:10px 12px;border-radius:9px;font-size:11px;font-weight:750}
+#priority-submit .form-message.ok{display:block;background:#eaf7ef;color:#087443;border:1px solid #b8e1c7}
+#priority-submit .form-message.err{display:block;background:#fff1f0;color:#b42318;border:1px solid #f0c2be}
+#priority-submit .form-note{margin-top:13px;padding:11px 13px;border:1px solid #e0e7ef;border-radius:10px;background:#f8fafc;color:#657085;font-size:10px;line-height:1.55}
+#priority-submit .coord-row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+@media(max-width:720px){#priority-submit .form-grid{grid-template-columns:1fr}#priority-submit .form-field.full{grid-column:auto}.coord-row{grid-template-columns:1fr!important}}
+</style>
+<style id="priority-status-update-style">
+#priority-submit .progress-help{font-size:9px;color:#718096;margin-top:4px}
+#priority-submit .status-badge{display:inline-block;margin-top:6px;padding:5px 8px;border-radius:999px;background:#eef3f8;color:#334e68;font-size:9px;font-weight:850}
+</style>
+<style id="priority-two-module-style">
+.priority-modules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0 18px}
+.priority-module{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:1px solid #e1e6ee;background:#fff;border-radius:14px;padding:14px;cursor:pointer;transition:.15s}
+.priority-module:hover{transform:translateY(-1px)}
+.priority-module.active{border-color:#6078a8;box-shadow:0 6px 20px rgba(20,30,50,.08)}
+.priority-module .module-number{font-size:12px;font-weight:800;color:#6078a8}
+.priority-module .module-copy strong{display:block;font-size:13px}
+.priority-module .module-copy small{display:block;margin-top:3px;color:#737d8c;font-size:10px;line-height:1.4}
+.priority-module-panel{display:none}
+.priority-module-panel.active{display:block}
+.priority-status-card{background:#fff;border:1px solid #e5e9ef;border-radius:16px;padding:22px;box-shadow:0 8px 28px rgba(20,30,50,.06)}
+.priority-status-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:18px;border-bottom:1px solid #edf0f4}
+.priority-form-title{font-size:20px;font-weight:750}
+.priority-form-subtitle{font-size:12px;color:#6b7280;margin-top:4px}
+.priority-live-badge{font-size:10px;font-weight:700;letter-spacing:.6px;padding:7px 10px;border-radius:999px;background:#edf8f1;color:#18794e;white-space:nowrap}
+.priority-section-title{font-size:12px;font-weight:750;text-transform:uppercase;letter-spacing:.7px;color:#4b5563;margin:20px 0 11px}
+.priority-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.priority-wide{grid-column:1/-1}
+.priority-status-card .form-group label{display:block;font-size:12px;font-weight:650;margin-bottom:6px}
+.priority-status-card input,.priority-status-card select,.priority-status-card textarea{width:100%;box-sizing:border-box;border:1px solid #d9dee7;border-radius:9px;padding:10px 11px;background:#fff;font-size:13px}
+.priority-status-card input:focus,.priority-status-card select:focus,.priority-status-card textarea:focus{outline:none;border-color:#7187b7;box-shadow:0 0 0 3px rgba(113,135,183,.12)}
+.priority-form-actions{display:flex;gap:10px;margin-top:22px;padding-top:18px;border-top:1px solid #edf0f4}
+.priority-form-actions button{border:0;border-radius:9px;padding:10px 16px;font-weight:650;cursor:pointer}
+.priority-form-actions .primary-btn{background:#243b64;color:#fff}
+.priority-form-actions .secondary-btn{background:#eef1f5;color:#374151}
+@media(max-width:760px){.priority-modules{grid-template-columns:1fr}.priority-grid{grid-template-columns:1fr}.priority-wide{grid-column:auto}.priority-status-head{align-items:flex-start;flex-direction:column}}
+</style>
+<script id="uploaded-workbook-config">window.UPLOADED_WORKBOOK_CONFIG={"sourceWorkbook": "eKYC_NPCI_Dashboard_Template (1).xlsx", "sheets": [{"name": "Data entry geo tag", "rows": 84, "columns": 19}, {"name": "Sheet7", "rows": 1, "columns": 1}, {"name": "dataentry ekyc", "rows": 1, "columns": 1}, {"name": "dataentry physical progress", "rows": 116, "columns": 24}, {"name": "README", "rows": 1000, "columns": 26}, {"name": "District Overview", "rows": 1000, "columns": 26}, {"name": "eKYC & ABPS", "rows": 1000, "columns": 26}, {"name": "Physical Progress Report", "rows": 982, "columns": 26}, {"name": "Performance", "rows": 1000, "columns": 26}, {"name": "Action Required", "rows": 1000, "columns": 26}, {"name": "Analytics", "rows": 1000, "columns": 26}, {"name": "Documents", "rows": 1000, "columns": 26}, {"name": "Pending Reports", "rows": 840, "columns": 26}, {"name": "Geo-tag", "rows": 982, "columns": 26}, {"name": "GP Contacts (1)", "rows": 865, "columns": 18}, {"name": "GP Contacts Vacancy Summary", "rows": 1000, "columns": 4}, {"name": "Priority Works", "rows": 1001, "columns": 14}, {"name": "Priority Work Master", "rows": 1001, "columns": 5}, {"name": "Lists", "rows": 8, "columns": 3}]};</script>
+<script id="priority-google-sheet-config">
+window.PRIORITY_GOOGLE_SHEET_ID="1dfJYdQvb0zgjNt0B6bxAWVt5qX3gJGjZQW75DKKgPZA";
+window.PRIORITY_GOOGLE_SHEET_URL="https://docs.google.com/spreadsheets/d/1dfJYdQvb0zgjNt0B6bxAWVt5qX3gJGjZQW75DKKgPZA/edit";
+</script>
+<script>window.PRIORITY_GOOGLE_SHEET_ID="1dfJYdQvb0zgjNt0B6bxAWVt5qX3gJGjZQW75DKKgPZA";window.PRIORITY_GOOGLE_SHEET_TAB="Priority Works";</script>
+</head>
 <body>
 
 
@@ -314,6 +464,12 @@ td{font-size:11.5px!important;padding:10px!important;line-height:1.35}
 <button class="tab" data-page="reports">🔔 Pending Reports</button>
 <button class="tab" data-page="geotag">📍 Geo-tag</button>
 <button class="tab" data-page="contacts">👷 GP Contacts</button>
+
+<button class="tab" data-page="permissible">📋 Permissible Works</button>
+
+<button class="tab" data-page="priority">🏗️ Priority Works</button>
+
+<button class="tab" data-page="priority-submit">📝 Submit Priority Work</button>
 </nav>
 
 <main>
@@ -840,6 +996,656 @@ td{font-size:11.5px!important;padding:10px!important;line-height:1.35}
  <div class="scroll" id="geoPageTable"><div class="muted">Waiting for Google Sheet data…</div></div>
 </div>
 </div></section>
+<section class="page" id="permissible"><div class="wrap">
+  <div class="panel">
+    <div class="pw-head">
+      <div>
+        <h2 class="pw-title">📋 Permissible Work List — VB-G RAM G</h2>
+        <div class="pw-subtitle">Official work list from the supplied VB-G RAM G Works document.</div>
+      </div>
+      <div class="pw-sub"><b>Source:</b> 318 Works • 4 Master Categories • 29 Sub Categories</div>
+    </div>
+
+    <div class="pw-stats">
+      <div class="pw-stat">Total Permissible Works<b id="pwTotal">318</b></div>
+      <div class="pw-stat">Master Categories<b id="pwCats">4</b></div>
+      <div class="pw-stat">Sub Categories<b id="pwSubs">29</b></div>
+    </div>
+
+    <div class="pw-controls">
+      <input id="pwSearch" type="search" placeholder="Search work, category or sub-category…">
+      <select id="pwCategory"><option value="All">All Master Categories</option></select>
+      <select id="pwSubCategory"><option value="All">All Sub Categories</option></select>
+      <button id="pwReset" type="button">Reset</button>
+    </div>
+
+    <div class="pw-table-wrap">
+      <table class="pw-table" id="pwTable">
+        <thead>
+          <tr>
+            <th class="pw-no" data-sort="S.No.">S. No. ↕</th>
+            <th class="pw-cat" data-sort="Master Category">Master Category ↕</th>
+            <th class="pw-sub" data-sort="Sub Category">Sub Category ↕</th>
+            <th class="pw-work" data-sort="Work">Permissible Work ↕</th>
+          </tr>
+        </thead>
+        <tbody id="pwRows"></tbody>
+      </table>
+    </div>
+    <div class="pw-foot">
+      The list is reproduced from the supplied VB-G RAM G Works document; the dashboard does not alter the source wording.
+    </div>
+  </div>
+</div></section>
+
+<script id="permissible-page-script">
+const permissibleWorks = [{"S.No.":1,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Boulder Check Dam for Individual"},{"S.No.":2,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Boulder Check Dam for Community"},{"S.No.":3,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Repair & Maintenance of Boulder Check Dam for Community"},{"S.No.":4,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Earthen Check Dam for Individual"},{"S.No.":5,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Earthen Check Dam for Community"},{"S.No.":6,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Repair & Maintenance of Earthen Check Dam for Community"},{"S.No.":7,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Gabion Check Dam for Individual"},{"S.No.":8,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Gabion Check Dam for Community"},{"S.No.":9,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Repair & Maintenance of Gabion Check Dam for Community"},{"S.No.":10,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Masonry Check Dam for Individual"},{"S.No.":11,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Masonry Check Dam for Community"},{"S.No.":12,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Repair & Maintenance of Masonry Check Dam for Community"},{"S.No.":13,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Brushwood Gully Plug for Community"},{"S.No.":14,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Repair & Maintenance of Brushwood Gully Plug for Community"},{"S.No.":15,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Earthen Gully Plug for Individual"},{"S.No.":16,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Earthen Gully Plug for Community"},{"S.No.":17,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Repair & Maintenance of Earthen Gully Plug for Community"},{"S.No.":18,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Stone Boulder Gully Plug for Individual"},{"S.No.":19,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Stone Boulder Gully Plug for Community"},{"S.No.":20,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Repair & Maintenance of Stone Boulder Gully Plug for Community"},{"S.No.":21,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Main Canal for Community"},{"S.No.":22,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Repair & Maintenance of Main Canal for Community"},{"S.No.":23,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Branch Canal for Community"},{"S.No.":24,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Repair & Maintenance of Branch Canal for Community"},{"S.No.":25,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Major Distributary Canal for Community"},{"S.No.":26,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Repair & Maintenance of Major Distributary Canal for Community"},{"S.No.":27,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Minor Distributary Canal for Community"},{"S.No.":28,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Repair & Maintenance of Minor Distributary Canal for Community"},{"S.No.":29,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Lining of Canal for Community"},{"S.No.":30,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Water Courses and Field Channels for Community"},{"S.No.":31,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Repair & Maintenance of Water Courses and Field Channels for Community"},{"S.No.":32,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Flood or Diversion Channel for Community"},{"S.No.":33,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Repair & Maintenance of Flood or Diversion Channel for Community"},{"S.No.":34,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Flood Diversion Drain for Community"},{"S.No.":35,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Repair & Maintenance of Flood Diversion Drain for Community"},{"S.No.":36,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Underground Dyke for Community"},{"S.No.":37,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Repair & Maintenance of Underground Dyke for Community"},{"S.No.":38,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Construction of Storm Water Drain for Community"},{"S.No.":39,"Master Category":"Category 1 - Water Security","Sub Category":"1). construction of canals, flood or diversion channels, check dams, gully plugs and underground dykes;","Work":"Repair & Maintenance of Storm Water Drain for Community"},{"S.No.":40,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Collection Chamber for Spring Shed for Community"},{"S.No.":41,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Repair & Maintenance of Collection Chamber for Spring Shed for Community"},{"S.No.":42,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Farm Pond for Individual"},{"S.No.":43,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Filtration Chamber for Defunct Borewell for Community"},{"S.No.":44,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Repair & Maintenance of Filteration Chamber in Defunct Borewell for Community"},{"S.No.":45,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Filtration Pond with Recharge Shaft along Escape Channel for Community"},{"S.No.":46,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Repair & Maintenance of Filtration Pond with Recharge Shaft along Escape Channel for Community"},{"S.No.":47,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Injection Well in Channels for Community"},{"S.No.":48,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Repair & Maintenance of Injection Well in Channels for Community"},{"S.No.":49,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Injection Well in Water Bodies for Community"},{"S.No.":50,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Repair & Maintenance of Injection Well in Water Bodies for Community"},{"S.No.":51,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Percolation Tank for Community"},{"S.No.":52,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Repair & Maintenance of Percolation Tank for Community"},{"S.No.":53,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Recharge Pit for Individual"},{"S.No.":54,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Recharge Pit for Community"},{"S.No.":55,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Repair & Maintenance of Recharge Pit for Community"},{"S.No.":56,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Recharge Shaft for Individual"},{"S.No.":57,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Recharge Shaft for Community"},{"S.No.":58,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Repair & Maintenance of Recharge Shaft for Community"},{"S.No.":59,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Rejuvenation of Pond for Community"},{"S.No.":60,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Rejuvenation of Step Well for Community"},{"S.No.":61,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Sand-Filled Groundwater Recharge in Borewell for Individual"},{"S.No.":62,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Sand-Filled Groundwater Recharge in Borewell for Community"},{"S.No.":63,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Repair & Maintenance of Sand- Filled Groundwater Recharge in Borewell for Community"},{"S.No.":64,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Sand-Filled Groundwater Recharge in Dug Well for Individual"},{"S.No.":65,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Sand-Filled Groundwater Recharge in Dug Well for Community"},{"S.No.":66,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Repair & Maintenance of Sand- Filled Groundwater Recharge in Dug Well for Community"},{"S.No.":67,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Tanka (Water Storage Structure) for Individual"},{"S.No.":68,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Repair & Maintenance of Traditional Water Bodies for Community"},{"S.No.":69,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Construction of Water Harvesting Pond for Community"},{"S.No.":70,"Master Category":"Category 1 - Water Security","Sub Category":"2). construction or rejuvenation of ponds, percolation tanks, recharge pits, recharge shafts, injection wells and associated water harvesting structures;","Work":"Repair & Maintenance of Water Harvesting Pond for Community"},{"S.No.":71,"Master Category":"Category 1 - Water Security","Sub Category":"3). irrigation open wells, micro-irrigation channels and field water distribution systems;","Work":"Construction of Drip Irrigation Channels for Community"},{"S.No.":72,"Master Category":"Category 1 - Water Security","Sub Category":"3). irrigation open wells, micro-irrigation channels and field water distribution systems;","Work":"Construction of Irrigation Channels for Field Distribution for Community"},{"S.No.":73,"Master Category":"Category 1 - Water Security","Sub Category":"3). irrigation open wells, micro-irrigation channels and field water distribution systems;","Work":"Repair & Maintenance of Irrigation Channels for Field Distribution for Community"},{"S.No.":74,"Master Category":"Category 1 - Water Security","Sub Category":"3). irrigation open wells, micro-irrigation channels and field water distribution systems;","Work":"Construction of Irrigation Well for Individual"},{"S.No.":75,"Master Category":"Category 1 - Water Security","Sub Category":"3). irrigation open wells, micro-irrigation channels and field water distribution systems;","Work":"Construction of Irrigation Well for Community"},{"S.No.":76,"Master Category":"Category 1 - Water Security","Sub Category":"3). irrigation open wells, micro-irrigation channels and field water distribution systems;","Work":"Repair & Maintenance of Irrigation Well for Community"},{"S.No.":77,"Master Category":"Category 1 - Water Security","Sub Category":"3). irrigation open wells, micro-irrigation channels and field water distribution systems;","Work":"Construction of Irrigation Well for Groups"},{"S.No.":78,"Master Category":"Category 1 - Water Security","Sub Category":"3). irrigation open wells, micro-irrigation channels and field water distribution systems;","Work":"Repair & Maintenance of Irrigation Well for Groups"},{"S.No.":79,"Master Category":"Category 1 - Water Security","Sub Category":"3). irrigation open wells, micro-irrigation channels and field water distribution systems;","Work":"Installation of Sprinkler Irrigation System for Community"},{"S.No.":80,"Master Category":"Category 1 - Water Security","Sub Category":"4). reclamation of community waterlogged land;","Work":"Development of Waterlogged Land for Community"},{"S.No.":81,"Master Category":"Category 1 - Water Security","Sub Category":"4). reclamation of community waterlogged land;","Work":"Construction of Drainage Works in Waterlogged Land for Individual"},{"S.No.":82,"Master Category":"Category 1 - Water Security","Sub Category":"4). reclamation of community waterlogged land;","Work":"Construction of Drainage Works in Waterlogged Land for Community"},{"S.No.":83,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Construction of Continuous Contour Trench for Community"},{"S.No.":84,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Construction of Staggered Contour Trench for Individual"},{"S.No.":85,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Construction of Staggered Contour Trench for Community"},{"S.No.":86,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Plantation in Coastal Area for Community"},{"S.No.":87,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Bio-drainage Plantation for Individual"},{"S.No.":88,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Bio-drainage Plantation for Community"},{"S.No.":89,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Raising of Bamboo Plantation for Community"},{"S.No.":90,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Raising of Cactus Plantation for Community"},{"S.No.":91,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Raising of Mangrove Plantation for Community"},{"S.No.":92,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Plantation in Institutions for Community"},{"S.No.":93,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Avenue Plantation for Community"},{"S.No.":94,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Canal Line Plantation for Community"},{"S.No.":95,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Block Plantation of Forestry Trees in fields for Individual"},{"S.No.":96,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Line Plantation of Forestry Trees for Community"},{"S.No.":97,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Along the coast Line Plantation of Forestry Trees for Community"},{"S.No.":98,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Along the coast Block Plantation of Forestry Trees for Community"},{"S.No.":99,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Wasteland Block Plantation of Forestry Trees for Community"},{"S.No.":100,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Line Plantation of Forestry Trees for Individual"},{"S.No.":101,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Block Plantation of Forestry Trees in fields for Community"},{"S.No.":102,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Agro Forestry Block Plantation for Individual"},{"S.No.":103,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Agro Forestry Block Plantation for Community"},{"S.No.":104,"Master Category":"Category 1 - Water Security","Sub Category":"5). afforestation and plantation works linked with soil and moisture conservation; and","Work":"Agro Forestry Block Plantation in Waste Lands for Community"},{"S.No.":105,"Master Category":"Category 1 - Water Security","Sub Category":"6). rooftop rainwater harvesting and other decentralised recharge systems.","Work":"Construction of Roof Top Rain Water Harvesting Structure for Individual"},{"S.No.":106,"Master Category":"Category 1 - Water Security","Sub Category":"6). rooftop rainwater harvesting and other decentralised recharge systems.","Work":"Construction of Roof Top Rain Water Harvesting Structure for Community"},{"S.No.":107,"Master Category":"Category 1 - Water Security","Sub Category":"6). rooftop rainwater harvesting and other decentralised recharge systems.","Work":"Repair & Maintenance of Roof Top Rain Water Harvesting Structure for Community"},{"S.No.":108,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Construction of Cross Drainage Structure for Community"},{"S.No.":109,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Repair & Maintenance of Cross Drainage Structure for Community"},{"S.No.":110,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Construction of Culvert for Community"},{"S.No.":111,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Repair & Maintenance of Culvert for Community"},{"S.No.":112,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Construction of Rural Foot Over Pathway for Community"},{"S.No.":113,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Repair & Maintenance of Rural Foot Over Pathway for Community"},{"S.No.":114,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Construction of Bitumen Road for Community"},{"S.No.":115,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Repair & Maintenance of Bitumen Road for Community"},{"S.No.":116,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Construction of Cement Concrete Road for Community"},{"S.No.":117,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Repair & Maintenance of Cement Concrete Road for Community"},{"S.No.":118,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Construction of Interlocking Paver Block Road for Community"},{"S.No.":119,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Repair & Maintenance of Interlocking Paver Block Road for Community"},{"S.No.":120,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Construction of Kharanja Road for Community"},{"S.No.":121,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Repair & Maintenance of Kharanja Road for Community"},{"S.No.":122,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Construction of WBM Road for Community"},{"S.No.":123,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Repair & Maintenance of WBM Road for Community"},{"S.No.":124,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Construction of Gravel Road (Murrum) for Community"},{"S.No.":125,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"1). construction or upgradation of rural roads, culverts, cross drainage structures and village connectivity facilities;","Work":"Construction of Mitti Murram Roads for Community"},{"S.No.":126,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"2). construction of Gram Panchayat Bhawans, Anganwadi centres, rural libraries and other public buildings;","Work":"Construction of Anganwadi Centre Building for Community"},{"S.No.":127,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"2). construction of Gram Panchayat Bhawans, Anganwadi centres, rural libraries and other public buildings;","Work":"Repair & Maintenance of Anganwadi Centre Building for Community"},{"S.No.":128,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"2). construction of Gram Panchayat Bhawans, Anganwadi centres, rural libraries and other public buildings;","Work":"Construction of Gram Panchayat Building for Community"},{"S.No.":129,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"2). construction of Gram Panchayat Bhawans, Anganwadi centres, rural libraries and other public buildings;","Work":"Repair & Maintenance of Gram Panchayat Building for Community"},{"S.No.":130,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"2). construction of Gram Panchayat Bhawans, Anganwadi centres, rural libraries and other public buildings;","Work":"Repair & Maintenance of Boundary Wall for Government Institutions for Community"},{"S.No.":131,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"2). construction of Gram Panchayat Bhawans, Anganwadi centres, rural libraries and other public buildings;","Work":"Construction of Marriage/Community Hall for Community"},{"S.No.":132,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"2). construction of Gram Panchayat Bhawans, Anganwadi centres, rural libraries and other public buildings;","Work":"Repair & Maintenance of Marriage/Community Hall for Community"},{"S.No.":133,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"2). construction of Gram Panchayat Bhawans, Anganwadi centres, rural libraries and other public buildings;","Work":"Construction of Rural Health Centre for Community"},{"S.No.":134,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"2). construction of Gram Panchayat Bhawans, Anganwadi centres, rural libraries and other public buildings;","Work":"Repair & Maintenance of Rural Health Centre for Community"},{"S.No.":135,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"2). construction of Gram Panchayat Bhawans, Anganwadi centres, rural libraries and other public buildings;","Work":"Construction of Rural Library Building for Community"},{"S.No.":136,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"2). construction of Gram Panchayat Bhawans, Anganwadi centres, rural libraries and other public buildings;","Work":"Repair & Maintenance of Rural Library Building for Community"},{"S.No.":137,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"2). construction of Gram Panchayat Bhawans, Anganwadi centres, rural libraries and other public buildings;","Work":"Construction of Veterinary Health Centre for Community"},{"S.No.":138,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"2). construction of Gram Panchayat Bhawans, Anganwadi centres, rural libraries and other public buildings;","Work":"Repair & Maintenance of Veterinary Health Centre for Community"},{"S.No.":139,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"3). construction of school infrastructure, including kitchen sheds, additional classrooms, laboratories, compound walls and playgrounds;","Work":"Construction of Additional Classroom for Government School for Community"},{"S.No.":140,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"3). construction of school infrastructure, including kitchen sheds, additional classrooms, laboratories, compound walls and playgrounds;","Work":"Repair & Maintenance of Additional Classroom for Government School for Community"},{"S.No.":141,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"3). construction of school infrastructure, including kitchen sheds, additional classrooms, laboratories, compound walls and playgrounds;","Work":"Construction of Compound Wall for Government School for Community"},{"S.No.":142,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"3). construction of school infrastructure, including kitchen sheds, additional classrooms, laboratories, compound walls and playgrounds;","Work":"Repair & Maintenance of Compound Wall for Government School for Community"},{"S.No.":143,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"3). construction of school infrastructure, including kitchen sheds, additional classrooms, laboratories, compound walls and playgrounds;","Work":"Construction of Kitchen Shed for Government School for Community"},{"S.No.":144,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"3). construction of school infrastructure, including kitchen sheds, additional classrooms, laboratories, compound walls and playgrounds;","Work":"Repair & Maintenance of Kitchen Shed for Government School for Community"},{"S.No.":145,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"3). construction of school infrastructure, including kitchen sheds, additional classrooms, laboratories, compound walls and playgrounds;","Work":"Construction of Laboratory for Government School for Community"},{"S.No.":146,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"3). construction of school infrastructure, including kitchen sheds, additional classrooms, laboratories, compound walls and playgrounds;","Work":"Repair & Maintenance of Laboratory for Government School for Community"},{"S.No.":147,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"3). construction of school infrastructure, including kitchen sheds, additional classrooms, laboratories, compound walls and playgrounds;","Work":"Construction of Play Ground for Government School for Community"},{"S.No.":148,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"3). construction of school infrastructure, including kitchen sheds, additional classrooms, laboratories, compound walls and playgrounds;","Work":"Repair & Maintenance of Play Ground for Government School for Community"},{"S.No.":149,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"3). construction of school infrastructure, including kitchen sheds, additional classrooms, laboratories, compound walls and playgrounds;","Work":"Construction of Toilet for Government School for Community"},{"S.No.":150,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"3). construction of school infrastructure, including kitchen sheds, additional classrooms, laboratories, compound walls and playgrounds;","Work":"Repair & Maintenance of Toilet for Government School for Community"},{"S.No.":151,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"4). crematoria and community infrastructure;","Work":"Construction of Crematorium for Community"},{"S.No.":152,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"4). crematoria and community infrastructure;","Work":"Repair & Maintenance of Crematorium for Community"},{"S.No.":153,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"4). crematoria and community infrastructure;","Work":"Construction of Graveyard for Community"},{"S.No.":154,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"4). crematoria and community infrastructure;","Work":"Repair & Maintenance of Graveyard for Community"},{"S.No.":155,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of Recycling Plant (Waste to Wealth) for Community"},{"S.No.":156,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Repair & Maintenance of Recycling Plant for Community"},{"S.No.":157,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of Artificial Wetland for Waste Water Management for Community"},{"S.No.":158,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Repair & Maintenance of Artificial Wetland for Waste Water Management for Community"},{"S.No.":159,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of Anganwadi Toilet for Community"},{"S.No.":160,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Repair & Maintenance of Anganwadi Toilet for Community"},{"S.No.":161,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of Community Sanitary Complex for Community"},{"S.No.":162,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Repair & Maintenance of Community Sanitary Complex for Community"},{"S.No.":163,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of IHHL for Individual"},{"S.No.":164,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of Compost Collection Pit for Community"},{"S.No.":165,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of Segregation Shed for Community"},{"S.No.":166,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Repair & Maintenance of Segregation Shed for Community"},{"S.No.":167,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of Soak Pit for Individual"},{"S.No.":168,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of Soak Pit for Community"},{"S.No.":169,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of Soakage Channel for Community"},{"S.No.":170,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of Liquid Waste Chamber for Individual"},{"S.No.":171,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of Vertical Greywater Treatment Unit for Community"},{"S.No.":172,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of Horizontal Greywater Treatment Unit for Community"},{"S.No.":173,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of Masonry Greywater Drain for Community"},{"S.No.":174,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Repair & Maintenance of Masonry Greywater Drain for Community"},{"S.No.":175,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of Aggregate filled Magic Drain for Community"},{"S.No.":176,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of Stabilisation Pond for Community"},{"S.No.":177,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Repair & Maintenance of Stabilisation Pond for Community"},{"S.No.":178,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of Bio-fertilizer Storage Units for Community"},{"S.No.":179,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"5). solid and liquid waste management assets, including stabilising ponds, community sanitary complexes, and waste segregation and collection centres;","Work":"Construction of 3/5 Pond for Grey Water Management for Community"},{"S.No.":180,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"6). installation of solar lighting systems and other renewable rural energy infrastructure; and","Work":"Construction of Biogas Plant for Individual"},{"S.No.":181,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"6). installation of solar lighting systems and other renewable rural energy infrastructure; and","Work":"Construction of Biogas Plant for Community"},{"S.No.":182,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"6). installation of solar lighting systems and other renewable rural energy infrastructure; and","Work":"Installation of Solar Street Light for Community"},{"S.No.":183,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"7). village parking areas, transport sheds and other common rural amenities;","Work":"Construction of Boundary Wall for Government Institutions for Community"},{"S.No.":184,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"7). village parking areas, transport sheds and other common rural amenities;","Work":"Construction of Rural Bus Stand for Community"},{"S.No.":185,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"7). village parking areas, transport sheds and other common rural amenities;","Work":"Repair & Maintenance of Rural Bus Stand for Community"},{"S.No.":186,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"7). village parking areas, transport sheds and other common rural amenities;","Work":"Construction of Parking Shed for Community"},{"S.No.":187,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"7). village parking areas, transport sheds and other common rural amenities;","Work":"Repair & Maintenance of Parking Shed for Community"},{"S.No.":188,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"7). village parking areas, transport sheds and other common rural amenities;","Work":"Construction of Rural Park for Community"},{"S.No.":189,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"7). village parking areas, transport sheds and other common rural amenities;","Work":"Repair & Maintenance of Rural Park for Community"},{"S.No.":190,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"7). village parking areas, transport sheds and other common rural amenities;","Work":"Construction of Sitting Chaupal/Pandal for Community"},{"S.No.":191,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"7). village parking areas, transport sheds and other common rural amenities;","Work":"Repair & Maintenance of Sitting Chaupal/Pandal for Community"},{"S.No.":192,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"7). village parking areas, transport sheds and other common rural amenities;","Work":"Construction of CC/Paver Block Flooring in Community Institutions for Community"},{"S.No.":193,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"7). village parking areas, transport sheds and other common rural amenities;","Work":"Construction of Cattle/Animal Trough for Community"},{"S.No.":194,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"7). village parking areas, transport sheds and other common rural amenities;","Work":"Repair & Maintenance of Cattle/Animal Trough for Community"},{"S.No.":195,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"8). rural housing works permissible under the schemes of the Central Government, including those permitted under the Pradhan Mantri Awas Yojana—Gramin;","Work":"Construction of PMAY-G House for Individual"},{"S.No.":196,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"9). repair and maintenance of works created under the Jal Jeevan Mission for ensuring water supply.","Work":"Repair & Maintenance of Storage Structure for Water Supply Project (JJM) for Community"},{"S.No.":197,"Master Category":"Category 2 - Core Rural Infrastructure","Sub Category":"9). repair and maintenance of works created under the Jal Jeevan Mission for ensuring water supply.","Work":"Repair & Maintenance of Distribution Structure Water Supply Project (JJM) for Community"},{"S.No.":198,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"1). construction of training-cum-skill development centres and work sheds for livelihood activities;","Work":"Construction of Training and Skill Development Centre Building for Community"},{"S.No.":199,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"1). construction of training-cum-skill development centres and work sheds for livelihood activities;","Work":"Repair & Maintenance of Training and Skill Development Centre Building for Community"},{"S.No.":200,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"1). construction of training-cum-skill development centres and work sheds for livelihood activities;","Work":"Construction of Workshed for SHG for Community"},{"S.No.":201,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"1). construction of training-cum-skill development centres and work sheds for livelihood activities;","Work":"Repair & Maintenance of Workshed for SHG for Community"},{"S.No.":202,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"1). construction of training-cum-skill development centres and work sheds for livelihood activities;","Work":"Construction of SHE Mart for Community"},{"S.No.":203,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"2). rural haats or weekly markets and other market infrastructure;","Work":"Construction of Rural Haat Building for Community"},{"S.No.":204,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"2). rural haats or weekly markets and other market infrastructure;","Work":"Repair & Maintenance of Rural Haat Building for Community"},{"S.No.":205,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"2). rural haats or weekly markets and other market infrastructure;","Work":"Construction of Market Yard for Community"},{"S.No.":206,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"2). rural haats or weekly markets and other market infrastructure;","Work":"Repair & Maintenance of Market Yard for Community"},{"S.No.":207,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"3). food grain storage buildings, agricultural produce storage structures, cold storage units and other agri-value chain infrastructure;","Work":"Construction of Agricultural Produce Storage Building for Community"},{"S.No.":208,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"3). food grain storage buildings, agricultural produce storage structures, cold storage units and other agri-value chain infrastructure;","Work":"Repair & Maintenance of Agricultural Produce Storage Building for Community"},{"S.No.":209,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"3). food grain storage buildings, agricultural produce storage structures, cold storage units and other agri-value chain infrastructure;","Work":"Construction of Cold Storage Unit for Community"},{"S.No.":210,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"3). food grain storage buildings, agricultural produce storage structures, cold storage units and other agri-value chain infrastructure;","Work":"Repair & Maintenance of Cold Storage Unit for Community"},{"S.No.":211,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"3). food grain storage buildings, agricultural produce storage structures, cold storage units and other agri-value chain infrastructure;","Work":"Construction of Food Grain Storage Building for Community"},{"S.No.":212,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"3). food grain storage buildings, agricultural produce storage structures, cold storage units and other agri-value chain infrastructure;","Work":"Repair & Maintenance of Food Grain Storage Building for Community"},{"S.No.":213,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"3). food grain storage buildings, agricultural produce storage structures, cold storage units and other agri-value chain infrastructure;","Work":"Construction of Multi Purpose Agriculture Platform for Community"},{"S.No.":214,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"3). food grain storage buildings, agricultural produce storage structures, cold storage units and other agri-value chain infrastructure;","Work":"Raised Platform for Paddy for Community"},{"S.No.":215,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"4). buildings for Self Help Groups and federation- level institutions;","Work":"Construction of SHG Building for Community"},{"S.No.":216,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"4). buildings for Self Help Groups and federation- level institutions;","Work":"Repair & Maintenance SHG Building for Community"},{"S.No.":217,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"4). buildings for Self Help Groups and federation- level institutions;","Work":"Construction of Cluster-level federation (CLF) Building for Community"},{"S.No.":218,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"4). buildings for Self Help Groups and federation- level institutions;","Work":"Repair & Maintenance Federation Building for Community"},{"S.No.":219,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"5). compost structures, including vermicompost and NADEP units;","Work":"Construction of Berkeley Compost Pit for Community"},{"S.No.":220,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"5). compost structures, including vermicompost and NADEP units;","Work":"Construction of Berkeley Compost Pit for Individual"},{"S.No.":221,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"5). compost structures, including vermicompost and NADEP units;","Work":"Construction of Compost Pit for Community"},{"S.No.":222,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"5). compost structures, including vermicompost and NADEP units;","Work":"Construction of NADEP Compost Pit for Community"},{"S.No.":223,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"5). compost structures, including vermicompost and NADEP units;","Work":"Construction of NADEP Compost Pit for Individual"},{"S.No.":224,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"5). compost structures, including vermicompost and NADEP units;","Work":"Construction of NADEP Compost Pit for Groups"},{"S.No.":225,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"5). compost structures, including vermicompost and NADEP units;","Work":"Construction of Compost Pit for Individual"},{"S.No.":226,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"5). compost structures, including vermicompost and NADEP units;","Work":"Construction of Vermi Compost Structure for Community"},{"S.No.":227,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"5). compost structures, including vermicompost and NADEP units;","Work":"Construction of Vermi Compost Structure for Individual"},{"S.No.":228,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"5). compost structures, including vermicompost and NADEP units;","Work":"Construction of Vermi Compost Structure for Groups"},{"S.No.":229,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"6). development of silvipasture grasslands, dairy infrastructure and shelters for cattle, goats, pigs, poultry and other livestock;","Work":"Construction of Cattle Shelter for Community"},{"S.No.":230,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"6). development of silvipasture grasslands, dairy infrastructure and shelters for cattle, goats, pigs, poultry and other livestock;","Work":"Construction of Cattle Shelter for Individual"},{"S.No.":231,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"6). development of silvipasture grasslands, dairy infrastructure and shelters for cattle, goats, pigs, poultry and other livestock;","Work":"Repair & Maintenance of Cattle Shelter for Community"},{"S.No.":232,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"6). development of silvipasture grasslands, dairy infrastructure and shelters for cattle, goats, pigs, poultry and other livestock;","Work":"Raising of Fodder Cultivation for Community"},{"S.No.":233,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"6). development of silvipasture grasslands, dairy infrastructure and shelters for cattle, goats, pigs, poultry and other livestock;","Work":"Construction of Goat Shelter for Community"},{"S.No.":234,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"6). development of silvipasture grasslands, dairy infrastructure and shelters for cattle, goats, pigs, poultry and other livestock;","Work":"Construction of Goat Shelter for Individual"},{"S.No.":235,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"6). development of silvipasture grasslands, dairy infrastructure and shelters for cattle, goats, pigs, poultry and other livestock;","Work":"Repair & Maintenance of Goat Shelter for Community"},{"S.No.":236,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"6). development of silvipasture grasslands, dairy infrastructure and shelters for cattle, goats, pigs, poultry and other livestock;","Work":"Construction of Milk Collection Centre for Community"},{"S.No.":237,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"6). development of silvipasture grasslands, dairy infrastructure and shelters for cattle, goats, pigs, poultry and other livestock;","Work":"Repair & Maintenance of Milk Collection Centre for Community"},{"S.No.":238,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"6). development of silvipasture grasslands, dairy infrastructure and shelters for cattle, goats, pigs, poultry and other livestock;","Work":"Construction of Piggery Shed for Community"},{"S.No.":239,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"6). development of silvipasture grasslands, dairy infrastructure and shelters for cattle, goats, pigs, poultry and other livestock;","Work":"Construction of Piggery Shed for Individual"},{"S.No.":240,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"6). development of silvipasture grasslands, dairy infrastructure and shelters for cattle, goats, pigs, poultry and other livestock;","Work":"Repair & Maintenance of Piggery Shed for Community"},{"S.No.":241,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"6). development of silvipasture grasslands, dairy infrastructure and shelters for cattle, goats, pigs, poultry and other livestock;","Work":"Construction of Poultry Shelter for Community"},{"S.No.":242,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"6). development of silvipasture grasslands, dairy infrastructure and shelters for cattle, goats, pigs, poultry and other livestock;","Work":"Construction of Poultry Shelter for Individual"},{"S.No.":243,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"6). development of silvipasture grasslands, dairy infrastructure and shelters for cattle, goats, pigs, poultry and other livestock;","Work":"Repair & Maintenance of Poultry Shelter for Community"},{"S.No.":244,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"7). fisheries-related infrastructure, including fish drying yards;","Work":"Construction of Aquaculture Structure for Shrimp Farming for Community"},{"S.No.":245,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"7). fisheries-related infrastructure, including fish drying yards;","Work":"Repair & Maintenance of Aquaculture Structure for Shrimp Farming for Community"},{"S.No.":246,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"7). fisheries-related infrastructure, including fish drying yards;","Work":"Construction of Aquaculture Structure for Fish Farming for Community"},{"S.No.":247,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"7). fisheries-related infrastructure, including fish drying yards;","Work":"Repair & Maintenance of Aquaculture Structure for Fish Farming for Community"},{"S.No.":248,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"7). fisheries-related infrastructure, including fish drying yards;","Work":"Construction of Aquaculture Structure for Crab Farming for Community"},{"S.No.":249,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"7). fisheries-related infrastructure, including fish drying yards;","Work":"Repair & Maintenance of Aquaculture Structure for Crab Farming for Community"},{"S.No.":250,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"7). fisheries-related infrastructure, including fish drying yards;","Work":"Construction of Fish Drying Yard for Community"},{"S.No.":251,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"7). fisheries-related infrastructure, including fish drying yards;","Work":"Construction of Fishery Pond for Community"},{"S.No.":252,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"7). fisheries-related infrastructure, including fish drying yards;","Work":"Repair & Maintenance of Fishery Pond for Community"},{"S.No.":253,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Tea Plantation in Community Wasteland for Community"},{"S.No.":254,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Tea Plantation in Wasteland for Individual"},{"S.No.":255,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Coffee Plantation in Community Wasteland for Community"},{"S.No.":256,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Coffee Plantation in Wasteland for Individual"},{"S.No.":257,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Construction of Sericulture Shed for Community"},{"S.No.":258,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Production of Building Material for Community"},{"S.No.":259,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Raising of Nursery for Community"},{"S.No.":260,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Block Plantation of Horticulture Trees in fields for Individual"},{"S.No.":261,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Line Plantation of Horticulture Trees for Community"},{"S.No.":262,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Along the coast Line Plantation of Horticulture Trees for Community"},{"S.No.":263,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Along the coast Block Plantation of Horticulture Trees for Community"},{"S.No.":264,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Wasteland Block Plantation of Horticulture Trees for Community"},{"S.No.":265,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Line Plantation of Horticulture Trees for Individuals"},{"S.No.":266,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Block Plantation of Horticulture Trees in fields for Community"},{"S.No.":267,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Block Plantation of Sericulture Trees in fields for Individual"},{"S.No.":268,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Along the coast Block Plantation of Sericulture Trees for Community"},{"S.No.":269,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Wasteland Block Plantation of Sericulture Trees for Community"},{"S.No.":270,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Block Plantation of Sericulture Trees in fields for Community"},{"S.No.":271,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Block Plantation of Medicinal Trees in fields for Individual"},{"S.No.":272,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Along the coast Block Plantation of Medicinal Trees for Community"},{"S.No.":273,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Wasteland Block Plantation of Medicinal Trees for Community"},{"S.No.":274,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"8). raising of nurseries and production of building material; and","Work":"Block Plantation of Medicinal Trees in fields for Community"},{"S.No.":275,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"9). Integrated projects promoting circular and cyclical economy models, as may be approved by the Central Government.","Work":"Construction of Mini Flour Mill Processing Unit for Community"},{"S.No.":276,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"9). Integrated projects promoting circular and cyclical economy models, as may be approved by the Central Government.","Work":"Construction of Cashew Processing Unit for Community"},{"S.No.":277,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"9). Integrated projects promoting circular and cyclical economy models, as may be approved by the Central Government.","Work":"Construction of Oil Seed Processing Unit for Community"},{"S.No.":278,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"9). Integrated projects promoting circular and cyclical economy models, as may be approved by the Central Government.","Work":"Construction of Integrated Agro Processing Unit (Cleaning/Grading/Packaging) for Community"},{"S.No.":279,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"9). Integrated projects promoting circular and cyclical economy models, as may be approved by the Central Government.","Work":"Construction of Forest Produce Processing Unit for Community"},{"S.No.":280,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"9). Integrated projects promoting circular and cyclical economy models, as may be approved by the Central Government.","Work":"Construction of Handloom Processing Unit for Community"},{"S.No.":281,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"9). Integrated projects promoting circular and cyclical economy models, as may be approved by the Central Government.","Work":"Construction of Hot Press Biodegradable Processing Unit (Plates/Bowls) for Community"},{"S.No.":282,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"9). Integrated projects promoting circular and cyclical economy models, as may be approved by the Central Government.","Work":"Construction of Bamboo Craft Processing Unit for Community"},{"S.No.":283,"Master Category":"Category 3 - Rural Livelihood","Sub Category":"9). Integrated projects promoting circular and cyclical economy models, as may be approved by the Central Government.","Work":"Construction of Other Processing Unit for Community"},{"S.No.":284,"Master Category":"Category 4 - Disaster","Sub Category":"1). construction of cyclone shelters, flood shelters and multipurpose disaster resilient structures;","Work":"Construction of Cyclone Shelter for Community"},{"S.No.":285,"Master Category":"Category 4 - Disaster","Sub Category":"1). construction of cyclone shelters, flood shelters and multipurpose disaster resilient structures;","Work":"Repair & Maintenance of Cyclone Shelters for Community"},{"S.No.":286,"Master Category":"Category 4 - Disaster","Sub Category":"1). construction of cyclone shelters, flood shelters and multipurpose disaster resilient structures;","Work":"Construction of Flood Relief Shelter for Community"},{"S.No.":287,"Master Category":"Category 4 - Disaster","Sub Category":"1). construction of cyclone shelters, flood shelters and multipurpose disaster resilient structures;","Work":"Repair & Maintenance of Flood Relief Shelter for Community"},{"S.No.":288,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Construction of Embankment for Community"},{"S.No.":289,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Strengthening of Embankment for Community"},{"S.No.":290,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Construction of Earthen Spur for Community"},{"S.No.":291,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Repair & Maintenance of Earthen Spur for Community"},{"S.No.":292,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Construction of Gabion Spur for Community"},{"S.No.":293,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Repair & Maintenance of Gabion Spur for Community"},{"S.No.":294,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Construction of Stone Spur for Community"},{"S.No.":295,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Repair & Maintenance of Stone Spur for Community"},{"S.No.":296,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Construction of Flood Protection Wall for Community"},{"S.No.":297,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Repair & Maintenance of Flood protection wall for Community"},{"S.No.":298,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Construction of Masonry Bund for Individual"},{"S.No.":299,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Construction of Level Bench Terrace for Community"},{"S.No.":300,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Construction of Level Bench Terrace for Individual"},{"S.No.":301,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Construction of Upland Bench Terrace for Community"},{"S.No.":302,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Construction of Upland Bench Terrace for Individual"},{"S.No.":303,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Construction of Earthen Retaining Wall for Community"},{"S.No.":304,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Repair & Maintenance of Earthen Retaining Wall for Community"},{"S.No.":305,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Construction of Stone/Gabion Retaining Wall for Community"},{"S.No.":306,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Repair & Maintenance of Stone/Gabion Retaining Wall for Community"},{"S.No.":307,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Construction of Masonry Retaining Wall for Community"},{"S.No.":308,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Repair & Maintenance of Masonry Retaining Wall for Community"},{"S.No.":309,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Construction of RCC Retaining Wall for Community"},{"S.No.":310,"Master Category":"Category 4 - Disaster","Sub Category":"2). construction of diversion channels, embankments and other disaster-mitigation works;","Work":"Repair & Maintenance of RCC Retaining Wall for Community"},{"S.No.":311,"Master Category":"Category 4 - Disaster","Sub Category":"4). post-disaster rehabilitation, restoration and repair of rural roads and community assets;","Work":"Post-Disaster Restoration of Rural Roads for Community"},{"S.No.":312,"Master Category":"Category 4 - Disaster","Sub Category":"4). post-disaster rehabilitation, restoration and repair of rural roads and community assets;","Work":"Post-Disaster Restoration of Other Community Assests for Community"},{"S.No.":313,"Master Category":"Category 4 - Disaster","Sub Category":"4). post-disaster rehabilitation, restoration and repair of rural roads and community assets;","Work":"Post-Disaster Restoration of Community Building Assests for Community"},{"S.No.":314,"Master Category":"Category 4 - Disaster","Sub Category":"5). windbreak and shelterbelt plantations; and","Work":"Shelterbelt Plantation for Community"},{"S.No.":315,"Master Category":"Category 4 - Disaster","Sub Category":"6). forest fire management works, including fire breaks, fuel buffer zones and allied measures.","Work":"Construction of Animal Protection Trenches for Community"},{"S.No.":316,"Master Category":"Category 4 - Disaster","Sub Category":"6). forest fire management works, including fire breaks, fuel buffer zones and allied measures.","Work":"Raising of Fire Break Hedges for Community"},{"S.No.":317,"Master Category":"Category 4 - Disaster","Sub Category":"6). forest fire management works, including fire breaks, fuel buffer zones and allied measures.","Work":"Construction of Forest Fire Line for Community"},{"S.No.":318,"Master Category":"Category 4 - Disaster","Sub Category":"6). forest fire management works, including fire breaks, fuel buffer zones and allied measures.","Work":"Raising of Fuel Buffer Zone for Community"}];
+const pwState = {sortKey:"S.No.", sortDir:1};
+
+function pwClean(v){
+  return String(v ?? "").replace(/\\s+/g," ").trim();
+}
+function pwEsc(v){
+  return String(v ?? "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+
+function populatePwFilters(){
+  const cat=document.getElementById("pwCategory");
+  const sub=document.getElementById("pwSubCategory");
+  if(!cat || !sub) return;
+
+  cat.innerHTML='<option value="">All Master Categories</option>';
+  sub.innerHTML='<option value="">All Sub Categories</option>';
+
+  const cats=[...new Set(permissibleWorks.map(r=>pwClean(r["Master Category"])).filter(Boolean))]
+    .sort((a,b)=>a.localeCompare(b));
+  cats.forEach(v=>{
+    const o=document.createElement("option");
+    o.value=v; o.textContent=v; cat.appendChild(o);
+  });
+
+  updatePwSubCategories();
+
+  cat.onchange=()=>{
+    updatePwSubCategories();
+    renderPermissibleWorks();
+  };
+  sub.onchange=renderPermissibleWorks;
+}
+
+function updatePwSubCategories(){
+  const cat=document.getElementById("pwCategory");
+  const sub=document.getElementById("pwSubCategory");
+  if(!cat || !sub) return;
+
+  const selected=cat.value;
+  const subs=[...new Set(permissibleWorks
+    .filter(r=>!selected || pwClean(r["Master Category"])===selected)
+    .map(r=>pwClean(r["Sub Category"]))
+    .filter(Boolean))]
+    .sort((a,b)=>a.localeCompare(b));
+
+  sub.innerHTML='<option value="">All Sub Categories</option>';
+  subs.forEach(v=>{
+    const o=document.createElement("option");
+    o.value=v; o.textContent=v; sub.appendChild(o);
+  });
+}
+
+function renderPermissibleWorks(){
+  const tbody=document.getElementById("pwRows");
+  const count=document.getElementById("pwCount");
+  const total=document.getElementById("pwTotal");
+  if(!tbody) return;
+
+  const q=(document.getElementById("pwSearch")?.value || "").toLowerCase().trim();
+  const cat=document.getElementById("pwCategory")?.value || "";
+  const sub=document.getElementById("pwSubCategory")?.value || "";
+
+  let rows=permissibleWorks.filter(r=>{
+    const mc=pwClean(r["Master Category"]);
+    const sc=pwClean(r["Sub Category"]);
+    const work=pwClean(r["Work"]);
+    const hay=(mc+" "+sc+" "+work).toLowerCase();
+    return (!q || hay.includes(q)) &&
+           (!cat || mc===cat) &&
+           (!sub || sc===sub);
+  });
+
+  rows.sort((a,b)=>{
+    if(pwState.sortKey==="S.No.")
+      return (Number(a["S.No."])-Number(b["S.No."]))*pwState.sortDir;
+    return pwClean(a[pwState.sortKey]).localeCompare(
+      pwClean(b[pwState.sortKey]), undefined,
+      {numeric:true,sensitivity:"base"}
+    )*pwState.sortDir;
+  });
+
+  if(total) total.textContent=rows.length;
+  if(count) count.textContent=rows.length+" record"+(rows.length===1?"":"s");
+
+  tbody.innerHTML=rows.map(r=>`<tr>
+    <td>${pwEsc(r["S.No."])}</td>
+    <td>${pwEsc(r["Master Category"])}</td>
+    <td>${pwEsc(r["Sub Category"])}</td>
+    <td><b>${pwEsc(r["Work"])}</b></td>
+  </tr>`).join("") ||
+  '<tr><td colspan="4" style="text-align:center;padding:30px">No permissible work found.</td></tr>';
+}
+
+function initPermissiblePage(){
+  populatePwFilters();
+
+  document.getElementById("pwSearch")?.addEventListener("input",renderPermissibleWorks);
+  document.getElementById("pwReset")?.addEventListener("click",()=>{
+    document.getElementById("pwSearch").value="";
+    document.getElementById("pwCategory").value="";
+    updatePwSubCategories();
+    document.getElementById("pwSubCategory").value="";
+    pwState.sortKey="S.No."; pwState.sortDir=1;
+    renderPermissibleWorks();
+  });
+
+  document.querySelectorAll("#permissible th[data-sort]").forEach(th=>{
+    th.onclick=()=>{
+      const key=th.dataset.sort;
+      if(pwState.sortKey===key) pwState.sortDir*=-1;
+      else {pwState.sortKey=key;pwState.sortDir=1;}
+      renderPermissibleWorks();
+    };
+  });
+
+  renderPermissibleWorks();
+}
+
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",initPermissiblePage);
+else initPermissiblePage();
+</script>
+<section class="page" id="priority"><div class="wrap">
+  <div class="pw-hero">
+    <div>
+      <div style="font-size:9px;font-weight:900;letter-spacing:.12em;opacity:.72">VB–G RAM G</div>
+      <h1>🏗️ Priority Works</h1>
+      <p>Priority shelf works with model estimate cost, coverage and convergence reference.</p>
+    </div>
+    <span class="pw-pill">FIELD-LEVEL REFERENCE</span>
+  </div>
+  <div class="priority-grid" id="priorityGrid"></div>
+  <div class="priority-note">
+    <b>Source:</b> State-level VB–G RAM G Shelf PPT supplied for this dashboard.
+    This page is a field-level reference and does not replace the applicable approved
+    estimate, sanction, technical specification or departmental guideline.
+  </div>
+</div></section>
+
+<script id="priority-works-script">
+const priorityWorks = [{"work": "1 km Interlocking Paver Block Road", "cost": "₹43,96,362.51 / km", "coverage": "Each Development Block", "convergence": "16th FC + VB–G RAM G"}, {"work": "Women-led Rural Haat", "cost": "₹37,56,379.11 / unit", "coverage": "Each Development Block", "convergence": "16th FC + VB–G RAM G"}, {"work": "School Boundary Wall", "cost": "₹10,23,769.80 / GP", "coverage": "Every Gram Panchayat", "convergence": "16th FC + VB–G RAM G"}, {"work": "Crematorium + Waiting Shed", "cost": "₹9,13,698.88 / GP", "coverage": "Every Gram Panchayat", "convergence": "16th FC + VB–G RAM G"}, {"work": "Individual Beneficiary Schemes (IBS)", "cost": "₹1,00,000 / IBS", "coverage": "10 per GP / VCDC / VDC", "convergence": "As applicable"}, {"work": "Community Hall usable as Gym / Wellness Centre", "cost": "₹11,05,291.59 / unit", "coverage": "Each Development Block", "convergence": "16th FC + VB–G RAM G"}];
+const priorityGrid = document.getElementById("priorityGrid");
+priorityGrid.innerHTML = priorityWorks.map((x,i)=>`
+  <article class="priority-card">
+    <div style="font-size:9px;color:#718096;font-weight:900;margin-bottom:5px">PRIORITY WORK ${i+1}</div>
+    <h3>${x.work}</h3>
+    <div class="priority-cost">${x.cost}</div>
+    <div class="priority-meta">
+      <div><span>Coverage</span><b>${x.coverage}</b></div>
+      <div><span>Convergence</span><b>${x.convergence}</b></div>
+    </div>
+  </article>`).join("");
+</script>
+
+<section class="page" id="priority-submit"><div class="wrap">
+  <div class="submit-hero">
+    <div>
+      <div style="font-size:9px;font-weight:900;letter-spacing:.12em;opacity:.72">VB–G RAM G</div>
+      <h1>📝 Priority Works Submission</h1>
+      <p>GP and Block officials can submit status and physical-progress updates time to time.</p>
+    </div>
+    <span class="submit-pill">FIELD / BLOCK DATA ENTRY</span>
+  </div>
+
+  
+<div id="priorityWorkModules" class="priority-modules">
+  <button type="button" class="priority-module active" data-target="priorityNewWork">
+    <span class="module-number">01</span>
+    <span class="module-copy">
+      <strong>New Work Entry</strong>
+      <small>Create a new Priority Work. First-time Work Code and Work Name are entered manually.</small>
+    </span>
+  </button>
+  <button type="button" class="priority-module" data-target="priorityUpdateStatus">
+    <span class="module-number">02</span>
+    <span class="module-copy">
+      <strong>Update Status</strong>
+      <small>Enter an existing Work Code and update current status and physical progress.</small>
+    </span>
+  </button>
+</div>
+
+<section id="priorityNewWork" class="priority-module-panel active">
+<form class="form-panel" id="priorityWorkForm" novalidate>
+    <div class="form-grid">
+      <div class="form-field">
+        <label>Name of Block <span class="required">*</span></label>
+        <select id="pwfBlock" name="block" required>
+  <option value="">Select Block</option>
+</select>
+      </div>
+      <div class="form-field">
+        <label>Name of GP <span class="required">*</span></label>
+        <select id="pwfGP" name="gp" required disabled>
+  <option value="">Select GP</option>
+</select>
+      </div>
+
+      <div class="form-field">
+        <label>Priority Work <span class="required">*</span></label>
+        <select id="pwfCategory" name="category" required>
+          <option value="">Select Priority Work</option>
+          <option>1 km Interlocking Paver Block Road</option>
+          <option>Women-led Rural Haat</option>
+          <option>School Boundary Wall</option>
+          <option>Crematorium + Waiting Shed</option>
+          <option>Individual Beneficiary Schemes (IBS)</option>
+          <option>Community Hall usable as Gym / Wellness Centre</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label>Enter Work Code <span class="required">*</span></label>
+        <input id="pwfCode" name="work_code" type="text" required placeholder="Enter Work Code manually">
+      </div>
+
+      <div class="form-field">
+        <label>Enter Work Name <span class="required">*</span></label>
+        <input id="pwfWorkName" name="scheme" type="text" required placeholder="Enter Work Name manually">
+      </div>
+      <div class="form-field">
+        <label>Current Status <span class="required">*</span></label>
+        <select id="pwfStatus" name="status" required>
+          <option value="">Select status</option>
+          <option>Proposed</option>
+          <option>Field Verification Pending</option>
+          <option>Field Verified</option>
+          <option>Estimate Prepared</option>
+          <option>Estimate Approved</option>
+          <option>Administrative Approval Pending</option>
+          <option>Technical Sanction Pending</option>
+          <option>Work Order Issued</option>
+          <option>Work in Progress</option>
+          <option>Physically Complete</option>
+          <option>Completed</option>
+          <option>Not Feasible</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label>Physical Progress (%) <span class="required">*</span></label>
+        <input id="pwfProgress" name="progress" type="number" min="0" max="100" step="0.01" required placeholder="0–100">
+      </div>
+
+      <div class="form-field">
+        <label>Last Updated</label>
+        <input id="pwfUpdateDate" name="update_date" type="date" readonly>
+      </div>
+
+      <div class="form-field">
+        <label>Wage Amount from VB-G RAM G (₹) <span class="required">*</span></label>
+        <input id="pwfWage" name="vbg_wage" type="number" min="0" step="0.01" required placeholder="0.00">
+      </div>
+      <div class="form-field">
+        <label>Material Amount from VB-G RAM G (₹) <span class="required">*</span></label>
+        <input id="pwfMaterial" name="vbg_material" type="number" min="0" step="0.01" required placeholder="0.00">
+      </div>
+      <div class="form-field">
+        <label>16th Finance Commission Amount (₹)</label>
+        <input id="pwfFinance16" name="finance_16th" type="number" min="0" step="0.01" placeholder="Enter 16th Finance Commission amount" value="0">
+      </div>
+
+      <div class="form-field full">
+        <label>Latitude & Longitude <span class="required">*</span></label>
+        <div class="coord-row">
+          <input id="pwfLat" name="latitude" type="number" step="any" min="-90" max="90" required placeholder="Latitude (e.g. 27.000000)">
+          <input id="pwfLong" name="longitude" type="number" step="any" min="-180" max="180" required placeholder="Longitude (e.g. 94.000000)">
+        </div>
+      </div>
+
+      
+
+      <div class="form-field full">
+        <label>Remarks</label>
+        <textarea id="pwfRemarks" name="remarks" placeholder="Optional remarks / action required"></textarea>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-secondary" id="pwfLocation">📍 Get Current Location</button>
+      <button type="reset" class="btn-secondary" id="pwfClear">Clear</button>
+      <button type="submit" class="btn-primary">Submit Priority Work</button>
+    </div>
+
+    <div class="form-message" id="pwfMessage"></div>
+
+    <div class="form-note">
+      <b>One-time master setup:</b> Block/GP/work master data can be loaded once. After a Block and GP are selected, the applicable Priority Work list appears automatically. Subsequent status/progress updates reuse the selected work.
+      Until the Google Apps Script submission endpoint is configured, submitted records are saved
+      locally in this browser as a safety copy. The live monitoring sheets are not modified by this form.
+    </div>
+  </form>
+</section>
+
+<section id="priorityUpdateStatus" class="priority-module-panel">
+  <div class="priority-status-card">
+    <div class="priority-status-head">
+      <div>
+        <div class="priority-form-title">Update Work Status</div>
+        <div class="priority-form-subtitle">Enter Work Code. Existing work data will be fetched automatically.</div>
+      </div>
+      <div class="priority-live-badge">LIVE DATA</div>
+    </div>
+
+    <div class="priority-section-title">Work Details</div>
+    <div class="priority-grid">
+      <div class="form-group"><label>Enter Work Code <span class="required">*</span></label><input id="pwsCode" type="text" placeholder="Enter existing Work Code"></div>
+      <div class="form-group"><label>Name of Block</label><select id="pwsBlock"><option value="">Select Block</option></select></div>
+      <div class="form-group"><label>Name of GP</label><select id="pwsGP"><option value="">Select GP</option></select></div>
+      <div class="form-group"><label>Priority Work</label><select id="pwsCategory">
+        <option value="">Select Priority Work</option>
+        <option>1 km Interlocking Paver Block Road</option><option>Women-led Rural Haat</option>
+        <option>School Boundary Wall</option><option>Crematorium + Waiting Shed</option>
+        <option>Individual Beneficiary Schemes (IBS)</option><option>Community Hall usable as Gym / Wellness Centre</option>
+      </select></div>
+      <div class="form-group"><label>Work Name</label><input id="pwsWorkName" type="text" readonly placeholder="Auto-fetched from Google Sheet"></div>
+      <div class="form-group"><label>Wage Amount from VB-G RAM G (₹)</label><input id="pwsWage" type="number" min="0" step="0.01" placeholder="Auto-fetched"></div>
+      <div class="form-group"><label>Material Amount from VB-G RAM G (₹)</label><input id="pwsMaterial" type="number" min="0" step="0.01" placeholder="Auto-fetched"></div>
+      <div class="form-group"><label>16th Finance Commission Amount (₹)</label><input id="pwsFinance16" type="number" min="0" step="0.01" placeholder="Auto-fetched"></div>
+    </div>
+
+    <div class="priority-section-title">Update Details</div>
+    <div class="priority-grid">
+      <div class="form-group"><label>Current Status <span class="required">*</span></label><select id="pwsStatus">
+        <option value="">Select status</option><option>Proposed</option><option>Field Verification Pending</option><option>Field Verified</option>
+        <option>Estimate Prepared</option><option>Estimate Approved</option><option>Administrative Approval Pending</option>
+        <option>Technical Sanction Pending</option><option>Work Order Issued</option><option>Work in Progress</option>
+        <option>Physically Complete</option><option>Completed</option><option>Not Feasible</option>
+      </select></div>
+      <div class="form-group"><label>Physical Progress (%)</label><input id="pwsProgress" type="number" min="0" max="100" step="0.01" placeholder="0–100"></div>
+      <div class="form-group"><label>Last Updated</label><input id="pwsDate" type="date" readonly></div>
+      <div class="form-group"><label>Latitude</label><input id="pwsLat" type="text" placeholder="Enter latitude"></div>
+      <div class="form-group"><label>Longitude</label><input id="pwsLong" type="text" placeholder="Enter longitude"></div>
+      <div class="form-group priority-wide"><label>Remarks</label><textarea id="pwsRemarks" rows="2" placeholder="Enter remarks"></textarea></div>
+    </div>
+
+    <div class="priority-form-actions"><button type="button" id="pwsUpdateBtn" class="primary-btn">Update Status</button><button type="button" id="pwsClearBtn" class="secondary-btn">Clear</button></div>
+    <div id="pwsUpdateMessage" class="form-message" style="margin-top:12px;"></div>
+  </div>
+</section>
+
+</div></section>
+
+<script id="priority-submission-form-script">
+const PRIORITY_READ_URL="https://script.google.com/macros/s/AKfycbzay7pFFkV3vkOnJr5vFcDVZBhqIZAlD7-w2sM5HVuflLUKIEiD2UVIbp7nTLLAeHHh7w/exec";
+const PRIORITY_SUBMIT_URL = "https://script.google.com/macros/s/AKfycbzay7pFFkV3vkOnJr5vFcDVZBhqIZAlD7-w2sM5HVuflLUKIEiD2UVIbp7nTLLAeHHh7w/exec";
+window.PRIORITY_SUBMIT_URL = PRIORITY_SUBMIT_URL; // Paste your Google Apps Script Web App /exec URL here.
+
+
+/* ============================================================
+   PRIORITY WORK MASTER / DEPENDENT DROPDOWNS
+   Block → GP → Priority Work → Work Code
+   ============================================================ */
+
+/*
+  This master can later be replaced by a Google Sheet/API source.
+  The current dashboard uses the Block/GP/work records already submitted
+  through this form. If no submissions exist yet, the configured fallback
+  list below keeps the form usable.
+*/
+const PRIORITY_MASTER_STORAGE = "sivasagar_priority_work_master";
+
+const PRIORITY_SUBMISSION_STORAGE="sivasagar_priority_work_submissions";
+const PRIORITY_EKYC_SHEET="eKYC & ABPS";
+
+/* Use the dashboard's existing Priority Works master when available. */
+let PRIORITY_WORK_MASTER = [];
+try {
+  if (Array.isArray(window.priorityWorks)) PRIORITY_WORK_MASTER = window.priorityWorks;
+} catch(e) {}
+if (!PRIORITY_WORK_MASTER.length) {
+  PRIORITY_WORK_MASTER = [
+    {work:"1 km Interlocking Paver Block Road",code:""},
+    {work:"Women-led Rural Haat",code:""},
+    {work:"School Boundary Wall",code:""},
+    {work:"Crematorium + Waiting Shed",code:""},
+    {work:"Individual Beneficiary Schemes (IBS)",code:""},
+    {work:"Community Hall usable as Gym / Wellness Centre",code:""}
+  ];
+}
+
+let priorityGPMaster=[];
+
+function priorityClean(v){return String(v??"").replace(/\s+/g," ").trim();}
+function priorityReadJson(key,fallback){
+  try{
+    const v=JSON.parse(localStorage.getItem(key)||"");
+    return Array.isArray(v)?v:fallback;
+  }catch(e){return fallback;}
+}
+function priorityAddPair(block,gp){
+  block=priorityClean(block); gp=priorityClean(gp);
+  if(!block||!gp)return;
+  let row=priorityGPMaster.find(x=>x.block.toLowerCase()===block.toLowerCase());
+  if(!row){row={block,gps:[]};priorityGPMaster.push(row);}
+  if(!row.gps.some(x=>x.toLowerCase()===gp.toLowerCase()))row.gps.push(gp);
+}
+function priorityFill(el,items,placeholder){
+  if(!el)return;
+  el.innerHTML="";
+  const first=document.createElement("option");
+  first.value=""; first.textContent=placeholder;
+  el.appendChild(first);
+  items.forEach(item=>{
+    const o=document.createElement("option");
+    o.value=Array.isArray(item)?item[0]:item;
+    o.textContent=Array.isArray(item)?item[0]:item;
+    if(Array.isArray(item)&&item[1])o.dataset.workCode=item[1];
+    el.appendChild(o);
+  });
+}
+function priorityFindCol(cols,keys){
+  const norm=s=>priorityClean(s).toLowerCase().replace(/[^a-z0-9]+/g," ");
+  const a=cols.map(norm);
+  for(const k of keys){
+    const i=a.indexOf(norm(k));
+    if(i>=0)return i;
+  }
+  return -1;
+}
+function priorityReadEkycNormalized(d){
+  if(!d||!Array.isArray(d.cols)||!Array.isArray(d.rows))return false;
+  const bi=priorityFindCol(d.cols,["Block","Block Name","Development Block"]);
+  const gi=priorityFindCol(d.cols,["GP","GP Name","Gram Panchayat","Gram Panchayat Name"]);
+  if(bi<0||gi<0)return false;
+  d.rows.forEach(r=>priorityAddPair(r[bi],r[gi]));
+  return true;
+}
+async function priorityFetchEkyc(){
+  if(typeof fetchSheet==="function"){
+    try{
+      const d=await fetchSheet(PRIORITY_EKYC_SHEET);
+      if(priorityReadEkycNormalized(d))return true;
+    }catch(e){}
+  }
+  const d=window.liveSheetData?.[PRIORITY_EKYC_SHEET];
+  return priorityReadEkycNormalized(d);
+}
+function priorityWorksFor(block,gp){
+  const map=new Map();
+  priorityReadJson(PRIORITY_SUBMISSION_STORAGE,[]).forEach(r=>{
+    if(priorityClean(r.block).toLowerCase()===priorityClean(block).toLowerCase() &&
+       priorityClean(r.gp).toLowerCase()===priorityClean(gp).toLowerCase() &&
+       priorityClean(r.scheme)){
+      map.set(priorityClean(r.scheme),priorityClean(r.work_code));
+    }
+  });
+  PRIORITY_WORK_MASTER.forEach(w=>{
+    const name=priorityClean(w.work || w.name || w.scheme);
+    if(name&&!map.has(name))map.set(name,priorityClean(w.code || w.work_code || ""));
+  });
+  return [...map.entries()].sort((a,b)=>a[0].localeCompare(b[0]));
+}
+
+
+async function initPriorityDependentDropdowns(){
+  const block=document.getElementById("pwfBlock");
+  const gp=document.getElementById("pwfGP");
+  if(!block||!gp)return;
+
+  priorityGPMaster=[];
+  if(typeof priorityReadJson==="function"){
+    priorityReadJson(PRIORITY_SUBMISSION_STORAGE,[]).forEach(r=>priorityAddPair(r.block,r.gp));
+  }
+
+  try{
+    await priorityFetchEkyc();
+  }catch(e){}
+
+  const blocks=[...new Set(priorityGPMaster.map(x=>x.block).filter(Boolean))].sort();
+  priorityFill(block,blocks,"Select Block");
+  priorityFill(gp,[],"Select GP");
+  gp.disabled=false;
+
+  block.onchange=async()=>{
+    try{await priorityFetchEkyc();}catch(e){}
+    const row=priorityGPMaster.find(x=>x.block.toLowerCase()===String(block.value).toLowerCase());
+    const gps=row?[...row.gps].sort():[];
+    priorityFill(gp,gps,"Select GP");
+    gp.disabled=false;
+  };
+}
+
+if(document.readyState==="loading"){
+  document.addEventListener("DOMContentLoaded",()=>initPriorityDependentDropdowns());
+}else{
+  initPriorityDependentDropdowns();
+}
+function prioritySetAutomaticDates(){
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth()+1).padStart(2,"0");
+  const dd = String(today.getDate()).padStart(2,"0");
+  const value = `${yyyy}-${mm}-${dd}`;
+
+  const newDate = document.getElementById("pwfUpdateDate");
+  if(newDate) newDate.value = value;
+
+  const statusDate = document.getElementById("pwsDate");
+  if(statusDate) statusDate.value = value;
+}
+
+if(document.readyState === "loading"){
+  document.addEventListener("DOMContentLoaded", prioritySetAutomaticDates);
+}else{
+  prioritySetAutomaticDates();
+}
+
+window.addEventListener("pageshow", prioritySetAutomaticDates);
+
+function priorityFormData(){
+  const f=document.getElementById("priorityWorkForm");
+  const fd=new FormData(f);
+  return {
+    timestamp:new Date().toISOString(),
+    update_date:String(fd.get("update_date")||""),
+    update_type:String(fd.get("update_type")||""),
+    block:String(fd.get("block")||"").trim(),
+    gp:String(fd.get("gp")||"").trim(),
+    category:String(fd.get("category")||"").trim(),
+    scheme:String(fd.get("scheme")||"").trim(),
+    work_code:String(fd.get("work_code")||"").trim(),
+    vbg_wage:Number(fd.get("vbg_wage")||0),
+    vbg_material:Number(fd.get("vbg_material")||0),
+    finance_16th:Number(fd.get("finance_16th")||0),
+    latitude:Number(fd.get("latitude")),
+    longitude:Number(fd.get("longitude")),
+    status:String(fd.get("status")||"").trim(),
+    progress:Number(fd.get("progress")||0),
+    remarks:String(fd.get("remarks")||"").trim()
+  };
+}
+function showPriorityFormMessage(text,type){
+  const el=document.getElementById("pwfMessage");
+  el.textContent=text;
+  el.className="form-message "+type;
+}
+document.getElementById("priorityWorkForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const form=e.currentTarget;
+  if(!form.checkValidity()){form.reportValidity();return;}
+  const data=priorityFormData();
+  if(data.progress<0 || data.progress>100){
+    showPriorityFormMessage("Physical progress must be between 0% and 100%.","err");
+    return;
+  }
+  if(data.status==="Completed" && data.progress<100){
+    showPriorityFormMessage("For status 'Completed', physical progress should be 100%.","err");
+    return;
+  }
+
+  if(!PRIORITY_SUBMIT_URL){
+    showPriorityFormMessage("Google Sheet connection is not configured. Add your deployed Apps Script Web App /exec URL to PRIORITY_SUBMIT_URL.","err");
+    return;
+  }
+
+  try{
+    showPriorityFormMessage("Submitting to Google Sheet…","ok");
+    const body=new URLSearchParams();
+    body.append("action","new_work");
+    Object.entries(data).forEach(([k,v])=>body.append(k,String(v)));
+    const response = await fetch(PRIORITY_SUBMIT_URL,{method:"POST",mode:"no-cors",body});
+    // no-cors responses are opaque, so the server-side Apps Script must be
+    // correctly deployed. The request was sent successfully from the browser.
+    showPriorityFormMessage("✓ Submission sent to the Priority Works Google Sheet.","ok");
+    form.reset();
+     prioritySetAutomaticDates();
+  }catch(err){
+    showPriorityFormMessage("Submission failed. Google Sheet was not updated. Check the Apps Script /exec URL.","err");
+  }
+});
+
+document.getElementById("pwfLocation").addEventListener("click",()=>{
+  if(!navigator.geolocation){
+    showPriorityFormMessage("Geolocation is not supported by this browser.","err");return;
+  }
+  showPriorityFormMessage("Getting current location…","ok");
+  navigator.geolocation.getCurrentPosition(pos=>{
+    document.getElementById("pwfLat").value=pos.coords.latitude.toFixed(6);
+    document.getElementById("pwfLong").value=pos.coords.longitude.toFixed(6);
+    showPriorityFormMessage("✓ Latitude and longitude filled from current location.","ok");
+  },()=>{
+    showPriorityFormMessage("Unable to get location. Please enter latitude and longitude manually.","err");
+  },{enableHighAccuracy:true,timeout:10000});
+});
+
+const pwfDate=document.getElementById("pwfUpdateDate");
+if(pwfDate && !pwfDate.value) pwfDate.value=new Date().toISOString().slice(0,10);
+document.getElementById("pwfStatus").addEventListener("change",()=>{
+  const status=document.getElementById("pwfStatus").value;
+  const progress=document.getElementById("pwfProgress");
+  if(status==="Completed") progress.value=100;
+  else if(status==="Proposed" || status==="Field Verification Pending" || status==="Field Verified" || status==="Estimate Prepared" || status==="Estimate Approved") {
+    if(!progress.value) progress.value=0;
+  }
+});
+document.getElementById("pwfProgress").addEventListener("input",()=>{
+  const p=Number(document.getElementById("pwfProgress").value||0);
+  const s=document.getElementById("pwfStatus");
+  if(p===100) s.value="Completed";
+  else if(p>0 && s.value==="Completed") s.value="Work in Progress";
+});
+
+document.getElementById("pwfClear").addEventListener("click",()=>{
+  setTimeout(()=>{document.getElementById("pwfMessage").className="form-message";},0);
+});
+</script>
 </main>
 <footer>VB-G RAM G · Sivasagar District · DEMO VERSION · Sample figures only · Google Sheet connection will replace sample data</footer>
 
@@ -857,7 +1663,7 @@ document.querySelectorAll('input[type="range"]').forEach(r=>{
 </script>
 
 <script>
-const GOOGLE_SHEET_ID = "1DdrQU-w0KNA6OIJZNuNRva-zOkdV1Jr5";
+const GOOGLE_SHEET_ID = "1dfJYdQvb0zgjNt0B6bxAWVt5qX3gJGjZQW75DKKgPZA";
 const LIVE_SHEETS = [
   "District Overview","eKYC & ABPS","Physical Progress Report","GP Contacts",
   "GP Contacts (1)","Action Required","Performance","Analytics","Documents","Pending Reports","Geo-tag"
@@ -1856,4 +2662,776 @@ function refreshDashboardFromBottom(){
   }
 }
 </script>
+
+<script id="priority-two-module-script">
+(function(){
+  function q(id){return document.getElementById(id);}
+  function clean(v){return String(v??"").trim();}
+
+  function findSavedWork(code){
+    try{
+      const rows=JSON.parse(localStorage.getItem("sivasagar_priority_work_submissions")||"[]");
+      return rows.find(r=>clean(r.work_code||r.code).toLowerCase()===clean(code).toLowerCase())||null;
+    }catch(e){return null;}
+  }
+
+  function activateModule(target){
+    document.querySelectorAll(".priority-module").forEach(b=>{
+      b.classList.toggle("active",b.dataset.target===target);
+    });
+    document.querySelectorAll(".priority-module-panel").forEach(p=>{
+      p.classList.toggle("active",p.id===target);
+    });
+  }
+
+  function initTwoModules(){
+    document.querySelectorAll(".priority-module").forEach(btn=>{
+      btn.addEventListener("click",()=>activateModule(btn.dataset.target));
+    });
+
+    const code=q("pwsCode"), name=q("pwsWorkName");
+    if(code && name){
+      code.addEventListener("input",()=>{
+        const saved=findSavedWork(code.value);
+        name.value=saved?(saved.scheme||saved.work_name||saved.workName||""):"";
+      });
+    }
+
+    const clear=q("pwsClearBtn");
+    if(clear){
+      clear.addEventListener("click",()=>{
+        ["pwsCode","pwsWorkName","pwsWage","pwsMaterial","pwsFinance16","pwsProgress","pwsLat","pwsLong","pwsDate","pwsRemarks"].forEach(id=>{
+          if(q(id))q(id).value="";
+        });
+        ["pwsStatus","pwsBlock","pwsGP"].forEach(id=>{
+          if(q(id))q(id).value="";
+        });
+      });
+    }
+  }
+
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",initTwoModules);
+  }else{
+    initTwoModules();
+  }
+})();
+</script>
+
+<script id="priority-update-autofetch">
+(function(){
+  const clean=v=>String(v??"").replace(/\s+/g," ").trim();
+
+  function norm(v){
+    return clean(v).toLowerCase().replace(/[^a-z0-9]+/g," ");
+  }
+
+  function colIndex(cols,names){
+    const a=(cols||[]).map(norm);
+    for(const n of names){
+      const target=norm(n);
+      const i=a.indexOf(target);
+      if(i>=0)return i;
+    }
+    for(let i=0;i<a.length;i++){
+      const h=a[i];
+      if(names.some(n=>{
+        const t=norm(n);
+        return h===t || h.includes(t) || t.includes(h);
+      })) return i;
+    }
+    return -1;
+  }
+
+  function findByCodeInNormalized(d,code){
+    if(!d||!Array.isArray(d.cols)||!Array.isArray(d.rows))return null;
+    const ci=colIndex(d.cols,["Work Code","WorkCode","Code","Scheme Code","Scheme ID"]);
+    if(ci<0)return null;
+
+    const idx={
+      category:colIndex(d.cols,["Priority Work Category","Work Category","Category"]),
+      name:colIndex(d.cols,["Work Name","Name of Work","Scheme Name","Scheme"]),
+      block:colIndex(d.cols,["Block","Block Name","Development Block"]),
+      gp:colIndex(d.cols,["GP","GP Name","Gram Panchayat","Gram Panchayat Name"]),
+      wage:colIndex(d.cols,[
+        "Wage Amount",
+        "Wage Amount from VB-G RAM G",
+        "Wage Amount from VB-G RAM G (₹)",
+        "Wage Amount from VB-G RAM G (Rs.)",
+        "VB-G RAM G Wage Amount",
+        "VB-G RAM G Wage",
+        "VBG Wage",
+        "VBG-RAM-G Wage Amount",
+        "Wage"
+      ]) >= 0
+        ? colIndex(d.cols,[
+            "Wage Amount",
+            "Wage Amount from VB-G RAM G",
+            "Wage Amount from VB-G RAM G (₹)",
+            "Wage Amount from VB-G RAM G (Rs.)",
+            "VB-G RAM G Wage Amount",
+            "VB-G RAM G Wage",
+            "VBG Wage",
+            "VBG-RAM-G Wage Amount",
+            "Wage"
+          ])
+        : 5,
+      material:colIndex(d.cols,[
+        "Material Amount",
+        "Material Amount from VB-G RAM G",
+        "Material Amount from VB-G RAM G (₹)",
+        "Material Amount from VB-G RAM G (Rs.)",
+        "VB-G RAM G Material Amount",
+        "VB-G RAM G Material",
+        "VBG Material",
+        "VBG-RAM-G Material Amount",
+        "Material"
+      ]) >= 0
+        ? colIndex(d.cols,[
+            "Material Amount",
+            "Material Amount from VB-G RAM G",
+            "Material Amount from VB-G RAM G (₹)",
+            "Material Amount from VB-G RAM G (Rs.)",
+            "VB-G RAM G Material Amount",
+            "VB-G RAM G Material",
+            "VBG Material",
+            "VBG-RAM-G Material Amount",
+            "Material"
+          ])
+        : 6,
+      finance_16th:colIndex(d.cols,["16th Finance Commission Amount","16th Finance Commission","16th FC Amount","Finance 16th","16th FC","16th Finance","16th Finance Commission Amount (₹)"]),
+      lat:colIndex(d.cols,["Latitude","Lat","Latitude Value","Latitude (GPS)","GPS Latitude"]),
+      long:colIndex(d.cols,["Longitude","Long","Lng","Longitude Value","Longitude (GPS)","GPS Longitude"]),
+      status:colIndex(d.cols,["Current Status","Status"]),
+      progress:colIndex(d.cols,["Progress %","Physical Progress %","Progress"]),
+      date:colIndex(d.cols,["Last Updated","Last Updated Date","Updated Date","Update Date","Status / Progress Update Date"]),
+      remarks:colIndex(d.cols,["Remarks","Remark"])
+    };
+
+    const row=d.rows.find(r=>clean(r[ci]).toLowerCase()===clean(code).toLowerCase());
+    if(!row)return null;
+    const get=k=>idx[k]>=0?clean(row[idx[k]]):"";
+    return {
+      code:clean(row[ci]), category:get("category"), name:get("name"), block:get("block"),
+      gp:get("gp"), wage:get("wage"), material:get("material"),
+      finance_16th:get("finance_16th"),
+      lat:get("lat"), long:get("long"), status:get("status"),
+      progress:get("progress"), date:get("date"), remarks:get("remarks")
+    };
+  }
+
+  function savedWork(code){
+    try{
+      const rows=JSON.parse(localStorage.getItem("sivasagar_priority_work_submissions")||"[]");
+      const r=rows.find(x=>clean(x.work_code||x.code).toLowerCase()===clean(code).toLowerCase());
+      if(!r)return null;
+      return {
+        code:clean(r.work_code||r.code),
+        category:clean(r.category||r.priority_work_category),
+        name:clean(r.scheme||r.work_name||r.workName),
+        block:clean(r.block), gp:clean(r.gp),
+        wage:clean(r.wage_amount||r.wage),
+        material:clean(r.material_amount||r.material),
+        lat:clean(r.latitude||r.lat), long:clean(r.longitude||r.long||r.lng),
+        status:clean(r.status||r.current_status),
+        progress:clean(r.progress||r.progress_pct),
+        date:clean(r.updated_date||r.last_updated||r.date),
+        remarks:clean(r.remarks||r.remark)
+      };
+    }catch(e){return null;}
+  }
+
+
+  async function fetchPriorityWorkByCode(code){
+    const url = (typeof PRIORITY_READ_URL !== "undefined" ? PRIORITY_READ_URL : "");
+    if(!url || !code) return null;
+
+    const res = await fetch(
+      url + "?action=get_priority_work&work_code=" +
+      encodeURIComponent(code) + "&t=" + Date.now(),
+      {cache:"no-store"}
+    );
+
+    if(!res.ok){
+      throw new Error("Priority Works API HTTP " + res.status);
+    }
+
+    const data = await res.json();
+
+    if(!data || data.ok !== true){
+      throw new Error(data && data.error ? data.error : "Invalid Priority Works response");
+    }
+
+    return data.record || null;
+  }
+
+  async function liveFind(code){
+    // PRIMARY: read the exact Work Code directly from the same Apps Script
+    // deployment that writes the Priority Works Google Sheet.
+    try{
+      const record=await fetchPriorityWorkByCode(code);
+      if(record)return record;
+    }catch(e){
+      console.warn("Priority Work direct read failed:",e);
+    }
+
+    // FALLBACK: existing live sheet data.
+    const live=window.liveSheetData||{};
+    const names=["Priority Works","Priority Work","Priority Works Master","Priority Work List"];
+
+    for(const n of names){
+      const found=findByCodeInNormalized(live[n],code);
+      if(found)return found;
+    }
+
+    if(typeof fetchSheet==="function"){
+      for(const n of names){
+        try{
+          const d=await fetchSheet(n);
+          const found=findByCodeInNormalized(d,code);
+          if(found)return found;
+        }catch(e){}
+      }
+    }
+
+    return savedWork(code);
+  }
+
+  function setVal(id,value){
+    const el=document.getElementById(id);
+    if(!el || value===undefined || value===null || value==="")return;
+    if(el.tagName==="SELECT"){
+      const wanted=String(value);
+      const exists=[...el.options].some(o=>String(o.value).toLowerCase()===wanted.toLowerCase());
+      if(!exists){
+        const o=document.createElement("option");
+        o.value=wanted;
+        o.textContent=wanted;
+        el.appendChild(o);
+      }
+      el.value=wanted;
+    }else{
+      el.value=value;
+    }
+  }
+
+  async function autoFetchUpdate(){
+    const codeEl=document.getElementById("pwsCode");
+    if(!codeEl)return;
+    const code=clean(codeEl.value);
+    if(!code)return;
+
+    const nameEl=document.getElementById("pwsWorkName");
+    if(nameEl)nameEl.placeholder="Fetching all data…";
+
+    const r=await liveFind(code);
+
+    if(!r){
+      if(nameEl){
+        nameEl.value="";
+        nameEl.placeholder="Work Code not found — check Google Sheet";
+      }
+      return;
+    }
+
+    setVal("pwsWorkName",r.name);
+    setVal("pwsBlock",r.block);
+    setVal("pwsGP",r.gp);
+    setVal("pwsCategory",r.category);
+    setVal("pwsWage",r.wage);
+    setVal("pwsMaterial",r.material);
+    setVal("pwsFinance16",r.finance_16th);
+    setVal("pwsStatus",r.status);
+    setVal("pwsProgress",r.progress);
+
+    // Keep amount fields blank only when the Google Sheet itself has no value.
+    // This prevents a stale localStorage value from being mistaken for live data.
+    if(nameEl && !r.wage && !r.material && !r.finance_16th){
+      nameEl.placeholder="Work found, but amount columns are blank in Google Sheet";
+    }
+
+    if(r.lat!==undefined && r.lat!==null && String(r.lat)!==""){
+      setVal("pwsLat",String(r.lat));
+    }
+    if(r.long!==undefined && r.long!==null && String(r.long)!==""){
+      setVal("pwsLong",String(r.long));
+    }
+
+    // Last Updated is automatic; never leave it blank.
+    const now=new Date();
+    const todayValue =
+      now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0");
+    setVal("pwsDate", todayValue);
+
+    setVal("pwsRemarks",r.remarks);
+    if(nameEl)nameEl.placeholder="Auto-fetched from Google Sheet";
+  }
+
+  async function savePriorityStatusUpdate(){
+    const code=clean(document.getElementById("pwsCode")?.value);
+    if(!code){
+      alert("Please enter a Work Code.");
+      return;
+    }
+
+    const name=clean(document.getElementById("pwsWorkName")?.value);
+    const block=clean(document.getElementById("pwsBlock")?.value);
+    const gp=clean(document.getElementById("pwsGP")?.value);
+    const status=clean(document.getElementById("pwsStatus")?.value);
+    const progress=clean(document.getElementById("pwsProgress")?.value);
+    const lat=clean(document.getElementById("pwsLat")?.value);
+    const lon=clean(document.getElementById("pwsLong")?.value);
+    const date=clean(document.getElementById("pwsDate")?.value);
+    const remarks=clean(document.getElementById("pwsRemarks")?.value);
+
+    if(!name){
+      alert("Work Name is required.");
+      return;
+    }
+    if(!status){
+      alert("Please select Current Status.");
+      return;
+    }
+    if(progress!=="" && (Number(progress)<0 || Number(progress)>100)){
+      alert("Physical Progress must be between 0 and 100.");
+      return;
+    }
+
+    const record={
+      timestamp:new Date().toISOString(),
+      work_code:code,
+      scheme:name,
+      work_name:name,
+      block:block,
+      gp:gp,
+      status:status,
+      progress:progress===""?"":Number(progress),
+      latitude:lat,
+      longitude:lon,
+      updated_date:date,
+      last_updated:date,
+      remarks:remarks
+    };
+
+    // Update the browser copy immediately so the dashboard works even when
+    // the Google Apps Script URL has not yet been configured.
+    const key="sivasagar_priority_work_submissions";
+    let rows=[];
+    try{
+      rows=JSON.parse(localStorage.getItem(key)||"[]");
+      if(!Array.isArray(rows))rows=[];
+    }catch(e){rows=[];}
+
+    const idx=rows.findIndex(r=>clean(r.work_code||r.code).toLowerCase()===code.toLowerCase());
+
+    if(idx>=0){
+      rows[idx]={...rows[idx],...record};
+    }else{
+      rows.push(record);
+    }
+    localStorage.setItem(key,JSON.stringify(rows));
+
+    // If a Google Apps Script Web App endpoint is configured, also send the
+    // update to the live Google Sheet.
+    if(typeof PRIORITY_SUBMIT_URL!=="undefined" && PRIORITY_SUBMIT_URL){
+      try{
+        const body=new URLSearchParams();
+        body.append("action","update_status");
+        Object.entries(record).forEach(([k,v])=>body.append(k,String(v??"")));
+        await fetch(PRIORITY_SUBMIT_URL,{method:"POST",mode:"no-cors",body});
+      }catch(e){
+        alert("Status saved locally, but the Google Sheet update could not be sent. Please check the Apps Script connection.");
+        return;
+      }
+    }
+
+    alert(idx>=0 ? "✓ Work status updated successfully." : "✓ Work record saved successfully.");
+  }
+
+  function init(){
+    const code=document.getElementById("pwsCode");
+    if(!code)return;
+
+    let timer;
+    code.addEventListener("input",()=>{
+      clearTimeout(timer);
+      if(clean(code.value).length<2)return;
+      timer=setTimeout(autoFetchUpdate,350);
+    });
+    code.addEventListener("change",autoFetchUpdate);
+    code.addEventListener("blur",autoFetchUpdate);
+
+    const btn=document.getElementById("pwsUpdateBtn");
+    if(btn){
+      btn.addEventListener("click",async()=>{
+        await savePriorityStatusUpdate();
+      });
+    }
+  }
+
+  if(document.readyState==="loading")
+    document.addEventListener("DOMContentLoaded",init);
+  else
+    init();
+})();
+</script>
+
+<script id="priority-block-gp-fixed">
+(function(){
+  const clean=v=>String(v??"").replace(/\s+/g," ").trim();
+  const norm=v=>clean(v).toLowerCase().replace(/[^a-z0-9]+/g," ");
+
+  function col(cols,names){
+    const a=(cols||[]).map(norm);
+    for(const n of names){
+      const i=a.indexOf(norm(n));
+      if(i>=0)return i;
+    }
+    return -1;
+  }
+
+  function rowsFrom(d){
+    if(!d)return [];
+    if(Array.isArray(d.cols)&&Array.isArray(d.rows)){
+      const bi=col(d.cols,["Block","Block Name","Development Block"]);
+      const gi=col(d.cols,["GP","GP Name","Gram Panchayat","Gram Panchayat Name"]);
+      if(bi<0||gi<0)return [];
+      return d.rows.map(r=>[clean(r?.[bi]),clean(r?.[gi])]).filter(x=>x[0]&&x[1]);
+    }
+    if(d.table){
+      const cols=(d.table.cols||[]).map(x=>x.label||"");
+      const bi=col(cols,["Block","Block Name","Development Block"]);
+      const gi=col(cols,["GP","GP Name","Gram Panchayat","Gram Panchayat Name"]);
+      if(bi<0||gi<0)return [];
+      return (d.table.rows||[]).map(r=>{
+        const c=r.c||[];
+        return [clean(c[bi]?.f??c[bi]?.v??""),clean(c[gi]?.f??c[gi]?.v??"")];
+      }).filter(x=>x[0]&&x[1]);
+    }
+    return [];
+  }
+
+  async function getEkycPairs(){
+    const out=[];
+    const add=d=>rowsFrom(d).forEach(x=>{
+      if(!out.some(y=>y[0].toLowerCase()===x[0].toLowerCase()&&y[1].toLowerCase()===x[1].toLowerCase()))out.push(x);
+    });
+
+    const live=window.liveSheetData||{};
+    ["eKYC & ABPS","e-KYC & ABPS","eKYC","e-KYC"].forEach(k=>add(live[k]));
+
+    if(typeof fetchSheet==="function"){
+      for(const k of ["eKYC & ABPS","e-KYC & ABPS","eKYC","e-KYC"]){
+        try{ add(await fetchSheet(k)); }catch(e){}
+        if(out.length)break;
+      }
+    }
+    return out;
+  }
+
+  function fill(el,values,placeholder){
+    if(!el)return;
+    const previous=clean(el.value);
+    const list=[...new Set((values||[]).map(clean).filter(Boolean))];
+    // Preserve an already auto-fetched Update Status value while the live
+    // e-KYC dropdown finishes loading.
+    if(el.id==="pwsGP" && previous && !list.some(v=>v.toLowerCase()===previous.toLowerCase())){
+      list.push(previous);
+    }
+    el.innerHTML="";
+    const first=document.createElement("option");
+    first.value=""; first.textContent=placeholder; el.appendChild(first);
+    list.sort((a,b)=>a.localeCompare(b)).forEach(v=>{
+      const o=document.createElement("option");
+      o.value=v; o.textContent=v; el.appendChild(o);
+    });
+    if(previous){
+      const match=[...el.options].find(o=>o.value.toLowerCase()===previous.toLowerCase());
+      if(match)el.value=match.value;
+    }
+  }
+
+  function setupBlockGp(blockId,gpId){
+    const b=document.getElementById(blockId),g=document.getElementById(gpId);
+    if(!b||!g)return;
+    g.disabled=false;
+
+    getEkycPairs().then(pairs=>{
+      const blocks=[...new Set(pairs.map(x=>x[0]))].sort((a,b)=>a.localeCompare(b));
+      fill(b,blocks,"Select Block");
+      fill(g,[],"Select GP");
+      g.disabled=false;
+
+      b.onchange=()=>{
+        const key=clean(b.value).toLowerCase();
+        const gps=[...new Set(pairs.filter(x=>x[0].toLowerCase()===key).map(x=>x[1]))].sort((a,b)=>a.localeCompare(b));
+        fill(g,gps,"Select GP");
+        g.disabled=false;
+      };
+    });
+  }
+
+  function init(){
+    setupBlockGp("pwfBlock","pwfGP");
+    setupBlockGp("pwsBlock","pwsGP");
+  }
+
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);
+  else init();
+})();
+</script>
+
+<script id="priority-update-gp-reconcile">
+(function(){
+  const clean=v=>String(v??"").replace(/\s+/g," ").trim();
+
+  async function reconcile(){
+    const block=document.getElementById("pwsBlock");
+    const gp=document.getElementById("pwsGP");
+    const code=document.getElementById("pwsCode");
+    if(!block||!gp||!code)return;
+
+    // Give the existing live lookup a chance to populate the record first.
+    await new Promise(r=>setTimeout(r,120));
+    const wanted=clean(gp.value);
+    if(wanted){
+      const exists=[...gp.options].some(o=>clean(o.value).toLowerCase()===wanted.toLowerCase());
+      if(!exists){
+        const o=document.createElement("option");
+        o.value=wanted;o.textContent=wanted;gp.appendChild(o);
+      }
+      gp.value=wanted;
+    }
+  }
+
+  function init(){
+    const code=document.getElementById("pwsCode");
+    if(code){
+      code.addEventListener("input",()=>setTimeout(reconcile,500));
+      code.addEventListener("change",()=>setTimeout(reconcile,300));
+      code.addEventListener("blur",()=>setTimeout(reconcile,300));
+    }
+    const block=document.getElementById("pwsBlock");
+    if(block)block.addEventListener("change",()=>setTimeout(reconcile,300));
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+})();
+</script>
+
+<script id="priority-auto-date-fallback">
+(function(){
+  function setToday(){
+    const el=document.getElementById("pwsDate");
+    if(!el || el.value)return;
+    const d=new Date();
+    el.value=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",setToday);
+  else setToday();
+})();
+</script>
+
+<script id="priority-update-robust-handler">
+(function(){
+  function clean(v){return String(v??"").replace(/\s+/g," ").trim();}
+  function el(id){return document.getElementById(id);}
+  function message(text,type){
+    const m=el("pwsUpdateMessage");
+    if(m){m.textContent=text;m.className="form-message "+(type||"ok");}
+    else alert(text);
+  }
+  function today(){
+    const d=new Date();
+    return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  }
+
+  async function update(){
+    const code=clean(el("pwsCode")?.value);
+    const name=clean(el("pwsWorkName")?.value);
+    const block=clean(el("pwsBlock")?.value);
+    const gp=clean(el("pwsGP")?.value);
+    const category=clean(el("pwsCategory")?.value);
+    const wage=clean(el("pwsWage")?.value);
+    const material=clean(el("pwsMaterial")?.value);
+    const finance16=clean(el("pwsFinance16")?.value);
+    const status=clean(el("pwsStatus")?.value);
+    const progressEl=el("pwsProgress");
+    let progress=clean(progressEl?.value);
+
+    // A completed work is automatically 100% physically complete.
+    if(status.toLowerCase()==="completed" || status.toLowerCase()==="physically complete"){
+      progress="100";
+      if(progressEl) progressEl.value="100";
+    }
+    const lat=clean(el("pwsLat")?.value);
+    const lon=clean(el("pwsLong")?.value);
+    const date=clean(el("pwsDate")?.value)||today();
+    const remarks=clean(el("pwsRemarks")?.value);
+
+    if(!code){message("Please enter Work Code.","err");return;}
+    if(!name){message("Work Name is not available for this Work Code.","err");return;}
+    if(!status){message("Please select Current Status.","err");return;}
+    if(progress!=="" && (!Number.isFinite(Number(progress))||Number(progress)<0||Number(progress)>100)){
+      message("Progress % must be between 0 and 100.","err");return;
+    }
+
+    const endpoint=String(window.PRIORITY_SUBMIT_URL||"").trim();
+    if(!endpoint){
+      message("Google Sheet connection is not configured. Add your deployed Apps Script Web App /exec URL to PRIORITY_SUBMIT_URL.","err");
+      return;
+    }
+
+    const record={
+      timestamp:new Date().toISOString(),
+      work_code:code,
+      code:code,
+      scheme:name,
+      work_name:name,
+      category:category,
+      block:block,
+      gp:gp,
+      wage:wage,
+      vbg_wage:wage,
+      material:material,
+      vbg_material:material,
+      finance_16th:finance16 === "" ? "0" : finance16,
+       status:status,
+      current_status:status,
+      progress:progress===""?"":Number(progress),
+      progress_pct:progress===""?"":Number(progress),
+      latitude:lat,
+      longitude:lon,
+      updated_date:date,
+      last_updated:date,
+      remarks:remarks
+    };
+
+    const body=new URLSearchParams();
+    body.append("action","update_status");
+    Object.entries(record).forEach(([k,v])=>body.append(k,String(v??"")));
+
+    try{
+      message("Updating Google Sheet…","ok");
+      await fetch(endpoint,{method:"POST",mode:"no-cors",body});
+      message("✓ Work status updated in the Priority Works Google Sheet.","ok");
+    }catch(e){
+      message("✕ Google Sheet update failed. Check the Apps Script /exec URL and deployment access.","err");
+    }
+  }
+
+  function init(){
+    const b=el("pwsUpdateBtn");
+    if(!b)return;
+    const fresh=b.cloneNode(true);
+    b.parentNode.replaceChild(fresh,b);
+    fresh.addEventListener("click",function(ev){
+      ev.preventDefault();
+      ev.stopImmediatePropagation();
+      update();
+    });
+    const date=el("pwsDate");
+    if(date&&!date.value)date.value=today();
+
+    const statusEl=el("pwsStatus");
+    const progressEl=el("pwsProgress");
+    if(statusEl && progressEl){
+      statusEl.addEventListener("change",function(){
+        const s=clean(statusEl.value).toLowerCase();
+        if(s==="completed" || s==="physically complete"){
+          progressEl.value="100";
+        }
+      });
+    }
+  }
+
+  window.priorityRobustUpdateStatus=update;
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);
+  else init();
+})();
+</script>
+
+<!--
+GOOGLE APPS SCRIPT FOR THE PRIORITY WORKS SHEET
+
+1. Open the Google Sheet.
+2. Extensions -> Apps Script.
+3. Paste this code.
+4. Change SHEET_NAME only if your tab has a different name.
+5. Deploy -> New deployment -> Web app.
+6. Execute as: Me.
+7. Who has access: Anyone with the link.
+8. Copy the /exec URL into PRIORITY_SUBMIT_URL above.
+
+function doPost(e) {
+  const SHEET_NAME = 'Priority Works';
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sh = ss.getSheetByName(SHEET_NAME);
+  if (!sh) return ContentService.createTextOutput('ERROR: Priority Works sheet not found');
+
+  const p = e.parameter || {};
+  const action = p.action || 'new_work';
+  const headers = sh.getRange(1,1,1,sh.getLastColumn()).getValues()[0];
+  const col = {};
+  headers.forEach((h,i) => col[String(h).trim()] = i+1);
+
+  const value = (name) => p[name] !== undefined ? p[name] : '';
+
+  if (action === 'new_work') {
+    const row = [];
+    headers.forEach(h => {
+      const k = String(h).trim();
+      const map = {
+        'Work Code':'work_code',
+        'Priority Work Category':'category',
+        'Work Name':'scheme',
+        'Block':'block',
+        'GP':'gp',
+        'Wage Amount':'vbg_wage',
+        'Material Amount':'vbg_material',
+        'Latitude':'latitude',
+        'Longitude':'longitude',
+        'Current Status':'status',
+        'Progress %':'progress',
+        'Last Updated':'update_date',
+        'Remarks':'remarks'
+      };
+      row.push(map[k] ? value(map[k]) : '');
+    });
+    sh.appendRow(row);
+    return ContentService.createTextOutput('OK');
+  }
+
+  if (action === 'update_status') {
+    const code = String(value('work_code')).trim();
+    if (!code) return ContentService.createTextOutput('ERROR: Work Code required');
+
+    const data = sh.getDataRange().getValues();
+    const codeCol = col['Work Code'];
+    if (!codeCol) return ContentService.createTextOutput('ERROR: Work Code column missing');
+
+    let found = -1;
+    for (let r=1; r<data.length; r++) {
+      if (String(data[r][codeCol-1]).trim().toLowerCase() === code.toLowerCase()) {
+        found = r+1; break;
+      }
+    }
+    if (found < 0) return ContentService.createTextOutput('ERROR: Work Code not found');
+
+    const updates = {
+      'Current Status': value('status'),
+      'Progress %': value('progress'),
+      'Latitude': value('latitude'),
+      'Longitude': value('longitude'),
+      'Last Updated': value('updated_date'),
+      'Remarks': value('remarks')
+    };
+    Object.keys(updates).forEach(k => {
+      if (col[k]) sh.getRange(found,col[k]).setValue(updates[k]);
+    });
+    return ContentService.createTextOutput('OK');
+  }
+
+  return ContentService.createTextOutput('ERROR: Unknown action');
+}
+-->
 </body></html>
