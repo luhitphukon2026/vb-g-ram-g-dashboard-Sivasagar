@@ -130,7 +130,7 @@ footer{text-align:center;color:#718096;font-size:11px;padding:25px}
 
 <style id="gp-contacts-modern">
 #contacts .cards{grid-template-columns:repeat(6,1fr)}
-#contacts #contactsTable table{min-width:1250px}
+#contacts #contactsTable table{min-width:1400px}
 #contacts #contactsTable th{white-space:nowrap}
 @media(max-width:1100px){#contacts .cards{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:650px){#contacts .cards{grid-template-columns:repeat(2,1fr)}}
@@ -442,6 +442,172 @@ window.PRIORITY_GOOGLE_SHEET_ID="1dfJYdQvb0zgjNt0B6bxAWVt5qX3gJGjZQW75DKKgPZA";
 window.PRIORITY_GOOGLE_SHEET_URL="https://docs.google.com/spreadsheets/d/1dfJYdQvb0zgjNt0B6bxAWVt5qX3gJGjZQW75DKKgPZA/edit";
 </script>
 <script>window.PRIORITY_GOOGLE_SHEET_ID="1dfJYdQvb0zgjNt0B6bxAWVt5qX3gJGjZQW75DKKgPZA";window.PRIORITY_GOOGLE_SHEET_TAB="Priority Works";</script>
+
+<style id="priority-update-table-style">
+#priorityWorksUpdateTable th,
+#priorityWorksUpdateTable td{
+  border:1px solid #d9dee7;
+  padding:9px 10px;
+  vertical-align:middle;
+}
+#priorityWorksUpdateTable thead th{
+  background:#f1f5f9;
+  font-weight:700;
+  white-space:nowrap;
+}
+#priorityWorksUpdateTable tbody tr:hover{
+  background:#f8fafc;
+}
+.priority-row-update-btn{
+  cursor:pointer;
+  white-space:nowrap;
+}
+</style>
+
+<style id="modern-dashboard-enhancement">
+:root{
+  --md-primary:#163f63;
+  --md-primary-2:#245d86;
+  --md-accent:#0b7a75;
+  --md-bg:#f4f7fb;
+  --md-card:#ffffff;
+  --md-border:#dbe4ee;
+  --md-text:#172b3a;
+  --md-muted:#66788a;
+  --md-shadow:0 8px 24px rgba(19,42,62,.07);
+  --md-radius:14px;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--md-bg);
+  color:var(--md-text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+button,select,input,textarea{font:inherit}
+button{transition:transform .15s ease,box-shadow .15s ease,opacity .15s ease}
+button:hover{transform:translateY(-1px)}
+button:active{transform:translateY(0)}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{
+  outline:3px solid rgba(11,122,117,.18);
+  outline-offset:1px;
+}
+.priority-status-card,.card,.dashboard-card,.module-card,.panel{
+  border-radius:var(--md-radius)!important;
+  border:1px solid var(--md-border)!important;
+  box-shadow:var(--md-shadow)!important;
+}
+.priority-module-panel{animation:mdFade .25s ease}
+@keyframes mdFade{from{opacity:.6;transform:translateY(4px)}to{opacity:1;transform:none}}
+.priority-status-head{
+  background:linear-gradient(135deg,#f7fbff,#eef5fa);
+  border:1px solid var(--md-border);
+  border-radius:14px;
+  padding:16px 18px;
+}
+.priority-live-badge{
+  box-shadow:0 3px 10px rgba(11,122,117,.12);
+  letter-spacing:.3px;
+}
+#priorityWorksUpdateTable{
+  border:1px solid var(--md-border)!important;
+  border-radius:12px;
+  overflow:hidden;
+}
+#priorityWorksUpdateTable thead th{
+  position:sticky;
+  top:0;
+  z-index:2;
+  background:#edf4f9!important;
+  color:#254b68;
+  font-size:12px;
+}
+#priorityWorksUpdateTable tbody tr{
+  transition:background .15s ease,box-shadow .15s ease;
+}
+#priorityWorksUpdateTable tbody tr:hover{
+  background:#f6fbff!important;
+  box-shadow:inset 3px 0 0 #2b6b94;
+}
+#priorityWorksUpdateTable td{font-size:12px}
+#priorityWorksFilters{
+  grid-template-columns:repeat(5,minmax(150px,1fr))!important;
+  background:linear-gradient(135deg,#f8fbfd,#f2f7fa)!important;
+}
+#priorityWorksFilters label{color:#38536a}
+#priorityWorksFilters select{
+  border:1px solid #cbd8e4;
+  border-radius:8px;
+  background:#fff;
+}
+#pwFilterSummary{
+  padding:8px 2px;
+  font-weight:600;
+}
+#priorityInlineUpdate{
+  box-shadow:var(--md-shadow);
+  border-radius:14px!important;
+}
+.priority-row-update-btn{
+  border:0!important;
+  border-radius:8px!important;
+  padding:7px 12px!important;
+  font-weight:700;
+  background:#245d86!important;
+  color:#fff!important;
+}
+.primary-btn{
+  border-radius:8px!important;
+}
+.secondary-btn{
+  border-radius:8px!important;
+}
+.md-refresh-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:12px 0 0;
+  padding:9px 12px;
+  background:#fff;
+  border:1px solid var(--md-border);
+  border-radius:10px;
+}
+.md-refresh-status{font-size:12px;color:var(--md-muted)}
+.md-refresh-btn{
+  border:1px solid #cbd8e4;
+  background:#fff;
+  color:#254b68;
+  border-radius:8px;
+  padding:7px 11px;
+  font-weight:700;
+  cursor:pointer;
+}
+.md-refresh-btn:hover{background:#f3f8fb}
+.md-empty{
+  padding:28px!important;
+  text-align:center;
+  color:#66788a;
+}
+.md-chip{
+  display:inline-flex;
+  align-items:center;
+  padding:4px 8px;
+  border-radius:999px;
+  background:#eef5f9;
+  color:#315a75;
+  font-size:11px;
+  font-weight:700;
+}
+@media(max-width:900px){
+  #priorityWorksFilters{grid-template-columns:repeat(2,minmax(150px,1fr))!important}
+}
+@media(max-width:560px){
+  #priorityWorksFilters{grid-template-columns:1fr!important}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+}
+</style>
 </head>
 <body>
 
@@ -1333,53 +1499,146 @@ priorityGrid.innerHTML = priorityWorks.map((x,i)=>`
   </form>
 </section>
 
+
 <section id="priorityUpdateStatus" class="priority-module-panel">
   <div class="priority-status-card">
     <div class="priority-status-head">
       <div>
         <div class="priority-form-title">Update Work Status</div>
-        <div class="priority-form-subtitle">Enter Work Code. Existing work data will be fetched automatically.</div>
+        <div class="priority-form-subtitle">All previously uploaded Priority Works are shown below.</div>
       </div>
       <div class="priority-live-badge">LIVE DATA</div>
+      <div style="margin-top:8px;font-size:12px;color:#475467;">
+        <b>Calculation:</b> Wage + Material = Total VB-G RAM G Amount;
+        Total VB-G RAM G Amount + 16th Finance Commission = Total Scheme Amount.
+      </div>
     </div>
 
-    <div class="priority-section-title">Work Details</div>
-    <div class="priority-grid">
-      <div class="form-group"><label>Enter Work Code <span class="required">*</span></label><input id="pwsCode" type="text" placeholder="Enter existing Work Code"></div>
-      <div class="form-group"><label>Name of Block</label><select id="pwsBlock"><option value="">Select Block</option></select></div>
-      <div class="form-group"><label>Name of GP</label><select id="pwsGP"><option value="">Select GP</option></select></div>
-      <div class="form-group"><label>Priority Work</label><select id="pwsCategory">
-        <option value="">Select Priority Work</option>
-        <option>1 km Interlocking Paver Block Road</option><option>Women-led Rural Haat</option>
-        <option>School Boundary Wall</option><option>Crematorium + Waiting Shed</option>
-        <option>Individual Beneficiary Schemes (IBS)</option><option>Community Hall usable as Gym / Wellness Centre</option>
-      </select></div>
-      <div class="form-group"><label>Work Name</label><input id="pwsWorkName" type="text" readonly placeholder="Auto-fetched from Google Sheet"></div>
-      <div class="form-group"><label>Wage Amount from VB-G RAM G (₹)</label><input id="pwsWage" type="number" min="0" step="0.01" placeholder="Auto-fetched"></div>
-      <div class="form-group"><label>Material Amount from VB-G RAM G (₹)</label><input id="pwsMaterial" type="number" min="0" step="0.01" placeholder="Auto-fetched"></div>
-      <div class="form-group"><label>16th Finance Commission Amount (₹)</label><input id="pwsFinance16" type="number" min="0" step="0.01" placeholder="Auto-fetched"></div>
+
+    <div id="priorityWorksFilters" style="display:grid;grid-template-columns:repeat(5,minmax(150px,1fr));gap:10px;margin-top:14px;padding:12px;background:#f8fafc;border:1px solid #d9dee7;border-radius:10px;">
+      <div>
+        <label style="display:block;font-size:12px;font-weight:700;margin-bottom:5px;">Search Work Code / Name</label>
+        <input id="pwFilterSearch" type="search" placeholder="Search..." style="width:100%;box-sizing:border-box;padding:8px;border:1px solid #cbd8e4;border-radius:8px;">
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:700;margin-bottom:5px;">Block</label>
+        <select id="pwFilterBlock" style="width:100%;padding:8px;">
+          <option value="">All Blocks</option>
+        </select>
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:700;margin-bottom:5px;">GP</label>
+        <select id="pwFilterGP" style="width:100%;padding:8px;">
+          <option value="">All GPs</option>
+        </select>
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:700;margin-bottom:5px;">Priority Work Type</label>
+        <select id="pwFilterType" style="width:100%;padding:8px;">
+          <option value="">All Priority Work Types</option>
+        </select>
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:700;margin-bottom:5px;">Scheme Status</label>
+        <select id="pwFilterStatus" style="width:100%;padding:8px;">
+          <option value="">All Status</option>
+        </select>
+      </div>
+      <div style="display:flex;align-items:end;">
+        <button type="button" id="pwClearFilters" class="secondary-btn" style="width:100%;padding:9px;">Clear Filters</button>
+      </div>
     </div>
 
-    <div class="priority-section-title">Update Details</div>
-    <div class="priority-grid">
-      <div class="form-group"><label>Current Status <span class="required">*</span></label><select id="pwsStatus">
-        <option value="">Select status</option><option>Proposed</option><option>Field Verification Pending</option><option>Field Verified</option>
-        <option>Estimate Prepared</option><option>Estimate Approved</option><option>Administrative Approval Pending</option>
-        <option>Technical Sanction Pending</option><option>Work Order Issued</option><option>Work in Progress</option>
-        <option>Physically Complete</option><option>Completed</option><option>Not Feasible</option>
-      </select></div>
-      <div class="form-group"><label>Physical Progress (%)</label><input id="pwsProgress" type="number" min="0" max="100" step="0.01" placeholder="0–100"></div>
-      <div class="form-group"><label>Latitude</label><input id="pwsLat" type="text" placeholder="Enter latitude"></div>
-      <div class="form-group"><label>Longitude</label><input id="pwsLong" type="text" placeholder="Enter longitude"></div>
-      <div class="form-group priority-wide"><label>Remarks</label><textarea id="pwsRemarks" rows="2" placeholder="Enter remarks"></textarea></div>
+    <div id="pwFilterSummary" style="margin-top:8px;font-size:12px;color:#475467;"></div>
+
+
+    <div class="md-refresh-bar">
+      <div class="md-refresh-status" id="priorityDataRefreshStatus">Live Priority Works data</div>
+      <button type="button" class="md-refresh-btn" id="priorityRefreshBtn">↻ Refresh Data</button>
     </div>
 
-    <div class="priority-form-actions"><button type="button" id="pwsUpdateBtn" class="primary-btn">Update Status</button><button type="button" id="pwsClearBtn" class="secondary-btn">Clear</button></div>
-    <div id="pwsUpdateMessage" class="form-message" style="margin-top:12px;"></div>
+    <div style="overflow:auto;margin-top:14px;">
+      <table id="priorityWorksUpdateTable" style="width:100%;border-collapse:collapse;min-width:1250px;background:#fff;">
+        <thead>
+          <tr>
+            <th>Sl.</th>
+            <th>Work Code</th>
+            <th>Priority Work</th>
+            <th>Work Name</th>
+            <th>Block</th>
+            <th>GP</th>
+            <th>Wage Amount (₹)</th>
+            <th>Material Amount (₹)</th>
+            <th>Total VB-G RAM G Amount (₹)</th>
+            <th>16th Finance Commission (₹)</th>
+            <th>Total Scheme Amount (₹)</th>
+            <th>Status</th>
+            <th>Progress (%)</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="priorityWorksUpdateTbody">
+          <tr><td colspan="14" style="text-align:center;padding:18px;">Loading Priority Works...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="priorityInlineUpdate" style="display:none;margin-top:18px;border:1px solid #d9dee7;border-radius:10px;padding:16px;background:#f8fafc;">
+      <div style="font-weight:700;margin-bottom:12px;">Update Selected Work</div>
+      <div id="priorityInlineWorkTitle" style="margin-bottom:12px;"></div>
+
+      <div style="overflow:auto;">
+        <table style="width:100%;border-collapse:collapse;min-width:800px;background:#fff;">
+          <tbody>
+            <tr>
+              <td style="padding:9px;border:1px solid #d9dee7;font-weight:600;">Current Status</td>
+              <td style="padding:9px;border:1px solid #d9dee7;">
+                <select id="pwsStatus" style="width:100%;">
+                  <option value="">Select status</option>
+                  <option>Proposed</option><option>Field Verification Pending</option><option>Field Verified</option>
+                  <option>Estimate Prepared</option><option>Estimate Approved</option><option>Administrative Approval Pending</option>
+                  <option>Technical Sanction Pending</option><option>Work Order Issued</option><option>Work in Progress</option>
+                  <option>Physically Complete</option><option>Completed</option><option>Not Feasible</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:9px;border:1px solid #d9dee7;font-weight:600;">Physical Progress (%)</td>
+              <td style="padding:9px;border:1px solid #d9dee7;">
+                <input id="pwsProgress" type="number" min="0" max="100" step="0.01" style="width:100%;box-sizing:border-box;">
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:9px;border:1px solid #d9dee7;font-weight:600;">Latitude</td>
+              <td style="padding:9px;border:1px solid #d9dee7;">
+                <input id="pwsLat" type="text" style="width:100%;box-sizing:border-box;">
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:9px;border:1px solid #d9dee7;font-weight:600;">Longitude</td>
+              <td style="padding:9px;border:1px solid #d9dee7;">
+                <input id="pwsLong" type="text" style="width:100%;box-sizing:border-box;">
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:9px;border:1px solid #d9dee7;font-weight:600;">Remarks</td>
+              <td style="padding:9px;border:1px solid #d9dee7;">
+                <textarea id="pwsRemarks" rows="3" style="width:100%;box-sizing:border-box;"></textarea>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:12px;display:flex;gap:10px;">
+        <button type="button" id="pwsUpdateBtn" class="primary-btn">Save Update</button>
+        <button type="button" id="pwsClearBtn" class="secondary-btn">Cancel</button>
+      </div>
+      <div id="pwsUpdateMessage" class="form-message" style="margin-top:10px;"></div>
+    </div>
   </div>
 </section>
 
-</div></section>
 
 <script id="priority-submission-form-script">
 const PRIORITY_READ_URL="https://script.google.com/macros/s/AKfycbzAzM-VZ0hgQj0NpXBx-Xq-KtF0Ab4su955iZsQ1bntRfZOgsAeshJEGNU0exQhRzVxxg/exec";
@@ -3515,3 +3774,258 @@ function doPost(e) {
 }
 -->
 </body></html>
+<script id="priority-all-works-update-script">
+(function(){
+  const READ_URL = "https://script.google.com/macros/s/AKfycby6zcSMMRog0cfehhDjmZNKwvJPKNy4giitf1JKqzgP4RewLP9HLPSo3ho_sF63Q9LKyg/exec";
+  const SUBMIT_URL = READ_URL;
+
+  let allPriorityRows=[];
+  let selectedWorkCode="";
+
+  function esc(v){
+    return String(v==null?"":v).replace(/[&<>"']/g,s=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[s]));
+  }
+
+  function num(v){
+    const n=Number(String(v??"").replace(/,/g,"").replace(/₹/g,"").trim());
+    return Number.isFinite(n)?n:0;
+  }
+
+  function money(v){
+    if(v===""||v==null)return "";
+    return num(v).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+  }
+
+  function uniqueSorted(rows,index){
+    return [...new Set(rows.map(r=>String(r[index]??"").trim()).filter(Boolean))]
+      .sort((a,b)=>a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"}));
+  }
+
+  function fillFilter(id,values,placeholder){
+    const el=document.getElementById(id);
+    if(!el)return;
+    const current=el.value;
+    el.innerHTML='<option value="">'+esc(placeholder)+'</option>';
+    values.forEach(v=>{
+      const o=document.createElement("option");
+      o.value=v;
+      o.textContent=v;
+      el.appendChild(o);
+    });
+    if(values.includes(current))el.value=current;
+  }
+
+  function loadFilterOptions(rows){
+    fillFilter("pwFilterBlock",uniqueSorted(rows,3),"All Blocks");
+    fillFilter("pwFilterGP",uniqueSorted(rows,4),"All GPs");
+    fillFilter("pwFilterType",uniqueSorted(rows,1),"All Priority Work Types");
+    fillFilter("pwFilterStatus",uniqueSorted(rows,10),"All Status");
+  }
+
+  function filteredRows(){
+    const search=(document.getElementById("pwFilterSearch")?.value||"").trim().toLowerCase();
+    const block=document.getElementById("pwFilterBlock")?.value||"";
+    const gp=document.getElementById("pwFilterGP")?.value||"";
+    const type=document.getElementById("pwFilterType")?.value||"";
+    const status=document.getElementById("pwFilterStatus")?.value||"";
+
+    return allPriorityRows.filter(r=>{
+      const searchable=[
+        String(r[0]??""),String(r[1]??""),String(r[2]??""),
+        String(r[3]??""),String(r[4]??"")
+      ].join(" ").toLowerCase();
+
+      return (!search || searchable.includes(search)) &&
+             (!block || String(r[3]??"").trim()===block) &&
+             (!gp || String(r[4]??"").trim()===gp) &&
+             (!type || String(r[1]??"").trim()===type) &&
+             (!status || String(r[10]??"").trim()===status);
+    });
+  }
+
+  function renderTable(){
+    const tbody=document.getElementById("priorityWorksUpdateTbody");
+    if(!tbody)return;
+
+    const rows=filteredRows();
+
+    const summary=document.getElementById("pwFilterSummary");
+    if(summary){
+      summary.textContent="Showing "+rows.length+" of "+allPriorityRows.length+" Priority Works";
+    }
+
+    if(!rows.length){
+      tbody.innerHTML='<tr><td colspan="14" style="text-align:center;padding:18px;">No works match the selected filters.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML=rows.map((r,i)=>{
+      const code=String(r[0]||"").trim();
+      const status=String(r[10]||"").trim();
+      const progress=(status==="Completed"||status==="Physically Complete")
+        ? "100"
+        : String(r[11]??"").trim();
+
+      const vbgTotal=num(r[5])+num(r[6]);
+      const schemeTotal=vbgTotal+num(r[14]);
+
+      return `
+        <tr data-work-code="${esc(code)}">
+          <td>${i+1}</td>
+          <td><strong>${esc(code)}</strong></td>
+          <td>${esc(r[1])}</td>
+          <td>${esc(r[2])}</td>
+          <td>${esc(r[3])}</td>
+          <td>${esc(r[4])}</td>
+          <td style="text-align:right;">${money(r[5])}</td>
+          <td style="text-align:right;">${money(r[6])}</td>
+          <td style="text-align:right;font-weight:600;">${money(vbgTotal)}</td>
+          <td style="text-align:right;">${money(r[14])}</td>
+          <td style="text-align:right;font-weight:700;">${money(schemeTotal)}</td>
+          <td><span class="md-chip">${esc(status||"Not Updated")}</span></td>
+          <td style="text-align:center;font-weight:700;">${esc(progress)}${progress!==""?"%":""}</td>
+          <td style="white-space:nowrap;">
+            <button type="button" class="primary-btn priority-row-update-btn" data-code="${esc(code)}">Update</button>
+          </td>
+        </tr>
+      `;
+    }).join("");
+
+    tbody.querySelectorAll(".priority-row-update-btn").forEach(btn=>{
+      btn.addEventListener("click",()=>openInlineUpdate(btn.dataset.code));
+    });
+  }
+
+  function openInlineUpdate(code){
+    const r=allPriorityRows.find(x=>String(x[0]||"").trim()===String(code).trim());
+    if(!r)return;
+
+    selectedWorkCode=code;
+
+    const panel=document.getElementById("priorityInlineUpdate");
+    panel.style.display="block";
+
+    document.getElementById("priorityInlineWorkTitle").innerHTML =
+      "<b>Work Code:</b> "+esc(r[0])+
+      " &nbsp; | &nbsp; <b>Work:</b> "+esc(r[2])+
+      " &nbsp; | &nbsp; <b>Block:</b> "+esc(r[3])+
+      " &nbsp; | &nbsp; <b>GP:</b> "+esc(r[4]);
+
+    document.getElementById("pwsStatus").value=String(r[10]||"");
+    document.getElementById("pwsProgress").value=
+      (String(r[10]||"")==="Completed"||String(r[10]||"")==="Physically Complete")
+      ? "100" : String(r[11]??"");
+    document.getElementById("pwsLat").value=String(r[8]??"");
+    document.getElementById("pwsLong").value=String(r[9]??"");
+    document.getElementById("pwsRemarks").value=String(r[13]??"");
+    document.getElementById("pwsUpdateMessage").textContent="";
+
+    panel.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  async function saveInlineUpdate(){
+    if(!selectedWorkCode)return;
+
+    let status=document.getElementById("pwsStatus").value;
+    let progress=document.getElementById("pwsProgress").value;
+
+    if(status==="Completed"||status==="Physically Complete"){
+      progress="100";
+      document.getElementById("pwsProgress").value="100";
+    }
+
+    const payload=new URLSearchParams({
+      action:"update_status",
+      work_code:selectedWorkCode,
+      status:status,
+      progress:progress,
+      latitude:document.getElementById("pwsLat").value,
+      longitude:document.getElementById("pwsLong").value,
+      remarks:document.getElementById("pwsRemarks").value
+    });
+
+    const msg=document.getElementById("pwsUpdateMessage");
+    msg.textContent="Updating...";
+
+    try{
+      const res=await fetch(SUBMIT_URL,{method:"POST",body:payload});
+      const data=await res.json();
+
+      if(!data||data.ok!==true)throw new Error(data&&data.error?data.error:"Update failed");
+
+      msg.textContent="✓ Work status updated successfully.";
+      await loadPriorityWorks();
+
+      setTimeout(()=>{
+        document.getElementById("priorityInlineUpdate").style.display="none";
+        selectedWorkCode="";
+      },700);
+
+    }catch(err){
+      msg.textContent="✗ "+(err.message||"Update failed");
+    }
+  }
+
+  async function loadPriorityWorks(){
+    const tbody=document.getElementById("priorityWorksUpdateTbody");
+    if(!tbody)return;
+
+    tbody.innerHTML='<tr><td colspan="14" class="md-empty">Loading Priority Works...</td></tr>';
+    const refreshStatus=document.getElementById("priorityDataRefreshStatus");
+    if(refreshStatus)refreshStatus.textContent="Refreshing live Priority Works data…";
+
+    try{
+      const res=await fetch(READ_URL+"?action=get_priority_works&t="+Date.now(),{cache:"no-store"});
+      const data=await res.json();
+
+      if(!data||data.ok!==true||!Array.isArray(data.rows)){
+        throw new Error(data&&data.error?data.error:"Unable to read Priority Works");
+      }
+
+      allPriorityRows=data.rows.filter(r=>Array.isArray(r)&&String(r[0]||"").trim());
+
+      loadFilterOptions(allPriorityRows);
+      renderTable();
+      const refreshStatus=document.getElementById("priorityDataRefreshStatus");
+      if(refreshStatus)refreshStatus.textContent="Live data loaded • "+allPriorityRows.length+" works";
+
+    }catch(err){
+      console.error(err);
+      tbody.innerHTML=`<tr><td colspan="14" style="text-align:center;padding:18px;color:#b42318;">
+        Unable to load Priority Works: ${esc(err.message||err)}
+      </td></tr>`;
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded",()=>{
+    ["pwFilterSearch","pwFilterBlock","pwFilterGP","pwFilterType","pwFilterStatus"].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el)el.addEventListener("change",renderTable);
+    });
+
+    const clear=document.getElementById("pwClearFilters");
+    if(clear){
+      clear.addEventListener("click",()=>{
+        ["pwFilterSearch","pwFilterBlock","pwFilterGP","pwFilterType","pwFilterStatus"].forEach(id=>{
+          const el=document.getElementById(id);
+          if(el)el.value="";
+        });
+        renderTable();
+      });
+    }
+
+    const refresh=document.getElementById("priorityRefreshBtn");
+    if(refresh)refresh.addEventListener("click",loadPriorityWorks);
+
+    const btn=document.getElementById("pwsUpdateBtn");
+    const cancel=document.getElementById("pwsClearBtn");
+    if(btn)btn.addEventListener("click",saveInlineUpdate);
+    if(cancel)cancel.addEventListener("click",()=>{
+      selectedWorkCode="";
+      document.getElementById("priorityInlineUpdate").style.display="none";
+    });
+
+    loadPriorityWorks();
+  });
+})();
+</script>
