@@ -608,6 +608,11 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
   *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
 }
 </style>
+<style id="priority-server-table-style">
+#priorityWorksUpdateTable th,#priorityWorksUpdateTable td{vertical-align:middle}
+#priorityWorksUpdateTable tbody tr:hover{background:#f7fbff}
+.priority-row-update-btn{cursor:pointer;white-space:nowrap}
+</style>
 </head>
 <body>
 
@@ -826,8 +831,8 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 <div class="panel gp-coverage">
  <div class="gp-panel-head"><div><h3>Coverage Snapshot</h3><span class="muted">Based on current filtered records</span></div><span id="contactsAttention" class="gp-attention">—</span></div>
  <div class="coverage-grid">
-  <div><div class="coverage-label"><span>GRS functional coverage</span><b id="contactsGRSPct">—</b></div><div class="bar"><span id="contactsGRSBar"></span></div></div>
-  <div><div class="coverage-label"><span>Engineer functional coverage</span><b id="contactsEngineerPct">—</b></div><div class="bar"><span id="contactsEngineerBar"></span></div></div>
+  <div><div class="coverage-label"><span>GRS functional coverage</span><b id="contactsGRSPct_dup">—</b></div><div class="bar"><span id="contactsGRSBar"></span></div></div>
+  <div><div class="coverage-label"><span>Engineer functional coverage</span><b id="contactsEngineerPct_dup">—</b></div><div class="bar"><span id="contactsEngineerBar"></span></div></div>
  </div>
 </div>
 
@@ -1578,7 +1583,7 @@ priorityGrid.innerHTML = priorityWorks.map((x,i)=>`
           </tr>
         </thead>
         <tbody id="priorityWorksUpdateTbody">
-          <tr><td colspan="14" style="text-align:center;padding:18px;">Loading Priority Works...</td></tr>
+          <tr><td colspan="14" style="text-align:center;padding:18px;">Loading live Priority Works data…</td></tr>
         </tbody>
       </table>
     </div>
@@ -1641,8 +1646,8 @@ priorityGrid.innerHTML = priorityWorks.map((x,i)=>`
 
 
 <script id="priority-submission-form-script">
-const PRIORITY_READ_URL="https://script.google.com/macros/s/AKfycby6zcSMMRog0cfehhDjmZNKwvJPKNy4giitf1JKqzgP4RewLP9HLPSo3ho_sF63Q9LKyg/exec";
-const PRIORITY_SUBMIT_URL="https://script.google.com/macros/s/AKfycby6zcSMMRog0cfehhDjmZNKwvJPKNy4giitf1JKqzgP4RewLP9HLPSo3ho_sF63Q9LKyg/exec";
+const PRIORITY_READ_URL="";
+const PRIORITY_SUBMIT_URL="";
 window.PRIORITY_SUBMIT_URL = PRIORITY_SUBMIT_URL; // Paste your Google Apps Script Web App /exec URL here.
 
 
@@ -2986,709 +2991,6 @@ function refreshDashboardFromBottom(){
 })();
 </script>
 
-<script id="priority-update-autofetch">
-(function(){
-  const clean=v=>String(v??"").replace(/\s+/g," ").trim();
-
-  function norm(v){
-    return clean(v).toLowerCase().replace(/[^a-z0-9]+/g," ");
-  }
-
-  function colIndex(cols,names){
-    const a=(cols||[]).map(norm);
-    for(const n of names){
-      const target=norm(n);
-      const i=a.indexOf(target);
-      if(i>=0)return i;
-    }
-    for(let i=0;i<a.length;i++){
-      const h=a[i];
-      if(names.some(n=>{
-        const t=norm(n);
-        return h===t || h.includes(t) || t.includes(h);
-      })) return i;
-    }
-    return -1;
-  }
-
-  function findByCodeInNormalized(d,code){
-    if(!d||!Array.isArray(d.cols)||!Array.isArray(d.rows))return null;
-    const ci=colIndex(d.cols,["Work Code","WorkCode","Code","Scheme Code","Scheme ID"]);
-    if(ci<0)return null;
-
-    const idx={
-      category:colIndex(d.cols,["Priority Work Category","Work Category","Category"]),
-      name:colIndex(d.cols,["Work Name","Name of Work","Scheme Name","Scheme"]),
-      block:colIndex(d.cols,["Block","Block Name","Development Block"]),
-      gp:colIndex(d.cols,["GP","GP Name","Gram Panchayat","Gram Panchayat Name"]),
-      wage:colIndex(d.cols,[
-        "Wage Amount",
-        "Wage Amount from VB-G RAM G",
-        "Wage Amount from VB-G RAM G (₹)",
-        "Wage Amount from VB-G RAM G (Rs.)",
-        "VB-G RAM G Wage Amount",
-        "VB-G RAM G Wage",
-        "VBG Wage",
-        "VBG-RAM-G Wage Amount",
-        "Wage"
-      ]) >= 0
-        ? colIndex(d.cols,[
-            "Wage Amount",
-            "Wage Amount from VB-G RAM G",
-            "Wage Amount from VB-G RAM G (₹)",
-            "Wage Amount from VB-G RAM G (Rs.)",
-            "VB-G RAM G Wage Amount",
-            "VB-G RAM G Wage",
-            "VBG Wage",
-            "VBG-RAM-G Wage Amount",
-            "Wage"
-          ])
-        : 5,
-      material:colIndex(d.cols,[
-        "Material Amount",
-        "Material Amount from VB-G RAM G",
-        "Material Amount from VB-G RAM G (₹)",
-        "Material Amount from VB-G RAM G (Rs.)",
-        "VB-G RAM G Material Amount",
-        "VB-G RAM G Material",
-        "VBG Material",
-        "VBG-RAM-G Material Amount",
-        "Material"
-      ]) >= 0
-        ? colIndex(d.cols,[
-            "Material Amount",
-            "Material Amount from VB-G RAM G",
-            "Material Amount from VB-G RAM G (₹)",
-            "Material Amount from VB-G RAM G (Rs.)",
-            "VB-G RAM G Material Amount",
-            "VB-G RAM G Material",
-            "VBG Material",
-            "VBG-RAM-G Material Amount",
-            "Material"
-          ])
-        : 6,
-      finance_16th:colIndex(d.cols,["16th Finance Commission Amount","16th Finance Commission","16th FC Amount","Finance 16th","16th FC","16th Finance","16th Finance Commission Amount (₹)"]),
-      lat:colIndex(d.cols,["Latitude","Lat","Latitude Value","Latitude (GPS)","GPS Latitude"]),
-      long:colIndex(d.cols,["Longitude","Long","Lng","Longitude Value","Longitude (GPS)","GPS Longitude"]),
-      status:colIndex(d.cols,["Current Status","Status"]),
-      progress:colIndex(d.cols,["Progress %","Physical Progress %","Progress"]),
-      date:colIndex(d.cols,["Last Updated","Last Updated Date","Updated Date","Update Date","Status / Progress Update Date"]),
-      remarks:colIndex(d.cols,["Remarks","Remark"])
-    };
-
-    const row=d.rows.find(r=>clean(r[ci]).toLowerCase()===clean(code).toLowerCase());
-    if(!row)return null;
-    const get=k=>idx[k]>=0?clean(row[idx[k]]):"";
-    return {
-      code:clean(row[ci]), category:get("category"), name:get("name"), block:get("block"),
-      gp:get("gp"), wage:get("wage"), material:get("material"),
-      finance_16th:get("finance_16th"),
-      lat:get("lat"), long:get("long"), status:get("status"),
-      progress:get("progress"), date:get("date"), remarks:get("remarks")
-    };
-  }
-
-  function savedWork(code){
-    try{
-      const rows=JSON.parse(localStorage.getItem("sivasagar_priority_work_submissions")||"[]");
-      const r=rows.find(x=>clean(x.work_code||x.code).toLowerCase()===clean(code).toLowerCase());
-      if(!r)return null;
-      return {
-        code:clean(r.work_code||r.code),
-        category:clean(r.category||r.priority_work_category),
-        name:clean(r.scheme||r.work_name||r.workName),
-        block:clean(r.block), gp:clean(r.gp),
-
-        // Support every name used by the submission form.
-        wage:clean(r.wage||r.wage_amount||r.vbg_wage||r["Wage Amount"]||r["Wage Amount from VB-G RAM G"]),
-        material:clean(r.material||r.material_amount||r.vbg_material||r["Material Amount"]||r["Material Amount from VB-G RAM G"]),
-        finance_16th:clean(r.finance_16th||r.finance16||r["16th Finance Commission Amount"]),
-
-        lat:clean(r.latitude||r.lat),
-        long:clean(r.longitude||r.long||r.lng),
-        status:clean(r.status||r.current_status),
-        progress:clean(r.progress||r.progress_pct),
-        date:clean(r.updated_date||r.last_updated||r.date),
-        remarks:clean(r.remarks||r.remark)
-      };
-    }catch(e){return null;}
-  }
-
-  async function fetchPriorityWorksFixedColumns(){
-    const url=(typeof PRIORITY_READ_URL!=="undefined"?PRIORITY_READ_URL:"");
-    if(!url)return null;
-
-    const res=await fetch(
-      url+"?action=get_priority_works&t="+Date.now(),
-      {cache:"no-store"}
-    );
-    if(!res.ok)throw new Error("Priority Works API HTTP "+res.status);
-
-    const data=await res.json();
-    if(!data || data.ok!==true || !Array.isArray(data.rows)){
-      throw new Error(data && data.error ? data.error : "Invalid Priority Works data");
-    }
-
-    return data;
-  }
-
-  function fixedPriorityRecord(data,code){
-    if(!data || !Array.isArray(data.rows))return null;
-
-    const target=clean(code).toLowerCase();
-    const row=data.rows.find(r=>{
-      return Array.isArray(r) &&
-        clean(r[0]).toLowerCase()===target;
-    });
-    if(!row)return null;
-
-    // IMPORTANT: Priority Works sheet layout:
-    // A Work Code, B Category, C Work Name, D Block, E GP,
-    // F Wage Amount, G Material Amount, H Total Amount,
-    // I Latitude, J Longitude, K Status, L Progress,
-    // O 16th Finance Commission Amount.
-    return {
-      code:clean(row[0]),
-      category:clean(row[1]),
-      name:clean(row[2]),
-      block:clean(row[3]),
-      gp:clean(row[4]),
-      wage:clean(row[5]),
-      material:clean(row[6]),
-      total:clean(row[7]),
-      lat:clean(row[8]),
-      long:clean(row[9]),
-      status:clean(row[10]),
-      progress:clean(row[11]),
-      date:clean(row[12]),
-      remarks:clean(row[13]),
-      finance_16th:clean(row[14])
-    };
-  }
-
-  async function fetchPriorityWorkByCode(code){
-    const url=PRIORITY_READ_URL;
-    if(!url || !code) return null;
-
-    const res=await fetch(
-      url+"?action=get_priority_work&work_code="+
-      encodeURIComponent(code)+"&t="+Date.now(),
-      {cache:"no-store"}
-    );
-
-    if(!res.ok) throw new Error("HTTP "+res.status);
-
-    const data=await res.json();
-    if(!data || data.ok!==true) {
-      throw new Error(data && data.error ? data.error : "Invalid API response");
-    }
-
-    return data.record || null;
-  }
-
-  function fetchPriorityWorkJSONP(code){
-    return new Promise((resolve,reject)=>{
-      const cb="pwcb_"+Date.now()+"_"+Math.floor(Math.random()*100000);
-      const script=document.createElement("script");
-      const timer=setTimeout(()=>{
-        cleanup();
-        reject(new Error("Priority Works JSONP timeout"));
-      },12000);
-
-      function cleanup(){
-        clearTimeout(timer);
-        try{delete window[cb];}catch(e){window[cb]=undefined;}
-        if(script.parentNode)script.parentNode.removeChild(script);
-      }
-
-      window[cb]=function(data){
-        cleanup();
-        if(data && data.ok && data.record) resolve(data.record);
-        else reject(new Error(data && data.error ? data.error : "Work Code not found"));
-      };
-
-      script.onerror=function(){
-        cleanup();
-        reject(new Error("Could not connect to Priority Works Apps Script"));
-      };
-
-      script.src=PRIORITY_READ_URL+
-        "?action=get_priority_work_jsonp&work_code="+
-        encodeURIComponent(code)+"&callback="+
-        encodeURIComponent(cb)+"&t="+Date.now();
-
-      document.head.appendChild(script);
-    });
-  }
-
-  async function liveFind(code){
-    // PRIMARY: JSONP Apps Script read. No CORS dependency.
-    try{
-      const r=await fetchPriorityWorkJSONP(code);
-      return {
-        code:clean(r.code),
-        category:clean(r.category),
-        name:clean(r.name),
-        block:clean(r.block),
-        gp:clean(r.gp),
-        wage:clean(r.wage),
-        material:clean(r.material),
-        total:clean(r.total),
-        finance_16th:clean(r.finance_16th),
-        lat:clean(r.lat),
-        long:clean(r.long),
-        status:clean(r.status),
-        progress:clean(r.progress),
-        remarks:clean(r.remarks)
-      };
-    }catch(e){
-      console.warn("Priority Works JSONP failed:",e);
-    }
-
-    // SECONDARY: existing direct Google Sheet / Apps Script methods.
-    try{
-      const d=await fetchSheet("Priority Works");
-      if(d && Array.isArray(d.rows)){
-        const ci=colIndex(d.cols,["Work Code","WorkCode","Code","Scheme Code","Scheme ID"]);
-        if(ci>=0){
-          const row=d.rows.find(r=>clean(r[ci]).toLowerCase()===clean(code).toLowerCase());
-          if(row){
-            return {
-              code:clean(row[0]), category:clean(row[1]), name:clean(row[2]),
-              block:clean(row[3]), gp:clean(row[4]),
-              wage:clean(row[5]), material:clean(row[6]), total:clean(row[7]),
-              lat:clean(row[8]), long:clean(row[9]), status:clean(row[10]),
-              progress:clean(row[11]), remarks:clean(row[13]),
-              finance_16th:clean(row[14])
-            };
-          }
-        }
-      }
-    }catch(e){}
-
-    return savedWork(code);
-  }
-
-  function setVal(id,value){
-    const el=document.getElementById(id);
-    if(!el || value===undefined || value===null)return;
-    if(el.tagName==="SELECT"){
-      const wanted=String(value);
-      const exists=[...el.options].some(o=>String(o.value).toLowerCase()===wanted.toLowerCase());
-      if(!exists){
-        const o=document.createElement("option");
-        o.value=wanted;
-        o.textContent=wanted;
-        el.appendChild(o);
-      }
-      el.value=wanted;
-    }else{
-      el.value=value;
-    }
-  }
-
-  async function autoFetchUpdate(){
-    const codeEl=document.getElementById("pwsCode");
-    if(!codeEl)return;
-    const code=clean(codeEl.value);
-    if(!code)return;
-
-    const nameEl=document.getElementById("pwsWorkName");
-    if(nameEl)nameEl.placeholder="Fetching all data…";
-
-    const r=await liveFind(code);
-
-    if(!r){
-      if(nameEl){
-        nameEl.value="";
-        nameEl.placeholder="Work Code not found — check Google Sheet";
-      }
-      return;
-    }
-
-    setVal("pwsWorkName",r.name);
-    setVal("pwsBlock",r.block);
-    setVal("pwsGP",r.gp);
-    setVal("pwsCategory",r.category);
-    setVal("pwsWage",r.wage); setVal("pwsMaterial",r.material); setVal("pwsFinance16",r.finance_16th);
-    setVal("pwsStatus",r.status);
-    setVal("pwsProgress",r.progress);
-
-    // Keep amount fields blank only when the Google Sheet itself has no value.
-    // This prevents a stale localStorage value from being mistaken for live data.
-    if(nameEl && !r.wage && !r.material && !r.finance_16th){
-      nameEl.placeholder="Work found, but amount columns are blank in Google Sheet";
-    }
-
-    if(r.lat!==undefined && r.lat!==null && String(r.lat)!==""){
-      setVal("pwsLat",String(r.lat));
-    }
-    if(r.long!==undefined && r.long!==null && String(r.long)!==""){
-      setVal("pwsLong",String(r.long));
-    }
-
-    setVal("pwsRemarks",r.remarks);
-    if(nameEl)nameEl.placeholder="Auto-fetched from Google Sheet";
-  }
-
-  async function savePriorityStatusUpdate(){
-    const code=clean(document.getElementById("pwsCode")?.value);
-    if(!code){
-      alert("Please enter a Work Code.");
-      return;
-    }
-
-    const name=clean(document.getElementById("pwsWorkName")?.value);
-    const block=clean(document.getElementById("pwsBlock")?.value);
-    const gp=clean(document.getElementById("pwsGP")?.value);
-    const status=clean(document.getElementById("pwsStatus")?.value);
-    const progress=clean(document.getElementById("pwsProgress")?.value);
-    const lat=clean(document.getElementById("pwsLat")?.value);
-    const lon=clean(document.getElementById("pwsLong")?.value);
-const remarks=clean(document.getElementById("pwsRemarks")?.value);
-
-    if(!name){
-      alert("Work Name is required.");
-      return;
-    }
-    if(!status){
-      alert("Please select Current Status.");
-      return;
-    }
-    if(progress!=="" && (Number(progress)<0 || Number(progress)>100)){
-      alert("Physical Progress must be between 0 and 100.");
-      return;
-    }
-
-    const record={
-      timestamp:new Date().toISOString(),
-      work_code:code,
-      scheme:name,
-      work_name:name,
-      block:block,
-      gp:gp,
-      status:status,
-      progress:progress===""?"":Number(progress),
-      latitude:lat,
-      longitude:lon,
-      remarks:remarks
-    };
-
-    // Update the browser copy immediately so the dashboard works even when
-    // the Google Apps Script URL has not yet been configured.
-    const key="sivasagar_priority_work_submissions";
-    let rows=[];
-    try{
-      rows=JSON.parse(localStorage.getItem(key)||"[]");
-      if(!Array.isArray(rows))rows=[];
-    }catch(e){rows=[];}
-
-    const idx=rows.findIndex(r=>clean(r.work_code||r.code).toLowerCase()===code.toLowerCase());
-
-    if(idx>=0){
-      rows[idx]={...rows[idx],...record};
-    }else{
-      rows.push(record);
-    }
-    localStorage.setItem(key,JSON.stringify(rows));
-
-    // If a Google Apps Script Web App endpoint is configured, also send the
-    // update to the live Google Sheet.
-    if(typeof PRIORITY_SUBMIT_URL!=="undefined" && PRIORITY_SUBMIT_URL){
-      try{
-        const body=new URLSearchParams();
-        body.append("action","update_status");
-        Object.entries(record).forEach(([k,v])=>body.append(k,String(v??"")));
-        await fetch(PRIORITY_SUBMIT_URL,{method:"POST",mode:"no-cors",body});
-      }catch(e){
-        alert("Status saved locally, but the Google Sheet update could not be sent. Please check the Apps Script connection.");
-        return;
-      }
-    }
-
-    alert(idx>=0 ? "✓ Work status updated successfully." : "✓ Work record saved successfully.");
-  }
-
-  function init(){
-    const code=document.getElementById("pwsCode");
-    if(!code)return;
-
-    let timer;
-    code.addEventListener("input",()=>{
-      clearTimeout(timer);
-      if(clean(code.value).length<2)return;
-      timer=setTimeout(autoFetchUpdate,350);
-    });
-    code.addEventListener("change",autoFetchUpdate);
-    code.addEventListener("blur",autoFetchUpdate);
-
-    const btn=document.getElementById("pwsUpdateBtn");
-    if(btn){
-      btn.addEventListener("click",async()=>{
-        await savePriorityStatusUpdate();
-      });
-    }
-  }
-
-  if(document.readyState==="loading")
-    document.addEventListener("DOMContentLoaded",init);
-  else
-    init();
-})();
-</script>
-
-<script id="priority-block-gp-fixed">
-(function(){
-  const clean=v=>String(v??"").replace(/\s+/g," ").trim();
-  const norm=v=>clean(v).toLowerCase().replace(/[^a-z0-9]+/g," ");
-
-  function col(cols,names){
-    const a=(cols||[]).map(norm);
-    for(const n of names){
-      const i=a.indexOf(norm(n));
-      if(i>=0)return i;
-    }
-    return -1;
-  }
-
-  function rowsFrom(d){
-    if(!d)return [];
-    if(Array.isArray(d.cols)&&Array.isArray(d.rows)){
-      const bi=col(d.cols,["Block","Block Name","Development Block"]);
-      const gi=col(d.cols,["GP","GP Name","Gram Panchayat","Gram Panchayat Name"]);
-      if(bi<0||gi<0)return [];
-      return d.rows.map(r=>[clean(r?.[bi]),clean(r?.[gi])]).filter(x=>x[0]&&x[1]);
-    }
-    if(d.table){
-      const cols=(d.table.cols||[]).map(x=>x.label||"");
-      const bi=col(cols,["Block","Block Name","Development Block"]);
-      const gi=col(cols,["GP","GP Name","Gram Panchayat","Gram Panchayat Name"]);
-      if(bi<0||gi<0)return [];
-      return (d.table.rows||[]).map(r=>{
-        const c=r.c||[];
-        return [clean(c[bi]?.f??c[bi]?.v??""),clean(c[gi]?.f??c[gi]?.v??"")];
-      }).filter(x=>x[0]&&x[1]);
-    }
-    return [];
-  }
-
-  async function getEkycPairs(){
-    const out=[];
-    const add=d=>rowsFrom(d).forEach(x=>{
-      if(!out.some(y=>y[0].toLowerCase()===x[0].toLowerCase()&&y[1].toLowerCase()===x[1].toLowerCase()))out.push(x);
-    });
-
-    const live=window.liveSheetData||{};
-    ["eKYC & ABPS","e-KYC & ABPS","eKYC","e-KYC"].forEach(k=>add(live[k]));
-
-    if(typeof fetchSheet==="function"){
-      for(const k of ["eKYC & ABPS","e-KYC & ABPS","eKYC","e-KYC"]){
-        try{ add(await fetchSheet(k)); }catch(e){}
-        if(out.length)break;
-      }
-    }
-    return out;
-  }
-
-  function fill(el,values,placeholder){
-    if(!el)return;
-    const previous=clean(el.value);
-    const list=[...new Set((values||[]).map(clean).filter(Boolean))];
-    // Preserve an already auto-fetched Update Status value while the live
-    // e-KYC dropdown finishes loading.
-    if(el.id==="pwsGP" && previous && !list.some(v=>v.toLowerCase()===previous.toLowerCase())){
-      list.push(previous);
-    }
-    el.innerHTML="";
-    const first=document.createElement("option");
-    first.value=""; first.textContent=placeholder; el.appendChild(first);
-    list.sort((a,b)=>a.localeCompare(b)).forEach(v=>{
-      const o=document.createElement("option");
-      o.value=v; o.textContent=v; el.appendChild(o);
-    });
-    if(previous){
-      const match=[...el.options].find(o=>o.value.toLowerCase()===previous.toLowerCase());
-      if(match)el.value=match.value;
-    }
-  }
-
-  function setupBlockGp(blockId,gpId){
-    const b=document.getElementById(blockId),g=document.getElementById(gpId);
-    if(!b||!g)return;
-    g.disabled=false;
-
-    getEkycPairs().then(pairs=>{
-      const blocks=[...new Set(pairs.map(x=>x[0]))].sort((a,b)=>a.localeCompare(b));
-      fill(b,blocks,"Select Block");
-      fill(g,[],"Select GP");
-      g.disabled=false;
-
-      b.onchange=()=>{
-        const key=clean(b.value).toLowerCase();
-        const gps=[...new Set(pairs.filter(x=>x[0].toLowerCase()===key).map(x=>x[1]))].sort((a,b)=>a.localeCompare(b));
-        fill(g,gps,"Select GP");
-        g.disabled=false;
-      };
-    });
-  }
-
-  function init(){
-    setupBlockGp("pwfBlock","pwfGP");
-    setupBlockGp("pwsBlock","pwsGP");
-  }
-
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);
-  else init();
-})();
-</script>
-
-<script id="priority-update-gp-reconcile">
-(function(){
-  const clean=v=>String(v??"").replace(/\s+/g," ").trim();
-
-  async function reconcile(){
-    const block=document.getElementById("pwsBlock");
-    const gp=document.getElementById("pwsGP");
-    const code=document.getElementById("pwsCode");
-    if(!block||!gp||!code)return;
-
-    // Give the existing live lookup a chance to populate the record first.
-    await new Promise(r=>setTimeout(r,120));
-    const wanted=clean(gp.value);
-    if(wanted){
-      const exists=[...gp.options].some(o=>clean(o.value).toLowerCase()===wanted.toLowerCase());
-      if(!exists){
-        const o=document.createElement("option");
-        o.value=wanted;o.textContent=wanted;gp.appendChild(o);
-      }
-      gp.value=wanted;
-    }
-  }
-
-  function init(){
-    const code=document.getElementById("pwsCode");
-    if(code){
-      code.addEventListener("input",()=>setTimeout(reconcile,500));
-      code.addEventListener("change",()=>setTimeout(reconcile,300));
-      code.addEventListener("blur",()=>setTimeout(reconcile,300));
-    }
-    const block=document.getElementById("pwsBlock");
-    if(block)block.addEventListener("change",()=>setTimeout(reconcile,300));
-  }
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
-})();
-</script>
-
-
-
-<script id="priority-update-robust-handler">
-(function(){
-  function clean(v){return String(v??"").replace(/\s+/g," ").trim();}
-  function el(id){return document.getElementById(id);}
-  function message(text,type){
-    const m=el("pwsUpdateMessage");
-    if(m){m.textContent=text;m.className="form-message "+(type||"ok");}
-    else alert(text);
-  }
-async function update(){
-    const code=clean(el("pwsCode")?.value);
-    const name=clean(el("pwsWorkName")?.value);
-    const block=clean(el("pwsBlock")?.value);
-    const gp=clean(el("pwsGP")?.value);
-    const category=clean(el("pwsCategory")?.value);
-    const wage=clean(el("pwsWage")?.value);
-    const material=clean(el("pwsMaterial")?.value);
-    const finance16=clean(el("pwsFinance16")?.value);
-    const status=clean(el("pwsStatus")?.value);
-    const progressEl=el("pwsProgress");
-    let progress=clean(progressEl?.value);
-
-    // A completed work is automatically 100% physically complete.
-    if(status.toLowerCase()==="completed" || status.toLowerCase()==="physically complete"){
-      progress="100";
-      if(progressEl) progressEl.value="100";
-    }
-    const lat=clean(el("pwsLat")?.value);
-    const lon=clean(el("pwsLong")?.value);
-const remarks=clean(el("pwsRemarks")?.value);
-
-    if(!code){message("Please enter Work Code.","err");return;}
-    if(!name){message("Work Name is not available for this Work Code.","err");return;}
-    if(!status){message("Please select Current Status.","err");return;}
-    if(progress!=="" && (!Number.isFinite(Number(progress))||Number(progress)<0||Number(progress)>100)){
-      message("Progress % must be between 0 and 100.","err");return;
-    }
-
-    const endpoint=String(window.PRIORITY_SUBMIT_URL||"").trim();
-    if(!endpoint){
-      message("Google Sheet connection is not configured. Add your deployed Apps Script Web App /exec URL to PRIORITY_SUBMIT_URL.","err");
-      return;
-    }
-
-    const record={
-      timestamp:new Date().toISOString(),
-      work_code:code,
-      code:code,
-      scheme:name,
-      work_name:name,
-      category:category,
-      block:block,
-      gp:gp,
-      wage:wage,
-      vbg_wage:wage,
-      material:material,
-      vbg_material:material,
-      finance_16th:finance16 === "" ? "0" : finance16,
-       status:status,
-      current_status:status,
-      progress:progress===""?"":Number(progress),
-      progress_pct:progress===""?"":Number(progress),
-      latitude:lat,
-      longitude:lon,
-      remarks:remarks
-    };
-
-    const body=new URLSearchParams();
-    body.append("action","update_status");
-    Object.entries(record).forEach(([k,v])=>body.append(k,String(v??"")));
-
-    try{
-      message("Updating Google Sheet…","ok");
-      await fetch(endpoint,{method:"POST",mode:"no-cors",body});
-      message("✓ Work status updated in the Priority Works Google Sheet.","ok");
-    }catch(e){
-      message("✕ Google Sheet update failed. Check the Apps Script /exec URL and deployment access.","err");
-    }
-  }
-
-  function init(){
-    const b=el("pwsUpdateBtn");
-    if(!b)return;
-    const fresh=b.cloneNode(true);
-    b.parentNode.replaceChild(fresh,b);
-    fresh.addEventListener("click",function(ev){
-      ev.preventDefault();
-      ev.stopImmediatePropagation();
-      update();
-    });
-const statusEl=el("pwsStatus");
-    const progressEl=el("pwsProgress");
-    if(statusEl && progressEl){
-      statusEl.addEventListener("change",function(){
-        const s=clean(statusEl.value).toLowerCase();
-        if(s==="completed" || s==="physically complete"){
-          progressEl.value="100";
-        }
-      });
-    }
-  }
-
-  window.priorityRobustUpdateStatus=update;
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);
-  else init();
-})();
-</script>
-
 <!--
 GOOGLE APPS SCRIPT FOR THE PRIORITY WORKS SHEET
 
@@ -3773,157 +3075,212 @@ function doPost(e) {
   return ContentService.createTextOutput('ERROR: Unknown action');
 }
 -->
-</body></html>
-<script id="priority-all-works-update-script">
+<script id="priority-final-authoritative-loader">
 (function(){
-  const READ_URL="https://script.google.com/macros/s/AKfycby6zcSMMRog0cfehhDjmZNKwvJPKNy4giitf1JKqzgP4RewLP9HLPSo3ho_sF63Q9LKyg/exec";
-  const SUBMIT_URL=READ_URL;
-  let allPriorityRows=[];
-  let selectedWorkCode="";
+  "use strict";
 
-  const $=id=>document.getElementById(id);
-  function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,s=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[s]));}
-  function num(v){const n=Number(String(v??"").replace(/,/g,"").replace(/₹/g,"").trim());return Number.isFinite(n)?n:0;}
-  function money(v){if(v===""||v==null)return "";return num(v).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});}
-  function uniqueSorted(rows,i){return [...new Set(rows.map(r=>String(r[i]??"").trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"}));}
-  function fillFilter(id,values,placeholder){
-    const el=$(id); if(!el)return;
-    const current=el.value;
-    el.innerHTML='<option value="">'+esc(placeholder)+'</option>';
-    values.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;el.appendChild(o);});
-    if(values.includes(current))el.value=current;
-  }
+  var PW = { rows: [], selectedCode: "" };
 
-  function loadFilterOptions(rows){
-    fillFilter("pwFilterBlock",uniqueSorted(rows,3),"All Blocks");
-    fillFilter("pwFilterGP",uniqueSorted(rows,4),"All GPs");
-    fillFilter("pwFilterType",uniqueSorted(rows,1),"All Priority Work Types");
-    fillFilter("pwFilterStatus",uniqueSorted(rows,10),"All Status");
-  }
-
-  function filteredRows(){
-    const search=($("pwFilterSearch")?.value||"").trim().toLowerCase();
-    const block=$("pwFilterBlock")?.value||"";
-    const gp=$("pwFilterGP")?.value||"";
-    const type=$("pwFilterType")?.value||"";
-    const status=$("pwFilterStatus")?.value||"";
-    return allPriorityRows.filter(r=>{
-      const searchable=[r[0],r[1],r[2],r[3],r[4]].join(" ").toLowerCase();
-      return (!search||searchable.includes(search)) &&
-             (!block||String(r[3]??"").trim()===block) &&
-             (!gp||String(r[4]??"").trim()===gp) &&
-             (!type||String(r[1]??"").trim()===type) &&
-             (!status||String(r[10]??"").trim()===status);
+  function el(id){ return document.getElementById(id); }
+  function esc(v){
+    return String(v == null ? "" : v).replace(/[&<>"']/g,function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
     });
   }
-
-  function renderTable(){
-    const tbody=$("priorityWorksUpdateTbody"); if(!tbody)return;
-    const rows=filteredRows();
-    const summary=$("pwFilterSummary");
-    if(summary)summary.textContent="Showing "+rows.length+" of "+allPriorityRows.length+" Priority Works";
+  function num(v){
+    var n = Number(String(v == null ? "" : v).replace(/,/g,"").replace(/₹/g,"").trim());
+    return Number.isFinite(n) ? n : 0;
+  }
+  function money(v){
+    return num(v).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+  }
+  function uniq(rows, idx){
+    var set = new Set();
+    rows.forEach(function(r){
+      var v=String(r[idx] == null ? "" : r[idx]).trim();
+      if(v) set.add(v);
+    });
+    return Array.from(set).sort(function(a,b){return a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"});});
+  }
+  function fill(id, values, label){
+    var s=el(id);
+    if(!s) return;
+    var old=s.value;
+    s.innerHTML="";
+    var o=document.createElement("option");
+    o.value=""; o.textContent=label; s.appendChild(o);
+    values.forEach(function(v){
+      var x=document.createElement("option");
+      x.value=v; x.textContent=v; s.appendChild(x);
+    });
+    var found=Array.from(s.options).find(function(x){return x.value===old;});
+    if(found) s.value=old;
+  }
+  function filtered(){
+    var q=(el("pwFilterSearch")?.value || "").trim().toLowerCase();
+    var b=el("pwFilterBlock")?.value || "";
+    var g=el("pwFilterGP")?.value || "";
+    var t=el("pwFilterType")?.value || "";
+    var st=el("pwFilterStatus")?.value || "";
+    return PW.rows.filter(function(r){
+      var text=[r[0],r[1],r[2],r[3],r[4]].join(" ").toLowerCase();
+      return (!q || text.indexOf(q)>=0) &&
+             (!b || String(r[3]||"").trim()===b) &&
+             (!g || String(r[4]||"").trim()===g) &&
+             (!t || String(r[1]||"").trim()===t) &&
+             (!st || String(r[10]||"").trim()===st);
+    });
+  }
+  function render(){
+    var tbody=el("priorityWorksUpdateTbody");
+    if(!tbody) return;
+    var rows=filtered();
+    var summary=el("pwFilterSummary");
+    if(summary) summary.textContent="Showing "+rows.length+" of "+PW.rows.length+" Priority Works";
 
     if(!rows.length){
       tbody.innerHTML='<tr><td colspan="14" class="md-empty">No Priority Works found.</td></tr>';
       return;
     }
 
-    tbody.innerHTML=rows.map((r,i)=>{
-      const code=String(r[0]||"").trim();
-      const status=String(r[10]||"").trim();
-      const progress=(status==="Completed"||status==="Physically Complete")?"100":String(r[11]??"").trim();
-      const vbg=num(r[5])+num(r[6]);
-      const scheme=vbg+num(r[14]);
-      return `<tr>
-        <td>${i+1}</td>
-        <td><strong>${esc(code)}</strong></td>
-        <td>${esc(r[1])}</td>
-        <td>${esc(r[2])}</td>
-        <td>${esc(r[3])}</td>
-        <td>${esc(r[4])}</td>
-        <td style="text-align:right;">${money(r[5])}</td>
-        <td style="text-align:right;">${money(r[6])}</td>
-        <td style="text-align:right;font-weight:600;">${money(vbg)}</td>
-        <td style="text-align:right;">${money(r[14])}</td>
-        <td style="text-align:right;font-weight:700;">${money(scheme)}</td>
-        <td><span class="md-chip">${esc(status||"Not Updated")}</span></td>
-        <td style="text-align:center;font-weight:700;">${esc(progress)}${progress!==""?"%":""}</td>
-        <td><button type="button" class="primary-btn priority-row-update-btn" data-code="${esc(code)}">Update</button></td>
-      </tr>`;
+    tbody.innerHTML=rows.map(function(r,i){
+      var vbg=num(r[5])+num(r[6]);
+      var total=vbg+num(r[14]);
+      var status=String(r[10]||"Not Updated");
+      var progress=(status==="Completed"||status==="Physically Complete") ? "100" : String(r[11]??"");
+      var code=String(r[0]||"").trim();
+      return '<tr>'+
+        '<td>'+ (i+1) +'</td>'+
+        '<td><strong>'+esc(code)+'</strong></td>'+
+        '<td>'+esc(r[1])+'</td>'+
+        '<td>'+esc(r[2])+'</td>'+
+        '<td>'+esc(r[3])+'</td>'+
+        '<td>'+esc(r[4])+'</td>'+
+        '<td class="num">'+money(r[5])+'</td>'+
+        '<td class="num">'+money(r[6])+'</td>'+
+        '<td class="num"><b>'+money(vbg)+'</b></td>'+
+        '<td class="num">'+money(r[14])+'</td>'+
+        '<td class="num"><b>'+money(total)+'</b></td>'+
+        '<td><span class="md-chip">'+esc(status)+'</span></td>'+
+        '<td class="center"><b>'+esc(progress)+'%</b></td>'+
+        '<td><button type="button" class="primary-btn priority-row-update-btn" data-code="'+esc(code)+'">Update</button></td>'+
+      '</tr>';
     }).join("");
 
-    tbody.querySelectorAll(".priority-row-update-btn").forEach(b=>b.addEventListener("click",()=>openInlineUpdate(b.dataset.code)));
+    tbody.querySelectorAll(".priority-row-update-btn").forEach(function(btn){
+      btn.addEventListener("click",function(){ openUpdate(btn.getAttribute("data-code")); });
+    });
   }
-
-  async function loadPriorityWorks(){
-    const tbody=$("priorityWorksUpdateTbody"); if(!tbody)return;
-    const rs=$("priorityDataRefreshStatus");
-    tbody.innerHTML='<tr><td colspan="14" class="md-empty">Loading Priority Works…</td></tr>';
-    if(rs)rs.textContent="Loading live Priority Works data…";
-
-    try{
-      const response=await fetch(READ_URL+"?action=get_priority_works&t="+Date.now(),{cache:"no-store"});
-      const text=await response.text();
-      let data;
-      try{data=JSON.parse(text);}catch(e){throw new Error("Apps Script returned a non-JSON response.");}
-      if(!data.ok||!Array.isArray(data.rows))throw new Error(data.error||"Priority Works list was not returned.");
-      allPriorityRows=data.rows.filter(r=>Array.isArray(r)&&String(r[0]??"").trim()!=="");
-      loadFilterOptions(allPriorityRows);
-      renderTable();
-      if(rs)rs.textContent="Live data loaded • "+allPriorityRows.length+" works";
-    }catch(err){
-      console.error(err);
-      tbody.innerHTML='<tr><td colspan="14" class="md-empty" style="color:#b42318;">'+esc(err.message||err)+'</td></tr>';
-      if(rs)rs.textContent="Unable to load live data";
+  function openUpdate(code){
+    var r=PW.rows.find(function(x){return String(x[0]||"").trim()===String(code||"").trim();});
+    var panel=el("priorityInlineUpdate");
+    if(!r || !panel) return;
+    PW.selectedCode=code;
+    panel.style.display="block";
+    panel.dataset.workCode=code;
+    if(el("priorityInlineWorkTitle")){
+      el("priorityInlineWorkTitle").innerHTML=
+        "<b>Work Code:</b> "+esc(r[0])+
+        " &nbsp; | &nbsp; <b>Work:</b> "+esc(r[2])+
+        " &nbsp; | &nbsp; <b>Block:</b> "+esc(r[3])+
+        " &nbsp; | &nbsp; <b>GP:</b> "+esc(r[4]);
     }
+    el("pwsStatus").value=String(r[10]||"");
+    el("pwsProgress").value=(r[10]==="Completed"||r[10]==="Physically Complete")?"100":String(r[11]??"");
+    el("pwsLat").value=String(r[8]??"");
+    el("pwsLong").value=String(r[9]??"");
+    el("pwsRemarks").value=String(r[13]??"");
+    panel.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+  function save(){
+    var code=PW.selectedCode;
+    if(!code){ return; }
+    var status=el("pwsStatus").value||"";
+    var progress=el("pwsProgress").value||"";
+    if(status==="Completed"||status==="Physically Complete"){ progress="100"; el("pwsProgress").value="100"; }
+
+    var msg=el("pwsUpdateMessage");
+    if(msg) msg.textContent="Updating…";
+
+    if(typeof google==="undefined" || !google.script || !google.script.run){
+      if(msg) msg.textContent="✗ Please open the deployed Apps Script Web App.";
+      return;
+    }
+
+    google.script.run
+      .withSuccessHandler(function(res){
+        if(!res || res.ok!==true){
+          if(msg) msg.textContent="✗ "+((res&&res.error)||"Update failed.");
+          return;
+        }
+        if(msg) msg.textContent="✓ Updated successfully.";
+        load();
+      })
+      .withFailureHandler(function(err){
+        if(msg) msg.textContent="✗ "+((err&&err.message)||"Update failed.");
+      })
+      .updatePriorityWork({
+        work_code:code,
+        status:status,
+        progress:progress,
+        latitude:el("pwsLat").value||"",
+        longitude:el("pwsLong").value||"",
+        remarks:el("pwsRemarks").value||""
+      });
+  }
+  function load(){
+    var tbody=el("priorityWorksUpdateTbody");
+    var rs=el("priorityDataRefreshStatus");
+    if(!tbody) return;
+
+    tbody.innerHTML='<tr><td colspan="14" class="md-empty">Loading Priority Works…</td></tr>';
+    if(rs) rs.textContent="Loading from Google Sheet…";
+
+    if(typeof google==="undefined" || !google.script || !google.script.run){
+      tbody.innerHTML='<tr><td colspan="14" class="md-empty" style="color:#b42318">Open the deployed Apps Script Web App URL.</td></tr>';
+      if(rs) rs.textContent="Not running inside Apps Script";
+      return;
+    }
+
+    google.script.run
+      .withSuccessHandler(function(res){
+        if(!res || res.ok!==true || !Array.isArray(res.rows)){
+          var m=(res&&res.error)||"Priority Works data could not be loaded.";
+          tbody.innerHTML='<tr><td colspan="14" class="md-empty" style="color:#b42318">'+esc(m)+'</td></tr>';
+          if(rs) rs.textContent="Load error";
+          return;
+        }
+        PW.rows=res.rows.filter(function(r){return Array.isArray(r)&&String(r[0]||"").trim()!=="";});
+        fill("pwFilterBlock",uniq(PW.rows,3),"All Blocks");
+        fill("pwFilterGP",uniq(PW.rows,4),"All GPs");
+        fill("pwFilterType",uniq(PW.rows,1),"All Priority Work Types");
+        fill("pwFilterStatus",uniq(PW.rows,10),"All Status");
+        render();
+        if(rs) rs.textContent="Live data loaded • "+PW.rows.length+" works";
+      })
+      .withFailureHandler(function(err){
+        var m=(err&&err.message)||"Unknown Apps Script error.";
+        tbody.innerHTML='<tr><td colspan="14" class="md-empty" style="color:#b42318">'+esc(m)+'</td></tr>';
+        if(rs) rs.textContent="Backend error";
+      })
+      .listPriorityWorks();
+  }
+  function init(){
+    ["pwFilterSearch","pwFilterBlock","pwFilterGP","pwFilterType","pwFilterStatus"].forEach(function(id){
+      var s=el(id);
+      if(s){ s.addEventListener("input",render); s.addEventListener("change",render); }
+    });
+    if(el("pwClearFilters")) el("pwClearFilters").addEventListener("click",function(){
+      ["pwFilterSearch","pwFilterBlock","pwFilterGP","pwFilterType","pwFilterStatus"].forEach(function(id){if(el(id))el(id).value="";});
+      render();
+    });
+    if(el("priorityRefreshBtn")) el("priorityRefreshBtn").addEventListener("click",load);
+    if(el("pwsUpdateBtn")) el("pwsUpdateBtn").addEventListener("click",save);
+    if(el("pwsClearBtn")) el("pwsClearBtn").addEventListener("click",function(){if(el("priorityInlineUpdate"))el("priorityInlineUpdate").style.display="none";});
+    load();
   }
 
-  function openInlineUpdate(code){
-    const r=allPriorityRows.find(x=>String(x[0]||"").trim()===String(code).trim());
-    if(!r)return;
-    selectedWorkCode=code;
-    $("priorityInlineUpdate").style.display="block";
-    $("priorityInlineWorkTitle").innerHTML="<b>Work Code:</b> "+esc(r[0])+" &nbsp; | &nbsp; <b>Work:</b> "+esc(r[2])+" &nbsp; | &nbsp; <b>Block:</b> "+esc(r[3])+" &nbsp; | &nbsp; <b>GP:</b> "+esc(r[4]);
-    $("pwsStatus").value=String(r[10]||"");
-    $("pwsProgress").value=(r[10]==="Completed"||r[10]==="Physically Complete")?"100":String(r[11]??"");
-    $("pwsLat").value=String(r[8]??"");
-    $("pwsLong").value=String(r[9]??"");
-    $("pwsRemarks").value=String(r[13]??"");
-    $("pwsUpdateMessage").textContent="";
-    $("priorityInlineUpdate").scrollIntoView({behavior:"smooth",block:"start"});
-  }
-
-  async function saveInlineUpdate(){
-    if(!selectedWorkCode)return;
-    let status=$("pwsStatus").value, progress=$("pwsProgress").value;
-    if(status==="Completed"||status==="Physically Complete"){progress="100";$("pwsProgress").value="100";}
-    const body=new URLSearchParams({
-      action:"update_status",work_code:selectedWorkCode,status,progress,
-      latitude:$("pwsLat").value,longitude:$("pwsLong").value,remarks:$("pwsRemarks").value
-    });
-    $("pwsUpdateMessage").textContent="Updating…";
-    try{
-      const res=await fetch(SUBMIT_URL,{method:"POST",body});
-      const data=await res.json();
-      if(!data.ok)throw new Error(data.error||"Update failed");
-      $("pwsUpdateMessage").textContent="✓ Updated successfully.";
-      await loadPriorityWorks();
-      setTimeout(()=>{$("priorityInlineUpdate").style.display="none";selectedWorkCode="";},700);
-    }catch(e){$("pwsUpdateMessage").textContent="✗ "+(e.message||"Update failed");}
-  }
-
-  document.addEventListener("DOMContentLoaded",()=>{
-    ["pwFilterSearch","pwFilterBlock","pwFilterGP","pwFilterType","pwFilterStatus"].forEach(id=>{
-      const el=$(id);if(el)el.addEventListener("input",renderTable);if(el)el.addEventListener("change",renderTable);
-    });
-    $("pwClearFilters")?.addEventListener("click",()=>{
-      ["pwFilterSearch","pwFilterBlock","pwFilterGP","pwFilterType","pwFilterStatus"].forEach(id=>{if($(id))$(id).value="";});
-      renderTable();
-    });
-    $("priorityRefreshBtn")?.addEventListener("click",loadPriorityWorks);
-    $("pwsUpdateBtn")?.addEventListener("click",saveInlineUpdate);
-    $("pwsClearBtn")?.addEventListener("click",()=>{$("priorityInlineUpdate").style.display="none";selectedWorkCode="";});
-    loadPriorityWorks();
-  });
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+  else init();
 })();
-</script>
+</script></body></html>
