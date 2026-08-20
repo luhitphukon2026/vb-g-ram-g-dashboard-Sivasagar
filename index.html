@@ -613,9 +613,186 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 #priorityWorksUpdateTable tbody tr:hover{background:#f7fbff}
 .priority-row-update-btn{cursor:pointer;white-space:nowrap}
 </style>
-<script id="priority-server-data">
-window.SERVER_PRIORITY_ROWS = <?!= priorityRowsJson ?>;
-</script></head>
+
+<style id="priority-works-card-display">
+.priority-works-card-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  margin-top:14px;
+}
+.priority-work-card{
+  background:#fff;
+  border:1px solid #dfe7ef;
+  border-radius:14px;
+  padding:16px;
+  box-shadow:0 4px 14px rgba(20,45,70,.05);
+}
+.priority-work-card:hover{
+  box-shadow:0 8px 22px rgba(20,45,70,.09);
+  border-color:#cbd8e4;
+}
+.priority-work-card-head{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+  border-bottom:1px solid #edf1f5;
+  padding-bottom:12px;
+}
+.priority-work-sl{
+  font-size:11px;
+  font-weight:800;
+  color:#718096;
+}
+.priority-work-code{
+  font-size:12px;
+  font-weight:900;
+  color:#17324d;
+}
+.priority-work-name{
+  margin-top:4px;
+  font-size:15px;
+  font-weight:900;
+  color:#17324d;
+  line-height:1.35;
+}
+.priority-work-type{
+  margin-top:4px;
+  font-size:10px;
+  color:#6b7c8f;
+  line-height:1.4;
+}
+.priority-work-status{
+  display:inline-flex;
+  padding:6px 9px;
+  border-radius:999px;
+  background:#eef5f9;
+  color:#315a75;
+  font-size:10px;
+  font-weight:900;
+  white-space:nowrap;
+}
+.priority-work-meta{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:14px;
+}
+.priority-work-meta-box{
+  background:#f7f9fc;
+  border:1px solid #e8eef4;
+  border-radius:10px;
+  padding:10px;
+}
+.priority-work-meta-label{
+  font-size:8px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:#7b8794;
+  font-weight:900;
+}
+.priority-work-meta-value{
+  margin-top:4px;
+  font-size:12px;
+  font-weight:850;
+  color:#243b53;
+  line-height:1.35;
+}
+.priority-work-amounts{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:12px;
+}
+.priority-work-amount{
+  background:#fbfdff;
+  border:1px solid #e4ebf2;
+  border-radius:10px;
+  padding:10px;
+}
+.priority-work-amount.total-vbg{
+  background:#eef6fb;
+  border-color:#cfe1ee;
+}
+.priority-work-amount.total-scheme{
+  background:#edf8f1;
+  border-color:#cce7d6;
+}
+.priority-work-amount .amount-label{
+  font-size:8px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:#718096;
+  font-weight:900;
+}
+.priority-work-amount .amount-value{
+  margin-top:4px;
+  font-size:14px;
+  font-weight:900;
+  color:#17324d;
+}
+.priority-work-footer{
+  margin-top:13px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+}
+.priority-work-progress-wrap{
+  flex:1;
+  min-width:0;
+}
+.priority-work-progress-label{
+  display:flex;
+  justify-content:space-between;
+  font-size:9px;
+  font-weight:800;
+  color:#6b7c8f;
+  margin-bottom:5px;
+}
+.priority-work-progress{
+  height:8px;
+  background:#e8eef4;
+  border-radius:999px;
+  overflow:hidden;
+}
+.priority-work-progress span{
+  display:block;
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#2f6fed,#5c8ef2);
+  border-radius:999px;
+}
+.priority-work-update{
+  border:0;
+  border-radius:9px;
+  padding:9px 13px;
+  background:#245d86;
+  color:#fff;
+  font-weight:800;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.priority-work-card-loading,
+.priority-work-card-empty{
+  grid-column:1/-1;
+  padding:28px;
+  text-align:center;
+  border:1px dashed #cbd8e4;
+  border-radius:12px;
+  color:#66788a;
+  background:#fbfdff;
+}
+@media(max-width:950px){
+  .priority-works-card-grid{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .priority-work-meta,.priority-work-amounts{grid-template-columns:1fr;}
+  .priority-work-card{padding:13px;}
+}
+</style>
+</head>
 <body>
 
 
@@ -1564,31 +1741,11 @@ priorityGrid.innerHTML = priorityWorks.map((x,i)=>`
       <button type="button" class="md-refresh-btn" id="priorityRefreshBtn">↻ Refresh Data</button>
     </div>
 
-    <div style="overflow:auto;margin-top:14px;">
-      <table id="priorityWorksUpdateTable" style="width:100%;border-collapse:collapse;min-width:1250px;background:#fff;">
-        <thead>
-          <tr>
-            <th>Sl.</th>
-            <th>Work Code</th>
-            <th>Priority Work</th>
-            <th>Work Name</th>
-            <th>Block</th>
-            <th>GP</th>
-            <th>Wage Amount (₹)</th>
-            <th>Material Amount (₹)</th>
-            <th>Total VB-G RAM G Amount (₹)</th>
-            <th>16th Finance Commission (₹)</th>
-            <th>Total Scheme Amount (₹)</th>
-            <th>Status</th>
-            <th>Progress (%)</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="priorityWorksUpdateTbody">
-          <tr><td colspan="14" style="text-align:center;padding:18px;">Loading live Priority Works data…</td></tr>
-        </tbody>
-      </table>
+    
+    <div id="priorityWorksCards" class="priority-works-card-grid" aria-live="polite">
+      <div class="priority-card-loading">Loading Priority Works…</div>
     </div>
+
 
     <div id="priorityInlineUpdate" style="display:none;margin-top:18px;border:1px solid #d9dee7;border-radius:10px;padding:16px;background:#f8fafc;">
       <div style="font-weight:700;margin-bottom:12px;">Update Selected Work</div>
@@ -3077,25 +3234,495 @@ function doPost(e) {
   return ContentService.createTextOutput('ERROR: Unknown action');
 }
 -->
-
-<script id="priority-clean-table-controller">
+<script id="priority-final-authoritative-loader">
 (function(){
-"use strict";
-const PW={rows:[],selectedCode:""};
-const q=id=>document.getElementById(id);
-function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-function num(v){const n=Number(String(v==null?"":v).replace(/,/g,"").replace(/₹/g,"").trim());return Number.isFinite(n)?n:0;}
-function money(v){return num(v).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});}
-function unique(rows,i){return [...new Set(rows.map(r=>String(r[i]??"").trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"}));}
-function fill(id,values,placeholder){const el=q(id);if(!el)return;const old=el.value;el.innerHTML='<option value="">'+esc(placeholder)+'</option>';values.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;el.appendChild(o);});const found=[...el.options].find(o=>o.value===old);if(found)el.value=old;}
-function filtered(){const s=(q("pwFilterSearch")?.value||"").trim().toLowerCase(),b=q("pwFilterBlock")?.value||"",g=q("pwFilterGP")?.value||"",t=q("pwFilterType")?.value||"",st=q("pwFilterStatus")?.value||"";return PW.rows.filter(r=>{const text=[r[0],r[1],r[2],r[3],r[4]].join(" ").toLowerCase();return(!s||text.includes(s))&&(!b||String(r[3]??"").trim()===b)&&(!g||String(r[4]??"").trim()===g)&&(!t||String(r[1]??"").trim()===t)&&(!st||String(r[10]??"").trim()===st);});}
-function render(){const tbody=q("priorityWorksUpdateTbody");if(!tbody)return;const rows=filtered();if(q("pwFilterSummary"))q("pwFilterSummary").textContent="Showing "+rows.length+" of "+PW.rows.length+" Priority Works";if(q("priorityDataRefreshStatus"))q("priorityDataRefreshStatus").textContent="Live data loaded • "+PW.rows.length+" works";if(!rows.length){tbody.innerHTML='<tr><td colspan="14" class="md-empty">No Priority Works found.</td></tr>';return;}tbody.innerHTML=rows.map((r,i)=>{const vbg=num(r[5])+num(r[6]),total=vbg+num(r[14]),status=String(r[10]||"Not Updated"),progress=(status==="Completed"||status==="Physically Complete")?"100":String(r[11]??""),code=String(r[0]||"").trim();return `<tr><td>${i+1}</td><td><strong>${esc(code)}</strong></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td>${esc(r[4])}</td><td style="text-align:right">${money(r[5])}</td><td style="text-align:right">${money(r[6])}</td><td style="text-align:right;font-weight:700">${money(vbg)}</td><td style="text-align:right">${money(r[14])}</td><td style="text-align:right;font-weight:800">${money(total)}</td><td><span class="md-chip">${esc(status)}</span></td><td style="text-align:center;font-weight:700">${esc(progress)}%</td><td><button type="button" class="primary-btn priority-row-update-btn" data-code="${esc(code)}">Update</button></td></tr>`;}).join("");tbody.querySelectorAll(".priority-row-update-btn").forEach(btn=>btn.addEventListener("click",()=>openUpdate(btn.dataset.code)));}
-function openUpdate(code){const r=PW.rows.find(x=>String(x[0]||"").trim()===String(code||"").trim()),panel=q("priorityInlineUpdate");if(!r||!panel)return;PW.selectedCode=String(code);panel.style.display="block";panel.dataset.workCode=String(code);if(q("priorityInlineWorkTitle"))q("priorityInlineWorkTitle").innerHTML="<b>Work Code:</b> "+esc(r[0])+" &nbsp; | &nbsp; <b>Work:</b> "+esc(r[2])+" &nbsp; | &nbsp; <b>Block:</b> "+esc(r[3])+" &nbsp; | &nbsp; <b>GP:</b> "+esc(r[4]);q("pwsStatus").value=String(r[10]||"");q("pwsProgress").value=(r[10]==="Completed"||r[10]==="Physically Complete")?"100":String(r[11]??"");q("pwsLat").value=String(r[8]??"");q("pwsLong").value=String(r[9]??"");q("pwsRemarks").value=String(r[13]??"");panel.scrollIntoView({behavior:"smooth",block:"start"});}
-function saveUpdate(){if(!PW.selectedCode)return;let status=q("pwsStatus").value||"",progress=q("pwsProgress").value||"";if(status==="Completed"||status==="Physically Complete"){progress="100";q("pwsProgress").value="100";}const msg=q("pwsUpdateMessage");if(msg)msg.textContent="Updating…";if(typeof google==="undefined"||!google.script||!google.script.run){if(msg)msg.textContent="✗ Please open the deployed Apps Script Web App.";return;}google.script.run.withSuccessHandler(res=>{if(!res||res.ok!==true){if(msg)msg.textContent="✗ "+((res&&res.error)||"Update failed.");return;}if(msg)msg.textContent="✓ Updated successfully.";setTimeout(refreshServerRows,250);}).withFailureHandler(err=>{if(msg)msg.textContent="✗ "+((err&&err.message)||"Update failed.");}).updatePriorityWork({work_code:PW.selectedCode,status:status,progress:progress,latitude:q("pwsLat").value||"",longitude:q("pwsLong").value||"",remarks:q("pwsRemarks").value||""});}
-function applyRows(){const rows=Array.isArray(window.SERVER_PRIORITY_ROWS)?window.SERVER_PRIORITY_ROWS:[];PW.rows=rows.filter(r=>Array.isArray(r)&&String(r[0]||"").trim()!=="");fill("pwFilterBlock",unique(PW.rows,3),"All Blocks");fill("pwFilterGP",unique(PW.rows,4),"All GPs");fill("pwFilterType",unique(PW.rows,1),"All Priority Work Types");fill("pwFilterStatus",unique(PW.rows,10),"All Status");render();}
-function refreshServerRows(){if(typeof google==="undefined"||!google.script||!google.script.run){applyRows();return;}google.script.run.withSuccessHandler(res=>{if(res&&res.ok&&Array.isArray(res.rows)){window.SERVER_PRIORITY_ROWS=res.rows;applyRows();}}).withFailureHandler(()=>applyRows()).listPriorityWorks();}
-function init(){["pwFilterSearch","pwFilterBlock","pwFilterGP","pwFilterType","pwFilterStatus"].forEach(id=>{const el=q(id);if(el){el.addEventListener("input",render);el.addEventListener("change",render);}});q("pwClearFilters")?.addEventListener("click",()=>{["pwFilterSearch","pwFilterBlock","pwFilterGP","pwFilterType","pwFilterStatus"].forEach(id=>{if(q(id))q(id).value="";});render();});q("priorityRefreshBtn")?.addEventListener("click",refreshServerRows);q("pwsUpdateBtn")?.addEventListener("click",saveUpdate);q("pwsClearBtn")?.addEventListener("click",()=>{if(q("priorityInlineUpdate"))q("priorityInlineUpdate").style.display="none";PW.selectedCode="";});applyRows();}
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+  "use strict";
+
+  var PW = { rows: [], selectedCode: "" };
+
+  function el(id){ return document.getElementById(id); }
+  function esc(v){
+    return String(v == null ? "" : v).replace(/[&<>"']/g,function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function num(v){
+    var n = Number(String(v == null ? "" : v).replace(/,/g,"").replace(/₹/g,"").trim());
+    return Number.isFinite(n) ? n : 0;
+  }
+  function money(v){
+    return num(v).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+  }
+  function uniq(rows, idx){
+    var set = new Set();
+    rows.forEach(function(r){
+      var v=String(r[idx] == null ? "" : r[idx]).trim();
+      if(v) set.add(v);
+    });
+    return Array.from(set).sort(function(a,b){return a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"});});
+  }
+  function fill(id, values, label){
+    var s=el(id);
+    if(!s) return;
+    var old=s.value;
+    s.innerHTML="";
+    var o=document.createElement("option");
+    o.value=""; o.textContent=label; s.appendChild(o);
+    values.forEach(function(v){
+      var x=document.createElement("option");
+      x.value=v; x.textContent=v; s.appendChild(x);
+    });
+    var found=Array.from(s.options).find(function(x){return x.value===old;});
+    if(found) s.value=old;
+  }
+  function filtered(){
+    var q=(el("pwFilterSearch")?.value || "").trim().toLowerCase();
+    var b=el("pwFilterBlock")?.value || "";
+    var g=el("pwFilterGP")?.value || "";
+    var t=el("pwFilterType")?.value || "";
+    var st=el("pwFilterStatus")?.value || "";
+    return PW.rows.filter(function(r){
+      var text=[r[0],r[1],r[2],r[3],r[4]].join(" ").toLowerCase();
+      return (!q || text.indexOf(q)>=0) &&
+             (!b || String(r[3]||"").trim()===b) &&
+             (!g || String(r[4]||"").trim()===g) &&
+             (!t || String(r[1]||"").trim()===t) &&
+             (!st || String(r[10]||"").trim()===st);
+    });
+  }
+  function render(){
+    var tbody=el("priorityWorksUpdateTbody");
+    if(!tbody) return;
+    var rows=filtered();
+    var summary=el("pwFilterSummary");
+    if(summary) summary.textContent="Showing "+rows.length+" of "+PW.rows.length+" Priority Works";
+
+    if(!rows.length){
+      tbody.innerHTML='<tr><td colspan="14" class="md-empty">No Priority Works found.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML=rows.map(function(r,i){
+      var vbg=num(r[5])+num(r[6]);
+      var total=vbg+num(r[14]);
+      var status=String(r[10]||"Not Updated");
+      var progress=(status==="Completed"||status==="Physically Complete") ? "100" : String(r[11]??"");
+      var code=String(r[0]||"").trim();
+      return '<tr>'+
+        '<td>'+ (i+1) +'</td>'+
+        '<td><strong>'+esc(code)+'</strong></td>'+
+        '<td>'+esc(r[1])+'</td>'+
+        '<td>'+esc(r[2])+'</td>'+
+        '<td>'+esc(r[3])+'</td>'+
+        '<td>'+esc(r[4])+'</td>'+
+        '<td class="num">'+money(r[5])+'</td>'+
+        '<td class="num">'+money(r[6])+'</td>'+
+        '<td class="num"><b>'+money(vbg)+'</b></td>'+
+        '<td class="num">'+money(r[14])+'</td>'+
+        '<td class="num"><b>'+money(total)+'</b></td>'+
+        '<td><span class="md-chip">'+esc(status)+'</span></td>'+
+        '<td class="center"><b>'+esc(progress)+'%</b></td>'+
+        '<td><button type="button" class="primary-btn priority-row-update-btn" data-code="'+esc(code)+'">Update</button></td>'+
+      '</tr>';
+    }).join("");
+
+    tbody.querySelectorAll(".priority-row-update-btn").forEach(function(btn){
+      btn.addEventListener("click",function(){ openUpdate(btn.getAttribute("data-code")); });
+    });
+  }
+  function openUpdate(code){
+    var r=PW.rows.find(function(x){return String(x[0]||"").trim()===String(code||"").trim();});
+    var panel=el("priorityInlineUpdate");
+    if(!r || !panel) return;
+    PW.selectedCode=code;
+    panel.style.display="block";
+    panel.dataset.workCode=code;
+    if(el("priorityInlineWorkTitle")){
+      el("priorityInlineWorkTitle").innerHTML=
+        "<b>Work Code:</b> "+esc(r[0])+
+        " &nbsp; | &nbsp; <b>Work:</b> "+esc(r[2])+
+        " &nbsp; | &nbsp; <b>Block:</b> "+esc(r[3])+
+        " &nbsp; | &nbsp; <b>GP:</b> "+esc(r[4]);
+    }
+    el("pwsStatus").value=String(r[10]||"");
+    el("pwsProgress").value=(r[10]==="Completed"||r[10]==="Physically Complete")?"100":String(r[11]??"");
+    el("pwsLat").value=String(r[8]??"");
+    el("pwsLong").value=String(r[9]??"");
+    el("pwsRemarks").value=String(r[13]??"");
+    panel.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+  function save(){
+    var code=PW.selectedCode;
+    if(!code){ return; }
+    var status=el("pwsStatus").value||"";
+    var progress=el("pwsProgress").value||"";
+    if(status==="Completed"||status==="Physically Complete"){ progress="100"; el("pwsProgress").value="100"; }
+
+    var msg=el("pwsUpdateMessage");
+    if(msg) msg.textContent="Updating…";
+
+    if(typeof google==="undefined" || !google.script || !google.script.run){
+      if(msg) msg.textContent="✗ Please open the deployed Apps Script Web App.";
+      return;
+    }
+
+    google.script.run
+      .withSuccessHandler(function(res){
+        if(!res || res.ok!==true){
+          if(msg) msg.textContent="✗ "+((res&&res.error)||"Update failed.");
+          return;
+        }
+        if(msg) msg.textContent="✓ Updated successfully.";
+        load();
+      })
+      .withFailureHandler(function(err){
+        if(msg) msg.textContent="✗ "+((err&&err.message)||"Update failed.");
+      })
+      .updatePriorityWork({
+        work_code:code,
+        status:status,
+        progress:progress,
+        latitude:el("pwsLat").value||"",
+        longitude:el("pwsLong").value||"",
+        remarks:el("pwsRemarks").value||""
+      });
+  }
+  function load(){
+    var tbody=el("priorityWorksUpdateTbody");
+    var rs=el("priorityDataRefreshStatus");
+    if(!tbody) return;
+
+    tbody.innerHTML='<tr><td colspan="14" class="md-empty">Loading Priority Works…</td></tr>';
+    if(rs) rs.textContent="Loading from Google Sheet…";
+
+    if(typeof google==="undefined" || !google.script || !google.script.run){
+      tbody.innerHTML='<tr><td colspan="14" class="md-empty" style="color:#b42318">Open the deployed Apps Script Web App URL.</td></tr>';
+      if(rs) rs.textContent="Not running inside Apps Script";
+      return;
+    }
+
+    google.script.run
+      .withSuccessHandler(function(res){
+        if(!res || res.ok!==true || !Array.isArray(res.rows)){
+          var m=(res&&res.error)||"Priority Works data could not be loaded.";
+          tbody.innerHTML='<tr><td colspan="14" class="md-empty" style="color:#b42318">'+esc(m)+'</td></tr>';
+          if(rs) rs.textContent="Load error";
+          return;
+        }
+        PW.rows=res.rows.filter(function(r){return Array.isArray(r)&&String(r[0]||"").trim()!=="";});
+        fill("pwFilterBlock",uniq(PW.rows,3),"All Blocks");
+        fill("pwFilterGP",uniq(PW.rows,4),"All GPs");
+        fill("pwFilterType",uniq(PW.rows,1),"All Priority Work Types");
+        fill("pwFilterStatus",uniq(PW.rows,10),"All Status");
+        render();
+        if(rs) rs.textContent="Live data loaded • "+PW.rows.length+" works";
+      })
+      .withFailureHandler(function(err){
+        var m=(err&&err.message)||"Unknown Apps Script error.";
+        tbody.innerHTML='<tr><td colspan="14" class="md-empty" style="color:#b42318">'+esc(m)+'</td></tr>';
+        if(rs) rs.textContent="Backend error";
+      })
+      .listPriorityWorks();
+  }
+  function init(){
+    ["pwFilterSearch","pwFilterBlock","pwFilterGP","pwFilterType","pwFilterStatus"].forEach(function(id){
+      var s=el(id);
+      if(s){ s.addEventListener("input",render); s.addEventListener("change",render); }
+    });
+    if(el("pwClearFilters")) el("pwClearFilters").addEventListener("click",function(){
+      ["pwFilterSearch","pwFilterBlock","pwFilterGP","pwFilterType","pwFilterStatus"].forEach(function(id){if(el(id))el(id).value="";});
+      render();
+    });
+    if(el("priorityRefreshBtn")) el("priorityRefreshBtn").addEventListener("click",load);
+    if(el("pwsUpdateBtn")) el("pwsUpdateBtn").addEventListener("click",save);
+    if(el("pwsClearBtn")) el("pwsClearBtn").addEventListener("click",function(){if(el("priorityInlineUpdate"))el("priorityInlineUpdate").style.display="none";});
+    load();
+  }
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+  else init();
+})();
+</script><script id="priority-final-authoritative-loader">
+(function(){
+  "use strict";
+
+  var PW={rows:[],selectedCode:""};
+
+  function el(id){return document.getElementById(id);}
+  function esc(v){
+    return String(v==null?"":v).replace(/[&<>"']/g,function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function num(v){
+    var n=Number(String(v==null?"":v).replace(/,/g,"").replace(/₹/g,"").trim());
+    return Number.isFinite(n)?n:0;
+  }
+  function money(v){
+    return num(v).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+  }
+  function uniq(rows,idx){
+    var set=new Set();
+    rows.forEach(function(r){
+      var v=String(r[idx]==null?"":r[idx]).trim();
+      if(v)set.add(v);
+    });
+    return Array.from(set).sort(function(a,b){
+      return a.localeCompare(b,undefined,{numeric:true,sensitivity:"base"});
+    });
+  }
+  function fill(id,values,label){
+    var s=el(id);
+    if(!s)return;
+    var old=s.value;
+    s.innerHTML="";
+    var o=document.createElement("option");
+    o.value="";o.textContent=label;s.appendChild(o);
+    values.forEach(function(v){
+      var x=document.createElement("option");
+      x.value=v;x.textContent=v;s.appendChild(x);
+    });
+    var found=Array.from(s.options).find(function(x){return x.value===old;});
+    if(found)s.value=old;
+  }
+  function filtered(){
+    var q=(el("pwFilterSearch")?.value||"").trim().toLowerCase();
+    var b=el("pwFilterBlock")?.value||"";
+    var g=el("pwFilterGP")?.value||"";
+    var t=el("pwFilterType")?.value||"";
+    var st=el("pwFilterStatus")?.value||"";
+    return PW.rows.filter(function(r){
+      var text=[r[0],r[1],r[2],r[3],r[4]].join(" ").toLowerCase();
+      return (!q||text.indexOf(q)>=0)&&
+             (!b||String(r[3]||"").trim()===b)&&
+             (!g||String(r[4]||"").trim()===g)&&
+             (!t||String(r[1]||"").trim()===t)&&
+             (!st||String(r[10]||"").trim()===st);
+    });
+  }
+  function render(){
+    var box=el("priorityWorksCards");
+    if(!box)return;
+    var rows=filtered();
+    var summary=el("pwFilterSummary");
+    if(summary)summary.textContent="Showing "+rows.length+" of "+PW.rows.length+" Priority Works";
+
+    if(!rows.length){
+      box.innerHTML='<div class="priority-work-card-empty">No Priority Works found.</div>';
+      return;
+    }
+
+    box.innerHTML=rows.map(function(r,i){
+      var wage=num(r[5]),material=num(r[6]),vbg=wage+material,finance=num(r[14]),total=vbg+finance;
+      var status=String(r[10]||"Not Updated");
+      var progress=(status==="Completed"||status==="Physically Complete")?100:num(r[11]);
+      progress=Math.max(0,Math.min(100,progress));
+      var code=String(r[0]||"").trim();
+      return `
+        <article class="priority-work-card">
+          <div class="priority-work-card-head">
+            <div>
+              <div class="priority-work-sl">PRIORITY WORK ${i+1}</div>
+              <div class="priority-work-code">${esc(code)}</div>
+              <div class="priority-work-name">${esc(r[2])}</div>
+              <div class="priority-work-type">${esc(r[1])}</div>
+            </div>
+            <span class="priority-work-status">${esc(status)}</span>
+          </div>
+
+          <div class="priority-work-meta">
+            <div class="priority-work-meta-box">
+              <div class="priority-work-meta-label">Block</div>
+              <div class="priority-work-meta-value">${esc(r[3])}</div>
+            </div>
+            <div class="priority-work-meta-box">
+              <div class="priority-work-meta-label">GP</div>
+              <div class="priority-work-meta-value">${esc(r[4])}</div>
+            </div>
+          </div>
+
+          <div class="priority-work-amounts">
+            <div class="priority-work-amount">
+              <div class="amount-label">Wage Amount (₹)</div>
+              <div class="amount-value">₹${money(wage)}</div>
+            </div>
+            <div class="priority-work-amount">
+              <div class="amount-label">Material Amount (₹)</div>
+              <div class="amount-value">₹${money(material)}</div>
+            </div>
+            <div class="priority-work-amount total-vbg">
+              <div class="amount-label">Total VB-G RAM G (₹)</div>
+              <div class="amount-value">₹${money(vbg)}</div>
+            </div>
+            <div class="priority-work-amount">
+              <div class="amount-label">16th Finance (₹)</div>
+              <div class="amount-value">₹${money(finance)}</div>
+            </div>
+            <div class="priority-work-amount total-scheme" style="grid-column:1/-1">
+              <div class="amount-label">Total Scheme Amount (₹)</div>
+              <div class="amount-value">₹${money(total)}</div>
+            </div>
+          </div>
+
+          <div class="priority-work-footer">
+            <div class="priority-work-progress-wrap">
+              <div class="priority-work-progress-label">
+                <span>Physical Progress</span>
+                <span>${progress.toFixed(progress%1?2:0)}%</span>
+              </div>
+              <div class="priority-work-progress"><span style="width:${progress}%"></span></div>
+            </div>
+            <button type="button" class="priority-work-update" data-code="${esc(code)}">Update</button>
+          </div>
+        </article>`;
+    }).join("");
+
+    box.querySelectorAll(".priority-work-update").forEach(function(btn){
+      btn.addEventListener("click",function(){openUpdate(btn.getAttribute("data-code"));});
+    });
+  }
+
+  function openUpdate(code){
+    var r=PW.rows.find(function(x){return String(x[0]||"").trim()===String(code||"").trim();});
+    var panel=el("priorityInlineUpdate");
+    if(!r||!panel)return;
+
+    PW.selectedCode=code;
+    panel.style.display="block";
+    panel.dataset.workCode=code;
+
+    if(el("priorityInlineWorkTitle")){
+      el("priorityInlineWorkTitle").innerHTML=
+        "<b>Work Code:</b> "+esc(r[0])+
+        " &nbsp; | &nbsp; <b>Work:</b> "+esc(r[2])+
+        " &nbsp; | &nbsp; <b>Block:</b> "+esc(r[3])+
+        " &nbsp; | &nbsp; <b>GP:</b> "+esc(r[4]);
+    }
+
+    el("pwsStatus").value=String(r[10]||"");
+    el("pwsProgress").value=(r[10]==="Completed"||r[10]==="Physically Complete")?"100":String(r[11]??"");
+    el("pwsLat").value=String(r[8]??"");
+    el("pwsLong").value=String(r[9]??"");
+    el("pwsRemarks").value=String(r[13]??"");
+    panel.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  function save(){
+    var code=PW.selectedCode;
+    if(!code)return;
+
+    var status=el("pwsStatus").value||"";
+    var progress=el("pwsProgress").value||"";
+    if(status==="Completed"||status==="Physically Complete"){
+      progress="100";
+      el("pwsProgress").value="100";
+    }
+
+    var msg=el("pwsUpdateMessage");
+    if(msg)msg.textContent="Updating…";
+
+    if(typeof google==="undefined"||!google.script||!google.script.run){
+      if(msg)msg.textContent="✗ Please open the deployed Apps Script Web App.";
+      return;
+    }
+
+    google.script.run
+      .withSuccessHandler(function(res){
+        if(!res||res.ok!==true){
+          if(msg)msg.textContent="✗ "+((res&&res.error)||"Update failed.");
+          return;
+        }
+        if(msg)msg.textContent="✓ Updated successfully.";
+        load();
+      })
+      .withFailureHandler(function(err){
+        if(msg)msg.textContent="✗ "+((err&&err.message)||"Update failed.");
+      })
+      .updatePriorityWork({
+        work_code:code,
+        status:status,
+        progress:progress,
+        latitude:el("pwsLat").value||"",
+        longitude:el("pwsLong").value||"",
+        remarks:el("pwsRemarks").value||""
+      });
+  }
+
+  function load(){
+    var box=el("priorityWorksCards");
+    var rs=el("priorityDataRefreshStatus");
+    if(!box)return;
+
+    box.innerHTML='<div class="priority-work-card-loading">Loading Priority Works…</div>';
+    if(rs)rs.textContent="Loading from Google Sheet…";
+
+    if(typeof google==="undefined"||!google.script||!google.script.run){
+      box.innerHTML='<div class="priority-work-card-empty" style="color:#b42318">Open the deployed Apps Script Web App URL.</div>';
+      if(rs)rs.textContent="Not running inside Apps Script";
+      return;
+    }
+
+    google.script.run
+      .withSuccessHandler(function(res){
+        if(!res||res.ok!==true||!Array.isArray(res.rows)){
+          var m=(res&&res.error)||"Priority Works data could not be loaded.";
+          box.innerHTML='<div class="priority-work-card-empty" style="color:#b42318">'+esc(m)+'</div>';
+          if(rs)rs.textContent="Load error";
+          return;
+        }
+
+        PW.rows=res.rows.filter(function(r){
+          return Array.isArray(r)&&String(r[0]||"").trim()!=="";
+        });
+
+        fill("pwFilterBlock",uniq(PW.rows,3),"All Blocks");
+        fill("pwFilterGP",uniq(PW.rows,4),"All GPs");
+        fill("pwFilterType",uniq(PW.rows,1),"All Priority Work Types");
+        fill("pwFilterStatus",uniq(PW.rows,10),"All Status");
+
+        render();
+        if(rs)rs.textContent="Live data loaded • "+PW.rows.length+" works";
+      })
+      .withFailureHandler(function(err){
+        var m=(err&&err.message)||"Unknown Apps Script error.";
+        box.innerHTML='<div class="priority-work-card-empty" style="color:#b42318">'+esc(m)+'</div>';
+        if(rs)rs.textContent="Backend error";
+      })
+      .listPriorityWorks();
+  }
+
+  function init(){
+    ["pwFilterSearch","pwFilterBlock","pwFilterGP","pwFilterType","pwFilterStatus"].forEach(function(id){
+      var s=el(id);
+      if(s){
+        s.addEventListener("input",render);
+        s.addEventListener("change",render);
+      }
+    });
+
+    if(el("pwClearFilters")){
+      el("pwClearFilters").addEventListener("click",function(){
+        ["pwFilterSearch","pwFilterBlock","pwFilterGP","pwFilterType","pwFilterStatus"].forEach(function(id){
+          if(el(id))el(id).value="";
+        });
+        render();
+      });
+    }
+
+    if(el("priorityRefreshBtn"))el("priorityRefreshBtn").addEventListener("click",load);
+    if(el("pwsUpdateBtn"))el("pwsUpdateBtn").addEventListener("click",save);
+    if(el("pwsClearBtn"))el("pwsClearBtn").addEventListener("click",function(){
+      if(el("priorityInlineUpdate"))el("priorityInlineUpdate").style.display="none";
+    });
+
+    load();
+  }
+
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",init);
+  }else{
+    init();
+  }
 })();
 </script>
 </body></html>
