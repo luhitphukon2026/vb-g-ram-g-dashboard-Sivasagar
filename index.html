@@ -890,26 +890,6 @@ select:focus,input:focus,textarea:focus{outline:0!important;border-color:var(--g
 @media(max-width:900px){.gp-visual-kpis{grid-template-columns:repeat(2,1fr)}.gp-diagram-grid{grid-template-columns:1fr}}
 @media(max-width:600px){.analytics-filters{width:100%}.analytics-filters select{min-width:0;flex:1}.gp-bar-row{grid-template-columns:85px 1fr 43px}.gp-flow-row{grid-template-columns:75px 1fr}}
 </style>
-
-<style id="gp-analytics-easy-v27">
-.gp-analytics-dashboard{padding-top:16px}
-.gp-analytics-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
-.analytics-kicker{font-size:9px;letter-spacing:1px;font-weight:900;color:#718894}
-.gp-analytics-head h2{font-size:22px;margin:4px 0;color:#173d5d}
-.gp-analytics-head p{font-size:10px;color:#84949d;margin:0}
-.gp-head-tools{display:flex;gap:7px;align-items:center}.gp-live-status{font-size:8px;font-weight:900;color:#18845b;background:#eaf7f1;border-radius:99px;padding:7px 9px}.gp-refresh{border:1px solid #d3e0e7;background:#fff;color:#245d86;border-radius:8px;padding:7px 11px;font-size:9px;font-weight:850;cursor:pointer}
-.gp-control-bar{display:flex;gap:8px;align-items:center;margin-bottom:12px}.gp-search-box{height:35px;flex:1;max-width:420px;border:1px solid #d9e5eb;border-radius:9px;background:#fff;display:flex;align-items:center;gap:7px;padding:0 10px;color:#81929c;font-size:11px}.gp-search-box input{border:0;outline:0;width:100%;font-size:10px;background:transparent}.gp-control-bar select{height:35px;border:1px solid #d9e5eb;border-radius:9px;background:#fff;padding:0 10px;color:#526b79;font-size:9px}
-.gp-feature-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:12px}.gp-feature{background:#fff;border:1px solid #dce6ed;border-radius:12px;padding:11px;display:flex;align-items:center;gap:9px;box-shadow:0 4px 12px rgba(18,59,93,.04)}.feature-icon{width:35px;height:35px;border-radius:10px;display:grid;place-items:center;font-size:17px}.feature-icon.green{background:#e8f7ef;color:#20835c}.feature-icon.red{background:#faece9;color:#c64e3d}.feature-icon.blue{background:#eaf3f8;color:#245d86}.feature-icon.purple{background:#f2ebf8;color:#7d4aa0}.gp-feature small{display:block;font-size:6.5px;color:#8a99a2;font-weight:900}.gp-feature b{display:block;font-size:11px;color:#173d5d;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}.gp-feature em{font-style:normal;font-size:8px;color:#6d8290}
-.gp-overview-panel,.gp-panel,.gp-attention-panel{background:#fff;border:1px solid #dce6ed;border-radius:14px;box-shadow:0 5px 15px rgba(18,59,93,.045)}
-.gp-overview-panel{padding:14px;margin-bottom:12px}.gp-overview-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.gp-overview-top b{display:block;color:#173d5d;font-size:12px}.gp-overview-top small{display:block;color:#8a99a2;font-size:8px;margin-top:2px}.legend{display:flex;gap:10px;font-size:7px;color:#71838d}.legend i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:3px}.lg-good{background:#2c9b6d}.lg-mid{background:#e1a22e}.lg-bad{background:#d55c4d}
-.gp-dot-map{display:grid;grid-template-columns:repeat(14,1fr);gap:7px;padding:8px 4px}.gp-dot{height:24px;border-radius:7px;background:#edf3f5;display:grid;place-items:center;font-size:6px;font-weight:900;color:#647a86;cursor:pointer;border:1px solid transparent}.gp-dot.good{background:#e5f5ed;color:#207957}.gp-dot.mid{background:#fbf1db;color:#946c19}.gp-dot.bad{background:#fae9e6;color:#b5483a}.gp-dot:hover{transform:scale(1.08);border-color:#245d86}
-.gp-main-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:12px;margin-bottom:12px}.gp-panel{padding:14px}.gp-panel-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:11px}.gp-panel-head>div{display:grid;grid-template-columns:25px 1fr;column-gap:7px}.gp-panel-head .num{grid-row:span 2;width:25px;height:25px;border-radius:7px;background:#eef5f9;color:#245d86;display:grid;place-items:center;font-size:7px;font-weight:900}.gp-panel-head b{font-size:11px;color:#173d5d}.gp-panel-head small{font-size:7px;color:#87969f;margin-top:3px}.panel-note{font-size:7px;color:#8b9aa2}.gp-ranking-list{max-height:500px;overflow:auto;padding-right:3px}.gp-rank-row{display:grid;grid-template-columns:25px 115px 1fr 45px 32px;gap:6px;align-items:center;min-height:27px;border-bottom:1px solid #f0f3f5;cursor:pointer}.gp-rank-row:hover{background:#f8fafb}.gp-rank-no{font-size:7px;color:#9aa8af;text-align:center}.gp-rank-name{font-size:8px;font-weight:800;color:#526b79;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.gp-rank-track{height:8px;border-radius:99px;background:#edf2f4;overflow:hidden}.gp-rank-track i{display:block;height:100%;border-radius:99px;background:#2d9b6d}.gp-rank-row.mid .gp-rank-track i{background:#e1a12d}.gp-rank-row.bad .gp-rank-track i{background:#d65c4c}.gp-rank-score{font-size:8px;font-weight:900;color:#173d5d;text-align:right}.gp-rank-arrow{font-size:11px;color:#a0adb4;text-align:center}
-.gp-profile-empty{min-height:180px;display:grid;place-items:center;text-align:center;color:#91a0a8;font-size:9px}.profile-name{font-size:19px;font-weight:900;color:#173d5d;margin-bottom:2px}.profile-sub{font-size:8px;color:#82929b}.profile-score{font-size:31px;font-weight:900;color:#245d86;margin:14px 0}.profile-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.profile-metric{background:#f6f9fa;border-radius:8px;padding:8px}.profile-metric small{display:block;font-size:6px;color:#8a99a2}.profile-metric b{display:block;font-size:12px;color:#526b79;margin-top:3px}
-.gp-two-diagrams{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}.simple-bars{max-height:390px;overflow:auto;padding-right:3px}.simple-row{display:grid;grid-template-columns:105px 1fr 45px;gap:7px;align-items:center;min-height:25px}.simple-row b{font-size:7px;color:#607783;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.simple-track{height:8px;background:#edf2f4;border-radius:99px;overflow:hidden}.simple-track i{height:100%;display:block;background:#3b91b4;border-radius:99px}.simple-track i.low{background:#dc7040}.simple-row strong{font-size:7px;text-align:right;color:#173d5d}
-.gp-attention-panel{padding:14px}.attention-label{font-size:7px;font-weight:900;color:#c34f3d;background:#fae9e6;padding:6px 8px;border-radius:99px}.attention-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.attention-gp{display:grid;grid-template-columns:25px 1fr auto;align-items:center;gap:7px;background:#fff7f5;border:1px solid #f2dfdb;border-radius:8px;padding:7px}.attention-gp .rankn{font-size:8px;color:#bd5b4a;font-weight:900}.attention-gp b{font-size:8px;color:#526b79}.attention-gp strong{font-size:8px;color:#c24d3b}
-@media(max-width:900px){.gp-feature-strip{grid-template-columns:repeat(2,1fr)}.gp-main-grid,.gp-two-diagrams{grid-template-columns:1fr}.gp-dot-map{grid-template-columns:repeat(10,1fr)}}
-@media(max-width:600px){.gp-control-bar{flex-wrap:wrap}.gp-search-box{max-width:none;flex-basis:100%}.gp-control-bar select{flex:1;min-width:0}.gp-feature-strip{grid-template-columns:1fr}.gp-dot-map{grid-template-columns:repeat(7,1fr)}.gp-rank-row{grid-template-columns:22px 90px 1fr 40px 25px}.attention-grid{grid-template-columns:1fr}}
-</style>
 </head>
 <body>
 
@@ -1208,108 +1188,76 @@ select:focus,input:focus,textarea:focus{outline:0!important;border-color:var(--g
 
 
 
-
 <section class="page" id="analytics">
-<div class="wrap gp-analytics-dashboard">
-
-  <div class="gp-analytics-head">
+<div class="wrap analytics-only">
+  <div class="analytics-head">
     <div>
-      <span class="analytics-kicker">GP PERFORMANCE CENTRE</span>
-      <h2>📊 82 Gram Panchayats — Performance</h2>
-      <p>Simple visual monitoring. Find the best-performing and attention-needed GPs instantly.</p>
+      <span class="analytics-kicker">GP-WISE VISUAL ANALYTICS</span>
+      <h2>📊 All Gram Panchayats — Sivasagar District</h2>
+      <p>Visual comparison of every GP. No block-wise aggregation.</p>
     </div>
-    <div class="gp-head-tools">
-      <span id="gpLiveStatus" class="gp-live-status">● LIVE</span>
-      <button id="gpRefreshBtn" class="gp-refresh">↻ Refresh</button>
-    </div>
-  </div>
-
-  <div class="gp-control-bar">
-    <div class="gp-search-box">🔎 <input id="gpSearch" type="search" placeholder="Search GP name…"></div>
-    <select id="gpSort">
-      <option value="overall">Overall Performance</option>
-      <option value="ekyc">e-KYC</option>
-      <option value="abps">ABPS</option>
-      <option value="persondays">Persondays</option>
-      <option value="physical">Physical Progress</option>
-      <option value="geotag">Geo-tag</option>
-    </select>
-    <select id="gpViewCount">
-      <option value="all">All 82 GPs</option>
-      <option value="20">Top / Bottom 20</option>
-      <option value="10">Top / Bottom 10</option>
-    </select>
-  </div>
-
-  <div class="gp-feature-strip">
-    <div class="gp-feature">
-      <span class="feature-icon green">🏆</span>
-      <div><small>BEST OVERALL GP</small><b id="bestGP">—</b><em id="bestGPScore">—</em></div>
-    </div>
-    <div class="gp-feature">
-      <span class="feature-icon red">⚠</span>
-      <div><small>NEEDS MOST ATTENTION</small><b id="attentionGP">—</b><em id="attentionGPScore">—</em></div>
-    </div>
-    <div class="gp-feature">
-      <span class="feature-icon blue">✓</span>
-      <div><small>BEST e-KYC</small><b id="bestEkycGP">—</b><em id="bestEkycScore">—</em></div>
-    </div>
-    <div class="gp-feature">
-      <span class="feature-icon purple">👥</span>
-      <div><small>HIGHEST PERSONDAYS</small><b id="bestPersondaysGP">—</b><em id="bestPersondaysScore">—</em></div>
+    <div class="analytics-filters">
+      <select id="gpAnalyticsFilter"><option value="">All Gram Panchayats</option></select>
+      <select id="gpMetricFilter">
+        <option value="ekyc">e-KYC</option>
+        <option value="abps">ABPS</option>
+        <option value="persondays">Persondays</option>
+        <option value="physical">Physical Progress</option>
+        <option value="geotag">Geo-tag</option>
+      </select>
     </div>
   </div>
 
-  <div class="gp-overview-panel">
-    <div class="gp-overview-top">
-      <div><b>All GP Performance</b><small>Each circle represents one Gram Panchayat</small></div>
-      <div class="legend"><span><i class="lg-good"></i>Good</span><span><i class="lg-mid"></i>Attention</span><span><i class="lg-bad"></i>Priority</span></div>
-    </div>
-    <div id="gpDotMap" class="gp-dot-map"></div>
+  <div class="gp-visual-kpis">
+    <div class="gp-kpi"><span>🏘️</span><b id="gpCount">—</b><small>Total GPs</small></div>
+    <div class="gp-kpi"><span>✓</span><b id="gpBest">—</b><small>Best e-KYC GP</small></div>
+    <div class="gp-kpi"><span>⚠</span><b id="gpAttention">—</b><small>GPs needing attention</small></div>
+    <div class="gp-kpi"><span>👥</span><b id="gpPersondays">—</b><small>Total persondays</small></div>
   </div>
 
-  <div class="gp-main-grid">
-    <div class="gp-panel">
-      <div class="gp-panel-head"><div><span class="num">01</span><b>Performance Ranking</b><small>All GPs ranked by overall score</small></div><span class="panel-note">1 → 82</span></div>
-      <div id="gpRankingList" class="gp-ranking-list"></div>
+  <div class="gp-diagram-grid">
+    <div class="gp-diagram wide">
+      <div class="diagram-title"><div><span>01</span><h3>e-KYC — All GPs</h3></div><em>highest → lowest</em></div>
+      <div id="gpEkycChart" class="gp-bars"><div class="gp-placeholder">Loading GP data…</div></div>
     </div>
 
-    <div class="gp-panel">
-      <div class="gp-panel-head"><div><span class="num">02</span><b>GP Performance Profile</b><small>Click any GP to inspect its indicators</small></div></div>
-      <div id="gpProfile" class="gp-profile-empty">Select a GP from the ranking.</div>
+    <div class="gp-diagram wide">
+      <div class="diagram-title"><div><span>02</span><h3>ABPS — All GPs</h3></div><em>coverage %</em></div>
+      <div id="gpAbpsChart" class="gp-bars"><div class="gp-placeholder">Loading GP data…</div></div>
+    </div>
+
+    <div class="gp-diagram wide">
+      <div class="diagram-title"><div><span>03</span><h3>Persondays — All GPs</h3></div><em>generated</em></div>
+      <div id="gpPersondaysChart" class="gp-columns"><div class="gp-placeholder">Loading GP data…</div></div>
+    </div>
+
+    <div class="gp-diagram wide">
+      <div class="diagram-title"><div><span>04</span><h3>Physical Progress — All GPs</h3></div><em>visual comparison</em></div>
+      <div id="gpPhysicalChart" class="gp-bars"><div class="gp-placeholder">Loading GP data…</div></div>
+    </div>
+
+    <div class="gp-diagram wide">
+      <div class="diagram-title"><div><span>05</span><h3>Demand → Offer → Avail</h3></div><em>GP-wise flow</em></div>
+      <div id="gpFlowChart" class="gp-flow-list"><div class="gp-placeholder">Loading GP data…</div></div>
+    </div>
+
+    <div class="gp-diagram wide">
+      <div class="diagram-title"><div><span>06</span><h3>Geo-tag Attention — All GPs</h3></div><em>pending stages</em></div>
+      <div id="gpGeoChart" class="gp-bars"><div class="gp-placeholder">Loading GP data…</div></div>
+    </div>
+
+    <div class="gp-diagram wide">
+      <div class="diagram-title"><div><span>07</span><h3>Top Performing GPs</h3></div><em>visual ranking</em></div>
+      <div id="gpTopChart" class="ranking-bars"><div class="gp-placeholder">Loading GP data…</div></div>
+    </div>
+
+    <div class="gp-diagram wide">
+      <div class="diagram-title"><div><span>08</span><h3>GPs Needing Attention</h3></div><em>priority view</em></div>
+      <div id="gpBottomChart" class="ranking-bars"><div class="gp-placeholder">Loading GP data…</div></div>
     </div>
   </div>
-
-  <div class="gp-two-diagrams">
-    <div class="gp-panel">
-      <div class="gp-panel-head"><div><span class="num">03</span><b>e-KYC — All GPs</b><small>Lower values are highlighted</small></div></div>
-      <div id="gpEkycSimple" class="simple-bars"></div>
-    </div>
-    <div class="gp-panel">
-      <div class="gp-panel-head"><div><span class="num">04</span><b>ABPS — All GPs</b><small>Lower values are highlighted</small></div></div>
-      <div id="gpAbpsSimple" class="simple-bars"></div>
-    </div>
-  </div>
-
-  <div class="gp-two-diagrams">
-    <div class="gp-panel">
-      <div class="gp-panel-head"><div><span class="num">05</span><b>Persondays — All GPs</b><small>Relative generation</small></div></div>
-      <div id="gpPersondaysSimple" class="simple-bars"></div>
-    </div>
-    <div class="gp-panel">
-      <div class="gp-panel-head"><div><span class="num">06</span><b>Physical Progress — All GPs</b><small>Completion indicator</small></div></div>
-      <div id="gpPhysicalSimple" class="simple-bars"></div>
-    </div>
-  </div>
-
-  <div class="gp-attention-panel">
-    <div class="gp-panel-head"><div><span class="num">07</span><b>Bottom 10 — Immediate Attention</b><small>GPs with the lowest overall performance score</small></div><span class="attention-label">ACTION REQUIRED</span></div>
-    <div id="gpBottom10" class="attention-grid"></div>
-  </div>
-
 </div>
 </section>
-
 
 
 
@@ -4389,98 +4337,6 @@ document.addEventListener("DOMContentLoaded",function(){
   document.getElementById("gpAnalyticsFilter")?.addEventListener("change",render);
   document.getElementById("gpMetricFilter")?.addEventListener("change",render);
   loadGPData();
-});
-})();
-</script>
-
-<script id="gp-analytics-easy-data-v27">
-(function(){
-"use strict";
-let rows=[]; let selected=null;
-
-function n(v){if(v===null||v===undefined||v==="")return 0;let x=Number(String(v).replace(/,/g,"").replace("%",""));return isNaN(x)?0:x}
-function s(v){return String(v==null?"":v).trim()}
-function val(o,names){
- const keys=Object.keys(o||{});
- for(const name of names){
-  const k=keys.find(x=>x.toLowerCase().replace(/[^a-z0-9]/g,"")===name.toLowerCase().replace(/[^a-z0-9]/g,""));
-  if(k!==undefined)return o[k];
- }
- const k=keys.find(x=>names.some(name=>x.toLowerCase().includes(name.toLowerCase())));
- return k===undefined?"":o[k];
-}
-function map(o){
- return {
-  gp:s(val(o,["GP","GP Name","Gram Panchayat","Gram Panchayat Name","Panchayat"])),
-  ekyc:n(val(o,["e-KYC %","eKYC %","EKYC","eKYC"])),
-  abps:n(val(o,["ABPS %","ABPS"])),
-  persondays:n(val(o,["Persondays","Persondays Generated"])),
-  physical:n(val(o,["Physical Progress %","Physical Progress","Progress %"])),
-  geotag:n(val(o,["Geo-tag Pending","Geotag Pending","Geo Tag Pending","Geo-tag"])),
-  demanded:n(val(o,["Demanded Persons","Employment Demanded Persons","Demanded"])),
-  offered:n(val(o,["Offered Persons","Employment Offered Persons","Offered"])),
-  availed:n(val(o,["Availed Persons","Employment Availed Persons","Availed"]))
- };
-}
-function score(x){return (x.ekyc+x.abps+x.physical)/3}
-function pct(x){return n(x).toFixed(1)+"%"}
-function fmt(x){return Math.round(n(x)).toLocaleString("en-IN")}
-function cls(x){return score(x)>=90?"good":score(x)>=75?"mid":"bad"}
-
-function filtered(){
- const q=(document.getElementById("gpSearch")?.value||"").toLowerCase();
- let a=rows.filter(x=>!q||x.gp.toLowerCase().includes(q));
- const sort=document.getElementById("gpSort")?.value||"overall";
- a.sort((x,y)=> sort==="overall"?score(y)-score(x):sort==="persondays"?y.persondays-x.persondays:(y[sort]||0)-(x[sort]||0));
- return a;
-}
-function draw(){
- const a=filtered(); const view=document.getElementById("gpViewCount")?.value||"all";
- let display=a;
- if(view!=="all")display=a.slice(0,Number(view)).concat(a.slice(-Number(view)));
- const best=[...rows].sort((a,b)=>score(b)-score(a))[0];
- const attention=[...rows].sort((a,b)=>score(a)-score(b))[0];
- const be=[...rows].sort((a,b)=>b.ekyc-a.ekyc)[0];
- const bp=[...rows].sort((a,b)=>b.persondays-a.persondays)[0];
- document.getElementById("bestGP").textContent=best?.gp||"—";document.getElementById("bestGPScore").textContent=best?pct(score(best)):"—";
- document.getElementById("attentionGP").textContent=attention?.gp||"—";document.getElementById("attentionGPScore").textContent=attention?pct(score(attention)):"—";
- document.getElementById("bestEkycGP").textContent=be?.gp||"—";document.getElementById("bestEkycScore").textContent=be?pct(be.ekyc):"—";
- document.getElementById("bestPersondaysGP").textContent=bp?.gp||"—";document.getElementById("bestPersondaysScore").textContent=bp?fmt(bp.persondays):"—";
-
- document.getElementById("gpDotMap").innerHTML=rows.map((x,i)=>`<button class="gp-dot ${cls(x)}" title="${x.gp} — ${pct(score(x))}" data-gp="${i}">${i+1}</button>`).join("");
- document.querySelectorAll(".gp-dot").forEach(b=>b.onclick=()=>{selected=rows[Number(b.dataset.gp)];profile();});
-
- document.getElementById("gpRankingList").innerHTML=display.map((x,i)=>`<div class="gp-rank-row ${cls(x)}" data-gp="${rows.indexOf(x)}"><span class="gp-rank-no">${rows.indexOf(x)+1}</span><b class="gp-rank-name">${x.gp||"Unnamed GP"}</b><div class="gp-rank-track"><i style="width:${Math.max(2,Math.min(100,score(x)))}%"></i></div><strong class="gp-rank-score">${pct(score(x))}</strong><span class="gp-rank-arrow">›</span></div>`).join("")||'<div class="gp-profile-empty">No GP found.</div>';
- document.querySelectorAll(".gp-rank-row").forEach(b=>b.onclick=()=>{selected=rows[Number(b.dataset.gp)];profile();});
- simple("gpEkycSimple",display,"ekyc",true);simple("gpAbpsSimple",display,"abps",true);simple("gpPersondaysSimple",display,"persondays",false);simple("gpPhysicalSimple",display,"physical",true);
- const bottom=[...rows].sort((a,b)=>score(a)-score(b)).slice(0,10);
- document.getElementById("gpBottom10").innerHTML=bottom.map((x,i)=>`<div class="attention-gp"><span class="rankn">${i+1}</span><b>${x.gp}</b><strong>${pct(score(x))}</strong></div>`).join("");
- if(!selected && rows.length)selected=rows[0]; profile();
-}
-function simple(id,a,key,percent){
- const el=document.getElementById(id);if(!el)return; const data=[...a].sort((x,y)=>(y[key]||0)-(x[key]||0));
- const max=percent?100:Math.max(1,...data.map(x=>x[key]||0));
- el.innerHTML=data.map(x=>`<div class="simple-row"><b title="${x.gp}">${x.gp}</b><div class="simple-track"><i class="${percent&&x[key]<90?"low":""}" style="width:${Math.max(1,(x[key]||0)/max*100)}%"></i></div><strong>${percent?pct(x[key]):fmt(x[key])}</strong></div>`).join("");
-}
-function profile(){
- const el=document.getElementById("gpProfile");if(!el||!selected)return;
- el.innerHTML=`<div><div class="profile-name">${selected.gp}</div><div class="profile-sub">Gram Panchayat • Individual performance</div><div class="profile-score">${pct(score(selected))}<small style="font-size:8px;color:#84939d"> overall score</small></div><div class="profile-metrics"><div class="profile-metric"><small>e-KYC</small><b>${pct(selected.ekyc)}</b></div><div class="profile-metric"><small>ABPS</small><b>${pct(selected.abps)}</b></div><div class="profile-metric"><small>PERSONDAYS</small><b>${fmt(selected.persondays)}</b></div><div class="profile-metric"><small>PHYSICAL</small><b>${pct(selected.physical)}</b></div><div class="profile-metric"><small>DEMANDED → OFFERED</small><b>${fmt(selected.demanded)} → ${fmt(selected.offered)}</b></div><div class="profile-metric"><small>OFFERED → AVAILED</small><b>${fmt(selected.offered)} → ${fmt(selected.availed)}</b></div></div></div>`;
-}
-function load(){
- document.getElementById("gpLiveStatus").textContent="● Loading…";
- if(typeof google==="undefined"||!google.script||!google.script.run){document.getElementById("gpLiveStatus").textContent="● Offline";return;}
- google.script.run.withSuccessHandler(function(data){
-   let arr=Array.isArray(data)?data:(data&&Array.isArray(data.rows)?data.rows:[]);
-   if(data&&Array.isArray(data.rows)&&Array.isArray(data.cols))arr=data.rows.map(r=>Object.fromEntries(data.cols.map((c,i)=>[c,r[i]])));
-   rows=arr.map(map).filter(x=>x.gp);
-   document.getElementById("gpLiveStatus").textContent="● "+rows.length+" GPs";
-   draw();
- }).withFailureHandler(function(e){console.error(e);document.getElementById("gpLiveStatus").textContent="● Backend error";}).getPriorityWorks();
-}
-document.addEventListener("DOMContentLoaded",function(){
- ["gpSearch","gpSort","gpViewCount"].forEach(id=>document.getElementById(id)?.addEventListener("input",draw));
- document.getElementById("gpRefreshBtn")?.addEventListener("click",load);
- load();
 });
 })();
 </script>
