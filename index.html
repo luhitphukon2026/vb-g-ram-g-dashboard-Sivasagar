@@ -841,55 +841,6 @@ select:focus,input:focus,textarea:focus{outline:0!important;border-color:var(--g
 @media(max-width:1100px){#priority .pw-summary{grid-template-columns:repeat(3,1fr)}#priority .pw-modern-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:700px){#priority .pw-summary{grid-template-columns:repeat(2,1fr)}#priority .pw-modern-grid{grid-template-columns:1fr}#priority .pw-toolbar{flex-wrap:wrap}#priority #pwLevelFilter{width:100%}#priority .pw-tool-btn{width:100%}}
 </style>
-
-<style id="analytics-diagrams-only">
-.analytics-only{padding-top:18px}
-.analytics-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:15px}
-.analytics-kicker{font-size:9px;letter-spacing:.9px;font-weight:900;color:#6d8492}
-.analytics-head h2{margin:3px 0;color:#173d5d;font-size:23px}
-.analytics-head p{margin:0;color:#87959e;font-size:10px}
-.analytics-filters{display:flex;gap:7px}
-.analytics-filters select{min-width:145px}
-.analytics-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px}
-.akpi{background:#fff;border:1px solid #dce6ed;border-radius:14px;padding:12px;text-align:center;box-shadow:0 5px 16px rgba(18,59,93,.05)}
-.akpi b{display:block;color:#173d5d;font-size:10px;margin-top:7px}.akpi small{font-size:8px;color:#87959e}
-.akpi-ring{width:62px;height:62px;border-radius:50%;margin:auto;display:grid;place-items:center;position:relative;background:conic-gradient(#245d86 var(--p),#e9eff3 0)}
-.akpi-ring:after{content:"";position:absolute;inset:7px;background:#fff;border-radius:50%}
-.akpi-ring span{position:relative;z-index:1;font-size:11px;font-weight:900;color:#173d5d}
-.r1{--p:94.6%}.r2{--p:96.8%}.r3{--p:99.8%}.r4{--p:97.2%}
-.akpi-number{height:62px;display:grid;place-items:center;font-size:22px;font-weight:900;color:#173d5d}
-.diagram-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.diagram-card{background:#fff;border:1px solid #dce6ed;border-radius:15px;padding:16px;box-shadow:0 6px 18px rgba(18,59,93,.05)}
-.diagram-card.wide{min-width:0}
-.diagram-title{display:flex;justify-content:space-between;align-items:start;margin-bottom:15px}
-.diagram-title>div{display:flex;gap:8px;align-items:center}.diagram-title span{width:25px;height:25px;border-radius:7px;background:#eef5f9;color:#245d86;display:grid;place-items:center;font-size:8px;font-weight:900}.diagram-title h3{margin:0;color:#173d5d;font-size:13px}.diagram-title em{font-style:normal;font-size:8px;color:#87959e}
-.horizontal-chart{display:flex;flex-direction:column;gap:10px}.hrow{display:grid;grid-template-columns:75px 1fr 48px;gap:8px;align-items:center}.hrow b{font-size:9px;color:#526a79}.hrow strong{font-size:9px;color:#173d5d;text-align:right}.track,.stage-track{height:10px;border-radius:99px;background:#edf2f5;overflow:hidden}.track i,.stage-track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#245d86,#56a0c4)}.track i.warn,.stage-track i.warn{background:linear-gradient(90deg,#e37a2c,#eab04d)}
-.column-chart{height:190px;display:flex;align-items:end;justify-content:space-around;gap:13px;padding:10px 5px 0;border-bottom:1px solid #dfe7eb}.col{height:100%;display:flex;flex-direction:column;justify-content:end;align-items:center;flex:1;gap:5px}.col b{font-size:8px;color:#526a79}.col i{width:100%;max-width:42px;border-radius:7px 7px 0 0;background:linear-gradient(180deg,#4f91b4,#245d86);min-height:8px}.col i.warn{background:linear-gradient(180deg,#efaa4b,#dc6d2a)}.col small{font-size:8px;color:#7f909a;white-space:nowrap}
-.flow-diagram{display:flex;align-items:center;justify-content:center;gap:8px;margin:24px 0 20px}.flow-node{width:82px;height:82px;border-radius:50%;background:#eef5f9;border:7px solid #d8e7ef;display:grid;place-content:center;text-align:center}.flow-node b{font-size:15px;color:#173d5d}.flow-node small{font-size:7px;color:#7c8d97}.flow-arrow{font-size:20px;color:#8ba2af}.flow-gap{display:flex;justify-content:center;gap:8px;align-items:center;font-size:8px;color:#82929c}.flow-gap b{color:#c45332;font-size:11px}
-.donut-wrap{display:flex;justify-content:center;align-items:center;gap:28px;padding:13px}.big-donut{width:135px;height:135px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#245d86 64%,#e9eff3 0);position:relative}.big-donut:after{content:"";position:absolute;inset:17px;background:#fff;border-radius:50%}.big-donut span{position:relative;z-index:1;font-size:26px;font-weight:900;color:#173d5d;text-align:center}.big-donut small{display:block;font-size:7px;color:#83929b;font-weight:700}.donut-side b{display:block;font-size:25px;color:#245d86}.donut-side small{display:block;max-width:90px;font-size:8px;color:#82929c}
-.stage-chart{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.stage-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}.stage-head b{font-size:10px;color:#526a79}.stage-head strong{font-size:16px;color:#173d5d}.stage small{display:block;font-size:8px;color:#84939c;margin-top:5px}.stage-track{height:14px}.matrix-chart{display:flex;flex-direction:column}.matrix-row{display:grid;grid-template-columns:120px 65px 1fr 65px;gap:12px;align-items:center;min-height:30px;border-bottom:1px solid #edf1f3}.matrix-row b{font-size:9px;color:#526a79}.matrix-label{border-bottom:2px solid #dce6ed}.matrix-label b{font-size:8px;color:#84939c;text-transform:uppercase}.dot{width:11px;height:11px;border-radius:50%;display:block}.dot.high{background:#27a36d;box-shadow:0 0 0 4px #e4f5ed}.dot.mid{background:#e3a12e;box-shadow:0 0 0 4px #fbf1db}.dot.low{background:#d55b4c;box-shadow:0 0 0 4px #fae9e6}.bar-mini{height:8px;display:block;border-radius:99px;background:#4d91b3}.bar-mini.warn{background:#e18a35}
-@media(max-width:900px){.analytics-kpis{grid-template-columns:repeat(3,1fr)}.diagram-grid{grid-template-columns:1fr}}
-@media(max-width:600px){.analytics-kpis{grid-template-columns:repeat(2,1fr)}.analytics-filters{width:100%}.analytics-filters select{flex:1;min-width:0}.stage-chart{grid-template-columns:1fr}.hrow{grid-template-columns:65px 1fr 42px}.flow-diagram{gap:3px}.flow-node{width:70px;height:70px}.matrix-row{grid-template-columns:90px 45px 1fr 45px}}
-</style>
-
-<style id="gp-analytics-final">
-.analytics-only{padding-top:18px}
-.analytics-head{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:15px}
-.analytics-kicker{font-size:9px;letter-spacing:1px;font-weight:900;color:#6c8290}
-.analytics-head h2{margin:4px 0;color:#173d5d;font-size:22px}.analytics-head p{margin:0;color:#84939d;font-size:10px}
-.analytics-filters{display:flex;gap:7px}.analytics-filters select{min-width:170px}
-.gp-visual-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
-.gp-kpi{background:#fff;border:1px solid #dce6ed;border-radius:14px;padding:14px;display:grid;grid-template-columns:34px 1fr;column-gap:9px;align-items:center;box-shadow:0 5px 16px rgba(18,59,93,.05)}
-.gp-kpi span{grid-row:span 2;width:34px;height:34px;border-radius:9px;background:#eef5f9;display:grid;place-items:center}.gp-kpi b{font-size:18px;color:#173d5d}.gp-kpi small{font-size:8px;color:#84939d}
-.gp-diagram-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.gp-diagram{background:#fff;border:1px solid #dce6ed;border-radius:15px;padding:16px;box-shadow:0 6px 18px rgba(18,59,93,.05);min-width:0}.gp-diagram.wide{min-width:0}
-.gp-diagram .diagram-title{display:flex;justify-content:space-between;align-items:start;margin-bottom:13px}.gp-diagram .diagram-title>div{display:flex;gap:8px;align-items:center}.gp-diagram .diagram-title span{width:25px;height:25px;border-radius:7px;background:#eef5f9;color:#245d86;display:grid;place-items:center;font-size:8px;font-weight:900}.gp-diagram h3{margin:0;font-size:13px;color:#173d5d}.gp-diagram em{font-style:normal;font-size:8px;color:#84939d}
-.gp-bars{display:flex;flex-direction:column;gap:7px;max-height:360px;overflow:auto;padding-right:4px}.gp-bar-row{display:grid;grid-template-columns:110px 1fr 48px;gap:7px;align-items:center}.gp-bar-row b{font-size:8px;color:#536b79;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.gp-track{height:9px;background:#edf2f5;border-radius:99px;overflow:hidden}.gp-track i{display:block;height:100%;background:linear-gradient(90deg,#245d86,#57a3c7);border-radius:99px}.gp-track i.warn{background:linear-gradient(90deg,#dc6e2c,#e7ae4c)}.gp-bar-row strong{text-align:right;font-size:8px;color:#173d5d}
-.gp-columns{height:270px;display:flex;align-items:end;gap:6px;overflow-x:auto;border-bottom:1px solid #dce6ed;padding:0 4px}.gp-col{height:100%;min-width:42px;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:4px}.gp-col b{font-size:7px;color:#526a79}.gp-col i{width:28px;min-height:4px;background:linear-gradient(180deg,#4e92b5,#245d86);border-radius:5px 5px 0 0}.gp-col small{font-size:6px;color:#7d8e98;writing-mode:vertical-rl;transform:rotate(180deg);height:58px;white-space:nowrap}
-.gp-flow-list{display:flex;flex-direction:column;gap:8px;max-height:330px;overflow:auto}.gp-flow-row{display:grid;grid-template-columns:100px 1fr;gap:8px;align-items:center}.gp-flow-row>b{font-size:8px;color:#526a79;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.gp-flow{display:flex;align-items:center;gap:5px}.gp-flow-node{padding:6px 8px;border-radius:8px;background:#eef5f9;color:#173d5d;font-size:8px;font-weight:850}.gp-flow-arrow{color:#9aaab3;font-size:11px}
-.ranking-bars{display:flex;flex-direction:column;gap:8px}.ranking-row{display:grid;grid-template-columns:24px 115px 1fr 42px;gap:7px;align-items:center}.ranking-row>span{font-size:8px;font-weight:900;color:#81919b}.ranking-row b{font-size:8px;color:#526a79;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ranking-track{height:11px;border-radius:99px;background:#edf2f5;overflow:hidden}.ranking-track i{display:block;height:100%;background:#2c9b6d;border-radius:99px}.ranking-row.attention .ranking-track i{background:#df7130}.ranking-row strong{font-size:8px;text-align:right;color:#173d5d}.gp-placeholder{padding:25px;text-align:center;color:#87959e;font-size:9px}
-@media(max-width:900px){.gp-visual-kpis{grid-template-columns:repeat(2,1fr)}.gp-diagram-grid{grid-template-columns:1fr}}
-@media(max-width:600px){.analytics-filters{width:100%}.analytics-filters select{min-width:0;flex:1}.gp-bar-row{grid-template-columns:85px 1fr 43px}.gp-flow-row{grid-template-columns:75px 1fr}}
-</style>
 </head>
 <body>
 
@@ -908,8 +859,8 @@ select:focus,input:focus,textarea:focus{outline:0!important;border-color:var(--g
 <button class="tab" data-page="employment">💼 PHYSICAL PROGRESS REPORT</button>
 <button class="tab" data-page="ranking">🏆 Performance</button>
 <button class="tab" data-page="analytics">📈 Analytics</button>
-
-
+<button class="tab" data-page="documents">📚 Documents</button>
+<button class="tab" data-page="reports">🔔 Pending Reports</button>
 <button class="tab" data-page="geotag">📍 Geo-tag</button>
 <button class="tab" data-page="contacts">👷 GP Contacts</button>
 
@@ -1186,84 +1137,225 @@ select:focus,input:focus,textarea:focus{outline:0!important;border-color:var(--g
 </div>
 </div></section>
 
-
-
-<section class="page" id="analytics">
-<div class="wrap analytics-only">
-  <div class="analytics-head">
-    <div>
-      <span class="analytics-kicker">GP-WISE VISUAL ANALYTICS</span>
-      <h2>📊 All Gram Panchayats — Sivasagar District</h2>
-      <p>Visual comparison of every GP. No block-wise aggregation.</p>
-    </div>
-    <div class="analytics-filters">
-      <select id="gpAnalyticsFilter"><option value="">All Gram Panchayats</option></select>
-      <select id="gpMetricFilter">
-        <option value="ekyc">e-KYC</option>
-        <option value="abps">ABPS</option>
-        <option value="persondays">Persondays</option>
-        <option value="physical">Physical Progress</option>
-        <option value="geotag">Geo-tag</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="gp-visual-kpis">
-    <div class="gp-kpi"><span>🏘️</span><b id="gpCount">—</b><small>Total GPs</small></div>
-    <div class="gp-kpi"><span>✓</span><b id="gpBest">—</b><small>Best e-KYC GP</small></div>
-    <div class="gp-kpi"><span>⚠</span><b id="gpAttention">—</b><small>GPs needing attention</small></div>
-    <div class="gp-kpi"><span>👥</span><b id="gpPersondays">—</b><small>Total persondays</small></div>
-  </div>
-
-  <div class="gp-diagram-grid">
-    <div class="gp-diagram wide">
-      <div class="diagram-title"><div><span>01</span><h3>e-KYC — All GPs</h3></div><em>highest → lowest</em></div>
-      <div id="gpEkycChart" class="gp-bars"><div class="gp-placeholder">Loading GP data…</div></div>
-    </div>
-
-    <div class="gp-diagram wide">
-      <div class="diagram-title"><div><span>02</span><h3>ABPS — All GPs</h3></div><em>coverage %</em></div>
-      <div id="gpAbpsChart" class="gp-bars"><div class="gp-placeholder">Loading GP data…</div></div>
-    </div>
-
-    <div class="gp-diagram wide">
-      <div class="diagram-title"><div><span>03</span><h3>Persondays — All GPs</h3></div><em>generated</em></div>
-      <div id="gpPersondaysChart" class="gp-columns"><div class="gp-placeholder">Loading GP data…</div></div>
-    </div>
-
-    <div class="gp-diagram wide">
-      <div class="diagram-title"><div><span>04</span><h3>Physical Progress — All GPs</h3></div><em>visual comparison</em></div>
-      <div id="gpPhysicalChart" class="gp-bars"><div class="gp-placeholder">Loading GP data…</div></div>
-    </div>
-
-    <div class="gp-diagram wide">
-      <div class="diagram-title"><div><span>05</span><h3>Demand → Offer → Avail</h3></div><em>GP-wise flow</em></div>
-      <div id="gpFlowChart" class="gp-flow-list"><div class="gp-placeholder">Loading GP data…</div></div>
-    </div>
-
-    <div class="gp-diagram wide">
-      <div class="diagram-title"><div><span>06</span><h3>Geo-tag Attention — All GPs</h3></div><em>pending stages</em></div>
-      <div id="gpGeoChart" class="gp-bars"><div class="gp-placeholder">Loading GP data…</div></div>
-    </div>
-
-    <div class="gp-diagram wide">
-      <div class="diagram-title"><div><span>07</span><h3>Top Performing GPs</h3></div><em>visual ranking</em></div>
-      <div id="gpTopChart" class="ranking-bars"><div class="gp-placeholder">Loading GP data…</div></div>
-    </div>
-
-    <div class="gp-diagram wide">
-      <div class="diagram-title"><div><span>08</span><h3>GPs Needing Attention</h3></div><em>priority view</em></div>
-      <div id="gpBottomChart" class="ranking-bars"><div class="gp-placeholder">Loading GP data…</div></div>
-    </div>
+<section class="page" id="analytics"><div class="wrap">
+<div class="panel">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div><h2>📈 District Analytics</h2><div class="muted">Visual comparison of employment, e-KYC, ABPS and persondays</div></div>
+    <div class="filters"><select><option>All Blocks</option><option>Amguri</option><option>Demow</option><option>Gaurisagar</option><option>Nazira</option><option>Sivasagar</option></select><select><option>Current Period</option><option>Previous Period</option></select></div>
   </div>
 </div>
-</section>
 
+<div class="cards" style="margin-top:18px">
+ <div class="card"><div class="label">e-KYC</div><div class="value">94.6%</div><div class="muted">District average</div></div>
+ <div class="card"><div class="label">ABPS</div><div class="value">96.8%</div><div class="muted">District average</div></div>
+ <div class="card"><div class="label">Persondays</div><div class="value">34,679</div><div class="muted">Total generated</div></div>
+ <div class="card"><div class="label">Demand → Offer</div><div class="value">99.8%</div><div class="muted">Fulfilment</div></div>
+ <div class="card"><div class="label">Demand → Avail</div><div class="value">97.2%</div><div class="muted">Fulfilment</div></div>
+ <div class="card"><div class="label">📍 Geo Pending</div><div class="value">204</div><div class="muted">Before + During + After</div></div>
+ <div class="card"><div class="label">🟡 Geo Moderate</div><div class="value">53</div><div class="muted">Acceptance Pending</div></div>
+</div>
 
+<div class="grid" style="margin-top:18px">
+ <div class="panel">
+  <h2>📊 e-KYC by Block</h2>
+  <div class="bar" style="height:24px;margin:12px 0"><div class="fill" style="width:96.2%"></div></div><div class="rank"><b>Amguri</b><span>96.2%</span></div>
+  <div class="bar" style="height:24px;margin:12px 0"><div class="fill" style="width:95.1%"></div></div><div class="rank"><b>Demow</b><span>95.1%</span></div>
+  <div class="bar" style="height:24px;margin:12px 0"><div class="fill" style="width:93.8%"></div></div><div class="rank"><b>Gaurisagar</b><span>93.8%</span></div>
+  <div class="bar" style="height:24px;margin:12px 0"><div class="fill" style="width:97.2%"></div></div><div class="rank"><b>Nazira</b><span>97.2%</span></div>
+  <div class="bar" style="height:24px;margin:12px 0"><div class="fill" style="width:90.7%"></div></div><div class="rank"><b>Sivasagar</b><span class="bad">90.7%</span></div>
+ </div>
 
+ <div class="panel">
+  <h2>📊 Persondays by Block</h2>
+  <div class="rank"><b>Nazira</b><strong>8,420</strong></div>
+  <div class="bar"><div class="fill" style="width:100%"></div></div>
+  <div class="rank"><b>Amguri</b><strong>7,610</strong></div>
+  <div class="bar"><div class="fill" style="width:90.4%"></div></div>
+  <div class="rank"><b>Demow</b><strong>6,950</strong></div>
+  <div class="bar"><div class="fill" style="width:82.5%"></div></div>
+  <div class="rank"><b>Gaurisagar</b><strong>6,430</strong></div>
+  <div class="bar"><div class="fill" style="width:76.4%"></div></div>
+  <div class="rank"><b>Sivasagar</b><strong>5,269</strong></div>
+  <div class="bar"><div class="fill" style="width:62.6%"></div></div>
+ </div>
+</div>
 
+<div class="grid3">
+ <div class="panel">
+  <h2>📊 Demand vs Offer vs Avail</h2>
+  <div class="muted">Households</div>
+  <div class="rank"><span>Demand</span><b>2,542</b></div>
+  <div class="bar"><div class="fill" style="width:100%"></div></div>
+  <div class="rank"><span>Offer</span><b>2,536</b></div>
+  <div class="bar"><div class="fill" style="width:99.8%"></div></div>
+  <div class="rank"><span>Avail</span><b>2,498</b></div>
+  <div class="bar"><div class="fill" style="width:98.3%"></div></div>
+ </div>
 
+ <div class="panel">
+  <h2>📊 Employment Gap</h2>
+  <div class="rank"><span>Demand → Offer</span><b class="bad">6 HH / 7 Persons</b></div>
+  <div class="rank"><span>Demand → Avail</span><b class="bad">44 HH / 84 Persons</b></div>
+  <div class="rank"><span>Gap-free Blocks</span><b class="good">2</b></div>
+ </div>
 
+ <div class="panel">
+  <h2>🎯 125-Day Completion</h2>
+  <div class="value">16</div>
+  <div class="muted">Families completed 125 days</div>
+  <div class="bar" style="margin-top:16px"><div class="fill" style="width:64%"></div></div>
+  <div class="muted" style="margin-top:7px">Demo progress indicator</div>
+ </div>
+</div>
+
+<div class="grid" style="margin-top:18px">
+ <div class="panel">
+  <h2>📍 Geo-tag Monitoring — Stage-wise</h2>
+  <div class="muted">Each stage separately shows Pending and Moderate / Acceptance Pending at Block Level</div>
+  <table>
+   <thead><tr><th>Stage</th><th>Pending</th><th>Moderate / Acceptance Pending</th><th>Total Attention</th></tr></thead>
+   <tbody>
+    <tr><td>🔵 Before Geo-tag</td><td class="bad">125</td><td>22</td><td class="bad">147</td></tr>
+    <tr><td>🟠 During Geo-tag</td><td class="bad">48</td><td>17</td><td class="bad">65</td></tr>
+    <tr><td>🟣 After Geo-tag</td><td class="bad">31</td><td>14</td><td class="bad">45</td></tr>
+    <tr><td><b>Total</b></td><td class="bad"><b>204</b></td><td><b>53</b></td><td class="bad"><b>257</b></td></tr>
+   </tbody>
+  </table>
+ </div>
+ <div class="panel">
+  <h2>📍 Block-wise Geo-tag Attention</h2>
+  <div class="muted">Pending and acceptance-pending are shown separately at Block Level</div>
+  <table>
+   <thead><tr><th>Block</th><th>Before P</th><th>Before M</th><th>During P</th><th>During M</th><th>After P</th><th>After M</th></tr></thead>
+   <tbody>
+    <tr><td>Sivasagar</td><td class="bad">40</td><td>8</td><td class="bad">14</td><td>6</td><td class="bad">9</td><td>4</td></tr>
+    <tr><td>Gaurisagar</td><td class="bad">35</td><td>7</td><td class="bad">15</td><td>5</td><td>8</td><td>3</td></tr>
+    <tr><td>Amguri</td><td>20</td><td>3</td><td>8</td><td>3</td><td>6</td><td>3</td></tr>
+    <tr><td>Demow</td><td>18</td><td>2</td><td>6</td><td>2</td><td>5</td><td>2</td></tr>
+    <tr><td>Nazira</td><td>12</td><td>2</td><td>5</td><td>1</td><td>3</td><td>2</td></tr>
+   </tbody>
+  </table>
+ </div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <h2>🚨 GP-wise Geo-tag Attention</h2>
+ <div class="muted">P = Pending · M = Moderate / Acceptance Pending</div>
+ <div class="scroll">
+ <table>
+  <thead><tr><th>S.No.</th><th>Block</th><th>GP</th><th>Before P</th><th>Before M</th><th>During P</th><th>During M</th><th>After P</th><th>After M</th><th>Total Attention</th></tr></thead>
+  <tbody>
+   <tr><td>1</td><td>Sivasagar</td><td></td><td class="bad">12</td><td>3</td><td>5</td><td>2</td><td>3</td><td>1</td><td class="bad">26</td></tr>
+   <tr><td>2</td><td>Gaurisagar</td><td>GP-B</td><td class="bad">10</td><td>2</td><td>6</td><td>2</td><td>2</td><td>1</td><td class="bad">23</td></tr>
+   <tr><td>3</td><td>Amguri</td><td>GP-C</td><td>7</td><td>1</td><td>4</td><td>2</td><td>2</td><td>1</td><td>17</td></tr>
+   <tr><td>4</td><td>Demow</td><td>GP-D</td><td>5</td><td>1</td><td>3</td><td>1</td><td>2</td><td>1</td><td>13</td></tr>
+  </tbody>
+ </table>
+ </div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <h2>🧭 Management View</h2>
+ <div class="grid3" style="margin-top:0">
+  <div><h3>Strongest</h3><div class="good">Nazira — highest e-KYC & persondays</div></div>
+  <div><h3>Watch</h3><div>Gaurisagar — moderate e-KYC with higher geo/report monitoring needs</div></div>
+  <div><h3>Priority</h3><div class="bad">Sivasagar — lowest demo e-KYC and persondays</div></div>
+ </div>
+</div>
+</div></section>
+
+<section class="page" id="documents"><div class="wrap">
+<div class="panel">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+  <div><h2 class="section-heading">📚 Documents / Important SOPs & Guidelines</h2>
+  <p class="muted">Important letters, norms, SOPs and guidelines for monitoring and necessary action.</p></div>
+  <span style="background:#eef6ff;color:#155eef;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:800">IMPORTANT DOCUMENTS</span>
+ </div>
+</div>
+
+<div class="panel" style="margin-top:18px;border-left:5px solid #b54708">
+ <div style="display:flex;gap:14px;align-items:flex-start">
+  <div style="font-size:28px">📌</div>
+  <div style="flex:1">
+   <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap">
+    <div>
+     <h2 style="margin:0 0 7px">Revised SDRF Norms — Flood 2026</h2>
+     <div class="muted">Office of the District Commissioner, Sivasagar · District Disaster Management Authority</div>
+    </div>
+    <span style="background:#fff4e5;color:#b54708;padding:6px 9px;border-radius:999px;font-size:11px;font-weight:800">ACTION REQUIRED</span>
+   </div>
+
+   <div class="grid3" style="margin-top:16px">
+    <div class="card"><div class="label">Letter No.</div><div class="value" style="font-size:17px">SVDM/Gr Flood/132/Pt-I/2026/</div></div>
+    <div class="card"><div class="label">Letter Date</div><div class="value" style="font-size:19px">17-08-2026</div></div>
+    <div class="card"><div class="label">Block Due Date</div><div class="value bad" style="font-size:19px">20-08-2026</div></div><div class="card"><div class="label">District Due Date</div><div class="value bad" style="font-size:19px">22-08-2026</div></div>
+   </div>
+
+   <div style="margin-top:16px;padding:14px 16px;background:#f7f9fc;border-radius:12px;line-height:1.65">
+    <b>Subject:</b> Forwarding of revised SDRF Norms under Point No. 11 — Infrastructure
+    (Repair/Restoration of damaged infrastructure) for information and necessary action.
+   </div>
+
+   <p style="margin:14px 0 0;line-height:1.65">
+    Particular attention is invited to <b>Point No. 11 (1), (2) & (4) — Infrastructure</b>,
+    covering immediate repair/restoration of damaged roads and bridges, drinking water supply schemes,
+    culverts, power infrastructure, Primary/Community Health Centres and community assets, subject to the prescribed norms, ceilings and conditions.
+   </p>
+
+   <p style="margin:10px 0 0;line-height:1.65">
+    Concerned authorities are requested to examine the infrastructure damaged during <b>Flood 2026</b>
+    and submit details of eligible repair/restoration works to the concerned Circle Office
+    <b>at Block level on or before <b>20-08-2026</b>, so that the District-level submission can be made on or before <b>22-08-2026</b>, along with the necessary assessment, estimates and supporting documents.
+   </p>
+
+   <div style="margin-top:14px">
+    <b>Key action:</b> Ensure proposals strictly conform to the prescribed SDRF norms and relate only to eligible immediate repair/restoration of damaged infrastructure.
+   </div>
+  </div>
+ </div>
+</div>
+
+<div class="panel" style="margin-top:18px">
+ <h2>Document Library</h2>
+ <div class="scroll">
+  <table class="sortable"><thead><tr><th>S.No.</th><th>Document</th><th>Reference No.</th><th>Date</th><th>Block Due Date</th><th>District Due Date</th><th>Subject / Action</th><th>Status</th></tr></thead>
+  <tbody>
+   <tr><td>1</td><td><b>Revised SDRF Norms — Flood 2026</b></td><td>SVDM/Gr Flood/132/Pt-I/2026/</td><td>17-08-2026</td><td class="bad">20-08-2026</td><td class="bad">22-08-2026</td><td>Point 11(1), (2) & (4): immediate repair/restoration of eligible damaged infrastructure</td><td class="bad">Action Required</td></tr>
+  </tbody></table>
+ </div>
+</div>
+</div></section>
+
+<section class="page" id="reports"><div class="wrap">
+<div class="modern-hero">
+  <h1>Pending Reports & Action Tracker</h1>
+  <p>Live monitoring of reports, submissions, deadlines and follow-up actions.</p>
+  <div class="hero-badge">🔔 DATA SOURCE · CONNECTED GOOGLE SHEET</div>
+</div>
+
+<div class="modern-summary" id="pendingSummary">
+  <div class="summary-card"><div class="summary-label">Open Items</div><div id="pendingOpen" class="summary-value">—</div><div class="summary-note">From Pending Reports sheet</div></div>
+  <div class="summary-card"><div class="summary-label">High Priority</div><div id="pendingHigh" class="summary-value" style="color:#c62828">—</div><div class="summary-note">As recorded in sheet</div></div>
+  <div class="summary-card"><div class="summary-label">Block Deadlines</div><div id="pendingBlockDates" class="summary-value" style="font-size:18px">—</div><div class="summary-note">From source data</div></div>
+  <div class="summary-card"><div class="summary-label">District Deadlines</div><div id="pendingDistrictDates" class="summary-value" style="font-size:18px">—</div><div class="summary-note">From source data</div></div>
+</div>
+
+<div id="pendingReportCards"></div>
+
+<div class="modern-tracker">
+  <div class="tracker-head">
+    <h2>Pending Report Tracker</h2>
+    <p>All fields below are read from the connected <b>Pending Reports</b> Google Sheet.</p>
+  </div>
+  <div class="scroll" id="pendingTrackerLive">
+    <div class="muted" style="padding:18px">Waiting for Pending Reports sheet data…</div>
+  </div>
+</div>
+
+<div class="modern-footer-note">
+  <b>Monitoring note:</b> This dashboard is for monitoring purposes only. The Pending Reports page is driven by the connected <b>Pending Reports</b> Google Sheet. Update the sheet to change report names, dates, status, received information, reminders and remarks shown here.
+</div>
+</div></section>
 
 <section class="page" id="geotag"><div class="wrap">
 <div class="panel">
@@ -1507,7 +1599,100 @@ else initPermissiblePage();
 
 
 
+<script id="priority-works-script">
+const priorityWorks = [{"work":"School Boundary Wall – 4 Feet","level":"Gaon Panchayat","size":"10 m length","wage":12531.82,"material":25030.94,"vbg":37562.76,"fc":5879.0,"total":43441.0,"coverage":"Every Gram Panchayat","convergence":"16th FC + VB-G RAM G"},{"work":"School Boundary Wall – 6 Feet","level":"Gaon Panchayat","size":"10 m length","wage":15024.79,"material":29528.1,"vbg":44552.89,"fc":6638.11,"total":51191.0,"coverage":"Every Gram Panchayat","convergence":"16th FC + VB-G RAM G"},{"work":"Crematoria with Waiting Shed","level":"Gaon Panchayat","size":"36 SQM crematoria + 17.06 SQM waiting shed","wage":177859.0,"material":611565.52,"vbg":789424.52,"fc":124274.48,"total":913699.0,"coverage":"Every Gram Panchayat","convergence":"16th FC + VB-G RAM G"},{"work":"Piggery Shed","level":"Gaon Panchayat","size":"17.37 SQM","wage":25536.0,"material":62924.58,"vbg":88460.58,"fc":23434.41,"total":111895.0,"coverage":"Eligible beneficiary","convergence":"16th FC + VB-G RAM G"},{"work":"Goatery Shed","level":"Gaon Panchayat","size":"10 SQM","wage":23394.38,"material":53741.71,"vbg":77136.09,"fc":16958.91,"total":94095.0,"coverage":"Eligible beneficiary","convergence":"16th FC + VB-G RAM G"},{"work":"Cattle Shed","level":"Gaon Panchayat","size":"Model estimate not provided","wage":null,"material":null,"vbg":null,"fc":null,"total":null,"coverage":"Eligible beneficiary","convergence":"As per approved model estimate"},{"work":"Women-led Rural Haat","level":"Anchalik Panchayat","size":"500.37 SQM","wage":832604.0,"material":2132548.01,"vbg":2965152.01,"fc":791226.9,"total":3756379.0,"coverage":"Each Development Block","convergence":"16th FC + VB-G RAM G"},{"work":"1 KM Paver Block Road","level":"Anchalik Panchayat","size":"1 KM","wage":260093.0,"material":2405057.11,"vbg":2665150.11,"fc":1731212.88,"total":4396363.0,"coverage":"Each Development Block","convergence":"16th FC + VB-G RAM G"},{"work":"Community Hall","level":"Anchalik Panchayat","size":"160.59 SQM","wage":255666.53,"material":628846.73,"vbg":884513.26,"fc":220778.73,"total":1105292.0,"coverage":"Each Development Block","convergence":"16th FC + VB-G RAM G"}];
 
+const priorityGrid = document.getElementById("priorityGrid");
+const pwSummary = document.getElementById("pwSummary");
+const pwTableWrap = document.getElementById("pwTableWrap");
+const pwSearch = document.getElementById("pwSearch");
+const pwLevelFilter = document.getElementById("pwLevelFilter");
+const pwViewToggle = document.getElementById("pwViewToggle");
+
+function pwMoney(v){
+  if(v===null || v===undefined || v==="") return "—";
+  return "₹"+Number(v).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function pwFilterData(){
+  const q=(pwSearch?.value||"").trim().toLowerCase();
+  const level=pwLevelFilter?.value||"";
+  return priorityWorks.filter(x=>{
+    const text=[x.work,x.level,x.size,x.coverage,x.convergence].join(" ").toLowerCase();
+    return (!q||text.includes(q))&&(!level||x.level===level);
+  });
+}
+function renderPrioritySummary(rows){
+  const gp=rows.filter(x=>x.level==="Gaon Panchayat").length;
+  const ap=rows.filter(x=>x.level==="Anchalik Panchayat").length;
+  const estimated=rows.filter(x=>x.total!==null&&x.total!==undefined);
+  const total=estimated.reduce((a,x)=>a+Number(x.total||0),0);
+  const vbg=estimated.reduce((a,x)=>a+Number(x.vbg||0),0);
+  const fc=estimated.reduce((a,x)=>a+Number(x.fc||0),0);
+  pwSummary.innerHTML=`
+    <div class="pw-stat"><small>NOTIFIED WORKS</small><strong>${rows.length}</strong><span>All approved categories in this reference</span></div>
+    <div class="pw-stat"><small>GP LEVEL</small><strong>${gp}</strong><span>Gaon Panchayat works</span></div>
+    <div class="pw-stat"><small>AP LEVEL</small><strong>${ap}</strong><span>Anchalik Panchayat works</span></div>
+    <div class="pw-stat pw-stat-money"><small>TOTAL VB-G RAM G</small><strong>${pwMoney(vbg)}</strong><span>Wage + VB-G RAM G material</span></div>
+    <div class="pw-stat pw-stat-money"><small>16TH FINANCE</small><strong>${pwMoney(fc)}</strong><span>Model-estimate FC requirement</span></div>
+    <div class="pw-stat pw-stat-money"><small>TOTAL ESTIMATE</small><strong>${pwMoney(total)}</strong><span>VB-G RAM G + 16th Finance</span></div>`;
+}
+function renderPriorityCards(rows){
+  priorityGrid.innerHTML=rows.map((x,i)=>{
+    const ap=x.level==="Anchalik Panchayat";
+    const unit=x.work.includes("Road")?"per 1 KM":x.work.includes("Boundary")?"per model":x.work.includes("Haat")||x.work.includes("Hall")?"per unit":"per scheme";
+    return `<article class="pw-modern-card ${ap?"ap":""}">
+      <div class="pw-card-top">
+        <span class="pw-level-badge">${x.level}</span>
+        <span class="pw-number">#${String(i+1).padStart(2,"0")}</span>
+      </div>
+      <h3>${x.work}</h3>
+      <div class="pw-main-total">${pwMoney(x.total)} <em>${unit}</em></div>
+      <div class="pw-model"><span>MODEL SIZE</span><b>${x.size}</b></div>
+      <div class="pw-money-grid">
+        <div><small>WAGE</small><b>${pwMoney(x.wage)}</b></div>
+        <div><small>VB-G MATERIAL</small><b>${pwMoney(x.material)}</b></div>
+        <div><small>16TH FC</small><b>${pwMoney(x.fc)}</b></div>
+      </div>
+      <div class="pw-vbg-line"><span>Total VB-G RAM G</span><b>${pwMoney(x.vbg)}</b></div>
+      <div class="pw-info-grid">
+        <div><small>COVERAGE</small><b>${x.coverage}</b></div>
+        <div><small>CONVERGENCE</small><b>${x.convergence}</b></div>
+      </div>
+      ${x.total===null?'<div class="pw-missing">ⓘ Model estimate not provided in the supplied estimate document.</div>':''}
+    </article>`;
+  }).join("") || `<div class="pw-empty">No notified Priority Work matches your search.</div>`;
+}
+function renderPriorityTable(rows){
+  pwTableWrap.innerHTML=`<table class="pw-data-table">
+    <thead><tr>
+      <th>Work</th><th>Level</th><th>Model Size</th><th>Wage (₹)</th>
+      <th>VB-G Material (₹)</th><th>Total VB-G RAM G (₹)</th><th>16th FC (₹)</th>
+      <th>Total Estimate (₹)</th><th>Coverage</th><th>Convergence</th>
+    </tr></thead>
+    <tbody>${rows.map(x=>`<tr>
+      <td><strong>${x.work}</strong></td><td><span class="pw-table-level">${x.level}</span></td>
+      <td>${x.size}</td><td>${pwMoney(x.wage)}</td><td>${pwMoney(x.material)}</td>
+      <td class="vbg">${pwMoney(x.vbg)}</td><td>${pwMoney(x.fc)}</td><td class="total">${pwMoney(x.total)}</td>
+      <td>${x.coverage}</td><td>${x.convergence}</td>
+    </tr>`).join("")}</tbody>
+  </table>`;
+}
+function renderPriorityPage(){
+  const rows=pwFilterData();
+  renderPrioritySummary(rows);
+  renderPriorityCards(rows);
+  renderPriorityTable(rows);
+}
+pwSearch?.addEventListener("input",renderPriorityPage);
+pwLevelFilter?.addEventListener("change",renderPriorityPage);
+pwViewToggle?.addEventListener("click",()=>{
+  const table=pwTableWrap.style.display==="none";
+  pwTableWrap.style.display=table?"block":"none";
+  priorityGrid.style.display=table?"none":"grid";
+  pwViewToggle.textContent=table?"▦ Card View":"☷ Table View";
+});
+renderPriorityPage();
+</script>
 
 
 <section class="page" id="priority-submit"><div class="wrap">
@@ -4106,239 +4291,5 @@ document.addEventListener("DOMContentLoaded",function(){
 </script>
 <script id="notified-priority-model-estimates">
 window.NOTIFIED_PRIORITY_ESTIMATES = {"School Boundary Wall – 4 Feet":{"level":"Gaon Panchayat","size":"10 m length","wage":12531.82,"material":25030.94,"vbg":37562.76,"fc":5879.0,"total":43441.0},"School Boundary Wall – 6 Feet":{"level":"Gaon Panchayat","size":"10 m length","wage":15024.79,"material":29528.1,"vbg":44552.89,"fc":6638.11,"total":51191.0},"Crematoria with Waiting Shed":{"level":"Gaon Panchayat","size":"36 SQM crematoria + 17.06 SQM waiting shed","wage":177859.0,"material":611565.52,"vbg":789424.52,"fc":124274.48,"total":913699.0},"Piggery Shed":{"level":"Gaon Panchayat","size":"17.37 SQM","wage":25536.0,"material":62924.58,"vbg":88460.58,"fc":23434.41,"total":111895.0},"Goatery Shed":{"level":"Gaon Panchayat","size":"10 SQM","wage":23394.38,"material":53741.71,"vbg":77136.09,"fc":16958.91,"total":94095.0},"Cattle Shed":{"level":"Gaon Panchayat","size":"Model estimate not provided","wage":null,"material":null,"vbg":null,"fc":null,"total":null},"Women-led Rural Haat":{"level":"Anchalik Panchayat","size":"500.37 SQM","wage":832604.0,"material":2132548.01,"vbg":2965152.01,"fc":791226.9,"total":3756379.0},"1 KM Paver Block Road":{"level":"Anchalik Panchayat","size":"1 KM","wage":260093.0,"material":2405057.11,"vbg":2665150.11,"fc":1731212.88,"total":4396363.0},"Community Hall":{"level":"Anchalik Panchayat","size":"160.59 SQM","wage":255666.53,"material":628846.73,"vbg":884513.26,"fc":220778.73,"total":1105292.0}};
-</script><script id="priority-works-script">
-(function(){
-  "use strict";
-
-  const priorityWorks = [{"work":"School Boundary Wall – 4 Feet","level":"Gaon Panchayat","size":"10 m length","wage":12531.82,"material":25030.94,"vbg":37562.76,"fc":5879.0,"total":43441.0,"coverage":"Every Gram Panchayat","convergence":"16th FC + VB-G RAM G"},{"work":"School Boundary Wall – 6 Feet","level":"Gaon Panchayat","size":"10 m length","wage":15024.79,"material":29528.1,"vbg":44552.89,"fc":6638.11,"total":51191.0,"coverage":"Every Gram Panchayat","convergence":"16th FC + VB-G RAM G"},{"work":"Crematoria with Waiting Shed","level":"Gaon Panchayat","size":"36 SQM crematoria + 17.06 SQM waiting shed","wage":177859.0,"material":611565.52,"vbg":789424.52,"fc":124274.48,"total":913699.0,"coverage":"Every Gram Panchayat","convergence":"16th FC + VB-G RAM G"},{"work":"Piggery Shed","level":"Gaon Panchayat","size":"17.37 SQM","wage":25536.0,"material":62924.58,"vbg":88460.58,"fc":23434.41,"total":111895.0,"coverage":"Eligible beneficiary","convergence":"16th FC + VB-G RAM G"},{"work":"Goatery Shed","level":"Gaon Panchayat","size":"10 SQM","wage":23394.38,"material":53741.71,"vbg":77136.09,"fc":16958.91,"total":94095.0,"coverage":"Eligible beneficiary","convergence":"16th FC + VB-G RAM G"},{"work":"Cattle Shed","level":"Gaon Panchayat","size":"Model estimate not provided","wage":null,"material":null,"vbg":null,"fc":null,"total":null,"coverage":"Eligible beneficiary","convergence":"As per approved model estimate"},{"work":"Women-led Rural Haat","level":"Anchalik Panchayat","size":"500.37 SQM","wage":832604.0,"material":2132548.01,"vbg":2965152.01,"fc":791226.9,"total":3756379.0,"coverage":"Each Development Block","convergence":"16th FC + VB-G RAM G"},{"work":"1 KM Paver Block Road","level":"Anchalik Panchayat","size":"1 KM","wage":260093.0,"material":2405057.11,"vbg":2665150.11,"fc":1731212.88,"total":4396363.0,"coverage":"Each Development Block","convergence":"16th FC + VB-G RAM G"},{"work":"Community Hall","level":"Anchalik Panchayat","size":"160.59 SQM","wage":255666.53,"material":628846.73,"vbg":884513.26,"fc":220778.73,"total":1105292.0,"coverage":"Each Development Block","convergence":"16th FC + VB-G RAM G"}];
-
-  const priorityGrid = document.getElementById("priorityGrid");
-  const pwSummary = document.getElementById("pwSummary");
-  const pwTableWrap = document.getElementById("pwTableWrap");
-  const pwSearch = document.getElementById("pwSearch");
-  const pwLevelFilter = document.getElementById("pwLevelFilter");
-  const pwViewToggle = document.getElementById("pwViewToggle");
-
-  function money(v){
-    if(v===null || v===undefined || v==="") return "—";
-    return "₹"+Number(v).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
-  }
-
-  function filtered(){
-    const q=(pwSearch?.value||"").trim().toLowerCase();
-    const level=pwLevelFilter?.value||"";
-    return priorityWorks.filter(x=>{
-      const text=[x.work,x.level,x.size,x.coverage,x.convergence].join(" ").toLowerCase();
-      return (!q || text.includes(q)) && (!level || x.level===level);
-    });
-  }
-
-  function render(rows){
-    if(!priorityGrid) return;
-
-    const gp=rows.filter(x=>x.level==="Gaon Panchayat").length;
-    const ap=rows.filter(x=>x.level==="Anchalik Panchayat").length;
-    const vbg=rows.reduce((a,x)=>a+Number(x.vbg||0),0);
-    const fc=rows.reduce((a,x)=>a+Number(x.fc||0),0);
-    const total=rows.reduce((a,x)=>a+Number(x.total||0),0);
-
-    if(pwSummary){
-      pwSummary.innerHTML=`
-        <div class="pw-stat"><small>NOTIFIED WORKS</small><strong>${rows.length}</strong><span>Official Priority Works</span></div>
-        <div class="pw-stat"><small>GP LEVEL</small><strong>${gp}</strong><span>Gaon Panchayat</span></div>
-        <div class="pw-stat"><small>AP LEVEL</small><strong>${ap}</strong><span>Anchalik Panchayat</span></div>
-        <div class="pw-stat pw-stat-money"><small>TOTAL VB-G RAM G</small><strong>${money(vbg)}</strong><span>Wage + Material</span></div>
-        <div class="pw-stat pw-stat-money"><small>16TH FINANCE</small><strong>${money(fc)}</strong><span>Model requirement</span></div>
-        <div class="pw-stat pw-stat-money"><small>TOTAL ESTIMATE</small><strong>${money(total)}</strong><span>VB-G RAM G + 16th FC</span></div>`;
-    }
-
-    priorityGrid.innerHTML=rows.map((x,i)=>`
-      <article class="pw-modern-card ${x.level==="Anchalik Panchayat"?"ap":""}">
-        <div class="pw-card-top">
-          <span class="pw-level-badge">${x.level}</span>
-          <span class="pw-number">#${String(i+1).padStart(2,"0")}</span>
-        </div>
-        <h3>${x.work}</h3>
-        <div class="pw-main-total">${money(x.total)} <em>total scheme</em></div>
-        <div class="pw-model"><span>MODEL SIZE</span><b>${x.size}</b></div>
-        <div class="pw-money-grid">
-          <div><small>WAGE</small><b>${money(x.wage)}</b></div>
-          <div><small>VB-G MATERIAL</small><b>${money(x.material)}</b></div>
-          <div><small>16TH FC</small><b>${money(x.fc)}</b></div>
-        </div>
-        <div class="pw-vbg-line"><span>Total VB-G RAM G</span><b>${money(x.vbg)}</b></div>
-        <div class="pw-info-grid">
-          <div><small>COVERAGE</small><b>${x.coverage}</b></div>
-          <div><small>CONVERGENCE</small><b>${x.convergence}</b></div>
-        </div>
-        ${x.total==null?'<div class="pw-missing">ⓘ Model estimate not provided in supplied estimate document.</div>':''}
-      </article>`).join("") || '<div class="pw-empty">No matching Priority Works.</div>';
-
-    if(pwTableWrap){
-      pwTableWrap.innerHTML=`<table class="pw-data-table">
-        <thead><tr><th>Work</th><th>Level</th><th>Model Size</th><th>Wage</th><th>VB-G Material</th><th>Total VB-G RAM G</th><th>16th FC</th><th>Total Estimate</th><th>Coverage</th><th>Convergence</th></tr></thead>
-        <tbody>${rows.map(x=>`<tr>
-          <td><strong>${x.work}</strong></td><td>${x.level}</td><td>${x.size}</td>
-          <td>${money(x.wage)}</td><td>${money(x.material)}</td><td class="vbg">${money(x.vbg)}</td>
-          <td>${money(x.fc)}</td><td class="total">${money(x.total)}</td><td>${x.coverage}</td><td>${x.convergence}</td>
-        </tr>`).join("")}</tbody></table>`;
-    }
-  }
-
-  function load(){
-    render(filtered());
-
-    if(typeof google==="undefined" || !google.script || !google.script.run){
-      setStatus("Offline","Open the deployed /exec URL.");
-      return;
-    }
-
-    setStatus("Connecting","Loading Priority Works from Google Sheet…");
-
-    google.script.run
-      .withSuccessHandler(function(rows){
-        window.prioritySheetRows=Array.isArray(rows)?rows:[];
-        setStatus("Connected","Google Sheet connected.");
-        render(filtered());
-      })
-      .withFailureHandler(function(err){
-        console.error("getPriorityWorks failed:",err);
-        setStatus("Connection error",String(err && err.message || err));
-      })
-      .getPriorityWorks();
-  }
-
-  function setStatus(text,title){
-    const e=document.getElementById("pwConnectionStatus");
-    if(e){e.textContent=text;e.title=title||"";e.className="pw-connection-status "+(text==="Connected"?"ok":"warn");}
-  }
-
-  pwSearch?.addEventListener("input",()=>render(filtered()));
-  pwLevelFilter?.addEventListener("change",()=>render(filtered()));
-  pwViewToggle?.addEventListener("click",()=>{
-    const table=pwTableWrap && pwTableWrap.style.display==="none";
-    if(pwTableWrap)pwTableWrap.style.display=table?"block":"none";
-    if(priorityGrid)priorityGrid.style.display=table?"none":"grid";
-    if(pwViewToggle)pwViewToggle.textContent=table?"▦ Card View":"☷ Table View";
-  });
-
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",load);
-  else load();
-})();
-</script>
-<script id="gp-analytics-data-loader">
-(function(){
-"use strict";
-
-const GP_FALLBACK=[];
-let gpRows=[];
-
-function num(v){
-  if(v===null||v===undefined||v==="") return 0;
-  const n=Number(String(v).replace(/,/g,"").replace("%","").trim());
-  return isNaN(n)?0:n;
-}
-function text(v){return String(v==null?"":v).trim();}
-function header(obj,names){
-  const keys=Object.keys(obj||{});
-  for(const n of names){
-    const k=keys.find(x=>x.toLowerCase().replace(/[^a-z0-9]/g,"")===n.toLowerCase().replace(/[^a-z0-9]/g,""));
-    if(k!==undefined)return obj[k];
-  }
-  const partial=keys.find(x=>names.some(n=>x.toLowerCase().includes(n.toLowerCase())));
-  return partial===undefined?"":obj[partial];
-}
-function mapRow(r){
-  return {
-    gp:text(header(r,["GP","GP Name","Gram Panchayat","Gram Panchayat Name","Panchayat"])),
-    ekyc:num(header(r,["e-KYC %","eKYC %","EKYC","eKYC"])),
-    abps:num(header(r,["ABPS %","ABPS"])),
-    persondays:num(header(r,["Persondays","Persondays Generated","Persondays Generated"])),
-    demanded:num(header(r,["Demanded Persons","Employment Demanded Persons","Demand Persons","Demanded"])),
-    offered:num(header(r,["Offered Persons","Employment Offered Persons","Offer Persons","Offered"])),
-    availed:num(header(r,["Availed Persons","Employment Availed Persons","Avail Persons","Availed"])),
-    physical:num(header(r,["Physical Progress %","Physical Progress","Progress %"])),
-    geotag:num(header(r,["Geo-tag Pending","Geotag Pending","Geo Tag Pending","Geo-tag"])),
-  };
-}
-function pct(v){return num(v).toFixed(1)+"%"}
-function moneyish(v){return Math.round(num(v)).toLocaleString("en-IN")}
-
-function renderBars(id,rows,key,percent){
-  const el=document.getElementById(id); if(!el)return;
-  const data=rows.slice().sort((a,b)=>b[key]-a[key]);
-  const max=percent?100:Math.max(1,...data.map(x=>x[key]));
-  el.innerHTML=data.length?data.map(x=>{
-    const w=Math.max(1,Math.min(100,(x[key]/max)*100));
-    return `<div class="gp-bar-row"><b title="${x.gp}">${x.gp||"Unnamed GP"}</b><div class="gp-track"><i class="${percent&&x[key]<90?"warn":""}" style="width:${w}%"></i></div><strong>${percent?pct(x[key]):moneyish(x[key])}</strong></div>`;
-  }).join(""):'<div class="gp-placeholder">No GP data available.</div>';
-}
-function renderColumns(id,rows){
-  const el=document.getElementById(id);if(!el)return;
-  const data=rows.slice().sort((a,b)=>b.persondays-a.persondays);
-  const max=Math.max(1,...data.map(x=>x.persondays));
-  el.innerHTML=data.length?data.map(x=>`<div class="gp-col"><b>${moneyish(x.persondays)}</b><i style="height:${Math.max(3,x.persondays/max*210)}px"></i><small title="${x.gp}">${x.gp||"GP"}</small></div>`).join(""):'<div class="gp-placeholder">No GP data available.</div>';
-}
-function renderFlow(rows){
-  const el=document.getElementById("gpFlowChart");if(!el)return;
-  const data=rows.slice().sort((a,b)=>(b.demanded-b.availed)-(a.demanded-a.availed)).slice(0,30);
-  el.innerHTML=data.length?data.map(x=>`<div class="gp-flow-row"><b title="${x.gp}">${x.gp||"Unnamed GP"}</b><div class="gp-flow"><span class="gp-flow-node">${moneyish(x.demanded)}</span><span class="gp-flow-arrow">→</span><span class="gp-flow-node">${moneyish(x.offered)}</span><span class="gp-flow-arrow">→</span><span class="gp-flow-node">${moneyish(x.availed)}</span></div></div>`).join(""):'<div class="gp-placeholder">No GP data available.</div>';
-}
-function renderRanking(rows){
-  const top=document.getElementById("gpTopChart"),bottom=document.getElementById("gpBottomChart");
-  const score=x=>((x.ekyc||0)+(x.abps||0)+(x.physical||0))/3;
-  const ranked=rows.filter(x=>x.gp).slice().sort((a,b)=>score(b)-score(a));
-  const make=(data,attention)=>data.length?data.map((x,i)=>`<div class="ranking-row ${attention?"attention":""}"><span>${i+1}</span><b title="${x.gp}">${x.gp}</b><div class="ranking-track"><i style="width:${Math.max(2,Math.min(100,score(x)))}%"></i></div><strong>${score(x).toFixed(1)}%</strong></div>`).join(""):'<div class="gp-placeholder">No GP data available.</div>';
-  if(top)top.innerHTML=make(ranked.slice(0,10),false);
-  if(bottom)bottom.innerHTML=make(ranked.slice(-10).reverse(),true);
-}
-function render(){
-  const selected=document.getElementById("gpAnalyticsFilter")?.value||"";
-  const rows=selected?gpRows.filter(x=>x.gp===selected):gpRows;
-  const best=rows.slice().sort((a,b)=>b.ekyc-a.ekyc)[0];
-  const attention=rows.filter(x=>x.ekyc<90||x.abps<90||x.physical<90).length;
-  document.getElementById("gpCount").textContent=rows.length||"—";
-  document.getElementById("gpBest").textContent=best?best.gp:"—";
-  document.getElementById("gpAttention").textContent=attention;
-  document.getElementById("gpPersondays").textContent=moneyish(rows.reduce((a,x)=>a+x.persondays,0));
-  renderBars("gpEkycChart",rows,"ekyc",true);
-  renderBars("gpAbpsChart",rows,"abps",true);
-  renderColumns("gpPersondaysChart",rows);
-  renderBars("gpPhysicalChart",rows,"physical",true);
-  renderFlow(rows);
-  renderBars("gpGeoChart",rows,"geotag",false);
-  renderRanking(rows);
-}
-function fillGPFilter(){
-  const s=document.getElementById("gpAnalyticsFilter");if(!s)return;
-  const names=[...new Set(gpRows.map(x=>x.gp).filter(Boolean))].sort();
-  s.innerHTML='<option value="">All Gram Panchayats</option>'+names.map(n=>`<option value="${n.replace(/"/g,"&quot;")}">${n}</option>`).join("");
-}
-function loadGPData(){
-  if(typeof google==="undefined"||!google.script||!google.script.run){
-    console.warn("GP Analytics: google.script.run unavailable.");
-    render(); return;
-  }
-  google.script.run.withSuccessHandler(function(rows){
-    if(Array.isArray(rows)){
-      gpRows=rows.map(mapRow).filter(x=>x.gp);
-      fillGPFilter(); render();
-    }else if(rows&&Array.isArray(rows.rows)){
-      const cols=rows.cols||[];
-      gpRows=rows.rows.map(row=>Object.fromEntries(cols.map((c,i)=>[c,row[i]]))).map(mapRow).filter(x=>x.gp);
-      fillGPFilter(); render();
-    }else render();
-  }).withFailureHandler(function(err){
-    console.error("GP Analytics backend error:",err);
-    render();
-  }).getPriorityWorks();
-}
-document.addEventListener("DOMContentLoaded",function(){
-  document.getElementById("gpAnalyticsFilter")?.addEventListener("change",render);
-  document.getElementById("gpMetricFilter")?.addEventListener("change",render);
-  loadGPData();
-});
-})();
-</script>
-</body></html>
+</script></body></html>
 
